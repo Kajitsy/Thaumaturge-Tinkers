@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:aer",
+  "behavior": {
+    "type": "thaumaturge:aspect_strike"
+  },
+  "color": 16777086,
+  "complexity": 2,
+  "fx": "thaumaturge:gust",
+  "icon": "thaumaturge:textures/foci/air.png",
+  "research": {
+    "entry": "thaumaturge:focus_elemental"
+  },
+  "settings": [
+    {
+      "complexity": 2.0,
+      "default": 1,
+      "key": "power",
+      "max": 5,
+      "min": 1
+    }
+  ]
+}

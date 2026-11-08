@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_DISLOCATION",
+  "parents": [
+    "thaumaturgetinker:focus_flight"
+  ],
+  "column": -5,
+  "row": -5,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:focus_dislocation"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_DISLOCATION.0",
+      "recipes": [
+        "thaumaturgetinker:focus_dislocation"
+      ],
+      "warp": 2,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

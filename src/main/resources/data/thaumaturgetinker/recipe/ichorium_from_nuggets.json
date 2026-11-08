@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": "thaumaturgetinker:ichor_nugget"
+  },
+  "result": {
+    "id": "thaumaturgetinker:ichorium",
+    "count": 1
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

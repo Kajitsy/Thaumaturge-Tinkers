@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#thaumaturgetinker:digger_enchantable"
+  ],
+  "remove": [
+    {
+      "id": "thaumaturge:elemental_axe",
+      "required": false
+    }
+  ]
+}

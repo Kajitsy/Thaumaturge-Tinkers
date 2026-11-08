@@ -1,0 +1,18 @@
+{
+  "complexity": 1,
+  "entity": [
+    {
+      "type": "thaumaturge:knockback",
+      "base": 0.6,
+      "lift": 0.1,
+      "per_power": 0.25,
+      "pull": true
+    }
+  ],
+  "fx": "thaumaturge:rift",
+  "research": {
+    "entry": "thaumaturge:focus_rift"
+  },
+  "sound": "minecraft:entity.ender_eye.death",
+  "vis": 0.1
+}

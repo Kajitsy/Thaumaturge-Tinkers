@@ -1,0 +1,46 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.GAS_REMOVER",
+  "parents": [
+    "thaumaturgetinker:gaseous_shadow"
+  ],
+  "column": -2,
+  "row": -7,
+  "complexity": 1,
+  "icons": [
+    "thaumaturgetinker:gas_remover"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.GAS_REMOVER.0",
+      "recipes": [
+        "thaumaturgetinker:gas_remover"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

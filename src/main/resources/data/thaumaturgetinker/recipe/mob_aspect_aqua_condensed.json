@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": "thaumaturgetinker:mob_aspect_aqua"
+  },
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_aqua_condensed",
+    "count": 1
+  }
+}

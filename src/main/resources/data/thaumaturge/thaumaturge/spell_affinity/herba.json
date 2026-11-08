@@ -1,0 +1,27 @@
+{
+  "block": [
+    {
+      "type": "thaumaturge:grow",
+      "base": 1.0
+    }
+  ],
+  "entity": [
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:poison",
+      "max_amplifier": 1,
+      "ticks": 40.0
+    }
+  ],
+  "fx": "thaumaturge:leaf",
+  "imbue": [
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:saturation",
+      "per_duration": 0.0,
+      "per_power": 1.0,
+      "ticks": 1.0
+    }
+  ],
+  "sound": "minecraft:block.grass.place"
+}

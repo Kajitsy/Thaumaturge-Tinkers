@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#minecraft:base_stone_overworld",
+    "#minecraft:stone_ore_replaceables",
+    "#minecraft:stone_bricks",
+    "#c:stones",
+    "#c:cobblestones",
+    "#c:ores"
+  ]
+}

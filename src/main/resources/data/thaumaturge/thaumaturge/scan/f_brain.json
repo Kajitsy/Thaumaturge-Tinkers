@@ -1,0 +1,10 @@
+{
+  "entities": [
+    "thaumaturge:brainy_zombie",
+    "thaumaturge:giant_brainy_zombie",
+    "thaumaturge:brainy_drowned",
+    "thaumaturge:brainy_husk"
+  ],
+  "items": "thaumaturge:brain",
+  "key": "thaumaturge:f_brain"
+}

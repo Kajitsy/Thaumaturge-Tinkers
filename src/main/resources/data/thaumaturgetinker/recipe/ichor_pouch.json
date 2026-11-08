@@ -1,0 +1,47 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:focus_pouch",
+  "components": [
+    "thaumaturgetinker:ichor_cloth",
+    "thaumaturgetinker:ichor_cloth",
+    "thaumaturge:focus_1",
+    "minecraft:diamond",
+    "thaumaturge:hungry_chest",
+    "thaumaturge:jar_normal"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 64
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 64
+    }
+  ],
+  "instability": 9,
+  "result": {
+    "id": "thaumaturgetinker:ichor_pouch",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_pouch"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

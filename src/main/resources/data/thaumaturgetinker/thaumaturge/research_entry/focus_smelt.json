@@ -1,0 +1,60 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_SMELT",
+  "parents": [
+    "thaumaturge:focus_break"
+  ],
+  "column": -2,
+  "row": -2,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:focus_smelt"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_SMELT.0",
+      "recipes": [
+        "thaumaturgetinker:focus_smelt"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:blaze_powder"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

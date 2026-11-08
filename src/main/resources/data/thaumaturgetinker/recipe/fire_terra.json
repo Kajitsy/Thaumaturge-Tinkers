@@ -1,0 +1,25 @@
+{
+  "type": "thaumaturge:crucible",
+  "catalyst": "thaumaturge:crystal_terra",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "thaumaturgetinker:fire_earth",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:fire_terra"
+  }
+}

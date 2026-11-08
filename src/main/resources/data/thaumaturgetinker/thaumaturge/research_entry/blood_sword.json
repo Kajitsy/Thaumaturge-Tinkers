@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.BLOOD_SWORD",
+  "parents": [
+    "thaumaturgetinker:cleansing_talisman"
+  ],
+  "column": -4,
+  "row": 6,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:blood_sword"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aversio",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.BLOOD_SWORD.0",
+      "warp": 1,
+      "recipes": [
+        "thaumaturgetinker:blood_sword"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:iron_sword"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

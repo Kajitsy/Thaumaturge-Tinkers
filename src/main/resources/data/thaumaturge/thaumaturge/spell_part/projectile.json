@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:motus",
+  "behavior": {
+    "type": "thaumaturge:projectile",
+    "speed": 0.33
+  },
+  "color": 11382405,
+  "complexity": 4,
+  "icon": "thaumaturge:textures/foci/projectile.png",
+  "research": {
+    "entry": "thaumaturge:focus_projectile"
+  },
+  "settings": [
+    {
+      "complexity": 0.5,
+      "default": 2,
+      "key": "speed",
+      "max": 5,
+      "min": 1
+    }
+  ]
+}

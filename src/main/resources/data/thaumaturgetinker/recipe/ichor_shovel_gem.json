@@ -1,0 +1,53 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichor_shovel",
+  "components": [
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:elemental_shovel",
+    "thaumaturge:elemental_shovel",
+    "thaumaturge:focus_1",
+    "thaumaturge:focus_1",
+    "minecraft:tnt",
+    "thaumaturge:nugget_thaumium",
+    "minecraft:gold_nugget",
+    "minecraft:iron_nugget",
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 114
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:vinculum",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 16
+    }
+  ],
+  "instability": 15,
+  "result": {
+    "id": "thaumaturgetinker:ichor_shovel_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_shovel_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

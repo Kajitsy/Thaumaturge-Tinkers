@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "thaumaturge:magical_forest",
+  "features": "thaumaturge:nodes_magical",
+  "step": "top_layer_modification"
+}

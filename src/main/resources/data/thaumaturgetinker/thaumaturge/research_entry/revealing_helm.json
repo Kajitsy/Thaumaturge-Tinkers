@@ -1,0 +1,46 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.REVEALING_HELM",
+  "parents": [
+    "thaumaturge:base_artifice"
+  ],
+  "column": 0,
+  "row": 0,
+  "complexity": 1,
+  "icons": [
+    "thaumaturgetinker:revealing_helm"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.REVEALING_HELM.0",
+      "recipes": [
+        "thaumaturgetinker:revealing_helm"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:goggles_revealing"
+          ],
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

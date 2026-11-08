@@ -1,0 +1,11 @@
+{
+  "values": [
+    {
+      "id": "#c:ores/silver",
+      "required": false
+    },
+    "#c:ores/gold",
+    "#c:raw_materials/gold",
+    "#thaumaturge:clusters"
+  ]
+}

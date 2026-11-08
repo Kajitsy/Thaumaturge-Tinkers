@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "pulling=true": {
+      "model": "thaumaturgetinker:block/mob_magnet_pull"
+    },
+    "pulling=false": {
+      "model": "thaumaturgetinker:block/mob_magnet_push"
+    }
+  }
+}

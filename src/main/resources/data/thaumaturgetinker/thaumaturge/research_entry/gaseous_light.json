@@ -1,0 +1,42 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.GASEOUS_LIGHT",
+  "parents": [
+    "thaumaturge:base_alchemy"
+  ],
+  "column": 0,
+  "row": -3,
+  "complexity": 1,
+  "icons": [
+    "thaumaturgetinker:gaseous_light_bottle"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.GASEOUS_LIGHT.0",
+      "recipes": [
+        "thaumaturgetinker:gaseous_light"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:glass_bottle"
+          ],
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

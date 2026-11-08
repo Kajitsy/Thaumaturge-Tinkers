@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.TTENCH_SHOCKWAVE",
+  "parents": [
+    "thaumaturgetinker:ttench_slow_fall"
+  ],
+  "column": 9,
+  "row": 2,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:textures/enchants/shockwave.png"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.TTENCH_SHOCKWAVE.0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

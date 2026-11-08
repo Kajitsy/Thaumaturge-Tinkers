@@ -1,0 +1,38 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:thaumium_sword",
+  "components": [
+    "minecraft:rotten_flesh",
+    "minecraft:porkchop",
+    "minecraft:beef",
+    "minecraft:bone",
+    "minecraft:diamond",
+    "minecraft:ghast_tear"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 6
+    }
+  ],
+  "instability": 6,
+  "result": {
+    "id": "thaumaturgetinker:blood_sword",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:blood_sword"
+  }
+}

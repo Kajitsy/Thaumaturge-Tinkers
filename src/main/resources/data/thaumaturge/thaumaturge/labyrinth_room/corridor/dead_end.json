@@ -1,0 +1,14 @@
+{
+  "sockets": [
+    {
+      "side": "north"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/corridor/dead_end",
+      "weight": 1
+    }
+  ],
+  "weight": 4
+}

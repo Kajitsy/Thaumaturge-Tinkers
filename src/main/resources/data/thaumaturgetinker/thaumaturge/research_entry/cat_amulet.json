@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.CAT_AMULET",
+  "parents": [
+    "thaumaturgetinker:ichorium"
+  ],
+  "column": 13,
+  "row": 10,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:cat_amulet"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:bestia",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.CAT_AMULET.0",
+      "recipes": [
+        "thaumaturgetinker:cat_amulet"
+      ],
+      "warp": 1,
+      "obtain": [
+        {
+          "items": [
+            "minecraft:string"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

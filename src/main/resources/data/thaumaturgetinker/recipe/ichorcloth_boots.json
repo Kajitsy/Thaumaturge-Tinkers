@@ -1,0 +1,48 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:void_boots",
+  "components": [
+    "thaumaturgetinker:ichor_cloth",
+    "thaumaturgetinker:ichor_cloth",
+    "thaumaturgetinker:ichor_cloth",
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 16
+    }
+  ],
+  "instability": 8,
+  "result": {
+    "id": "thaumaturgetinker:ichorcloth_boots",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichorcloth_armor"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "thaumaturgeadditions"
+      }
+    }
+  ]
+}

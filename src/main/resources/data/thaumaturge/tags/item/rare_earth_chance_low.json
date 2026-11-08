@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#c:ores/tin",
+      "required": false
+    },
+    {
+      "id": "#c:ores/lead",
+      "required": false
+    },
+    "#c:ores/iron",
+    "#c:ores/coal",
+    "#c:ores/copper",
+    "#c:ores/lapis",
+    "#c:ores/redstone",
+    "#c:ores/quartz",
+    "#c:raw_materials/iron",
+    "#c:raw_materials/copper"
+  ]
+}

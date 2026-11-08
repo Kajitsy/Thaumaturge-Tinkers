@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHORCLOTH_BOOTS_GEM",
+  "parents": [
+    "thaumaturgetinker:ichorcloth_armor"
+  ],
+  "column": 15,
+  "row": 10,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichorcloth_boots_gem"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHORCLOTH_BOOTS_GEM.0",
+      "recipes": [
+        "thaumaturgetinker:ichorcloth_boots_gem"
+      ],
+      "warp": 3,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

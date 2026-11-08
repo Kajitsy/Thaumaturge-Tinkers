@@ -1,0 +1,27 @@
+{
+  "aspect": "thaumaturge:motus",
+  "behavior": {
+    "type": "thaumaturge:relay"
+  },
+  "complexity": 2,
+  "icon": "thaumaturge:textures/foci/split_target.png",
+  "research": {
+    "entry": "thaumaturge:focus_flow"
+  },
+  "settings": [
+    {
+      "default": 0,
+      "key": "direction",
+      "labels": [
+        "spell.thaumaturge.value.forward",
+        "spell.thaumaturge.value.reflect",
+        "spell.thaumaturge.value.up",
+        "spell.thaumaturge.value.down",
+        "spell.thaumaturge.value.caster",
+        "spell.thaumaturge.value.nearest"
+      ],
+      "max": 5,
+      "min": 0
+    }
+  ]
+}

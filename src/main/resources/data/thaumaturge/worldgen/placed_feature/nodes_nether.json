@@ -1,0 +1,27 @@
+{
+  "feature": "thaumaturge:nodes_wild",
+  "placement": [
+    {
+      "type": "thaumaturge:node_spawn_chance",
+      "kind": "nether"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 100
+        },
+        "min_inclusive": {
+          "absolute": 32
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

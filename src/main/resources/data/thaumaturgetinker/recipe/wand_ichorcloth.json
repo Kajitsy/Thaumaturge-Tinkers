@@ -1,0 +1,56 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 100,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 1
+    }
+  ],
+  "pattern": [
+    "  C",
+    " R ",
+    "C  "
+  ],
+  "key": {
+    "C": "thaumaturgetinker:ichor_cap",
+    "R": "thaumaturgetinker:ichorcloth_rod"
+  },
+  "result": {
+    "id": "thaumaturge:wand",
+    "components": {
+      "thaumaturge:wand_parts": {
+        "cap": "thaumaturgetinker:ichor",
+        "rod": "thaumaturgetinker:ichorcloth"
+      }
+    }
+  },
+  "research": {
+    "entry": "thaumaturgetinker:rod_ichorcloth"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

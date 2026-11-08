@@ -1,0 +1,39 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:quartz_block",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:cocoa_beans",
+    "minecraft:jungle_leaves",
+    "minecraft:cod"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 16
+    }
+  ],
+  "instability": 8,
+  "result": {
+    "id": "thaumaturgetinker:cat_amulet",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:cat_amulet"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

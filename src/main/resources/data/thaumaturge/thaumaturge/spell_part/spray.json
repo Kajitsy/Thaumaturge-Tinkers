@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:aer",
+  "behavior": {
+    "type": "thaumaturge:spray"
+  },
+  "color": 11120272,
+  "complexity": 5,
+  "icon": "thaumaturge:textures/foci/spray.png",
+  "power": 0.6,
+  "research": {
+    "entry": "thaumaturge:focus_beam"
+  },
+  "settings": [
+    {
+      "complexity": 1.0,
+      "default": 4,
+      "key": "range",
+      "max": 6,
+      "min": 3
+    }
+  ]
+}

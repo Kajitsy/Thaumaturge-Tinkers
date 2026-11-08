@@ -1,0 +1,15 @@
+{
+  "depth": 2,
+  "sockets": [
+    {
+      "side": "north"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/hall/nave",
+      "weight": 1
+    }
+  ],
+  "width": 2
+}

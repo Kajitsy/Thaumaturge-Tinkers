@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:auram",
+  "behavior": {
+    "type": "thaumaturge:aura"
+  },
+  "color": 11442862,
+  "complexity": 5,
+  "icon": "thaumaturge:textures/foci/sprite.png",
+  "power": 0.7,
+  "research": {
+    "entry": "thaumaturge:focus_aura"
+  },
+  "settings": [
+    {
+      "complexity": 1.5,
+      "default": 3,
+      "key": "radius",
+      "max": 6,
+      "min": 2
+    }
+  ]
+}

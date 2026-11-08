@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 25,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "pattern": [
+    "WFW",
+    "SIs",
+    "WFW"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "S": "thaumaturge:crystal_aer",
+    "s": "thaumaturge:crystal_terra",
+    "W": "thaumaturge:log_greatwood",
+    "F": "minecraft:glass"
+  },
+  "result": {
+    "id": "thaumaturgetinker:locomotive_relay",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:levitator"
+  }
+}

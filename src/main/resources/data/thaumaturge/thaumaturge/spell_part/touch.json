@@ -1,0 +1,17 @@
+{
+  "aspect": "thaumaturge:aversio",
+  "behavior": {
+    "type": "thaumaturge:ray",
+    "linger": 1,
+    "range": 3.0,
+    "reach": true,
+    "visual": "flash",
+    "width": 0.0
+  },
+  "color": 11371909,
+  "complexity": 2,
+  "icon": "thaumaturge:textures/foci/touch.png",
+  "research": {
+    "entry": "thaumaturge:base_auromancy"
+  }
+}

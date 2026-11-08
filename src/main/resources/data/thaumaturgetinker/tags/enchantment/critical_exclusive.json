@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#thaumaturgetinker:tool_exclusive"
+  ],
+  "remove": [
+    "minecraft:sharpness",
+    "minecraft:smite"
+  ]
+}

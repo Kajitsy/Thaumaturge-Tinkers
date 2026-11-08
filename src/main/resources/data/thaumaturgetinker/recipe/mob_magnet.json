@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 40,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 1
+    }
+  ],
+  "pattern": [
+    " G ",
+    "SGs",
+    "WFW"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "S": "thaumaturge:crystal_aer",
+    "s": "thaumaturge:crystal_terra",
+    "W": "thaumaturge:log_greatwood",
+    "F": "thaumaturgetinker:focus_telekinesis"
+  },
+  "result": {
+    "id": "thaumaturgetinker:mob_magnet",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:magnets"
+  }
+}

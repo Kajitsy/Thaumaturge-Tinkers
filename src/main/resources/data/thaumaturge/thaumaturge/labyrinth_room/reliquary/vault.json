@@ -1,0 +1,14 @@
+{
+  "decorate": false,
+  "sockets": [
+    {
+      "side": "north"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/reliquary/vault",
+      "weight": 1
+    }
+  ]
+}

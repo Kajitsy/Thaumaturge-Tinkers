@@ -1,0 +1,28 @@
+{
+  "processors": [
+    {
+      "pitch": 5,
+      "processor_type": "thaumaturge:clustered_replace",
+      "replacements": [
+        {
+          "data": {
+            "Name": "thaumaturge:obsidian_tile"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "minecraft:crying_obsidian"
+          },
+          "weight": 1
+        }
+      ],
+      "salt": 47,
+      "target": {
+        "block": "thaumaturge:eldritch_stone",
+        "predicate_type": "minecraft:block_match"
+      },
+      "threshold": 0.5
+    }
+  ]
+}

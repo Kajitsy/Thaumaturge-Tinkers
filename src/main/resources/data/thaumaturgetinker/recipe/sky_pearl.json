@@ -1,0 +1,41 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:ender_pearl",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ender_shard",
+    "minecraft:lapis_block",
+    "minecraft:diamond"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 16
+    }
+  ],
+  "instability": 6,
+  "result": {
+    "id": "thaumaturgetinker:sky_pearl",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:warp_gate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

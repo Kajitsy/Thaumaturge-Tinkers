@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:enchantable/sharp_weapon"
+  ],
+  "remove": [
+    "thaumaturgetinker:blood_sword"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.DISLOCATOR",
+  "parents": [
+    "thaumaturgetinker:interface"
+  ],
+  "column": -6,
+  "row": 1,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:dislocator"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.DISLOCATOR.0",
+      "recipes": [
+        "thaumaturgetinker:dislocator"
+      ],
+      "warp": 1,
+      "obtain": [
+        {
+          "items": [
+            "minecraft:ender_eye"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

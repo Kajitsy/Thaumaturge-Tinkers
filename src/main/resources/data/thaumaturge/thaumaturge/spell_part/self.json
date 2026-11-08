@@ -1,0 +1,12 @@
+{
+  "aspect": "thaumaturge:humanus",
+  "behavior": {
+    "type": "thaumaturge:self"
+  },
+  "color": 11442821,
+  "complexity": 1,
+  "icon": "thaumaturge:textures/foci/self.png",
+  "research": {
+    "entry": "thaumaturge:focus_aura"
+  }
+}

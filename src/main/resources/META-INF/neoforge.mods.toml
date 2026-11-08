@@ -1,0 +1,37 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="thaumaturgetinker"
+version="1.0.0"
+displayName="Thaumaturge Tinker"
+authors="kajitsy"
+description="Thaumaturge Tinker for modern Minecraft on top of Thaumaturge."
+[[dependencies.thaumaturgetinker]]
+modId="neoforge"
+type="required"
+versionRange="[26.1.2.122,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.thaumaturgetinker]]
+modId="minecraft"
+type="required"
+versionRange="[26.1.2,27.1)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.thaumaturgetinker]]
+modId="thaumaturge"
+type="required"
+versionRange="[1.0.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[mixins]]
+config="thaumaturgetinker.mixins.json"
+
+[[dependencies.thaumaturgetinker]]
+modId="jade"
+type="optional"
+versionRange="[26.1.8,)"
+ordering="AFTER"
+side="BOTH"

@@ -1,0 +1,29 @@
+{
+  "aspect": "thaumaturge:aer",
+  "behavior": {
+    "type": "thaumaturge:fan"
+  },
+  "color": 8753326,
+  "complexity": 2,
+  "icon": "thaumaturge:textures/foci/fan.png",
+  "max_per_spell": 1,
+  "research": {
+    "entry": "thaumaturge:focus_trajectory"
+  },
+  "settings": [
+    {
+      "complexity": 1.0,
+      "default": 3,
+      "key": "count",
+      "max": 7,
+      "min": 2
+    },
+    {
+      "default": 60,
+      "key": "arc",
+      "max": 120,
+      "min": 30,
+      "step": 15
+    }
+  ]
+}

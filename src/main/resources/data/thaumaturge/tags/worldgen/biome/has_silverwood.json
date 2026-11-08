@@ -1,0 +1,22 @@
+{
+  "remove": [
+    "thaumaturge:magical_forest",
+    "thaumaturge:tainted_lands",
+    "thaumaturge:eldritch",
+    "minecraft:grove",
+    "minecraft:pale_garden"
+  ],
+  "values": [
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "#thaumaturge:is_magical",
+    {
+      "id": "#c:is_magical",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_forest",
+      "required": false
+    }
+  ]
+}

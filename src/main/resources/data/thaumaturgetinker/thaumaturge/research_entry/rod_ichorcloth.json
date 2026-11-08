@@ -1,0 +1,52 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ROD_ICHORCLOTH",
+  "parents": [
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "column": 14,
+  "row": 2,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichorcloth_rod"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ROD_ICHORCLOTH.0",
+      "warp": 2,
+      "recipes": [
+        "thaumaturgetinker:ichorcloth_rod",
+        "thaumaturgetinker:wand_ichorcloth",
+        "thaumaturgetinker:sceptre_ichorcloth"
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

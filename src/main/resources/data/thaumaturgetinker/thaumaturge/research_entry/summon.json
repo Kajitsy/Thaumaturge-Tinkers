@@ -1,0 +1,78 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.SUMMON",
+  "parents": [
+    "thaumaturgetinker:blood_sword"
+  ],
+  "column": -5,
+  "row": 8,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:summon_tablet"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.SUMMON.0",
+      "warp": 3,
+      "recipes": [
+        "thaumaturgetinker:mob_aspect_aer_condensed",
+        "thaumaturgetinker:mob_aspect_alienis_condensed",
+        "thaumaturgetinker:mob_aspect_aqua_condensed",
+        "thaumaturgetinker:mob_aspect_bestia_condensed",
+        "thaumaturgetinker:mob_aspect_corpus_condensed",
+        "thaumaturgetinker:mob_aspect_exanimis_condensed",
+        "thaumaturgetinker:mob_aspect_humanus_condensed",
+        "thaumaturgetinker:mob_aspect_ignis_condensed",
+        "thaumaturgetinker:mob_aspect_iter_condensed",
+        "thaumaturgetinker:mob_aspect_limus_condensed",
+        "thaumaturgetinker:mob_aspect_messis_condensed",
+        "thaumaturgetinker:mob_aspect_metallum_condensed",
+        "thaumaturgetinker:mob_aspect_pannus_condensed",
+        "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+        "thaumaturgetinker:mob_aspect_terra_condensed",
+        "thaumaturgetinker:mob_aspect_venenum_condensed",
+        "thaumaturgetinker:mob_aspect_volatus_condensed",
+        "thaumaturgetinker:summon_tablet",
+        "thaumaturgetinker:mob_aspect_aer_infused",
+        "thaumaturgetinker:mob_aspect_alienis_infused",
+        "thaumaturgetinker:mob_aspect_aqua_infused",
+        "thaumaturgetinker:mob_aspect_bestia_infused",
+        "thaumaturgetinker:mob_aspect_corpus_infused",
+        "thaumaturgetinker:mob_aspect_exanimis_infused",
+        "thaumaturgetinker:mob_aspect_humanus_infused",
+        "thaumaturgetinker:mob_aspect_ignis_infused",
+        "thaumaturgetinker:mob_aspect_iter_infused",
+        "thaumaturgetinker:mob_aspect_limus_infused",
+        "thaumaturgetinker:mob_aspect_messis_infused",
+        "thaumaturgetinker:mob_aspect_metallum_infused",
+        "thaumaturgetinker:mob_aspect_pannus_infused",
+        "thaumaturgetinker:mob_aspect_praecantatio_infused",
+        "thaumaturgetinker:mob_aspect_terra_infused",
+        "thaumaturgetinker:mob_aspect_venenum_infused",
+        "thaumaturgetinker:mob_aspect_volatus_infused"
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "sockets": [
+    {
+      "side": "north"
+    },
+    {
+      "side": "east"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/bend/shrine",
+      "weight": 1
+    }
+  ],
+  "variety_group": "thaumaturge:bend",
+  "weight": 2
+}

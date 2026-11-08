@@ -1,0 +1,64 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHOR_TOOLS",
+  "parents": [
+    "thaumaturgetinker:ichorium"
+  ],
+  "column": 13,
+  "row": 12,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichor_pick"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHOR_TOOLS.0",
+      "warp": 2,
+      "recipes": [
+        "thaumaturgetinker:ichor_pick",
+        "thaumaturgetinker:ichor_shovel",
+        "thaumaturgetinker:ichor_axe",
+        "thaumaturgetinker:ichor_sword"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturgetinker:ichorium"
+          ],
+          "amount": 3
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

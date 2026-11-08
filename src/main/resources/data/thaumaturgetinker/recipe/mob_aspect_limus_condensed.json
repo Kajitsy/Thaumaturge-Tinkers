@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": "thaumaturgetinker:mob_aspect_limus"
+  },
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_limus_condensed",
+    "count": 1
+  }
+}

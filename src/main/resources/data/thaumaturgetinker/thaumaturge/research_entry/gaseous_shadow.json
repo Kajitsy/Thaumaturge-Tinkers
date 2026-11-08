@@ -1,0 +1,45 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.GASEOUS_SHADOW",
+  "parents": [
+    "thaumaturgetinker:gaseous_light"
+  ],
+  "column": -1,
+  "row": -5,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:gaseous_shadow_bottle"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.GASEOUS_SHADOW.0",
+      "recipes": [
+        "thaumaturgetinker:gaseous_shadow"
+      ],
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

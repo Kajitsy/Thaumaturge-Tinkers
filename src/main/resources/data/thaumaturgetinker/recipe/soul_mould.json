@@ -1,0 +1,26 @@
+{
+  "type": "thaumaturge:arcane_workbench_shapeless",
+  "vis": 20,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 1
+    }
+  ],
+  "ingredients": [
+    "minecraft:soul_sand",
+    "minecraft:clay_ball",
+    "thaumaturge:salis_mundus"
+  ],
+  "result": {
+    "id": "thaumaturgetinker:soul_mould",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:magnets"
+  }
+}

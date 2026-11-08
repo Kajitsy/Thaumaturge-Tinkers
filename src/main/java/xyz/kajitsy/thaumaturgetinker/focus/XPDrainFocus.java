@@ -1,0 +1,85 @@
+package xyz.kajitsy.thaumaturgetinker.focus;
+
+import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
+import xyz.kajitsy.thaumaturgetinker.client.XPDrainFocusClient;
+
+
+import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
+import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
+import com.leclowndu93150.thaumaturge.content.wands.ItemWand;
+import com.leclowndu93150.thaumaturge.content.wands.WandVisHelper;
+import java.util.Map;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.registries.DeferredItem;
+
+public final class XPDrainFocus extends TinkererFocus {
+    public static final DeferredItem<XPDrainFocus> ITEM = KamiRegistries.ITEMS.register("focus_xp_drain", XPDrainFocus::new);
+
+    public XPDrainFocus() {
+        super("focus_xp_drain", Rarity.EPIC);
+    }
+    private int lastGiven;
+
+    public static void init(IEventBus bus) {}
+
+    @Override
+    public Map<ResourceKey<IAspect>, Integer> getVisCost(ItemStack focus) {
+        return Map.of();
+    }
+
+    @Override
+    public boolean isVisCostPerTick(ItemStack focus) {
+        return true;
+    }
+
+    @Override
+    public String getSortingHelperBase() {
+        return "XPDRAIN";
+    }
+
+    @Override
+    public int[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
+        return new int[0];
+    }
+
+    @Override
+    public int getFocusColor(ItemStack focus) {
+        return FMLEnvironment.getDist() == Dist.CLIENT ? XPDrainFocusClient.color() : 0xFFFFFF;
+    }
+
+    @Override
+    public void onUsingFocusTick(ItemStack wand, Player player, int ticks) {
+        if (player.level().isClientSide() || !(wand.getItem() instanceof ItemWand)) return;
+        var primals = TTAspects.PRIMALS;
+        ResourceKey<IAspect> selected = null;
+        int capacity = WandVisHelper.capacityOf(wand);
+        for (int attempts = 0; selected == null && attempts < 7; attempts++) {
+            lastGiven = lastGiven == 5 ? 0 : lastGiven + 1;
+            var aspect = primals.get(lastGiven);
+            if (WandVisHelper.storedIn(wand, aspect) < capacity) {
+                selected = aspect;
+            }
+        }
+        if (selected != null && player.totalExperience >= 15) {
+            player.giveExperiencePoints(-15);
+            WandVisHelper.topUpCentivis(wand, selected, 500, true);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack focus, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
+        super.appendHoverText(focus, context, display, builder, flag);
+        builder.accept(Component.translatable("ttmisc.experience").append(" x 15").withStyle(ChatFormatting.GREEN));
+    }
+}

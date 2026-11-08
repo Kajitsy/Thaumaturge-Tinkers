@@ -1,0 +1,18 @@
+{
+  "max_per_maze": 2,
+  "sockets": [
+    {
+      "side": "north"
+    },
+    {
+      "side": "east"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/rare/webbed_bend",
+      "weight": 1
+    }
+  ],
+  "weight": 2
+}

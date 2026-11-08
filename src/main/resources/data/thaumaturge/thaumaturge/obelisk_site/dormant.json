@@ -1,0 +1,18 @@
+{
+  "awakening": {
+    "entity": "thaumaturge:eldritch_guardian",
+    "interval": 200,
+    "radius": 32
+  },
+  "behavior": {
+    "type": "thaumaturge:dormant"
+  },
+  "labyrinths": [
+    {
+      "data": "thaumaturge:eldritch",
+      "weight": 1
+    }
+  ],
+  "processors": "thaumaturge:obelisk/weathering",
+  "template": "thaumaturge:obelisk/site"
+}

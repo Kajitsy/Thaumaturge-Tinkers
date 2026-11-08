@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "#curios:head",
+      "required": false
+    },
+    {
+      "id": "#curios:necklace",
+      "required": false
+    },
+    {
+      "id": "#curios:ring",
+      "required": false
+    },
+    {
+      "id": "#curios:belt",
+      "required": false
+    },
+    {
+      "id": "#curios:charm",
+      "required": false
+    }
+  ]
+}

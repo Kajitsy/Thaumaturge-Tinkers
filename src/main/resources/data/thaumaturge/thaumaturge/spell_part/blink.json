@@ -1,0 +1,14 @@
+{
+  "aspect": "thaumaturge:alienis",
+  "behavior": {
+    "type": "thaumaturge:blink"
+  },
+  "color": 6959008,
+  "complexity": 7,
+  "fx": "thaumaturge:rift",
+  "icon": "thaumaturge:textures/foci/blink.png",
+  "max_per_spell": 1,
+  "research": {
+    "entry": "thaumaturge:focus_blink"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "block": [
+    {
+      "type": "thaumaturge:wind_burst"
+    }
+  ],
+  "entity": [
+    {
+      "type": "thaumaturge:knockback",
+      "base": 0.6,
+      "lift": 0.35,
+      "per_power": 0.25
+    }
+  ],
+  "fx": "thaumaturge:gust",
+  "imbue": [
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:slow_falling",
+      "max_amplifier": 0,
+      "per_duration": 100.0,
+      "ticks": 100.0
+    },
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:jump_boost",
+      "max_amplifier": 2,
+      "per_duration": 100.0,
+      "per_power": 0.5,
+      "ticks": 100.0
+    }
+  ],
+  "research": {
+    "entry": "thaumaturge:focus_elemental"
+  },
+  "sound": "thaumaturge:wind"
+}

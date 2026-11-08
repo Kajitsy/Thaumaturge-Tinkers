@@ -1,0 +1,52 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 100,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    " T ",
+    "IDI",
+    " I "
+  ],
+  "key": {
+    "T": "thaumaturge:ingot_thaumium",
+    "I": "thaumaturgetinker:ichor",
+    "D": "minecraft:diamond"
+  },
+  "result": {
+    "id": "thaumaturgetinker:ichorium",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichorium"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

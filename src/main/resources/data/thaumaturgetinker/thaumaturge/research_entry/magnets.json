@@ -1,0 +1,60 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.MAGNETS",
+  "parents": [
+    "thaumaturgetinker:interface"
+  ],
+  "column": -6,
+  "row": 3,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:magnet"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.MAGNETS.0",
+      "recipes": [
+        "thaumaturgetinker:magnet",
+        "thaumaturgetinker:mob_magnet",
+        "thaumaturgetinker:soul_mould"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

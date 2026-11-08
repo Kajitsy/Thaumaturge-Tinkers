@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_SHADOWBEAM",
+  "parents": [
+    "thaumaturgetinker:rod_ichorcloth"
+  ],
+  "column": 14,
+  "row": 4,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:focus_shadowbeam"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_SHADOWBEAM.0",
+      "recipes": [
+        "thaumaturgetinker:focus_shadowbeam"
+      ],
+      "warp": 2,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

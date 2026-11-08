@@ -1,0 +1,12 @@
+{
+  "values": [
+    "thaumaturge:taint_rock",
+    "thaumaturge:taint_soil",
+    "thaumaturge:taint_crust",
+    "thaumaturge:taint_geyser",
+    "thaumaturge:taint_log",
+    "thaumaturge:taint_feature",
+    "thaumaturge:taint_fibre",
+    "thaumaturge:taint_spore_stalk"
+  ]
+}

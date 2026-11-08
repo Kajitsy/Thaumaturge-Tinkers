@@ -1,0 +1,21 @@
+{
+  "type": "thaumaturge:eldritch_obelisk",
+  "biomes": "#thaumaturge:has_structure/eldritch_obelisk",
+  "sites": [
+    {
+      "data": "thaumaturge:cult_ritual",
+      "weight": 4
+    },
+    {
+      "data": "thaumaturge:guardian_watch",
+      "weight": 2
+    },
+    {
+      "data": "thaumaturge:dormant",
+      "weight": 4
+    }
+  ],
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin"
+}

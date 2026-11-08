@@ -1,0 +1,1 @@
+{"parent": "thaumaturgetinker:item/ichor_axe_gem_0", "overrides": [{"predicate": {"thaumaturgetinker:tool_mode": 0}, "model": "thaumaturgetinker:item/ichor_axe_gem_0"}, {"predicate": {"thaumaturgetinker:tool_mode": 1}, "model": "thaumaturgetinker:item/ichor_axe_gem_1"}, {"predicate": {"thaumaturgetinker:tool_mode": 2}, "model": "thaumaturgetinker:item/ichor_axe_gem_2"}]}

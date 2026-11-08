@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "thaumaturgetinker:ichor"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "thaumaturgetinker:ichor"
+      }
+    ]
+  }
+}

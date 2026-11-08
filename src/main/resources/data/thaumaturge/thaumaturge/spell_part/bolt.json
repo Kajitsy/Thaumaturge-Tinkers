@@ -1,0 +1,14 @@
+{
+  "aspect": "thaumaturge:potentia",
+  "behavior": {
+    "type": "thaumaturge:ray",
+    "linger": 1
+  },
+  "color": 11376773,
+  "complexity": 5,
+  "icon": "thaumaturge:textures/foci/bolt.png",
+  "research": {
+    "entry": "thaumaturge:focus_bolt"
+  },
+  "sound": "thaumaturge:zap"
+}

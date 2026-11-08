@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:ichorcloth_legs",
+    "thaumaturgetinker:ichorcloth_legs_gem",
+    {
+      "id": "#c:armors/leggings",
+      "required": false
+    }
+  ]
+}

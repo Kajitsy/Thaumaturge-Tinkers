@@ -1,0 +1,42 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:void_pickaxe",
+  "components": [
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichorium",
+    "thaumaturge:wand_rod_silverwood",
+    "thaumaturge:wand_rod_silverwood"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 16
+    }
+  ],
+  "instability": 8,
+  "result": {
+    "id": "thaumaturgetinker:ichor_pick",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_tools"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

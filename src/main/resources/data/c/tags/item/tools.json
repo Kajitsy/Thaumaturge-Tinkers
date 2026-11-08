@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#c:tools/swords",
+    "#c:tools/pickaxes",
+    "#c:tools/axes",
+    "#c:tools/shovels"
+  ]
+}

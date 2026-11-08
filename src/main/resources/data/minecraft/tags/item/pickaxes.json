@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:ichor_pick",
+    "thaumaturgetinker:ichor_pick_gem",
+    {
+      "id": "#c:tools/pickaxes",
+      "required": false
+    },
+    {
+      "id": "#c:tools/mining_tool",
+      "required": false
+    }
+  ]
+}

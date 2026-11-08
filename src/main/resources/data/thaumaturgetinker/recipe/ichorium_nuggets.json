@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "thaumaturgetinker:ichorium"
+  ],
+  "result": {
+    "id": "thaumaturgetinker:ichor_nugget",
+    "count": 9
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

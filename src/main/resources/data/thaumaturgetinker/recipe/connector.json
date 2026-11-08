@@ -1,0 +1,31 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 25,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "pattern": [
+    " I ",
+    " WI",
+    "S  "
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "W": "minecraft:stick",
+    "S": "thaumaturge:crystal_ordo"
+  },
+  "result": {
+    "id": "thaumaturgetinker:connector",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:interface"
+  }
+}

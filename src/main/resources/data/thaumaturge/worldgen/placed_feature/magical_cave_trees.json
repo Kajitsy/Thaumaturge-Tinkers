@@ -1,0 +1,18 @@
+{
+  "feature": "thaumaturge:magical_cave_trees",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 10
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "thaumaturge:magical_cave_floor"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

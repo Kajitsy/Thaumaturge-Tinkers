@@ -1,0 +1,36 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:gold_ingot",
+  "components": [
+    "minecraft:quartz",
+    "minecraft:quartz",
+    "thaumaturge:brain",
+    "minecraft:diamond"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:bestia",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 5
+    }
+  ],
+  "instability": 6,
+  "result": {
+    "id": "thaumaturgetinker:xp_talisman",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:xp_talisman"
+  }
+}

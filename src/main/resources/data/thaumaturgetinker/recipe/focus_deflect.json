@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:focus_flight",
+  "components": [
+    "thaumaturge:mirrored_glass",
+    "thaumaturge:mirrored_glass",
+    "thaumaturge:paving_stone_barrier",
+    "thaumaturge:crystal_ordo"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 20
+    }
+  ],
+  "instability": 5,
+  "result": {
+    "id": "thaumaturgetinker:focus_deflect",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:focus_deflect"
+  }
+}

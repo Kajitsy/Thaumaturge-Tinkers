@@ -1,0 +1,11 @@
+{
+  "effect": {
+    "type": "thaumaturge:zap",
+    "damage": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 7,
+      "min_inclusive": 4
+    }
+  },
+  "weight": 3
+}

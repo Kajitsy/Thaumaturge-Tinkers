@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "thaumaturgetinker:active",
+    "cases": [
+      {
+        "when": true,
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgetinker:item/block_talisman_active"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "thaumaturgetinker:item/block_talisman"
+    }
+  }
+}

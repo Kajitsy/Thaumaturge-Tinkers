@@ -1,0 +1,24 @@
+{
+  "sockets": [
+    {
+      "side": "north"
+    },
+    {
+      "side": "east"
+    },
+    {
+      "side": "south"
+    },
+    {
+      "side": "west"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/cross/gallery",
+      "weight": 1
+    }
+  ],
+  "variety_group": "thaumaturge:cross",
+  "weight": 2
+}

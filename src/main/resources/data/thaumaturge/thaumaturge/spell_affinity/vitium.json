@@ -1,0 +1,31 @@
+{
+  "block": [
+    {
+      "type": "thaumaturge:pollute",
+      "chance": 0.25,
+      "per_power": 0.2
+    }
+  ],
+  "complexity": 1,
+  "entity": [
+    {
+      "type": "thaumaturge:damage",
+      "base": 3.0,
+      "damage_type": "minecraft:indirect_magic"
+    },
+    {
+      "type": "thaumaturge:mob_effect",
+      "chance": 0.1,
+      "effect": "thaumaturge:flux_taint",
+      "max_amplifier": 0,
+      "per_duration": 0.0,
+      "ticks": 100.0
+    }
+  ],
+  "fx": "thaumaturge:flux",
+  "research": {
+    "entry": "thaumaturge:focus_flux"
+  },
+  "sound": "minecraft:block.chorus_flower.grow",
+  "vis": 0.1
+}

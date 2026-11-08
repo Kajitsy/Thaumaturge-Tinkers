@@ -1,0 +1,8 @@
+{
+  "feature": "thaumaturge:crystals",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

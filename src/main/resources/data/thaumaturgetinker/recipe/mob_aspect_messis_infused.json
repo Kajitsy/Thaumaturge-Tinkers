@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:mob_aspect_messis_condensed",
+  "components": [
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed",
+    "thaumaturgetinker:mob_aspect_messis_condensed"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 10
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_messis_infused",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:summon"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "aspect": "thaumaturge:praecantatio",
+  "behavior": {
+    "type": "thaumaturge:primal"
+  },
+  "color": 10854849,
+  "complexity": 20,
+  "fx": "thaumaturge:primal",
+  "icon": "thaumaturge:textures/foci/primal.png",
+  "research": {
+    "entry": "thaumaturge:focus_primal"
+  },
+  "settings": [
+    {
+      "complexity": 3.0,
+      "default": 1,
+      "key": "power",
+      "max": 5,
+      "min": 1
+    }
+  ],
+  "vis": 2.0
+}

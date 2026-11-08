@@ -1,0 +1,62 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.BLOCK_TALISMAN",
+  "parents": [
+    "thaumaturgetinker:ichor_pick_gem",
+    "thaumaturgetinker:ichor_shovel_gem"
+  ],
+  "column": 14,
+  "row": 17,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:block_talisman"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.BLOCK_TALISMAN.0",
+      "recipes": [
+        "thaumaturgetinker:block_talisman"
+      ],
+      "warp": 3,
+      "obtain": [
+        {
+          "items": [
+            "thaumaturgetinker:ichorium"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

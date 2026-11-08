@@ -1,0 +1,44 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.LEVITATOR",
+  "parents": [
+    "thaumaturgetinker:magnets"
+  ],
+  "column": -7,
+  "row": 5,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:locomotive"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.LEVITATOR.0",
+      "recipes": [
+        "thaumaturgetinker:locomotive_relay",
+        "thaumaturgetinker:locomotive"
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

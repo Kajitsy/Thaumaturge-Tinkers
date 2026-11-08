@@ -1,0 +1,67 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHORIUM",
+  "parents": [
+    "thaumaturgetinker:ichor"
+  ],
+  "column": 11,
+  "row": 9,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichorium"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHORIUM.0",
+      "recipes": [
+        "thaumaturgetinker:ichorium_nuggets",
+        "thaumaturgetinker:ichorium_from_nuggets",
+        "thaumaturgetinker:ichorium"
+      ],
+      "warp": 2,
+      "obtain": [
+        {
+          "items": [
+            "thaumaturgetinker:ichor"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

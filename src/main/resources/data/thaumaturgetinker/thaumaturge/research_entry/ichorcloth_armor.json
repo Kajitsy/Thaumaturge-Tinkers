@@ -1,0 +1,65 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHORCLOTH_ARMOR",
+  "parents": [
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "column": 17,
+  "row": 5,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichorcloth_chest"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHORCLOTH_ARMOR.0",
+      "warp": 2,
+      "recipes": [
+        "thaumaturgetinker:ichorcloth_helm",
+        "thaumaturgetinker:ichorcloth_chest",
+        "thaumaturgetinker:ichorcloth_legs",
+        "thaumaturgetinker:ichorcloth_boots",
+        "thaumaturgetinker:ichorcloth_boots_traveller"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturgetinker:ichor_cloth"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

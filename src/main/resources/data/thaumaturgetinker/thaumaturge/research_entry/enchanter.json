@@ -1,0 +1,67 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ENCHANTER",
+  "parents": [
+    "thaumaturgetinker:spell_cloth"
+  ],
+  "column": 5,
+  "row": 4,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:enchanter"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ENCHANTER.0",
+      "recipes": [
+        "thaumaturgetinker:enchanter"
+      ],
+      "warp": 2,
+      "obtain": [
+        {
+          "items": [
+            "minecraft:enchanting_table"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

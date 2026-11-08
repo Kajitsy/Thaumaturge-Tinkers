@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FIRE_AER",
+  "parents": [
+    "thaumaturgetinker:bright_nitor"
+  ],
+  "column": 3,
+  "row": -7,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:fire_air"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FIRE_AER.0",
+      "recipes": [
+        "thaumaturgetinker:fire_aer"
+      ],
+      "warp": 2,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

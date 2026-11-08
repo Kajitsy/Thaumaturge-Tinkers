@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:herba",
+  "behavior": {
+    "type": "thaumaturge:harvest"
+  },
+  "color": 7048739,
+  "complexity": 4,
+  "fx": "thaumaturge:leaf",
+  "icon": "thaumaturge:textures/foci/harvest.png",
+  "research": {
+    "entry": "thaumaturge:focus_harvest"
+  },
+  "settings": [
+    {
+      "complexity": 2.0,
+      "default": 1,
+      "key": "radius",
+      "max": 3,
+      "min": 0
+    }
+  ]
+}

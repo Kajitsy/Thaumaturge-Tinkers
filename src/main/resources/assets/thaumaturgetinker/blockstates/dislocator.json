@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "thaumaturgetinker:block/dislocator_north"
+    },
+    "facing=east": {
+      "model": "thaumaturgetinker:block/dislocator_east"
+    },
+    "facing=south": {
+      "model": "thaumaturgetinker:block/dislocator_south"
+    },
+    "facing=west": {
+      "model": "thaumaturgetinker:block/dislocator_west"
+    },
+    "facing=up": {
+      "model": "thaumaturgetinker:block/dislocator_up"
+    },
+    "facing=down": {
+      "model": "thaumaturgetinker:block/dislocator_down"
+    }
+  }
+}

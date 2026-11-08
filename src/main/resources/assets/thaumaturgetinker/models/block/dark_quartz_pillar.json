@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "thaumaturgetinker:blocks/pillardarkquartz0",
+    "end": "thaumaturgetinker:blocks/pillardarkquartz1"
+  }
+}

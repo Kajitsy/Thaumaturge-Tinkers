@@ -1,0 +1,55 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.DIMENSION_SHARDS",
+  "parents": [
+    "~thaumaturge:unlock_eldritch"
+  ],
+  "column": 7,
+  "row": 8,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ender_shard"
+  ],
+  "meta": [
+    "autounlock",
+    "round",
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 6
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 6
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.DIMENSION_SHARDS.0",
+      "obtain": [
+        {
+          "items": [
+            "minecraft:ender_pearl"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "thaumaturge:crucible",
+  "catalyst": "minecraft:glass_bottle",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 8
+    }
+  ],
+  "result": {
+    "id": "thaumaturgetinker:gaseous_light_bottle",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:gaseous_light"
+  }
+}

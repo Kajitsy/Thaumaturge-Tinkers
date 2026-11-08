@@ -1,0 +1,23 @@
+{
+  "sockets": [
+    {
+      "side": "north"
+    },
+    {
+      "side": "east"
+    },
+    {
+      "side": "south"
+    },
+    {
+      "side": "west"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/corridor/cross",
+      "weight": 1
+    }
+  ],
+  "weight": 4
+}

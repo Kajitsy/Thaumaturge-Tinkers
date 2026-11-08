@@ -1,0 +1,13 @@
+{
+  "values": [
+    "thaumaturge:cluster_iron",
+    "thaumaturge:cluster_copper",
+    "thaumaturge:cluster_gold",
+    "thaumaturge:cluster_quartz",
+    "thaumaturge:cluster_cinnabar",
+    "thaumaturge:cluster_quartz",
+    "thaumaturge:cluster_lead",
+    "thaumaturge:cluster_silver",
+    "thaumaturge:cluster_tin"
+  ]
+}

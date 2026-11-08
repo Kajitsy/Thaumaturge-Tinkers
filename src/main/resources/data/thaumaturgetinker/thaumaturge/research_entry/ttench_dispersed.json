@@ -1,0 +1,49 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.TTENCH_DISPERSED",
+  "parents": [
+    "thaumaturgetinker:ttench_vampirism"
+  ],
+  "column": 1,
+  "row": 6,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:textures/enchants/dispersedstrikes.png"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:aversio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.TTENCH_DISPERSED.0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

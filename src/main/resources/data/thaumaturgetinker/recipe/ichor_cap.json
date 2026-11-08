@@ -1,0 +1,52 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 100,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    "ICI",
+    " M ",
+    "ICI"
+  ],
+  "key": {
+    "M": "thaumaturgetinker:ichorium",
+    "I": "thaumaturgetinker:ichor",
+    "C": "thaumaturge:wand_cap_thaumium"
+  },
+  "result": {
+    "id": "thaumaturgetinker:ichor_cap",
+    "count": 2
+  },
+  "research": {
+    "entry": "thaumaturgetinker:cap_ichor"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

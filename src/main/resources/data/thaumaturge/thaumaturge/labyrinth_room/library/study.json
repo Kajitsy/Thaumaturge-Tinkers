@@ -1,0 +1,14 @@
+{
+  "max_per_maze": 2,
+  "sockets": [
+    {
+      "side": "north"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/library/study",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "aspect": "thaumaturge:ignis",
+  "behavior": {
+    "type": "thaumaturge:aspect_strike",
+    "default_duration": 1.0
+  },
+  "color": 16734721,
+  "complexity": 2,
+  "fx": "thaumaturge:flame",
+  "icon": "thaumaturge:textures/foci/fire.png",
+  "research": {
+    "entry": "thaumaturge:base_auromancy"
+  },
+  "settings": [
+    {
+      "complexity": 2.0,
+      "default": 1,
+      "key": "power",
+      "max": 5,
+      "min": 1
+    },
+    {
+      "complexity": 1.0,
+      "default": 1,
+      "key": "duration",
+      "max": 5,
+      "min": 0
+    }
+  ]
+}

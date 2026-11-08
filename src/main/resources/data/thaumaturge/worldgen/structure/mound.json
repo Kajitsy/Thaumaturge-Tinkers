@@ -1,0 +1,6 @@
+{
+  "type": "thaumaturge:mound",
+  "biomes": "#thaumaturge:has_structure/mound",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

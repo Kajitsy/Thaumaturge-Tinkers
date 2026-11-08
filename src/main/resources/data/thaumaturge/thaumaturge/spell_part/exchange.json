@@ -1,0 +1,13 @@
+{
+  "aspect": "thaumaturge:permutatio",
+  "behavior": {
+    "type": "thaumaturge:exchange"
+  },
+  "color": 5735255,
+  "complexity": 5,
+  "icon": "thaumaturge:textures/foci/exchange.png",
+  "research": {
+    "entry": "thaumaturge:focus_exchange"
+  },
+  "sound": "minecraft:block.enchantment_table.use"
+}

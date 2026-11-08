@@ -1,0 +1,69 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichorcloth_helm",
+  "components": [
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:thaumonomicon",
+    "thaumaturge:focus_3",
+    "minecraft:golden_helmet",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "minecraft:potion",
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "minecraft:night_vision"
+        }
+      }
+    },
+    "thaumaturge:goggles_revealing",
+    "minecraft:ghast_tear",
+    "minecraft:cod",
+    "minecraft:cake",
+    "minecraft:ender_eye"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 64
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 16
+    }
+  ],
+  "instability": 13,
+  "result": {
+    "id": "thaumaturgetinker:ichorcloth_helm_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichorcloth_helm_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

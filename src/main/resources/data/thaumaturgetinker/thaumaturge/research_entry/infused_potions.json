@@ -1,0 +1,62 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.INFUSED_POTIONS",
+  "parents": [
+    "thaumaturgetinker:fire_perditio",
+    "thaumaturgetinker:fire_ordo",
+    "thaumaturgetinker:fire_ignis",
+    "thaumaturgetinker:fire_terra",
+    "thaumaturgetinker:fire_aer",
+    "thaumaturgetinker:fire_aqua"
+  ],
+  "column": 7,
+  "row": -5,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:infused_seeds"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 5
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.INFUSED_POTIONS.0",
+      "recipes": [
+        "thaumaturgetinker:infused_inkwell_refill"
+      ],
+      "warp": 1,
+      "obtain": [
+        {
+          "items": [
+            "minecraft:nether_wart"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

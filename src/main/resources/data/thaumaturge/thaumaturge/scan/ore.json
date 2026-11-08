@@ -1,0 +1,16 @@
+{
+  "blocks": [
+    "thaumaturge:ore_amber",
+    "thaumaturge:ore_cinnabar",
+    "thaumaturge:deepslate_ore_amber",
+    "thaumaturge:deepslate_ore_cinnabar",
+    "thaumaturge:crystal_aer",
+    "thaumaturge:crystal_ignis",
+    "thaumaturge:crystal_aqua",
+    "thaumaturge:crystal_terra",
+    "thaumaturge:crystal_ordo",
+    "thaumaturge:crystal_perditio",
+    "thaumaturge:crystal_vitium"
+  ],
+  "key": "thaumaturge:ore"
+}

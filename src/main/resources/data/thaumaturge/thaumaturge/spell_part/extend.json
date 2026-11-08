@@ -1,0 +1,30 @@
+{
+  "aspect": "thaumaturge:vinculum",
+  "behavior": {
+    "type": "thaumaturge:stat",
+    "changes": [
+      {
+        "base": 1.0,
+        "level": "level",
+        "operation": "multiply",
+        "per_level": 0.5,
+        "stat": "thaumaturge:duration"
+      }
+    ]
+  },
+  "color": 8753326,
+  "complexity": 2,
+  "icon": "thaumaturge:textures/foci/lingering.png",
+  "research": {
+    "entry": "thaumaturge:focus_amplify"
+  },
+  "settings": [
+    {
+      "complexity": 2.0,
+      "default": 1,
+      "key": "level",
+      "max": 3,
+      "min": 1
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"parent": "minecraft:item/generated", "textures": {"layer0": "thaumaturgetinker:items/blocktalisman0"}, "overrides": [{"predicate": {"thaumaturgetinker:active": 1}, "model": "thaumaturgetinker:item/block_talisman_active"}]}

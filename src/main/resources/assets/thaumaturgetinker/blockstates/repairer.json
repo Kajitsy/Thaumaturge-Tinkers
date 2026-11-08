@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "thaumaturgetinker:block/repairer",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "thaumaturgetinker:block/repairer",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "thaumaturgetinker:block/repairer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thaumaturgetinker:block/repairer",
+      "y": 270
+    }
+  }
+}

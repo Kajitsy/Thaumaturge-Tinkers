@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 46186246,
+    "separation": 7,
+    "spacing": 20
+  },
+  "structures": [
+    {
+      "structure": "thaumaturge:eldritch_obelisk",
+      "weight": 1
+    }
+  ]
+}

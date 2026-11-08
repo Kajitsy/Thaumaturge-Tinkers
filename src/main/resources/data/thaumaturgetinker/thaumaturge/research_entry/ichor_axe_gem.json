@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHOR_AXE_GEM",
+  "parents": [
+    "thaumaturgetinker:ichor_tools"
+  ],
+  "column": 16,
+  "row": 14,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichor_axe_gem"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHOR_AXE_GEM.0",
+      "recipes": [
+        "thaumaturgetinker:ichor_axe_gem"
+      ],
+      "warp": 4,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

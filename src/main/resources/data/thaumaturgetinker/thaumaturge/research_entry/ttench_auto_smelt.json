@@ -1,0 +1,49 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.TTENCH_AUTO_SMELT",
+  "parents": [
+    "thaumaturgetinker:enchanter"
+  ],
+  "column": 7,
+  "row": 5,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:textures/enchants/autosmelt.png"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.TTENCH_AUTO_SMELT.0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

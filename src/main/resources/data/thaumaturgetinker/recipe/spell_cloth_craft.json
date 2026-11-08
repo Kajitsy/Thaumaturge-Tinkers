@@ -1,0 +1,25 @@
+{
+  "type": "thaumaturge:crucible",
+  "catalyst": "thaumaturge:fabric",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 6
+    },
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 4
+    }
+  ],
+  "result": {
+    "id": "thaumaturgetinker:spell_cloth",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:spell_cloth"
+  }
+}

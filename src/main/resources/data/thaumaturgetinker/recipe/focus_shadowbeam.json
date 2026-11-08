@@ -1,0 +1,43 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:focus_1",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "minecraft:arrow",
+    "minecraft:diamond",
+    "thaumaturge:focus_1",
+    "thaumaturgetinker:focus_deflect"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 65
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:aversio",
+      "amount": 32
+    }
+  ],
+  "instability": 12,
+  "result": {
+    "id": "thaumaturgetinker:focus_shadowbeam",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:focus_shadowbeam"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHOR_PICK_GEM",
+  "parents": [
+    "thaumaturgetinker:ichor_tools"
+  ],
+  "column": 13,
+  "row": 15,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichor_pick_gem"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHOR_PICK_GEM.0",
+      "recipes": [
+        "thaumaturgetinker:ichor_pick_gem"
+      ],
+      "warp": 4,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

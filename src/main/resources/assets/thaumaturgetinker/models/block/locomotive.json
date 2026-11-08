@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "thaumaturgetinker:blocks/levitational_locomotive0",
+    "top": "thaumaturgetinker:blocks/levitational_locomotive1",
+    "side": "thaumaturgetinker:blocks/levitational_locomotive2"
+  }
+}

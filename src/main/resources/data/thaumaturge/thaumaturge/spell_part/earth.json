@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:terra",
+  "behavior": {
+    "type": "thaumaturge:aspect_strike"
+  },
+  "color": 5685248,
+  "complexity": 3,
+  "fx": "thaumaturge:pebble",
+  "icon": "thaumaturge:textures/foci/earth.png",
+  "research": {
+    "entry": "thaumaturge:focus_elemental"
+  },
+  "settings": [
+    {
+      "complexity": 3.0,
+      "default": 1,
+      "key": "power",
+      "max": 5,
+      "min": 1
+    }
+  ]
+}

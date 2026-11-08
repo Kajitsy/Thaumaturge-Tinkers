@@ -1,0 +1,29 @@
+{
+  "required_research": "thaumaturge:first_steps",
+  "formula": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 5
+    }
+  ],
+  "icon": "thaumaturgetinker:textures/misc/r_enchanting.png",
+  "background": "thaumaturge:textures/gui/gui_research_back_4_smooth.png",
+  "overlay_background": "thaumaturge:textures/gui/gui_research_back_over.png",
+  "index": 7
+}

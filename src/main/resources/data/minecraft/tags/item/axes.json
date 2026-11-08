@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:ichor_axe",
+    "thaumaturgetinker:ichor_axe_gem",
+    {
+      "id": "#c:tools/axes",
+      "required": false
+    }
+  ]
+}

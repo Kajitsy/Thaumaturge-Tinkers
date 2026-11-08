@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+  "components": [
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+    "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 10
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_praecantatio_infused",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:summon"
+  }
+}

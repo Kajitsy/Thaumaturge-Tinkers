@@ -1,0 +1,31 @@
+{
+  "aspect": "thaumaturge:praemunio",
+  "behavior": {
+    "type": "thaumaturge:wall"
+  },
+  "color": 8757422,
+  "complexity": 6,
+  "icon": "thaumaturge:textures/foci/build.png",
+  "power": 0.5,
+  "research": {
+    "entry": "thaumaturge:focus_lob"
+  },
+  "settings": [
+    {
+      "complexity": 1.0,
+      "default": 3,
+      "key": "width",
+      "max": 7,
+      "min": 3,
+      "step": 2
+    },
+    {
+      "complexity": 1.0,
+      "default": 10,
+      "key": "duration",
+      "max": 20,
+      "min": 5,
+      "step": 5
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:mob_aspect_terra_condensed",
+  "components": [
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed",
+    "thaumaturgetinker:mob_aspect_terra_condensed"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 10
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_terra_infused",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:summon"
+  }
+}

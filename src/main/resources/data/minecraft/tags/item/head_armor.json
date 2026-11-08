@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:revealing_helm",
+    "thaumaturgetinker:ichorcloth_helm",
+    "thaumaturgetinker:ichorcloth_helm_gem",
+    {
+      "id": "#c:armors/helmets",
+      "required": false
+    }
+  ]
+}

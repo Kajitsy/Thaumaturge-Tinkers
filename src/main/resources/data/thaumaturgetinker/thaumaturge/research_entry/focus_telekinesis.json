@@ -1,0 +1,60 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_TELEKINESIS",
+  "parents": [
+    "thaumaturgetinker:focus_flight"
+  ],
+  "column": -4,
+  "row": -6,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:focus_telekinesis"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_TELEKINESIS.0",
+      "recipes": [
+        "thaumaturgetinker:focus_telekinesis"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:iron_ingot"
+          ],
+          "amount": 2
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

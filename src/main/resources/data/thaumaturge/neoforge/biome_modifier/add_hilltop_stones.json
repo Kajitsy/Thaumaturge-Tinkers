@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "thaumaturge:hilltop_stones",
+  "step": "surface_structures"
+}

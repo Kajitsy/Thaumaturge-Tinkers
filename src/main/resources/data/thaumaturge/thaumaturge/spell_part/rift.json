@@ -1,0 +1,30 @@
+{
+  "aspect": "thaumaturge:alienis",
+  "behavior": {
+    "type": "thaumaturge:rift"
+  },
+  "color": 3084645,
+  "complexity": 3,
+  "fx": "thaumaturge:rift",
+  "icon": "thaumaturge:textures/foci/rift.png",
+  "research": {
+    "entry": "thaumaturge:focus_rift"
+  },
+  "settings": [
+    {
+      "complexity": 2.0,
+      "default": 8,
+      "key": "depth",
+      "max": 32,
+      "min": 8,
+      "step": 8
+    },
+    {
+      "complexity": 0.5,
+      "default": 4,
+      "key": "duration",
+      "max": 10,
+      "min": 2
+    }
+  ]
+}

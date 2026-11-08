@@ -1,0 +1,48 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 50,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 1
+    }
+  ],
+  "pattern": [
+    "BRB",
+    "LEL",
+    "BRB"
+  ],
+  "key": {
+    "B": "thaumaturge:obsidian_tile",
+    "R": "minecraft:redstone",
+    "L": "minecraft:lapis_lazuli",
+    "E": "minecraft:ender_pearl"
+  },
+  "result": {
+    "id": "thaumaturgetinker:transvector_interface",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:interface"
+  }
+}

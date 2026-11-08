@@ -1,0 +1,68 @@
+{
+  "type": "thaumaturge:magic_forest_flora",
+  "config": {
+    "ambient_grass": "thaumaturge:grass_ambient",
+    "flower_attempts": 10,
+    "flowers": "#thaumaturge:magical_forest_flowers",
+    "grass_attempts": 3,
+    "huge_mushroom_rarity": 40,
+    "huge_mushrooms": [
+      "thaumaturge:magic_forest_brown_mushroom",
+      "thaumaturge:magic_forest_red_mushroom"
+    ],
+    "plants": [
+      {
+        "attempts": 12,
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:tall_grass",
+            "Properties": {
+              "half": "lower"
+            }
+          }
+        }
+      },
+      {
+        "attempts": 10,
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:short_grass"
+          }
+        }
+      },
+      {
+        "attempts": 6,
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:fern"
+          }
+        }
+      },
+      {
+        "attempts": 6,
+        "rarity": 4,
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:brown_mushroom"
+          }
+        }
+      },
+      {
+        "attempts": 6,
+        "rarity": 8,
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:red_mushroom"
+          }
+        }
+      }
+    ],
+    "vishroom": "thaumaturge:vishroom",
+    "vishroom_attempts": 5
+  }
+}

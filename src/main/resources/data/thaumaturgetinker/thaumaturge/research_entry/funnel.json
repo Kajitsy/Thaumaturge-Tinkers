@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FUNNEL",
+  "parents": [
+    "thaumaturgetinker:bright_nitor"
+  ],
+  "column": 0,
+  "row": -7,
+  "complexity": 1,
+  "icons": [
+    "thaumaturgetinker:funnel"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FUNNEL.0",
+      "recipes": [
+        "thaumaturgetinker:funnel"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:hopper"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

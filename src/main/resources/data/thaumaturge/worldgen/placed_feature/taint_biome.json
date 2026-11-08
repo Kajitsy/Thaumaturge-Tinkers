@@ -1,0 +1,11 @@
+{
+  "feature": "thaumaturge:taint_biome",
+  "placement": [
+    {
+      "type": "thaumaturge:surface_biome_search"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

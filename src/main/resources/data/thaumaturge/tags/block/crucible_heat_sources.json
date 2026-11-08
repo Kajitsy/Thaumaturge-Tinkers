@@ -1,0 +1,26 @@
+{
+  "values": [
+    "minecraft:lava",
+    "minecraft:fire",
+    "minecraft:campfire",
+    "minecraft:soul_fire",
+    "minecraft:soul_campfire",
+    "minecraft:magma_block",
+    "thaumaturge:nitor_white",
+    "thaumaturge:nitor_orange",
+    "thaumaturge:nitor_magenta",
+    "thaumaturge:nitor_light_blue",
+    "thaumaturge:nitor_yellow",
+    "thaumaturge:nitor_lime",
+    "thaumaturge:nitor_pink",
+    "thaumaturge:nitor_gray",
+    "thaumaturge:nitor_light_gray",
+    "thaumaturge:nitor_cyan",
+    "thaumaturge:nitor_purple",
+    "thaumaturge:nitor_blue",
+    "thaumaturge:nitor_brown",
+    "thaumaturge:nitor_green",
+    "thaumaturge:nitor_red",
+    "thaumaturge:nitor_black"
+  ]
+}

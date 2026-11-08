@@ -1,0 +1,29 @@
+{
+  "complexity": 1,
+  "entity": [
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:blindness",
+      "max_amplifier": 0,
+      "ticks": 40.0
+    },
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:darkness",
+      "max_amplifier": 0,
+      "ticks": 40.0
+    }
+  ],
+  "fx": "thaumaturge:smoke",
+  "imbue": [
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:invisibility",
+      "max_amplifier": 0,
+      "per_duration": 100.0,
+      "ticks": 100.0
+    }
+  ],
+  "sound": "minecraft:entity.wither.shoot",
+  "vis": 0.1
+}

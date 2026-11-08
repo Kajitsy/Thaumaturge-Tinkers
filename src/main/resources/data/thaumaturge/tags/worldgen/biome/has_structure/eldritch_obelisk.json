@@ -1,0 +1,42 @@
+{
+  "remove": [
+    "minecraft:grove",
+    "minecraft:pale_garden"
+  ],
+  "values": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:desert",
+    "minecraft:savanna",
+    "minecraft:taiga",
+    "minecraft:snowy_plains",
+    "minecraft:snowy_taiga",
+    "minecraft:swamp",
+    "minecraft:forest",
+    "minecraft:dark_forest",
+    {
+      "id": "#c:is_plains",
+      "required": false
+    },
+    {
+      "id": "#c:is_desert",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_savanna",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_taiga",
+      "required": false
+    },
+    {
+      "id": "#c:is_swamp",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_forest",
+      "required": false
+    }
+  ]
+}

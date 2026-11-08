@@ -1,0 +1,18 @@
+{
+  "sockets": [
+    {
+      "side": "north"
+    },
+    {
+      "side": "south"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/passage/vaulted",
+      "weight": 1
+    }
+  ],
+  "variety_group": "thaumaturge:straight",
+  "weight": 4
+}

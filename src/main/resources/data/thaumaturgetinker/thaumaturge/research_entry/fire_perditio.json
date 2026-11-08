@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FIRE_PERDITIO",
+  "parents": [
+    "thaumaturgetinker:bright_nitor"
+  ],
+  "column": 2,
+  "row": -8,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:fire_entropy"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FIRE_PERDITIO.0",
+      "recipes": [
+        "thaumaturgetinker:fire_perditio"
+      ],
+      "warp": 2,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

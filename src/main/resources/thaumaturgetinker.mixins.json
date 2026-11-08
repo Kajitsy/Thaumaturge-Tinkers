@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "package": "xyz.kajitsy.thaumaturgetinker.mixin",
+  "plugin": "xyz.kajitsy.thaumaturgetinker.mixin.TTModernMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ExperienceOrbAccessor",
+    "FlightConnectionAccessor",
+    "AwakenedBootsAirMixin",
+    "AdvancedMiningHookMixin",
+    "CatAvoidGoalAccessor",
+    "CatTargetGoalMixin",
+    "CatMobAccessor",
+    "CatCreeperAccessor",
+    "FocalManipulatorMenuMixin",
+    "FocalManipulatorDrawerMixin",
+    "FocusPouchItemMixin",
+    "CasterManagerMixin",
+    "CasterManagerPouchStoreMixin",
+    "ItemWandMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "RadialFocusOverlayMixin",
+    "PunchyArmRendererMixin"
+  ]
+}

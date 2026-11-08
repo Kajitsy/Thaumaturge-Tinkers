@@ -1,0 +1,22 @@
+{
+  "aspect": "thaumaturge:bestia",
+  "behavior": {
+    "type": "thaumaturge:hellbat"
+  },
+  "color": 14431490,
+  "complexity": 8,
+  "fx": "thaumaturge:flame",
+  "icon": "thaumaturge:textures/foci/hellbat.png",
+  "research": {
+    "entry": "thaumaturge:focus_hellbat"
+  },
+  "settings": [
+    {
+      "complexity": 8.0,
+      "default": 1,
+      "key": "bats",
+      "max": 3,
+      "min": 1
+    }
+  ]
+}

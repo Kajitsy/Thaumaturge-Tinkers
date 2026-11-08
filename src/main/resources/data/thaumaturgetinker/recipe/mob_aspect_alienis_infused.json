@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:mob_aspect_alienis_condensed",
+  "components": [
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed",
+    "thaumaturgetinker:mob_aspect_alienis_condensed"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 10
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_alienis_infused",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:summon"
+  }
+}

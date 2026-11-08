@@ -1,0 +1,23 @@
+{
+  "aspect": "thaumaturge:spiritus",
+  "behavior": {
+    "type": "thaumaturge:summon"
+  },
+  "color": 10126766,
+  "complexity": 9,
+  "icon": "thaumaturge:textures/foci/summon.png",
+  "power": 0.4,
+  "research": {
+    "entry": "thaumaturge:focus_sprite"
+  },
+  "settings": [
+    {
+      "complexity": 2.0,
+      "default": 10,
+      "key": "duration",
+      "max": 30,
+      "min": 10,
+      "step": 10
+    }
+  ]
+}

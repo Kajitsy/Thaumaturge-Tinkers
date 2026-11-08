@@ -1,0 +1,18 @@
+{
+  "type": "thaumaturge:swarm",
+  "announcement": {
+    "translate": "encounter.thaumaturge.taint_swarm.announce"
+  },
+  "arena": "thaumaturge:labyrinth/arena/taint",
+  "bar_color": "pink",
+  "count": 3,
+  "entity": "thaumaturge:taintacle_giant",
+  "extra_per_participant": 0.5,
+  "name": {
+    "translate": "encounter.thaumaturge.taint_swarm.name"
+  },
+  "reward": "thaumaturge:labyrinth/reward/taint_swarm",
+  "scaling": {
+    "health_per_participant": 0.25
+  }
+}

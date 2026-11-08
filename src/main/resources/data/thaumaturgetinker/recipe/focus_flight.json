@@ -1,0 +1,35 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:ender_pearl",
+  "components": [
+    "minecraft:quartz",
+    "minecraft:quartz",
+    "minecraft:quartz",
+    "minecraft:quartz",
+    "minecraft:feather",
+    "minecraft:feather",
+    "thaumaturge:crystal_aer"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 10
+    }
+  ],
+  "instability": 3,
+  "result": {
+    "id": "thaumaturgetinker:focus_flight",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:focus_flight"
+  }
+}

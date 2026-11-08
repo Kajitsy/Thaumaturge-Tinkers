@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:dark_quartz_block",
+    "thaumaturgetinker:chiseled_dark_quartz",
+    "thaumaturgetinker:dark_quartz_pillar",
+    "thaumaturgetinker:dark_quartz_stairs",
+    "thaumaturgetinker:dark_quartz_slab",
+    "thaumaturgetinker:transvector_interface",
+    "thaumaturgetinker:funnel",
+    "thaumaturgetinker:repairer",
+    "thaumaturgetinker:dislocator",
+    "thaumaturgetinker:summon_tablet",
+    "thaumaturgetinker:locomotive",
+    "thaumaturgetinker:locomotive_relay",
+    "thaumaturgetinker:animation_tablet",
+    "thaumaturgetinker:enchanter",
+    {
+      "id": "thaumaturgetinker:warp_gate",
+      "required": false
+    }
+  ]
+}

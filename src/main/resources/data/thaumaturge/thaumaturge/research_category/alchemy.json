@@ -1,0 +1,37 @@
+{
+  "background": "thaumaturge:textures/gui/gui_research_back_3_smooth.png",
+  "formula": [
+    {
+      "amount": 30,
+      "aspect": "thaumaturge:alkimia"
+    },
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:vitium"
+    },
+    {
+      "amount": 10,
+      "aspect": "thaumaturge:praecantatio"
+    },
+    {
+      "amount": 5,
+      "aspect": "thaumaturge:victus"
+    },
+    {
+      "amount": 5,
+      "aspect": "thaumaturge:aversio"
+    },
+    {
+      "amount": 5,
+      "aspect": "thaumaturge:desiderium"
+    },
+    {
+      "amount": 5,
+      "aspect": "thaumaturge:aqua"
+    }
+  ],
+  "icon": "thaumaturge:textures/research/cat_alchemy.png",
+  "index": 2,
+  "overlay_background": "thaumaturge:textures/gui/gui_research_back_over.png",
+  "required_research": "thaumaturge:unlock_alchemy"
+}

@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:levitator",
+  "components": [
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:feather",
+    "thaumaturge:obsidian_tile"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 15
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:locomotive",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:levitator"
+  }
+}

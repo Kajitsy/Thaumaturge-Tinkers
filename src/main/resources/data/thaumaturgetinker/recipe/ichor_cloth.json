@@ -1,0 +1,52 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 125,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    "CCC",
+    "III",
+    "DDD"
+  ],
+  "key": {
+    "C": "thaumaturge:fabric",
+    "I": "thaumaturgetinker:ichor",
+    "D": "minecraft:diamond"
+  },
+  "result": {
+    "id": "thaumaturgetinker:ichor_cloth",
+    "count": 3
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_cloth"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

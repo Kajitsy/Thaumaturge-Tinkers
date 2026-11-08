@@ -1,0 +1,57 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichor_axe",
+  "components": [
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:elemental_axe",
+    "thaumaturge:elemental_axe",
+    "thaumaturge:focus_1",
+    "thaumaturge:focus_1",
+    "minecraft:tnt",
+    "thaumaturge:nugget_thaumium",
+    "minecraft:gold_nugget",
+    "minecraft:iron_nugget",
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 96
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 16
+    }
+  ],
+  "instability": 15,
+  "result": {
+    "id": "thaumaturgetinker:ichor_axe_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_axe_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

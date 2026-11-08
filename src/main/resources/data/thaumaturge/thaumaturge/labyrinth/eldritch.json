@@ -1,0 +1,83 @@
+{
+  "decoration": "thaumaturge:labyrinth/eldritch_decor",
+  "encounters": [
+    {
+      "encounter": "thaumaturge:warden",
+      "weight": 4
+    },
+    {
+      "encounter": "thaumaturge:golem",
+      "weight": 4
+    },
+    {
+      "encounter": "thaumaturge:crimson_portal",
+      "weight": 3
+    },
+    {
+      "encounter": "thaumaturge:taint_swarm",
+      "weight": 3
+    },
+    {
+      "encounter": "thaumaturge:hierophant",
+      "halls": "#thaumaturge:labyrinth/boss_halls/open",
+      "weight": 2
+    }
+  ],
+  "gameplay": {
+    "arrival_pad": {
+      "Name": "thaumaturge:stone_eldritch_tile"
+    },
+    "key_room_loot": "thaumaturge:labyrinth/reward/key_room"
+  },
+  "guardians": {
+    "entries": [
+      {
+        "data": "thaumaturge:eldritch_guardian",
+        "weight": 1
+      }
+    ]
+  },
+  "palette": "thaumaturge:labyrinth/eldritch_palette",
+  "rooms": {
+    "boss_halls": "#thaumaturge:labyrinth/boss_halls",
+    "fallback": "#thaumaturge:labyrinth/fallback",
+    "features": [
+      {
+        "count": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 4,
+          "min_inclusive": 2
+        },
+        "min_portal_distance": 4,
+        "rooms": "#thaumaturge:labyrinth/nests"
+      },
+      {
+        "count": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        },
+        "min_portal_distance": 4,
+        "rooms": "#thaumaturge:labyrinth/libraries"
+      },
+      {
+        "count": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 5,
+          "min_inclusive": 2
+        },
+        "min_portal_distance": 4,
+        "placement": "any",
+        "rooms": "#thaumaturge:labyrinth/rare"
+      }
+    ],
+    "key": "#thaumaturge:labyrinth/key",
+    "passages": "#thaumaturge:labyrinth/passages",
+    "portal": "#thaumaturge:labyrinth/portal"
+  },
+  "size": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 29,
+    "min_inclusive": 11
+  }
+}

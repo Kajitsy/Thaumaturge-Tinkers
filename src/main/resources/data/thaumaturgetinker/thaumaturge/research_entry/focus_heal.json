@@ -1,0 +1,60 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_HEAL",
+  "parents": [
+    "thaumaturgetinker:focus_deflect"
+  ],
+  "column": -6,
+  "row": -4,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:focus_heal"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_HEAL.0",
+      "recipes": [
+        "thaumaturgetinker:focus_heal"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:glistering_melon_slice"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

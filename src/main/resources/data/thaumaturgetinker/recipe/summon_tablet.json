@@ -1,0 +1,29 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "vis": 100,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    "WWW",
+    "SSS"
+  ],
+  "key": {
+    "W": "thaumaturge:obsidian_tile",
+    "S": "minecraft:stone"
+  },
+  "result": {
+    "id": "thaumaturgetinker:summon_tablet",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:summon"
+  }
+}

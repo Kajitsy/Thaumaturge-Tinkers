@@ -1,0 +1,34 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:ender_pearl",
+  "components": [
+    "thaumaturgetinker:dark_quartz",
+    "thaumaturgetinker:dark_quartz",
+    "thaumaturgetinker:dark_quartz",
+    "thaumaturgetinker:dark_quartz",
+    "minecraft:ghast_tear",
+    "thaumaturge:nitor_yellow"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 20
+    }
+  ],
+  "instability": 5,
+  "result": {
+    "id": "thaumaturgetinker:cleansing_talisman",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:cleansing_talisman"
+  }
+}

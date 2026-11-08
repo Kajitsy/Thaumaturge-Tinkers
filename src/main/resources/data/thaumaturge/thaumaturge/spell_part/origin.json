@@ -1,0 +1,7 @@
+{
+  "behavior": {
+    "type": "thaumaturge:origin"
+  },
+  "hidden": true,
+  "icon": "thaumaturge:textures/foci/root.png"
+}

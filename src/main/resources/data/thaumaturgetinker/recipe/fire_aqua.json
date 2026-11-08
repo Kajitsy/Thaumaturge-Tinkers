@@ -1,0 +1,25 @@
+{
+  "type": "thaumaturge:crucible",
+  "catalyst": "thaumaturge:crystal_aqua",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "thaumaturgetinker:fire_water",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:fire_aqua"
+  }
+}

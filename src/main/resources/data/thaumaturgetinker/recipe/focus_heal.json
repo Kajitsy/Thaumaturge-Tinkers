@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:focus_1",
+  "components": [
+    "minecraft:golden_carrot",
+    "minecraft:gold_nugget",
+    "minecraft:gold_nugget",
+    "minecraft:gold_nugget"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 10
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:focus_heal",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:focus_heal"
+  }
+}

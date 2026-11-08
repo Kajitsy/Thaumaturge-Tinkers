@@ -1,0 +1,63 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ANIMATION_TABLET",
+  "parents": [
+    "thaumaturgetinker:magnets"
+  ],
+  "column": -8,
+  "row": 2,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:animation_tablet"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ANIMATION_TABLET.0",
+      "warp": 1,
+      "recipes": [
+        "thaumaturgetinker:animation_tablet"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:piston"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

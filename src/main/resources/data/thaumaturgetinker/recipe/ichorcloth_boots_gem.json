@@ -1,0 +1,53 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichorcloth_boots",
+  "components": [
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:thaumonomicon",
+    "thaumaturge:focus_3",
+    "minecraft:golden_boots",
+    "minecraft:grass_block",
+    "thaumaturge:paving_stone_travel",
+    "thaumaturge:paving_stone_barrier",
+    "minecraft:wheat_seeds",
+    "minecraft:white_wool",
+    "minecraft:lead"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 82
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 48
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 64
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 16
+    }
+  ],
+  "instability": 13,
+  "result": {
+    "id": "thaumaturgetinker:ichorcloth_boots_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichorcloth_boots_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

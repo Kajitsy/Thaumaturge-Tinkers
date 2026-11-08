@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "thaumaturgetinker:items/focustelekinesis",
+    "layer1": "thaumaturgetinker:items/focustelekinesisorn"
+  }
+}

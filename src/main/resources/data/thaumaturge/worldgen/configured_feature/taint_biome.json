@@ -1,0 +1,18 @@
+{
+  "type": "thaumaturge:taint_biome",
+  "config": {
+    "crust": "thaumaturge:taint_crust",
+    "crust_radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 2,
+      "min_inclusive": 1
+    },
+    "general_fibre_attempts": 8,
+    "grass_fibre_attempts": 10,
+    "ground_search_depth": 32,
+    "landmark_attempts": 48,
+    "landmark_radius_chunks": 4,
+    "landmarks": true,
+    "max_crust_blobs": 2
+  }
+}

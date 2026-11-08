@@ -1,0 +1,17 @@
+{
+  "behavior": {
+    "type": "thaumaturge:hierophant",
+    "entity": "thaumaturge:hierophant_sigil"
+  },
+  "color": 11305168,
+  "hidden": true,
+  "icon": "thaumaturge:textures/foci/flux.png",
+  "settings": [
+    {
+      "default": 0,
+      "key": "left",
+      "max": 1,
+      "min": 0
+    }
+  ]
+}

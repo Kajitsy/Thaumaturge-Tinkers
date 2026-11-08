@@ -1,0 +1,21 @@
+{
+  "aspect": "thaumaturge:ordo",
+  "behavior": {
+    "type": "thaumaturge:stat",
+    "changes": [
+      {
+        "base": 0.85,
+        "operation": "multiply",
+        "stat": "thaumaturge:power"
+      }
+    ]
+  },
+  "color": 8753326,
+  "complexity": 1,
+  "icon": "thaumaturge:textures/foci/frugal.png",
+  "max_per_spell": 1,
+  "research": {
+    "entry": "thaumaturge:focus_amplify"
+  },
+  "vis_multiplier": 0.7
+}

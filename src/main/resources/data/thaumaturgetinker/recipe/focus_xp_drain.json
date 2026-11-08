@@ -1,0 +1,43 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:ender_pearl",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "minecraft:experience_bottle",
+    "minecraft:diamond",
+    "thaumaturgetinker:xp_talisman",
+    "minecraft:enchanting_table"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 65
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 32
+    }
+  ],
+  "instability": 12,
+  "result": {
+    "id": "thaumaturgetinker:focus_xp_drain",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:focus_xp_drain"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

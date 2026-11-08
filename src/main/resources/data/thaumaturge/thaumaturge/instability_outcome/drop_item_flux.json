@@ -1,0 +1,7 @@
+{
+  "effect": {
+    "type": "thaumaturge:eject",
+    "aftermath": "flux"
+  },
+  "weight": 2
+}

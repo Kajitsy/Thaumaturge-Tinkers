@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:ichor_shovel",
+    "thaumaturgetinker:ichor_shovel_gem",
+    {
+      "id": "#c:tools/shovels",
+      "required": false
+    }
+  ]
+}

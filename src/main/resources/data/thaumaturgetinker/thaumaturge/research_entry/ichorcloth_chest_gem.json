@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHORCLOTH_CHEST_GEM",
+  "parents": [
+    "thaumaturgetinker:ichorcloth_armor"
+  ],
+  "column": 17,
+  "row": 7,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichorcloth_chest_gem"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHORCLOTH_CHEST_GEM.0",
+      "recipes": [
+        "thaumaturgetinker:ichorcloth_chest_gem"
+      ],
+      "warp": 3,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

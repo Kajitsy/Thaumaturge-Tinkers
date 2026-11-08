@@ -1,0 +1,15 @@
+{
+  "sockets": [
+    {
+      "side": "north"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/dead_end/shrine",
+      "weight": 1
+    }
+  ],
+  "variety_group": "thaumaturge:dead_end",
+  "weight": 2
+}

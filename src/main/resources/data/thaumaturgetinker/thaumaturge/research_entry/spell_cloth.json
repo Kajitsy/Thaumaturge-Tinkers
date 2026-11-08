@@ -1,0 +1,42 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.SPELL_CLOTH",
+  "parents": [
+    "~thaumaturge:base_artifice"
+  ],
+  "column": 3,
+  "row": 2,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:spell_cloth"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.SPELL_CLOTH.0",
+      "recipes": [
+        "thaumaturgetinker:spell_cloth",
+        "thaumaturgetinker:spell_cloth_craft"
+      ],
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

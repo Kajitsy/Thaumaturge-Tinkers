@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.XP_TALISMAN",
+  "parents": [
+    "thaumaturge:jar_brain",
+    "thaumaturgetinker:spell_cloth"
+  ],
+  "column": 4,
+  "row": -1,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:xp_talisman"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.XP_TALISMAN.0",
+      "recipes": [
+        "thaumaturgetinker:xp_talisman"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:experience_bottle"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

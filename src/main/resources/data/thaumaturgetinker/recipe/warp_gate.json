@@ -1,0 +1,39 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:paving_stone_travel",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ender_shard",
+    "thaumaturgetinker:dislocator",
+    "thaumaturgetinker:nether_shard",
+    "minecraft:diamond",
+    "minecraft:feather"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 64
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 50
+    }
+  ],
+  "instability": 8,
+  "result": {
+    "id": "thaumaturgetinker:warp_gate",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:warp_gate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

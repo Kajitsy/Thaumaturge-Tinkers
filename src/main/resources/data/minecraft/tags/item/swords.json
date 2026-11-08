@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:blood_sword",
+    "thaumaturgetinker:ichor_sword",
+    "thaumaturgetinker:ichor_sword_gem",
+    {
+      "id": "#c:tools/swords",
+      "required": false
+    },
+    {
+      "id": "#c:tools/melee_weapon",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "thaumaturgetinker:bedrock",
+  "generator": {
+    "type": "thaumaturgetinker:bedrock",
+    "settings": {
+      "biome": "minecraft:beach",
+      "features": false,
+      "lakes": false,
+      "layers": [
+        {
+          "block": "minecraft:bedrock",
+          "height": 256
+        }
+      ],
+      "structure_overrides": []
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:bedrock_enabled"
+    }
+  ]
+}

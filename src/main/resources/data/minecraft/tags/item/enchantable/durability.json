@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:enchantable/mining",
+    "#minecraft:enchantable/weapon",
+    "#minecraft:enchantable/armor",
+    {
+      "id": "#c:tools",
+      "required": false
+    },
+    {
+      "id": "#c:armors",
+      "required": false
+    }
+  ]
+}

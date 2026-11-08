@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.DARK_QUARTZ",
+  "parents": [
+    "~thaumaturge:first_steps"
+  ],
+  "column": -2,
+  "row": 2,
+  "complexity": 1,
+  "icons": [
+    "thaumaturgetinker:dark_quartz"
+  ],
+  "meta": [
+    "autounlock",
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 2
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.DARK_QUARTZ.0",
+      "recipes": [
+        "thaumaturgetinker:dark_quartz_coal",
+        "thaumaturgetinker:dark_quartz_charcoal",
+        "thaumaturgetinker:dark_quartz_block",
+        "thaumaturgetinker:dark_quartz_slab",
+        "thaumaturgetinker:dark_quartz_stairs",
+        "thaumaturgetinker:dark_quartz_pillar",
+        "thaumaturgetinker:chiseled_dark_quartz"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:coal",
+            "minecraft:charcoal"
+          ],
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:basics",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

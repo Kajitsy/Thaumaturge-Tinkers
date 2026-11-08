@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:directory",
+      "source": "blocks",
+      "prefix": "blocks/"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "thaumaturgetinker:model/repairer",
+      "sprite": "thaumaturgetinker:model/repairer"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "thaumaturgetinker:model/magnets",
+      "sprite": "thaumaturgetinker:model/magnets"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "thaumaturgetinker:model/magnetn",
+      "sprite": "thaumaturgetinker:model/magnetn"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "thaumaturgetinker:model/mobmagnets",
+      "sprite": "thaumaturgetinker:model/mobmagnets"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "thaumaturgetinker:model/mobmagnetn",
+      "sprite": "thaumaturgetinker:model/mobmagnetn"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:enchanting_table",
+  "components": [
+    "thaumaturge:obsidian_tile",
+    "thaumaturge:obsidian_tile",
+    "thaumaturge:obsidian_tile",
+    "thaumaturge:obsidian_tile",
+    "thaumaturge:obsidian_tile",
+    "thaumaturge:ingot_thaumium",
+    "thaumaturge:ingot_thaumium",
+    "thaumaturgetinker:spell_cloth"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 10
+    }
+  ],
+  "instability": 15,
+  "result": {
+    "id": "thaumaturgetinker:enchanter",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:enchanter"
+  }
+}

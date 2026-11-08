@@ -1,0 +1,59 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.INTERFACE",
+  "parents": [
+    "thaumaturgetinker:dark_quartz"
+  ],
+  "column": -4,
+  "row": 2,
+  "complexity": 1,
+  "icons": [
+    "thaumaturgetinker:transvector_interface"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.INTERFACE.0",
+      "recipes": [
+        "thaumaturgetinker:transvector_interface",
+        "thaumaturgetinker:connector"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:ender_pearl"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

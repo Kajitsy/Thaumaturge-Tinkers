@@ -1,0 +1,50 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.CAP_ICHOR",
+  "parents": [
+    "thaumaturgetinker:ichorium"
+  ],
+  "column": 11,
+  "row": 11,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichor_cap"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.CAP_ICHOR.0",
+      "warp": 2,
+      "recipes": [
+        "thaumaturgetinker:ichor_cap"
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

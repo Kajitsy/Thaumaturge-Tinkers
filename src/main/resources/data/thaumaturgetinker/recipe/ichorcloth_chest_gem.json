@@ -1,0 +1,61 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichorcloth_chest",
+  "components": [
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:focus_3",
+    "thaumaturge:thaumonomicon",
+    "minecraft:golden_chestplate",
+    "thaumaturgetinker:focus_flight",
+    "thaumaturge:thaumostatic_harness",
+    "thaumaturgetinker:focus_deflect",
+    "minecraft:feather",
+    "minecraft:ghast_tear",
+    "minecraft:arrow"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 64
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 16
+    }
+  ],
+  "instability": 13,
+  "result": {
+    "id": "thaumaturgetinker:ichorcloth_chest_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichorcloth_chest_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

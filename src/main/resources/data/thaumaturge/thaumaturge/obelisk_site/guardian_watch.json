@@ -1,0 +1,21 @@
+{
+  "awakening": {
+    "entity": "thaumaturge:eldritch_guardian",
+    "interval": 200,
+    "radius": 32
+  },
+  "behavior": {
+    "type": "thaumaturge:guardian_watch",
+    "activation_range": 32,
+    "budget": 4,
+    "guardian": "thaumaturge:eldritch_guardian"
+  },
+  "labyrinths": [
+    {
+      "data": "thaumaturge:eldritch",
+      "weight": 1
+    }
+  ],
+  "processors": "thaumaturge:obelisk/weathering",
+  "template": "thaumaturge:obelisk/site"
+}

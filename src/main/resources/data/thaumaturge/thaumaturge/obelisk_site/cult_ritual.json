@@ -1,0 +1,32 @@
+{
+  "awakening": {
+    "entity": "thaumaturge:eldritch_guardian",
+    "interval": 200,
+    "radius": 32
+  },
+  "behavior": {
+    "type": "thaumaturge:cult_ritual",
+    "activation_range": 24,
+    "guards": [
+      {
+        "data": "thaumaturge:cultist_knight",
+        "weight": 3
+      },
+      {
+        "data": "thaumaturge:cultist_cleric",
+        "weight": 1
+      }
+    ],
+    "max_guards": 8,
+    "reinforcements": 6,
+    "ritualists": 4
+  },
+  "labyrinths": [
+    {
+      "data": "thaumaturge:eldritch",
+      "weight": 1
+    }
+  ],
+  "processors": "thaumaturge:obelisk/weathering",
+  "template": "thaumaturge:obelisk/site_cult"
+}

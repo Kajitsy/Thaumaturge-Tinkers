@@ -1,0 +1,23 @@
+{
+  "decorate": false,
+  "sockets": [
+    {
+      "side": "north"
+    },
+    {
+      "side": "east"
+    },
+    {
+      "side": "south"
+    },
+    {
+      "side": "west"
+    }
+  ],
+  "templates": [
+    {
+      "data": "thaumaturge:outer_lands/sanctum/portal",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichorcloth_legs",
+  "components": [
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:focus_3",
+    "thaumaturge:thaumonomicon",
+    "minecraft:golden_leggings",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "minecraft:potion",
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "minecraft:fire_resistance"
+        }
+      }
+    },
+    "thaumaturgetinker:focus_smelt",
+    "thaumaturgetinker:bright_nitor",
+    "minecraft:lava_bucket",
+    "minecraft:fire_charge",
+    "minecraft:blaze_rod"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 64
+    },
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 16
+    }
+  ],
+  "instability": 13,
+  "result": {
+    "id": "thaumaturgetinker:ichorcloth_legs_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichorcloth_legs_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

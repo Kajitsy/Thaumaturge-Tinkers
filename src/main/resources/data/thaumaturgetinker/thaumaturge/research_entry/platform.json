@@ -1,0 +1,45 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.PLATFORM",
+  "parents": [
+    "thaumaturgetinker:cleansing_talisman"
+  ],
+  "column": -2,
+  "row": 6,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:platform"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.PLATFORM.0",
+      "recipes": [
+        "thaumaturgetinker:platform"
+      ],
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

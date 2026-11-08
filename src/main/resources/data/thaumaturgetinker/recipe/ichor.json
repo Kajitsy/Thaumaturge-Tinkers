@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:nether_star",
+  "components": [
+    "minecraft:diamond",
+    "thaumaturgetinker:ender_shard",
+    "minecraft:ender_eye",
+    "thaumaturgetinker:nether_shard"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 64
+    }
+  ],
+  "instability": 7,
+  "result": {
+    "id": "thaumaturgetinker:ichor",
+    "count": 8
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

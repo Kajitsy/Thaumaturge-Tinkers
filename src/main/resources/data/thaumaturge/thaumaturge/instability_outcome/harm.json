@@ -1,0 +1,19 @@
+{
+  "effect": {
+    "type": "thaumaturge:harm",
+    "effects": [
+      {
+        "duration": 120,
+        "id": "thaumaturge:flux_taint",
+        "show_icon": true
+      },
+      {
+        "ambient": true,
+        "duration": 2400,
+        "id": "thaumaturge:vis_exhaust",
+        "show_icon": true
+      }
+    ]
+  },
+  "weight": 2
+}

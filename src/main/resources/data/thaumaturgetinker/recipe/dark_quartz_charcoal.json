@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "Q Q",
+    " C ",
+    "Q Q"
+  ],
+  "key": {
+    "Q": "minecraft:quartz",
+    "C": "minecraft:charcoal"
+  },
+  "result": {
+    "id": "thaumaturgetinker:dark_quartz",
+    "count": 4
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.PROTOCLAY",
+  "parents": [
+    "thaumaturgetinker:ichor_pick_gem"
+  ],
+  "column": 12,
+  "row": 17,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:protoclay"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.PROTOCLAY.0",
+      "recipes": [
+        "thaumaturgetinker:protoclay"
+      ],
+      "warp": 1,
+      "obtain": [
+        {
+          "items": [
+            "minecraft:clay_ball"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

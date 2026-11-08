@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.TTENCH_POUNCE",
+  "parents": [
+    "thaumaturgetinker:ttench_ascent_boost"
+  ],
+  "column": 7,
+  "row": 0,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:textures/enchants/pounce.png"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.TTENCH_POUNCE.0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

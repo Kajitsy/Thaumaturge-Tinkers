@@ -1,0 +1,12 @@
+{
+  "blocks": [
+    "thaumaturge:crystal_aer",
+    "thaumaturge:crystal_ignis",
+    "thaumaturge:crystal_aqua",
+    "thaumaturge:crystal_terra",
+    "thaumaturge:crystal_ordo",
+    "thaumaturge:crystal_perditio",
+    "thaumaturge:crystal_vitium"
+  ],
+  "key": "thaumaturge:scanned/orecrystal"
+}

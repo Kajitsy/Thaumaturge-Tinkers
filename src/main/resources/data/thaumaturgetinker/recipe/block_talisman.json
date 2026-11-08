@@ -1,0 +1,43 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:focus_1",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "minecraft:ender_chest",
+    "minecraft:diamond",
+    "thaumaturge:void_seed",
+    "thaumaturge:jar_normal"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 65
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 32
+    }
+  ],
+  "instability": 9,
+  "result": {
+    "id": "thaumaturgetinker:block_talisman",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:block_talisman"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

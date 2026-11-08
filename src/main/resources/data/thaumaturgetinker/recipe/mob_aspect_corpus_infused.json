@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:mob_aspect_corpus_condensed",
+  "components": [
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed",
+    "thaumaturgetinker:mob_aspect_corpus_condensed"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 10
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:mob_aspect_corpus_infused",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:summon"
+  }
+}

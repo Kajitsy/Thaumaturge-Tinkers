@@ -1,0 +1,10 @@
+{
+  "entities": [
+    "minecraft:bat",
+    "minecraft:parrot",
+    "minecraft:ghast",
+    "minecraft:blaze",
+    "thaumaturge:taint_swarm"
+  ],
+  "key": "thaumaturge:f_fly"
+}

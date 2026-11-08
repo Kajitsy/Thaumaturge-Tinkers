@@ -1,0 +1,51 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.REPAIRER",
+  "parents": [
+    "thaumaturgetinker:funnel"
+  ],
+  "column": -1,
+  "row": -9,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:repairer"
+  ],
+  "meta": [],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.REPAIRER.0",
+      "recipes": [
+        "thaumaturgetinker:repairer"
+      ],
+      "warp": 1,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

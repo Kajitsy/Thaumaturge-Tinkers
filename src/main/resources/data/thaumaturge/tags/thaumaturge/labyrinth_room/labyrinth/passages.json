@@ -1,0 +1,30 @@
+{
+  "values": [
+    "thaumaturge:corridor/dead_end",
+    "thaumaturge:corridor/straight",
+    "thaumaturge:corridor/bend",
+    "thaumaturge:corridor/tee",
+    "thaumaturge:corridor/cross",
+    "thaumaturge:passage/ribbed",
+    "thaumaturge:passage/vaulted",
+    "thaumaturge:passage/pillared",
+    "thaumaturge:passage/sunken",
+    "thaumaturge:passage/alcoves",
+    "thaumaturge:passage/crypt",
+    "thaumaturge:passage/warren",
+    "thaumaturge:bend/rounded",
+    "thaumaturge:bend/pillar",
+    "thaumaturge:bend/shrine",
+    "thaumaturge:bend/glyphs",
+    "thaumaturge:tee/hall",
+    "thaumaturge:tee/pillared",
+    "thaumaturge:tee/shrine",
+    "thaumaturge:tee/guardroom",
+    "thaumaturge:cross/rotunda",
+    "thaumaturge:cross/pit",
+    "thaumaturge:cross/gallery",
+    "thaumaturge:dead_end/urns",
+    "thaumaturge:dead_end/shrine",
+    "thaumaturge:dead_end/collapsed"
+  ]
+}

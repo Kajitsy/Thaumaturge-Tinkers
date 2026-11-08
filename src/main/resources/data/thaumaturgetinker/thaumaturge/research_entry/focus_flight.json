@@ -1,0 +1,60 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_FLIGHT",
+  "parents": [
+    "thaumaturgetinker:focus_smelt"
+  ],
+  "column": -3,
+  "row": -4,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:focus_flight"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_FLIGHT.0",
+      "recipes": [
+        "thaumaturgetinker:focus_flight"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:feather"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

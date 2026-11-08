@@ -1,0 +1,45 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.CLEANSING_TALISMAN",
+  "parents": [
+    "thaumaturgetinker:dark_quartz"
+  ],
+  "column": -3,
+  "row": 4,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:cleansing_talisman"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.CLEANSING_TALISMAN.0",
+      "recipes": [
+        "thaumaturgetinker:cleansing_talisman"
+      ],
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

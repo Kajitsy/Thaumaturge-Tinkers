@@ -1,0 +1,53 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.FOCUS_XP_DRAIN",
+  "parents": [
+    "thaumaturgetinker:rod_ichorcloth"
+  ],
+  "column": 12,
+  "row": 3,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:focus_xp_drain"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:desiderium",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.FOCUS_XP_DRAIN.0",
+      "recipes": [
+        "thaumaturgetinker:focus_xp_drain"
+      ],
+      "warp": 2,
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

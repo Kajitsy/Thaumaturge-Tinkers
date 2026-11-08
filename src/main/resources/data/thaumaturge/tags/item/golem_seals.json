@@ -1,0 +1,21 @@
+{
+  "values": [
+    "thaumaturge:seal_blank",
+    "thaumaturge:seal_pickup",
+    "thaumaturge:seal_pickup_advanced",
+    "thaumaturge:seal_fill",
+    "thaumaturge:seal_fill_advanced",
+    "thaumaturge:seal_empty",
+    "thaumaturge:seal_empty_advanced",
+    "thaumaturge:seal_harvest",
+    "thaumaturge:seal_butcher",
+    "thaumaturge:seal_guard",
+    "thaumaturge:seal_guard_advanced",
+    "thaumaturge:seal_lumber",
+    "thaumaturge:seal_breaker",
+    "thaumaturge:seal_breaker_advanced",
+    "thaumaturge:seal_use",
+    "thaumaturge:seal_provider",
+    "thaumaturge:seal_stock"
+  ]
+}

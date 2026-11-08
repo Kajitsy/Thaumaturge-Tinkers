@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgetinker:fire_air",
+    "thaumaturgetinker:fire_water",
+    "thaumaturgetinker:fire_fire",
+    "thaumaturgetinker:fire_earth",
+    "thaumaturgetinker:fire_order",
+    "thaumaturgetinker:fire_entropy"
+  ]
+}

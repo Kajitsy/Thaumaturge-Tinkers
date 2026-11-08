@@ -1,0 +1,14 @@
+{
+  "values": [
+    "thaumaturge:eldritch_nothing_dormant",
+    "thaumaturge:eldritch_nothing",
+    "thaumaturge:eldritch_portal",
+    "thaumaturge:eldritch_trap",
+    "minecraft:magma_block",
+    "minecraft:cactus",
+    "minecraft:sweet_berry_bush",
+    "minecraft:powder_snow",
+    "#minecraft:fire",
+    "#minecraft:campfires"
+  ]
+}

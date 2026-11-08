@@ -1,0 +1,14 @@
+{
+  "complexity": 2,
+  "entity": [
+    {
+      "type": "thaumaturge:teleport"
+    }
+  ],
+  "fx": "thaumaturge:rift",
+  "research": {
+    "entry": "thaumaturge:focus_rift"
+  },
+  "sound": "minecraft:item.chorus_fruit.teleport",
+  "vis": 0.2
+}

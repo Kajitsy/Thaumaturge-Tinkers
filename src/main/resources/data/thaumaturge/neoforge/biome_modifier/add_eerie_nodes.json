@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "thaumaturge:eerie",
+  "features": "thaumaturge:nodes_eerie",
+  "step": "top_layer_modification"
+}

@@ -1,0 +1,36 @@
+{
+  "block": [
+    {
+      "type": "thaumaturge:place_block",
+      "chance": 0.6,
+      "state": {
+        "Name": "thaumaturge:effect_shock"
+      }
+    }
+  ],
+  "complexity": 2,
+  "entity": [
+    {
+      "type": "thaumaturge:damage",
+      "base": 4.0,
+      "damage_type": "minecraft:lightning_bolt",
+      "per_power": 1.8
+    }
+  ],
+  "fx": "thaumaturge:spark",
+  "imbue": [
+    {
+      "type": "thaumaturge:mob_effect",
+      "effect": "minecraft:strength",
+      "max_amplifier": 1,
+      "per_duration": 100.0,
+      "per_power": 0.4,
+      "ticks": 100.0
+    }
+  ],
+  "research": {
+    "entry": "thaumaturge:focus_bolt"
+  },
+  "sound": "thaumaturge:zap",
+  "vis": 0.2
+}

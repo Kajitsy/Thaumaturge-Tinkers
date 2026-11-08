@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.ICHOR_POUCH",
+  "parents": [
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "column": 13,
+  "row": 6,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:ichor_pouch"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.ICHOR_POUCH.0",
+      "recipes": [
+        "thaumaturgetinker:ichor_pouch"
+      ],
+      "warp": 2,
+      "obtain": [
+        {
+          "items": [
+            "minecraft:leather"
+          ],
+          "amount": 4
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

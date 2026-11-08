@@ -1,0 +1,75 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.BRIGHT_NITOR",
+  "parents": [
+    "thaumaturgetinker:gaseous_light"
+  ],
+  "column": 1,
+  "row": -5,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:bright_nitor"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.BRIGHT_NITOR.0",
+      "recipes": [
+        "thaumaturgetinker:bright_nitor"
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:nitor_yellow",
+            "thaumaturge:nitor_white",
+            "thaumaturge:nitor_orange",
+            "thaumaturge:nitor_magenta",
+            "thaumaturge:nitor_light_blue",
+            "thaumaturge:nitor_lime",
+            "thaumaturge:nitor_pink",
+            "thaumaturge:nitor_gray",
+            "thaumaturge:nitor_light_gray",
+            "thaumaturge:nitor_cyan",
+            "thaumaturge:nitor_purple",
+            "thaumaturge:nitor_blue",
+            "thaumaturge:nitor_brown",
+            "thaumaturge:nitor_green",
+            "thaumaturge:nitor_red",
+            "thaumaturge:nitor_black"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

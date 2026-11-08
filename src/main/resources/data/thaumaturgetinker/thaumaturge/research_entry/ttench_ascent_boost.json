@@ -1,0 +1,49 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.TTENCH_ASCENT_BOOST",
+  "parents": [
+    "thaumaturgetinker:enchanter"
+  ],
+  "column": 6,
+  "row": 2,
+  "complexity": 2,
+  "icons": [
+    "thaumaturgetinker:textures/enchants/ascentboost.png"
+  ],
+  "meta": [
+    "round"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.TTENCH_ASCENT_BOOST.0",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturgetinker:thaumictinkerer",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

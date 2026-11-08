@@ -1,0 +1,105 @@
+{
+  "keys": {
+    "A": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "air"
+      }
+    },
+    "E": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "east"
+          }
+        }
+      }
+    },
+    "I": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:infusion_matrix"
+      }
+    },
+    "N": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "north"
+          }
+        }
+      }
+    },
+    "P": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:pedestal_arcane"
+      }
+    },
+    "S": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "south"
+          }
+        }
+      }
+    },
+    "W": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "west"
+          }
+        }
+      }
+    }
+  },
+  "pattern": [
+    [
+      "   ",
+      " I ",
+      "   "
+    ],
+    [
+      "A A",
+      "   ",
+      "A A"
+    ],
+    [
+      "E N",
+      " P ",
+      "S W"
+    ]
+  ],
+  "x_size": 3,
+  "y_size": 3,
+  "z_size": 3
+}

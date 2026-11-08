@@ -1,0 +1,21 @@
+{
+  "type": "thaumaturge:crucible",
+  "catalyst": "thaumaturge:crystal_ignis",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "thaumaturgetinker:fire_fire",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:fire_ignis"
+  }
+}

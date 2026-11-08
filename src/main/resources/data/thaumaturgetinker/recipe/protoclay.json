@@ -1,0 +1,33 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "minecraft:clay_ball",
+  "components": [
+    "minecraft:dirt",
+    "minecraft:stone",
+    "minecraft:oak_log",
+    "thaumaturgetinker:ender_shard"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 16
+    }
+  ],
+  "instability": 4,
+  "result": {
+    "id": "thaumaturgetinker:protoclay",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:protoclay"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

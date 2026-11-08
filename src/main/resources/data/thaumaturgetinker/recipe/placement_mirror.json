@@ -1,0 +1,43 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:block_talisman",
+  "components": [
+    "thaumaturgetinker:ichor",
+    "thaumaturgetinker:ichor",
+    "minecraft:dropper",
+    "minecraft:diamond",
+    "minecraft:glass",
+    "minecraft:blaze_powder"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:fabrico",
+      "amount": 65
+    },
+    {
+      "aspect": "thaumaturge:vitreus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 32
+    }
+  ],
+  "instability": 12,
+  "result": {
+    "id": "thaumaturgetinker:placement_mirror",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:placement_mirror"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

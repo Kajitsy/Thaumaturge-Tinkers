@@ -1,0 +1,25 @@
+{
+  "aspect": "thaumaturge:lux",
+  "behavior": {
+    "type": "thaumaturge:ray",
+    "visual": "beam",
+    "width": 0.0
+  },
+  "color": 13152878,
+  "complexity": 6,
+  "icon": "thaumaturge:textures/foci/beam.png",
+  "power": 0.8,
+  "research": {
+    "entry": "thaumaturge:focus_beam"
+  },
+  "settings": [
+    {
+      "complexity": 0.5,
+      "default": 12,
+      "key": "range",
+      "max": 24,
+      "min": 8,
+      "step": 4
+    }
+  ]
+}

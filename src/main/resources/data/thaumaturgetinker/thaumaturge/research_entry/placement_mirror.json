@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgetinker:thaumictinkerer",
+  "name": "ttresearch.name.PLACEMENT_MIRROR",
+  "parents": [
+    "thaumaturgetinker:block_talisman"
+  ],
+  "column": 17,
+  "row": 16,
+  "complexity": 3,
+  "icons": [
+    "thaumaturgetinker:placement_mirror"
+  ],
+  "meta": [
+    "spiky"
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 1
+    }
+  ],
+  "stages": [
+    {
+      "text": "ttresearch.page.PLACEMENT_MIRROR.0",
+      "recipes": [
+        "thaumaturgetinker:placement_mirror"
+      ],
+      "warp": 2,
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:mirror"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}
