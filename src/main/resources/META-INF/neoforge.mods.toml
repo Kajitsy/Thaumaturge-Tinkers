@@ -5,6 +5,7 @@ license="MIT"
 modId="thaumaturgetinker"
 version="1.0.0"
 displayName="Thaumaturge Tinker"
+logoFile="logo.png"
 authors="kajitsy"
 description="Thaumaturge Tinker for modern Minecraft on top of Thaumaturge."
 [[dependencies.thaumaturgetinker]]
