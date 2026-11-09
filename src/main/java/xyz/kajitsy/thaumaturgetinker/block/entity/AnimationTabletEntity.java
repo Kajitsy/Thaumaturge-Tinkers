@@ -32,13 +32,13 @@ public final class AnimationTabletEntity extends BlockEntity implements MovableT
             stopRiding();
             ejectPassengers();
             setDeltaMovement(Vec3.ZERO);
-            snapTo(tile.getBlockPos().getX() + .5, tile.getBlockPos().getY() + 1.6, tile.getBlockPos().getZ() + .5, tile.facing().toYRot(), -15f);
+            moveTo(tile.getBlockPos().getX() + .5, tile.getBlockPos().getY() + 1.6, tile.getBlockPos().getZ() + .5, tile.facing().toYRot(), -15f);
             setItemInHand(InteractionHand.MAIN_HAND, tile.inventory.getItem(0));
             attackStrengthTicker = 100;
         }
 
         @Override public void sendSystemMessage(Component message) {}
-        @Override public void sendOverlayMessage(Component message) {}
+        @Override public void displayClientMessage(Component message, boolean overlay) {}
     }
 
     public boolean leftClick = true;
@@ -109,14 +109,14 @@ public final class AnimationTabletEntity extends BlockEntity implements MovableT
             } else {
                 boolean done = false;
                 if (entity instanceof LivingEntity living) {
-                    done = living.interact(p, InteractionHand.MAIN_HAND, living.position()).consumesAction();
+                    done = living.interact(p, InteractionHand.MAIN_HAND).consumesAction();
                 }
                 if (!done) {
                     var at = target();
                     var side = facing().getOpposite();
                     if (level.isEmptyBlock(at)) { at = at.below(); side = Direction.UP; }
                     if (level.isLoaded(at)) {
-                        var hit = new BlockHitResult(Vec3.atCenterOf(at).add(Vec3.atLowerCornerOf(side.getUnitVec3i()).scale(.5)), side, at, false);
+                        var hit = new BlockHitResult(Vec3.atCenterOf(at).add(Vec3.atLowerCornerOf(side.getNormal()).scale(.5)), side, at, false);
                         done = p.gameMode.useItemOn(p, server, p.getMainHandItem(), InteractionHand.MAIN_HAND, hit).consumesAction();
                     }
                 }

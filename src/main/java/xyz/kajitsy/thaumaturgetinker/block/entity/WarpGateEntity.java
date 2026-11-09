@@ -86,7 +86,7 @@ public final class WarpGateEntity extends BlockEntity {
         sparkle(player);
         player.stopRiding();
         if (player.level() != targetLevel) {
-            player.teleportTo(targetLevel, destination.getX() + .5, destination.getY() + 1.0, destination.getZ() + .5, Set.of(), player.getYRot(), player.getXRot(), false);
+            player.teleportTo(targetLevel, destination.getX() + .5, destination.getY() + 1.0, destination.getZ() + .5, Set.of(), player.getYRot(), player.getXRot());
         } else {
             player.teleportTo(destination.getX() + .5, destination.getY() + 1.0, destination.getZ() + .5);
         }
@@ -96,7 +96,7 @@ public final class WarpGateEntity extends BlockEntity {
     }
 
     public static boolean teleport(ServerPlayer player, BlockPos destination) {
-        return teleport(player, player.level(), destination);
+        return teleport(player, player.serverLevel(), destination);
     }
 
     public void dropContents(Level level, BlockPos pos) {

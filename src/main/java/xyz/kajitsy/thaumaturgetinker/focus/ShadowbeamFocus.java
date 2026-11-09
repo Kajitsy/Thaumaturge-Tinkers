@@ -60,7 +60,7 @@ public final class ShadowbeamFocus extends TinkererFocus {
             level.playSound(null, player.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 0.5f, 1.0f);
         }
         var start = ShadowbeamTrace.start(player.getX(), player.getY(), player.getZ(), player.getEyeHeight(), player.getYRot(), player.getXRot());
-        if (FMLEnvironment.getDist().isClient()) {
+        if (FMLEnvironment.dist.isClient()) {
             var points = new ArrayList<Vec3>();
             ShadowbeamTrace.run(level, player, start, points::add);
             SPARKLE_EMITTER.accept(level.dimension(), points);

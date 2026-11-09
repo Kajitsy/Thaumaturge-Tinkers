@@ -38,6 +38,8 @@ import xyz.kajitsy.thaumaturgetinker.menu.WarpGateMenu;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -321,7 +323,37 @@ public final class ClientSetup {
 
         for (var target : outlines) {
             double dx = target.pos.getX() - cam.x, dy = target.pos.getY() - cam.y, dz = target.pos.getZ() - cam.z;
-            LevelRenderer.renderShape(poseStack, buffer, target.shape, dx, dy, dz, 0.0F, 0.0F, 0.0F, 0.4F);
+            renderShape(poseStack, buffer, target.shape, dx, dy, dz, 0.0F, 0.0F, 0.0F, 0.4F);
         }
+    }
+
+    private static void renderShape(
+            PoseStack poseStack,
+            VertexConsumer buffer,
+            VoxelShape shape,
+            double x,
+            double y,
+            double z,
+            float red,
+            float green,
+            float blue,
+            float alpha
+    ) {
+        var pose = poseStack.last();
+        shape.forAllEdges((x1, y1, z1, x2, y2, z2) -> {
+            float dx = (float) (x2 - x1);
+            float dy = (float) (y2 - y1);
+            float dz = (float) (z2 - z1);
+            float len = Mth.sqrt(dx * dx + dy * dy + dz * dz);
+            dx /= len;
+            dy /= len;
+            dz /= len;
+            buffer.addVertex(pose, (float) (x1 + x), (float) (y1 + y), (float) (z1 + z))
+                    .setColor(red, green, blue, alpha)
+                    .setNormal(pose, dx, dy, dz);
+            buffer.addVertex(pose, (float) (x2 + x), (float) (y2 + y), (float) (z2 + z))
+                    .setColor(red, green, blue, alpha)
+                    .setNormal(pose, dx, dy, dz);
+        });
     }
 }

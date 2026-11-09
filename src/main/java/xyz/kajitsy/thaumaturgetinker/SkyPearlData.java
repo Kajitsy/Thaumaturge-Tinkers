@@ -39,7 +39,7 @@ public final class SkyPearlData {
         var server = player.level().getServer();
         var level = server != null ? server.getLevel(ResourceKey.create(Registries.DIMENSION, targetDim)) : null;
         if (level == null && (fallbackToCurrent || targetDim.equals(player.level().dimension().location()))) {
-            return player.level();
+            return player.serverLevel();
         }
         return level;
     }

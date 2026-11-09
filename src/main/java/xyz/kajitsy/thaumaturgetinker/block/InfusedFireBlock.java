@@ -100,7 +100,7 @@ public final class InfusedFireBlock extends FireBlock {
   emitSmoke(level,pos,random,p->level.addParticle(net.minecraft.core.particles.ParticleTypes.LARGE_SMOKE,p.x,p.y,p.z,0,0,0));
  }
  @Override protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random){
-  if(!level.canSpreadFireAround(pos)||!TinkererConfig.fireEnabled())return;
+  if(!level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)||!TinkererConfig.fireEnabled())return;
   if(wet(level,pos))level.removeBlock(pos,false);
   else {
    if(!adjacentTarget(level,pos))level.removeBlock(pos,false);

@@ -98,7 +98,7 @@ public final class MagnetEntity extends BlockEntity implements MovableTile {
             }
 
             entity.setDeltaMovement(new Vec3(vx, vy, vz));
-            entity.needsSync = true;
+            entity.hasImpulse = true;
             entity.hurtMarked = true;
         }
     }

@@ -66,6 +66,9 @@ import xyz.kajitsy.thaumaturgetinker.world.BedrockDimensionCondition;
 import com.leclowndu93150.thaumaturge.api.aspect.AspectCapabilities;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.api.essentia.EssentiaCapabilities;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import net.minecraft.core.Direction;
@@ -209,33 +212,33 @@ public final class ThaumicTinkererModern {
 
     public static final DeferredRegister<BlockEntityType<?>> ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ID);
     public static final Supplier<BlockEntityType<ForcefieldEntity>> FORCEFIELD_ENTITY = ENTITIES.register("forcefield",
-            () -> new BlockEntityType<>(ForcefieldEntity::new, FORCEFIELD.get()));
+            () -> new BlockEntityType<>(ForcefieldEntity::new, Set.of(FORCEFIELD.get()), null));
     public static final Supplier<BlockEntityType<InfusedGrainEntity>> INFUSED_GRAIN_ENTITY = ENTITIES.register("infused_grain",
-            () -> new BlockEntityType<>(InfusedGrainEntity::new, INFUSED_GRAIN.get()));
+            () -> new BlockEntityType<>(InfusedGrainEntity::new, Set.of(INFUSED_GRAIN.get()), null));
     public static final Supplier<BlockEntityType<InfusedFarmlandEntity>> INFUSED_FARMLAND_ENTITY = ENTITIES.register("infused_farmland",
-            () -> new BlockEntityType<>(InfusedFarmlandEntity::new, INFUSED_FARMLAND.get()));
+            () -> new BlockEntityType<>(InfusedFarmlandEntity::new, Set.of(INFUSED_FARMLAND.get()), null));
     public static final Supplier<BlockEntityType<PlatformEntity>> PLATFORM_ENTITY = ENTITIES.register("platform",
-            () -> new BlockEntityType<>(PlatformEntity::new, PLATFORM.get()));
+            () -> new BlockEntityType<>(PlatformEntity::new, Set.of(PLATFORM.get()), null));
     public static final Supplier<BlockEntityType<AnimationTabletEntity>> ANIMATION_TABLET_ENTITY = ENTITIES.register("animation_tablet",
-            () -> new BlockEntityType<>(AnimationTabletEntity::new, ANIMATION_TABLET.get()));
+            () -> new BlockEntityType<>(AnimationTabletEntity::new, Set.of(ANIMATION_TABLET.get()), null));
     public static final Supplier<BlockEntityType<LocomotiveEntity>> LOCOMOTIVE_ENTITY = ENTITIES.register("locomotive",
-            () -> new BlockEntityType<>(LocomotiveEntity::new, LOCOMOTIVE.get()));
+            () -> new BlockEntityType<>(LocomotiveEntity::new, Set.of(LOCOMOTIVE.get()), null));
     public static final Supplier<BlockEntityType<LocomotiveRelayEntity>> LOCOMOTIVE_RELAY_ENTITY = ENTITIES.register("locomotive_relay",
-            () -> new BlockEntityType<>(LocomotiveRelayEntity::new, LOCOMOTIVE_RELAY.get()));
+            () -> new BlockEntityType<>(LocomotiveRelayEntity::new, Set.of(LOCOMOTIVE_RELAY.get()), null));
     public static final Supplier<BlockEntityType<SummonEntity>> SUMMON_ENTITY = ENTITIES.register("summon_tablet",
-            () -> new BlockEntityType<>(SummonEntity::new, SUMMON.get()));
+            () -> new BlockEntityType<>(SummonEntity::new, Set.of(SUMMON.get()), null));
     public static final Supplier<BlockEntityType<DislocatorEntity>> DISLOCATOR_ENTITY = ENTITIES.register("dislocator",
-            () -> new BlockEntityType<>(DislocatorEntity::new, DISLOCATOR.get()));
+            () -> new BlockEntityType<>(DislocatorEntity::new, Set.of(DISLOCATOR.get()), null));
     public static final Supplier<BlockEntityType<MagnetEntity>> MAGNET_ENTITY = ENTITIES.register("magnet",
-            () -> new BlockEntityType<>(MagnetEntity::new, MAGNET.get(), MOB_MAGNET.get()));
+            () -> new BlockEntityType<>(MagnetEntity::new, Set.of(MAGNET.get(), MOB_MAGNET.get()), null));
     public static final Supplier<BlockEntityType<EnchanterEntity>> ENCHANTER_ENTITY = ENTITIES.register("enchanter",
-            () -> new BlockEntityType<>(EnchanterEntity::new, ENCHANTER.get()));
+            () -> new BlockEntityType<>(EnchanterEntity::new, Set.of(ENCHANTER.get()), null));
     public static final Supplier<BlockEntityType<RepairerEntity>> REPAIRER_ENTITY = ENTITIES.register("repairer",
-            () -> new BlockEntityType<>(RepairerEntity::new, REPAIRER.get()));
+            () -> new BlockEntityType<>(RepairerEntity::new, Set.of(REPAIRER.get()), null));
     public static final Supplier<BlockEntityType<FunnelEntity>> FUNNEL_ENTITY = ENTITIES.register("funnel",
-            () -> new BlockEntityType<>(FunnelEntity::new, FUNNEL.get()));
+            () -> new BlockEntityType<>(FunnelEntity::new, Set.of(FUNNEL.get()), null));
     public static final Supplier<BlockEntityType<TransvectorEntity>> TRANSVECTOR_ENTITY = ENTITIES.register("transvector_interface",
-            () -> new BlockEntityType<>(TransvectorEntity::new, INTERFACE.get()));
+            () -> new BlockEntityType<>(TransvectorEntity::new, Set.of(INTERFACE.get()), null));
 
     public static final DeferredItem<Item> DARK_QUARTZ = ITEMS.registerSimpleItem("dark_quartz");
     public static final DeferredBlock<GasBlock> LIGHT_GAS = BLOCKS.register("gaseous_light", () -> new GasBlock(false));
@@ -340,10 +343,13 @@ public final class ThaumicTinkererModern {
                 .add(com.leclowndu93150.thaumaturge.content.eldritch.site.ObeliskSite.REGISTRY_KEY, com.leclowndu93150.thaumaturge.data.labyrinth.ObeliskSiteBootstrap::bootstrap)
                 .add(com.leclowndu93150.thaumaturge.content.infusion.instability.InstabilityOutcome.REGISTRY_KEY, com.leclowndu93150.thaumaturge.data.infusion.InstabilityOutcomeBootstrap::bootstrap)
                 .add(net.minecraft.core.registries.Registries.TRIM_MATERIAL, com.leclowndu93150.thaumaturge.data.trim.TTTrimBootstrap::materials)
-                .add(net.minecraft.core.registries.Registries.TRIM_PATTERN, com.leclowndu93150.thaumaturge.data.trim.TTTrimBootstrap::patterns)
-                .add(net.minecraft.core.registries.Registries.VILLAGER_TRADE, com.leclowndu93150.thaumaturge.data.trade.TTVillagerTradeBootstrap::bootstrap);
+                .add(net.minecraft.core.registries.Registries.TRIM_PATTERN, com.leclowndu93150.thaumaturge.data.trim.TTTrimBootstrap::patterns);
             e.createDatapackRegistryObjects(builder, java.util.Set.of("thaumaturge", "thaumaturgetinker"));
-            e.createBlockAndItemTags(com.leclowndu93150.thaumaturge.data.tag.TTBlockTagsProvider::new, com.leclowndu93150.thaumaturge.data.tag.TTItemTagsProvider::new);
+            e.createBlockAndItemTags(
+                    (output, lookupProvider) ->
+                            new com.leclowndu93150.thaumaturge.data.tag.TTBlockTagsProvider(output, lookupProvider, e.getExistingFileHelper()),
+                    (output, lookupProvider, blockTags) ->
+                            new com.leclowndu93150.thaumaturge.data.tag.TTItemTagsProvider(output, lookupProvider, blockTags, e.getExistingFileHelper()));
             e.createProvider(com.leclowndu93150.thaumaturge.data.tag.TTDamageTypeTagsProvider::new);
             e.createProvider(com.leclowndu93150.thaumaturge.data.tag.TTStructureTagsProvider::new);
             e.createProvider(com.leclowndu93150.thaumaturge.data.tag.TTBiomeTagsProvider::new);
@@ -351,7 +357,6 @@ public final class ThaumicTinkererModern {
             e.createProvider(com.leclowndu93150.thaumaturge.data.tag.TTFluidTagsProvider::new);
             e.createProvider(com.leclowndu93150.thaumaturge.data.tag.TTEntityTypeTagsProvider::new);
             e.createProvider(com.leclowndu93150.thaumaturge.data.labyrinth.TTLabyrinthRoomTagsProvider::new);
-            e.createProvider(com.leclowndu93150.thaumaturge.data.tag.TTVillagerTradeTagsProvider::new);
         });
 
         bus.addListener((RegisterCapabilitiesEvent e) -> {

@@ -43,7 +43,7 @@ public final class AwakenedArmorKeys {
             if (!worn) continue;
             boolean next = !AwakenedArmorStatus.enabled(mc.player);
             AwakenedArmorStatus.set(mc.player, next);
-            mc.player.sendOverlayMessage(Component.translatable(next ? "ttmisc.enableAllArmor" : "ttmisc.disableAllArmor"));
+            mc.player.displayClientMessage(Component.translatable(next ? "ttmisc.enableAllArmor" : "ttmisc.disableAllArmor"), true);
             PacketDistributor.sendToServer(new AwakenedArmorStatus.Payload(next));
         }
         while (OPEN_POUCH.consumeClick()) {

@@ -91,11 +91,11 @@ public final class SummonEntity extends BlockEntity {
                         boolean same = selected.stream().allMatch(p -> matchesLast(p.getItem(), level, pos));
                         if (!infused || same) {
                             if (id.equals("minecraft:skeleton") && level.dimension() == Level.NETHER) id = "minecraft:wither_skeleton";
-                            var typeOpt = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id));
+                            var typeOpt = BuiltInRegistries.ENTITY_TYPE.getOptional(ResourceLocation.parse(id));
                             if (typeOpt.isEmpty()) return;
-                            var entity = typeOpt.get().value().create(level);
+                            var entity = typeOpt.get().create(level);
                             if (!(entity instanceof Mob mob)) return;
-                            mob.snapTo(pos.getX() + .5, pos.getY() + 1.0, pos.getZ() + .5, 0f, 0f);
+                            mob.moveTo(pos.getX() + .5, pos.getY() + 1.0, pos.getZ() + .5, 0f, 0f);
                             net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(mob, server, server.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, null);
                             mob.setPersistenceRequired();
                             if (!server.addFreshEntity(mob)) return;

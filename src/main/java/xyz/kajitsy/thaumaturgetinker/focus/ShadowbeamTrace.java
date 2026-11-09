@@ -93,7 +93,7 @@ public final class ShadowbeamTrace {
             }
             if (target != null) {
                 entityHits++;
-                if (target != shooter && (!(target instanceof Player) || level.isPvpAllowed())) {
+                if (target != shooter && (!(target instanceof Player) || level.getServer().isPvpAllowed())) {
                     target.hurt(level.damageSources().playerAttack(shooter), 8);
                 }
             } else if (blocked && !level.getBlockState(block.getBlockPos()).is(Blocks.NETHER_PORTAL)) {

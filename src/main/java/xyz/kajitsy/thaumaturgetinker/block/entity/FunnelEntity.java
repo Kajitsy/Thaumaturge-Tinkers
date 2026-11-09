@@ -67,7 +67,7 @@ public final class FunnelEntity extends BlockEntity implements MovableTile {
         if (!level.isLoaded(hopper) || !level.getBlockState(hopper).hasProperty(HopperBlock.FACING) || !(level.getBlockEntity(hopper) instanceof HopperBlockEntity)) return;
         var target = hopper.relative(level.getBlockState(hopper).getValue(HopperBlock.FACING));
         if (!level.isLoaded(target) || !(level.getBlockEntity(target) instanceof AbstractBlockEntityJar jar)) return;
-        if (jar.addEssentia(aspect, 1, Direction.UP) == 1) {
+        if (jar.insert(aspect, 1, Direction.UP, false) == 1) {
             int remaining = amount - 1;
             if (remaining <= 0) {
                 stack.remove(TTDataComponents.ESSENTIA_CONTENTS.get());

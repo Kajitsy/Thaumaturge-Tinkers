@@ -32,6 +32,6 @@ public final class AwakenedArmorStatus {
     @net.neoforged.bus.api.SubscribeEvent
     public static void register(net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) {
         net.neoforged.neoforge.network.handling.IPayloadHandler<Payload> handler = (packet, context) -> context.enqueueWork(() -> set(context.player(), packet.enabled()));
-        event.registrar("1").playBidirectional(Payload.TYPE, Payload.CODEC, handler, handler);
+        event.registrar("1").playBidirectional(Payload.TYPE, Payload.CODEC, handler);
     }
 }

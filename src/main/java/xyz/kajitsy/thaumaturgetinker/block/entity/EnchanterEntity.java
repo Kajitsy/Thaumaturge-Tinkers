@@ -34,9 +34,9 @@ public final class EnchanterEntity extends BlockEntity implements MovableTile {
 
         @Override
         public boolean canPlaceItem(int slot, ItemStack stack) {
-            return slot == 1 ? (stack.getItem() instanceof ItemWand wand && !wand.usesStaffRod(stack))
+            return slot == 1 ? (stack.getItem() instanceof ItemWand wand && !wand.isStaff(stack))
                 : !stack.isEmpty() && !stack.is(net.minecraft.world.item.Items.BOOK) && !stack.is(net.minecraft.world.item.Items.ENCHANTED_BOOK)
-                && (stack.isEnchantable() || stack.isEnchanted() || stack.isDamageableItem() || stack.has(net.minecraft.core.component.DataComponents.EQUIPPABLE) || stack.getMaxStackSize() == 1);
+                && (stack.isEnchantable() || stack.isEnchanted() || stack.isDamageableItem() || net.minecraft.world.item.Equipable.get(stack) != null || stack.getMaxStackSize() == 1);
         }
 
         @Override

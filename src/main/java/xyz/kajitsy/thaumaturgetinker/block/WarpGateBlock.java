@@ -18,8 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class WarpGateBlock extends BaseEntityBlock {
     public static final net.neoforged.neoforge.registries.DeferredBlock<WarpGateBlock> BLOCK = KamiRegistries.BLOCKS.register("warp_gate", WarpGateBlock::new);
-    public static final net.neoforged.neoforge.registries.DeferredItem<net.minecraft.world.item.BlockItem> ITEM = KamiRegistries.ITEMS.register("warp_gate", () -> new net.minecraft.world.item.BlockItem(BLOCK.get(), ThaumicTinkererModern.itemProps("warp_gate", new net.minecraft.world.item.Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC).useBlockDescriptionPrefix())));
-    public static final java.util.function.Supplier<BlockEntityType<WarpGateEntity>> ENTITY = KamiRegistries.ENTITIES.register("warp_gate", () -> new BlockEntityType<>(WarpGateEntity::new, BLOCK.get()));
+    public static final net.neoforged.neoforge.registries.DeferredItem<net.minecraft.world.item.BlockItem> ITEM = KamiRegistries.ITEMS.register("warp_gate", () -> new net.minecraft.world.item.BlockItem(BLOCK.get(), ThaumicTinkererModern.itemProps("warp_gate", new net.minecraft.world.item.Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC))));
+    public static final java.util.function.Supplier<BlockEntityType<WarpGateEntity>> ENTITY = KamiRegistries.ENTITIES.register("warp_gate", () -> BlockEntityType.Builder.of(WarpGateEntity::new, BLOCK.get()).build(null));
     public static final com.mojang.serialization.MapCodec<WarpGateBlock> CODEC = simpleCodec(p -> new WarpGateBlock());
     public static Consumer<WarpGateEntity> CLIENT_TICKER = g -> {};
 

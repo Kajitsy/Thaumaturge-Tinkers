@@ -40,7 +40,7 @@ public abstract class AwakenedArmorItem extends KamiArmor {
             if (!level.isClientSide()) {
                 toggle(stack);
                 level.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.3f, 0.1f);
-                player.sendOverlayMessage(Component.translatable("ttmisc.awakenedArmor" + (disabled(stack) ? 1 : 0)));
+                player.displayClientMessage(Component.translatable("ttmisc.awakenedArmor" + (disabled(stack) ? 1 : 0)), true);
             }
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         }

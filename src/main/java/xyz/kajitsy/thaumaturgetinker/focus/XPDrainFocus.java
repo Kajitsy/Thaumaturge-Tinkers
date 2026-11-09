@@ -52,7 +52,7 @@ public final class XPDrainFocus extends TinkererFocus {
 
     @Override
     public int getFocusColor(ItemStack focus) {
-        return FMLEnvironment.getDist() == Dist.CLIENT ? Color.HSBtoRGB((System.currentTimeMillis() / 25 % 360) / 360f, 1, 1) : 0xFFFFFF;
+        return FMLEnvironment.dist == Dist.CLIENT ? Color.HSBtoRGB((System.currentTimeMillis() / 25 % 360) / 360f, 1, 1) : 0xFFFFFF;
     }
 
     @Override
@@ -60,17 +60,17 @@ public final class XPDrainFocus extends TinkererFocus {
         if (player.level().isClientSide() || !(wand.getItem() instanceof ItemWand)) return;
         var primals = TTAspects.PRIMALS;
         ResourceKey<IAspect> selected = null;
-        int capacity = WandVisHelper.capacityOf(wand);
+        int capacity = WandVisHelper.getMaxVis(wand);
         for (int attempts = 0; selected == null && attempts < 7; attempts++) {
             lastGiven = lastGiven == 5 ? 0 : lastGiven + 1;
             var aspect = primals.get(lastGiven);
-            if (WandVisHelper.storedIn(wand, aspect) < capacity) {
+            if (WandVisHelper.getVis(wand, aspect) < capacity) {
                 selected = aspect;
             }
         }
         if (selected != null && player.totalExperience >= 15) {
             player.giveExperiencePoints(-15);
-            WandVisHelper.topUpCentivis(wand, selected, 500, true);
+            WandVisHelper.addRealVis(wand, selected, 500, true);
         }
     }
 

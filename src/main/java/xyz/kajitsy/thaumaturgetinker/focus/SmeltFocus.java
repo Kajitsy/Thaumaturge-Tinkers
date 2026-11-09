@@ -79,8 +79,8 @@ public final class SmeltFocus extends TinkererFocus {
             progress.remove(player.getUUID());
             return false;
         }
-        var recipe = level.recipeAccess().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(input), level);
-        var result = recipe.map(r -> r.value().assemble(new SingleRecipeInput(input))).orElse(ItemStack.EMPTY);
+        var recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(input), level);
+        var result = recipe.map(r -> r.value().assemble(new SingleRecipeInput(input), level.registryAccess())).orElse(ItemStack.EMPTY);
         if (result.isEmpty()) {
             if (state.is(Blocks.RAW_IRON_BLOCK)) result = new ItemStack(Items.IRON_BLOCK);
             else if (state.is(Blocks.RAW_GOLD_BLOCK)) result = new ItemStack(Items.GOLD_BLOCK);
@@ -100,7 +100,7 @@ public final class SmeltFocus extends TinkererFocus {
             return false;
         }
         progress.remove(player.getUUID());
-        var event = new net.neoforged.neoforge.event.level.BlockEvent(level, pos, state, player);
+        var event = new net.neoforged.neoforge.event.level.BlockEvent.BreakEvent(level, pos, state, player);
         NeoForge.EVENT_BUS.post(event);
         if (event.isCanceled()) return false;
         if (!consumeVis(wand, player)) return false;

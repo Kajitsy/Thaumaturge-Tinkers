@@ -133,7 +133,7 @@ public final class DislocationFocus extends TinkererFocus {
             }, state -> orient(state, player, target), state -> state.getBlock().setPlacedBy(level, target, state, player, wand))) return false;
         } else {
             if (!DislocationStorage.movable(level, target)) return false;
-            var event = new net.neoforged.neoforge.event.level.BlockEvent(level, target, level.getBlockState(target), player);
+            var event = new net.neoforged.neoforge.event.level.BlockEvent.BreakEvent(level, target, level.getBlockState(target), player);
             NeoForge.EVENT_BUS.post(event);
             if (event.isCanceled()) return false;
             var usage = cost(level.getBlockEntity(target));

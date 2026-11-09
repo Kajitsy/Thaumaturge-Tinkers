@@ -75,7 +75,7 @@ public final class AwakenedSword extends IchorSword implements AdvancedTool {
                     attackingGroup = false;
                 }
             } else if (mode == 2) {
-                living.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
+                living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1, 1));
                 if (!player.level().isClientSide()) {
                     SoulHearts.add(player);
                     player.heal(2.0F);

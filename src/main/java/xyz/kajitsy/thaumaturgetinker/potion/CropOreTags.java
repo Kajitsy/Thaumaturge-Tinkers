@@ -60,11 +60,11 @@ public final class CropOreTags {
 
     public static List<Source> sources() {
         var result = new ArrayList<Source>();
-        BuiltInRegistries.ITEM.getTags().sorted(Comparator.comparing(tag -> tag.key().location().toString())).forEach(tag -> {
-            var name = legacyName(tag.key().location());
+        BuiltInRegistries.ITEM.getTags().sorted(Comparator.comparing(tag -> tag.getFirst().location().toString())).forEach(tag -> {
+            var name = legacyName(tag.getFirst().location());
             if (name != null) {
                 var stacks = new ArrayList<ItemStack>();
-                for (var itemHolder : tag) {
+                for (var itemHolder : tag.getSecond()) {
                     stacks.add(new ItemStack(itemHolder.value()));
                 }
                 result.add(new Source(name, stacks));

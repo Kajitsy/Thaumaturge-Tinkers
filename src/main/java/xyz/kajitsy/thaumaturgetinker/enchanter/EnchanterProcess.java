@@ -75,10 +75,10 @@ public final class EnchanterProcess {
             selection.clear();
             return true;
         }
-        if (!(wand.getItem() instanceof ItemWand itemWand) || itemWand.usesStaffRod(wand)) {
+        if (!(wand.getItem() instanceof ItemWand itemWand) || itemWand.isStaff(wand)) {
             return false;
         }
-        missing.removeIf(aspect -> WandVisHelper.storedIn(wand, aspect) < 100);
+        missing.removeIf(aspect -> WandVisHelper.getVis(wand, aspect) < 100);
         if (missing.isEmpty()) return false;
         lastDrainIndex = level.getRandom().nextInt(missing.size());
         var aspect = missing.get(lastDrainIndex);
@@ -103,13 +103,13 @@ public final class EnchanterProcess {
         working = tag.getBoolean("Working");
         current.clear();
         var curTag = tag.getCompound("Current");
-        for (var key : curTag.keySet()) {
+        for (var key : curTag.getAllKeys()) {
             var rk = ResourceKey.create(IAspect.REGISTRY_KEY, ResourceLocation.parse(key));
             current.put(rk, curTag.getInt(key));
         }
         selection.clear();
         var selTag = tag.getCompound("Selection");
-        for (var key : selTag.keySet()) {
+        for (var key : selTag.getAllKeys()) {
             selection.change(level.registryAccess(), tool, EnchanterCosts.allResearch(), key, selTag.getInt(key));
         }
     }

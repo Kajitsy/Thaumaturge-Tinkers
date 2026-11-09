@@ -26,7 +26,7 @@ public final class NitorLightBlock extends Block {
     public static final BooleanProperty AWAKENED = BooleanProperty.create("awakened");
 
     public NitorLightBlock() {
-        super(ThaumicTinkererModern.blockProps("nitor_light", Properties.of().replaceable().noCollision().noOcclusion().noLootTable().lightLevel(s -> s.getValue(AWAKENED) ? 15 : 12)));
+        super(ThaumicTinkererModern.blockProps("nitor_light", Properties.of().replaceable().noCollission().noOcclusion().noLootTable().lightLevel(s -> s.getValue(AWAKENED) ? 15 : 12)));
         registerDefaultState(stateDefinition.any().setValue(AWAKENED, false));
     }
 

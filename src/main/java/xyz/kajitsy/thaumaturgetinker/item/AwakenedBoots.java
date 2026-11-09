@@ -57,7 +57,7 @@ public final class AwakenedBoots extends AwakenedArmorItem {
             }
         }
         if (!active) return;
-        p.addEffect(new MobEffectInstance(MobEffects.HASTE, 2, 1, true, true));
+        p.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2, 1, true, true));
         if ((p.onGround() || p.getAbilities().flying) && p.zza > 0) {
             p.moveRelative(p.getAbilities().flying ? 0.075f : 0.15f, new Vec3(0, 0, 1));
         }

@@ -79,7 +79,7 @@ public final class InfusedGrainBlock extends CropBlock implements EntityBlock {
     }
 
     @Override
-    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         var stack = new ItemStack(ThaumicTinkererModern.INFUSED_SEEDS.get());
         if (level.getBlockEntity(pos) instanceof InfusedGrainEntity crop) crop.data().write(stack);
         return stack;

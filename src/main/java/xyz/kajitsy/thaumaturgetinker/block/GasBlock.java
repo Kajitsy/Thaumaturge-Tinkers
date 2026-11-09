@@ -15,7 +15,7 @@ public final class GasBlock extends Block {
     public static final IntegerProperty POWER=IntegerProperty.create("power",0,4);
     private final boolean shadow;
     public GasBlock(boolean shadow) {
-        super(ThaumicTinkererModern.blockProps(shadow ? "gaseous_shadow" : "gaseous_light", Properties.of().replaceable().noCollision().noOcclusion().noLootTable().lightLevel(s -> shadow?0:12)));
+        super(ThaumicTinkererModern.blockProps(shadow ? "gaseous_shadow" : "gaseous_light", Properties.of().replaceable().noCollission().noOcclusion().noLootTable().lightLevel(s -> shadow?0:12)));
         this.shadow=shadow;registerDefaultState(stateDefinition.any().setValue(POWER,0));
     }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder){builder.add(POWER);}
