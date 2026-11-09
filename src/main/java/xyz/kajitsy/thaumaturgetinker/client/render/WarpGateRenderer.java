@@ -18,6 +18,7 @@ import org.jspecify.annotations.Nullable;
 public final class WarpGateRenderer implements BlockEntityRenderer<WarpGateEntity, WarpGateRenderer.State> {
     public static final class State extends BlockEntityRenderState {
         public int playerTicks;
+        public boolean occluded;
     }
 
     public WarpGateRenderer(BlockEntityRendererProvider.Context context) {}
@@ -32,10 +33,14 @@ public final class WarpGateRenderer implements BlockEntityRenderer<WarpGateEntit
         BlockEntityRenderer.super.extractRenderState(gate, state, partialTicks, cameraPosition, breakProgress);
         var player = Minecraft.getInstance().player;
         state.playerTicks = player == null ? 0 : player.tickCount;
+        var level = gate.getLevel();
+        var above = gate.getBlockPos().above();
+        state.occluded = level != null && !level.getBlockState(above).getCollisionShape(level, above).isEmpty();
     }
 
     @Override
     public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
+        if (state.occluded) return;
         collector.submitCustomGeometry(pose, RenderTypes.debugQuads(), (p, out) -> {
             PoseStack local = new PoseStack();
             local.last().set(p);
