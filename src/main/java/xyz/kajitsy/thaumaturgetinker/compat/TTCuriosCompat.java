@@ -46,4 +46,12 @@ public final class TTCuriosCompat {
 
         event.registerItem(CuriosCapability.ITEM, (stack, ctx) -> (ICurio) () -> stack, IchorPouch.ITEM.get());
     }
+
+    public static ItemStack findFirstCurio(net.minecraft.world.entity.player.Player player, net.minecraft.world.item.Item item) {
+        if (!ModList.get().isLoaded("curios")) return ItemStack.EMPTY;
+        return top.theillusivec4.curios.api.CuriosApi.getCuriosInventory(player)
+                .flatMap(h -> h.findFirstCurio(item))
+                .map(top.theillusivec4.curios.api.SlotResult::stack)
+                .orElse(ItemStack.EMPTY);
+    }
 }

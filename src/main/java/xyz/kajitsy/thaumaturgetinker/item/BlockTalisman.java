@@ -1,10 +1,7 @@
 package xyz.kajitsy.thaumaturgetinker.item;
 
-import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
-import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
-
-
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -16,7 +13,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,6 +31,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.registries.DeferredItem;
+import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
+import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
 public final class BlockTalisman extends Item {
     public static final DeferredItem<BlockTalisman> ITEM = KamiRegistries.ITEMS.register("block_talisman", BlockTalisman::new);
@@ -68,6 +72,82 @@ public final class BlockTalisman extends Item {
         if (block(s) != Blocks.AIR && count(s) > 0) return false;
         CustomData.update(DataComponents.CUSTOM_DATA, s, t -> t.putString("blockName", BuiltInRegistries.BLOCK.getKey(b).toString()));
         return true;
+    }
+
+    public static int insert(ItemStack talisman, ItemStack stack) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof BlockItem blockItem)) return 0;
+        var b = block(talisman);
+        if (b == Blocks.AIR || count(talisman) == 0) {
+            b = blockItem.getBlock();
+            bind(talisman, b);
+        }
+        if (stack.getItem() != b.asItem()) return 0;
+        long current = count(talisman);
+        int take = (int) Math.min(stack.getCount(), Integer.MAX_VALUE - current);
+        if (take > 0) {
+            count(talisman, (int) (current + take));
+        }
+        return take;
+    }
+
+    @Override
+    public boolean overrideStackedOnOther(ItemStack self, Slot slot, ClickAction action, Player player) {
+        if (action != ClickAction.SECONDARY || !slot.allowModification(player)) return false;
+        var other = slot.getItem();
+        if (other.isEmpty()) {
+            var item = block(self).asItem();
+            if (item == Items.AIR || count(self) <= 0) return false;
+            int take = remove(self, Math.min(64, item.getDefaultMaxStackSize()));
+            if (take <= 0) return false;
+            var extracted = new ItemStack(item, take);
+            var rem = slot.safeInsert(extracted);
+            if (!rem.isEmpty()) count(self, count(self) + rem.getCount());
+            player.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
+            return true;
+        } else {
+            int inserted = insert(self, other);
+            if (inserted <= 0) return false;
+            slot.safeTake(inserted, inserted, player);
+            player.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean overrideOtherStackedOnMe(ItemStack self, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess access) {
+        if (!slot.allowModification(player)) return false;
+        if (action == ClickAction.SECONDARY && other.isEmpty()) {
+            var item = block(self).asItem();
+            if (item == Items.AIR || count(self) <= 0) return false;
+            int take = remove(self, Math.min(64, item.getDefaultMaxStackSize()));
+            if (take <= 0) return false;
+            access.set(new ItemStack(item, take));
+            player.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
+            return true;
+        }
+        if (!other.isEmpty()) {
+            var toInsert = action == ClickAction.SECONDARY ? other.copyWithCount(1) : other;
+            int inserted = insert(self, toInsert);
+            if (inserted <= 0) return false;
+            other.shrink(inserted);
+            player.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack s) {
+        var b = block(s);
+        if (b == Blocks.AIR) return Optional.empty();
+        int c = count(s);
+        return Optional.of(new StorageTooltip(
+            List.of(new StorageTooltip.Entry(new ItemStack(b), c > 1 ? IchorPouch.compactCount(c) : "", c)),
+            -1,
+            c > 0 ? 1 : 0,
+            1,
+            false
+        ));
     }
 
     @Override

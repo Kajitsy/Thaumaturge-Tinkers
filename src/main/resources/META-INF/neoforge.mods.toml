@@ -3,7 +3,7 @@ loaderVersion="[4,)"
 license="MIT"
 [[mods]]
 modId="thaumaturgetinker"
-version="1.0.0"
+version="1.0.1"
 displayName="Thaumaturge Tinker"
 logoFile="logo.png"
 authors="kajitsy"

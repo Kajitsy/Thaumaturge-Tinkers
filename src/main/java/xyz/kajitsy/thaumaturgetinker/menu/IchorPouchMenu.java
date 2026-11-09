@@ -1,9 +1,5 @@
 package xyz.kajitsy.thaumaturgetinker.menu;
 
-import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
-import xyz.kajitsy.thaumaturgetinker.item.IchorPouch;
-
-
 import java.util.ArrayList;
 import java.util.function.Supplier;
 import net.minecraft.world.SimpleContainer;
@@ -15,10 +11,12 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
+import xyz.kajitsy.thaumaturgetinker.item.IchorPouch;
 
 public final class IchorPouchMenu extends AbstractContainerMenu {
     public static final Supplier<MenuType<IchorPouchMenu>> TYPE = KamiRegistries.MENUS.register("ichor_pouch",
-            () -> IMenuTypeExtension.create((id, inv, buf) -> new IchorPouchMenu(id, inv, buf.readBoolean())));
+            () -> IMenuTypeExtension.create((id, inv, buf) -> new IchorPouchMenu(id, inv, buf.readVarInt())));
     public final SimpleContainer contents = new SimpleContainer(IchorPouch.SLOTS) {
         @Override
         public void setChanged() {
@@ -28,15 +26,17 @@ public final class IchorPouchMenu extends AbstractContainerMenu {
     };
     private final Inventory inventory;
     private final ItemStack pouch;
-    private final boolean offhand;
-    private final int held;
+    private final int slotCode;
 
     public IchorPouchMenu(int id, Inventory inventory, boolean offhand) {
+        this(id, inventory, offhand ? -1 : inventory.getSelectedSlot());
+    }
+
+    public IchorPouchMenu(int id, Inventory inventory, int slotCode) {
         super(TYPE.get(), id);
         this.inventory = inventory;
-        this.offhand = offhand;
-        held = inventory.getSelectedSlot();
-        pouch = offhand ? inventory.player.getOffhandItem() : inventory.getItem(held);
+        this.slotCode = slotCode;
+        pouch = IchorPouch.resolve(inventory.player, slotCode);
         var stored = IchorPouch.contents(pouch);
         for (int i = 0; i < IchorPouch.SLOTS; i++) contents.setItem(i, stored.get(i));
         for (int row = 0; row < 9; row++) {
@@ -51,7 +51,18 @@ public final class IchorPouchMenu extends AbstractContainerMenu {
         }
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlot(new Slot(inventory, 9 + row * 9 + col, 48 + 18 * col, 177 + 18 * row));
+                int invIndex = 9 + row * 9 + col;
+                addSlot(new Slot(inventory, invIndex, 48 + 18 * col, 177 + 18 * row) {
+                    @Override
+                    public boolean mayPickup(Player player) {
+                        return invIndex != slotCode;
+                    }
+
+                    @Override
+                    public boolean mayPlace(ItemStack stack) {
+                        return invIndex != slotCode;
+                    }
+                });
             }
         }
         for (int col = 0; col < 9; col++) {
@@ -59,12 +70,12 @@ public final class IchorPouchMenu extends AbstractContainerMenu {
             addSlot(new Slot(inventory, col, 48 + 18 * col, 235) {
                 @Override
                 public boolean mayPickup(Player player) {
-                    return offhand || index != held;
+                    return index != slotCode;
                 }
 
                 @Override
                 public boolean mayPlace(ItemStack stack) {
-                    return offhand || index != held;
+                    return index != slotCode;
                 }
             });
         }
@@ -81,12 +92,13 @@ public final class IchorPouchMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return IchorPouch.isPouch(pouch) && (offhand ? player.getOffhandItem() : inventory.getItem(held)) == pouch;
+        return IchorPouch.isPouch(pouch) && IchorPouch.resolve(player, slotCode) == pouch;
     }
 
     @Override
     public void clicked(int index, int button, ContainerInput type, Player player) {
-        if (!stillValid(player) || !offhand && index == IchorPouch.SLOTS + 27 + held || type == ContainerInput.SWAP && (!offhand && button == held || offhand && button == 40)) {
+        int lockedMenuSlot = slotCode >= 0 && slotCode < 9 ? IchorPouch.SLOTS + 27 + slotCode : (slotCode >= 9 && slotCode < 36 ? IchorPouch.SLOTS + slotCode - 9 : -99);
+        if (!stillValid(player) || index == lockedMenuSlot || type == ContainerInput.SWAP && (button == slotCode || slotCode == -1 && button == 40)) {
             return;
         }
         super.clicked(index, button, type, player);

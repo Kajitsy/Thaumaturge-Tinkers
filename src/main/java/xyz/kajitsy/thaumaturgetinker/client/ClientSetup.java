@@ -25,26 +25,43 @@ import xyz.kajitsy.thaumaturgetinker.focus.ShadowbeamFocus;
 import xyz.kajitsy.thaumaturgetinker.item.AdvancedTool;
 import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolMining;
 import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
+import xyz.kajitsy.thaumaturgetinker.item.IchorPouch;
 import xyz.kajitsy.thaumaturgetinker.item.SkyPearl;
+import xyz.kajitsy.thaumaturgetinker.item.StorageTooltip;
 import xyz.kajitsy.thaumaturgetinker.menu.IchorPouchMenu;
 import xyz.kajitsy.thaumaturgetinker.menu.WarpGateMenu;
 
 import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.ScrollWheelHandler;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.ShapeRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
+import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.apache.commons.lang3.math.Fraction;
 
 @EventBusSubscriber(modid = ThaumicTinkererModern.ID, value = Dist.CLIENT)
 public final class ClientSetup {
@@ -85,6 +102,166 @@ public final class ClientSetup {
     public static void modelProperties(net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent event) {
         event.register(Identifier.fromNamespaceAndPath("thaumaturgetinker", "tool_mode"), ToolModeProperty.TYPE);
         event.register(Identifier.fromNamespaceAndPath("thaumaturgetinker", "active"), ActiveProperty.TYPE);
+    }
+
+    private static final Identifier PROGRESSBAR_BORDER_SPRITE = Identifier.withDefaultNamespace("container/bundle/bundle_progressbar_border");
+    private static final Identifier PROGRESSBAR_FILL_SPRITE = Identifier.withDefaultNamespace("container/bundle/bundle_progressbar_fill");
+    private static final Identifier PROGRESSBAR_FULL_SPRITE = Identifier.withDefaultNamespace("container/bundle/bundle_progressbar_full");
+    private static final Identifier SLOT_HIGHLIGHT_BACK_SPRITE = Identifier.withDefaultNamespace("container/bundle/slot_highlight_back");
+    private static final Identifier SLOT_HIGHLIGHT_FRONT_SPRITE = Identifier.withDefaultNamespace("container/bundle/slot_highlight_front");
+    private static final Identifier SLOT_BACKGROUND_SPRITE = Identifier.withDefaultNamespace("container/bundle/slot_background");
+    private static final Component BUNDLE_FULL_TEXT = Component.translatable("item.minecraft.bundle.full");
+    private static final Component BUNDLE_EMPTY_TEXT = Component.translatable("item.minecraft.bundle.empty");
+    private static final Component BUNDLE_EMPTY_DESCRIPTION = Component.translatable("item.minecraft.bundle.empty.description");
+
+    private static final ScrollWheelHandler POUCH_SCROLL_HANDLER = new ScrollWheelHandler();
+    private static int lastHoveredPouchSlot = -1;
+
+    @SubscribeEvent
+    public static void pouchScroll(ScreenEvent.MouseScrolled.Pre event) {
+        if (!KamiStartupConfig.enabled()) return;
+        if (!(event.getScreen() instanceof AbstractContainerScreen<?> screen)) return;
+        var slot = screen.getSlotUnderMouse();
+        if (slot == null || !IchorPouch.isPouch(slot.getItem())) return;
+        var pouch = slot.getItem();
+        int shown = IchorPouch.numberOfItemsToShow(pouch);
+        if (shown == 0) return;
+
+        var wheelXY = POUCH_SCROLL_HANDLER.onMouseScroll(event.getScrollDeltaX(), event.getScrollDeltaY());
+        int wheel = wheelXY.y == 0 ? -wheelXY.x : wheelXY.y;
+        if (wheel != 0) {
+            int current = IchorPouch.getSelectedItem(pouch);
+            int next = ScrollWheelHandler.getNextScrollWheelSelection(wheel, current, shown);
+            if (current != next) {
+                IchorPouch.toggleSelectedItem(pouch, next);
+                ClientPacketDistributor.sendToServer(new IchorPouch.SelectPayload(slot.index, next));
+            }
+        }
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public static void pouchHoverCheck(ScreenEvent.Render.Pre event) {
+        if (!KamiStartupConfig.enabled()) return;
+        if (!(event.getScreen() instanceof AbstractContainerScreen<?> screen)) {
+            lastHoveredPouchSlot = -1;
+            return;
+        }
+        var slot = screen.getSlotUnderMouse();
+        int currentSlot = (slot != null && IchorPouch.isPouch(slot.getItem())) ? slot.index : -1;
+        if (lastHoveredPouchSlot != -1 && lastHoveredPouchSlot != currentSlot) {
+            var menu = screen.getMenu();
+            if (lastHoveredPouchSlot >= 0 && lastHoveredPouchSlot < menu.slots.size()) {
+                var prevStack = menu.getSlot(lastHoveredPouchSlot).getItem();
+                if (IchorPouch.isPouch(prevStack) && IchorPouch.getSelectedItem(prevStack) != -1) {
+                    IchorPouch.toggleSelectedItem(prevStack, -1);
+                    ClientPacketDistributor.sendToServer(new IchorPouch.SelectPayload(lastHoveredPouchSlot, -1));
+                }
+            }
+        }
+        lastHoveredPouchSlot = currentSlot;
+    }
+
+    @SubscribeEvent
+    public static void tooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(StorageTooltip.class, tooltip -> new ClientTooltipComponent() {
+            private int gridSizeY() {
+                return Mth.positiveCeilDiv(Math.min(12, tooltip.entries().size()), 4);
+            }
+
+            private int emptyDescriptionHeight(Font font) {
+                return font.split(BUNDLE_EMPTY_DESCRIPTION, 96).size() * 9;
+            }
+
+            @Override
+            public int getWidth(Font font) {
+                return 96;
+            }
+
+            @Override
+            public int getHeight(Font font) {
+                if (tooltip.entries().isEmpty()) {
+                    return (tooltip.showEmptyDescription() ? emptyDescriptionHeight(font) : 0) + 13 + 8;
+                }
+                return gridSizeY() * 24 + 13 + 8;
+            }
+
+            @Override
+            public boolean showTooltipWithItemInHand() {
+                return true;
+            }
+
+            @Override
+            public void extractImage(Font font, int x, int y, int width, int height, GuiGraphicsExtractor g) {
+                var weight = Fraction.getFraction(Math.min(tooltip.occupied(), tooltip.capacity()), Math.max(1, tooltip.capacity()));
+                if (tooltip.entries().isEmpty()) {
+                    int left = x + (width - 96) / 2;
+                    int barY = y;
+                    if (tooltip.showEmptyDescription()) {
+                        g.textWithWordWrap(font, BUNDLE_EMPTY_DESCRIPTION, left, y, 96, -5592406);
+                        barY += emptyDescriptionHeight(font) + 4;
+                    }
+                    extractProgressbar(left, barY, font, g, Fraction.ZERO);
+                } else {
+                    boolean isOverflowing = tooltip.entries().size() > 12;
+                    int shownCount = StorageTooltip.numberOfItemsToShow(tooltip.entries().size());
+                    var shownItems = tooltip.entries().subList(0, shownCount);
+                    int xStartPos = x + (width - 96) / 2 + 96;
+                    int yStartPos = y + gridSizeY() * 24;
+                    int slotNumber = 1;
+
+                    for (int row = 1; row <= gridSizeY(); ++row) {
+                        for (int col = 1; col <= 4; ++col) {
+                            int drawX = xStartPos - col * 24;
+                            int drawY = yStartPos - row * 24;
+                            if (isOverflowing && col * row == 1) {
+                                int hidden = tooltip.entries().size() - shownItems.size();
+                                g.centeredText(font, "+" + hidden, drawX + 12, drawY + 10, -1);
+                            } else if (shownItems.size() >= slotNumber) {
+                                int visualIdx = shownItems.size() - slotNumber;
+                                boolean highlight = visualIdx == tooltip.selectedIndex();
+                                var entry = shownItems.get(visualIdx);
+                                g.blitSprite(RenderPipelines.GUI_TEXTURED, highlight ? SLOT_HIGHLIGHT_BACK_SPRITE : SLOT_BACKGROUND_SPRITE, drawX, drawY, 24, 24);
+                                g.item(entry.stack(), drawX + 4, drawY + 4, slotNumber);
+                                g.itemDecorations(font, entry.stack(), drawX + 4, drawY + 4, entry.countText());
+                                if (highlight) {
+                                    g.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_FRONT_SPRITE, drawX, drawY, 24, 24);
+                                }
+                                ++slotNumber;
+                            }
+                        }
+                    }
+
+                    int sel = tooltip.selectedIndex();
+                    if (sel >= 0 && sel < shownItems.size()) {
+                        var selectedStack = shownItems.get(sel).stack();
+                        var name = selectedStack.getStyledHoverName();
+                        int textWidth = font.width(name.getVisualOrderText());
+                        g.tooltip(
+                            font,
+                            List.of(ClientTooltipComponent.create(name.getVisualOrderText())),
+                            (x + width / 2 - 12) - textWidth / 2,
+                            y - 15,
+                            DefaultTooltipPositioner.INSTANCE,
+                            selectedStack.get(DataComponents.TOOLTIP_STYLE)
+                        );
+                    }
+
+                    extractProgressbar(x + (width - 96) / 2, y + gridSizeY() * 24 + 4, font, g, weight);
+                }
+            }
+
+            private static void extractProgressbar(int x, int y, Font font, GuiGraphicsExtractor g, Fraction weight) {
+                int fill = Mth.clamp(Mth.mulAndTruncate(weight, 94), 0, 94);
+                var tex = weight.compareTo(Fraction.ONE) >= 0 ? PROGRESSBAR_FULL_SPRITE : PROGRESSBAR_FILL_SPRITE;
+                g.blitSprite(RenderPipelines.GUI_TEXTURED, tex, x + 1, y, fill, 13);
+                g.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESSBAR_BORDER_SPRITE, x, y, 96, 13);
+                Component text = weight.compareTo(Fraction.ZERO) == 0 ? BUNDLE_EMPTY_TEXT : (weight.compareTo(Fraction.ONE) >= 0 ? BUNDLE_FULL_TEXT : null);
+                if (text != null) {
+                    g.centeredText(font, text, x + 48, y + 3, -1);
+                }
+            }
+        });
     }
 
     private record OutlineTarget(BlockPos pos, VoxelShape shape) {}
