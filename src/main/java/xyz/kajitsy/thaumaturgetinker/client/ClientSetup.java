@@ -206,7 +206,9 @@ public final class ClientSetup {
                     boolean isOverflowing = tooltip.entries().size() > 12;
                     int shownCount = StorageTooltip.numberOfItemsToShow(tooltip.entries().size());
                     var shownItems = tooltip.entries().subList(0, shownCount);
-                    int xStartPos = x + (width - 96) / 2 + 96;
+                    int xStartPos = !tooltip.showEmptyDescription() && shownItems.size() == 1
+                        ? x + (width - 24) / 2 + 24
+                        : x + (width - 96) / 2 + 96;
                     int yStartPos = y + gridSizeY() * 24;
                     int slotNumber = 1;
 
