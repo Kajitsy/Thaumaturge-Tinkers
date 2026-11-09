@@ -22,15 +22,26 @@ import xyz.kajitsy.thaumaturgetinker.client.render.RepairerRenderer;
 import xyz.kajitsy.thaumaturgetinker.client.render.ToolModeProperty;
 import xyz.kajitsy.thaumaturgetinker.client.render.WarpGateRenderer;
 import xyz.kajitsy.thaumaturgetinker.focus.ShadowbeamFocus;
+import xyz.kajitsy.thaumaturgetinker.item.AdvancedTool;
+import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolMining;
+import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
 import xyz.kajitsy.thaumaturgetinker.item.SkyPearl;
 import xyz.kajitsy.thaumaturgetinker.menu.IchorPouchMenu;
 import xyz.kajitsy.thaumaturgetinker.menu.WarpGateMenu;
 
+import java.util.ArrayList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ShapeRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -74,5 +85,48 @@ public final class ClientSetup {
     public static void modelProperties(net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent event) {
         event.register(Identifier.fromNamespaceAndPath("thaumaturgetinker", "tool_mode"), ToolModeProperty.TYPE);
         event.register(Identifier.fromNamespaceAndPath("thaumaturgetinker", "active"), ActiveProperty.TYPE);
+    }
+
+    private record OutlineTarget(BlockPos pos, VoxelShape shape) {}
+
+    @SubscribeEvent
+    public static void blockOutline(ExtractBlockOutlineRenderStateEvent event) {
+        if (!KamiStartupConfig.enabled()) return;
+        var player = Minecraft.getInstance().player;
+        if (player == null) return;
+        var stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof AdvancedTool tool)) return;
+        int mode = AdvancedToolModes.get(stack);
+        if (mode == 0) return;
+
+        var level = event.getLevel();
+        var positions = AdvancedToolMining.targets(player, event.getBlockPos(), event.getHitResult().getDirection(), tool.toolType(), mode);
+        if (positions.isEmpty()) return;
+
+        var outlines = new ArrayList<OutlineTarget>(positions.size());
+        var context = event.getCollisionContext();
+        for (var pos : positions) {
+            var shape = level.getBlockState(pos).getShape(level, pos, context);
+            if (!shape.isEmpty()) {
+                outlines.add(new OutlineTarget(pos, shape));
+            }
+        }
+        if (outlines.isEmpty()) return;
+
+        float lineWidth = Minecraft.getInstance().getWindow().getAppropriateLineWidth();
+        event.addCustomRenderer((renderState, bufferSource, poseStack, translucentPass, levelRenderState) -> {
+            if (translucentPass != renderState.isTranslucent()) return false;
+            var cam = levelRenderState.cameraRenderState.pos;
+            int color = renderState.highContrast() ? 0xFF57FFDE : ARGB.black(102);
+            var primaryType = renderState.highContrast() ? RenderTypes.lines() : RenderTypes.linesTranslucent();
+            for (var target : outlines) {
+                double dx = target.pos.getX() - cam.x, dy = target.pos.getY() - cam.y, dz = target.pos.getZ() - cam.z;
+                if (renderState.highContrast()) {
+                    ShapeRenderer.renderShape(poseStack, bufferSource.getBuffer(RenderTypes.secondaryBlockOutline()), target.shape, dx, dy, dz, 0xFF000000, 7.0F);
+                }
+                ShapeRenderer.renderShape(poseStack, bufferSource.getBuffer(primaryType), target.shape, dx, dy, dz, color, lineWidth);
+            }
+            return false;
+        });
     }
 }
