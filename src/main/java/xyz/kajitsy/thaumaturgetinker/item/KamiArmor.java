@@ -4,14 +4,12 @@ import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.KamiStartupConfig;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
-
 import com.leclowndu93150.thaumaturge.api.items.IVisDiscountGear;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -26,13 +24,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 import net.neoforged.bus.api.EventPriority;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
@@ -101,8 +97,6 @@ public class KamiArmor extends Item implements IVisDiscountGear {
     public int getDefense() {
         return armorMaterial.defense().getOrDefault(armorType, 0);
     }
-
-    public static void init(IEventBus bus) {}
 
     @Override
     public boolean isFoil(ItemStack stack) {

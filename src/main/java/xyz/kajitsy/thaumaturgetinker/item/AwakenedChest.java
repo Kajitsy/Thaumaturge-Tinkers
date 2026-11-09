@@ -27,8 +27,6 @@ public final class AwakenedChest extends AwakenedArmorItem {
         super("ichorcloth_chest_gem", ArmorType.CHESTPLATE);
     }
 
-    public static void init() {}
-
     public static void update(Player player) {
         update(player, TinkererConfig.flightEnabled());
     }

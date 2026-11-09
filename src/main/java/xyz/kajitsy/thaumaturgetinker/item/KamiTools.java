@@ -3,17 +3,16 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
-
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.util.Unit;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public final class KamiTools {
@@ -43,7 +42,4 @@ public final class KamiTools {
     });
 
     public static final DeferredItem<IchorSword> SWORD = KamiRegistries.ITEMS.register("ichor_sword", () -> new IchorSword("ichor_sword"));
-
-    public static void init() {}
-    public static void register() {}
 }

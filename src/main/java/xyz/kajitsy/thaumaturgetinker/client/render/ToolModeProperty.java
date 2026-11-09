@@ -1,4 +1,6 @@
-package xyz.kajitsy.thaumaturgetinker.item;
+package xyz.kajitsy.thaumaturgetinker.client.render;
+
+import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

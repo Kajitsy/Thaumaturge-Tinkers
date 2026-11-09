@@ -12,7 +12,6 @@ public final class ToolEnchantments {
     private static Identifier id(String name){return Identifier.fromNamespaceAndPath("thaumaturgetinker",name);}
     private static ResourceKey<Enchantment> key(String name){return ResourceKey.create(Registries.ENCHANTMENT,id(name));}
     @SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.HIGHEST) public static void speed(net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed event){
-        HarvestSpeedEnchantments.speed(event);
         var player=event.getEntity();var stack=player.getMainHandItem();var registry=player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
         var flame=registry.get(FLAME).orElse(null);var soft=registry.get(SOFT).orElse(null);
         boolean flaming=flame!=null&&stack.getEnchantmentLevel(flame)>0,disintegrating=soft!=null&&stack.getEnchantmentLevel(soft)>0;if(!flaming&&!disintegrating)return;

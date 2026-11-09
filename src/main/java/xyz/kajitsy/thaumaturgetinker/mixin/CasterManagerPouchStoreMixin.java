@@ -17,11 +17,8 @@ public abstract class CasterManagerPouchStoreMixin {
     @Inject(method = "size", at = @At("HEAD"), cancellable = true)
     private void thaumaturgetinker$pouchStoreSize(CallbackInfoReturnable<Integer> cir) {
         Supplier<ItemStack> src = this.source();
-        if (src != null) {
-            ItemStack stack = src.get();
-            if (stack != null && !stack.isEmpty() && stack.getItem() instanceof IchorPouch) {
-                cir.setReturnValue(117);
-            }
+        if (src != null && IchorPouch.isPouch(src.get())) {
+            cir.setReturnValue(IchorPouch.SLOTS);
         }
     }
 }

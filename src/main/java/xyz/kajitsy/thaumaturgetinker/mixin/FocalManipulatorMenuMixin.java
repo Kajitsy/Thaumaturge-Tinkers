@@ -1,6 +1,6 @@
 package xyz.kajitsy.thaumaturgetinker.mixin;
 
-import net.minecraft.core.registries.BuiltInRegistries;
+import xyz.kajitsy.thaumaturgetinker.focus.TinkererFocus;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FocalManipulatorMenuMixin {
     @Inject(method = "mayPlace", at = @At("HEAD"), cancellable = true)
     private void thaumaturgetinker$noTtFoci(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (!stack.isEmpty() && BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals("thaumaturgetinker")) {
+        if (!stack.isEmpty() && stack.getItem() instanceof TinkererFocus) {
             cir.setReturnValue(false);
         }
     }

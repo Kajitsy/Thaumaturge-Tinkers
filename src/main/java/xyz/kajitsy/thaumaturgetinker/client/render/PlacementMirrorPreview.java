@@ -1,7 +1,8 @@
-package xyz.kajitsy.thaumaturgetinker.item;
+package xyz.kajitsy.thaumaturgetinker.client.render;
 
 import xyz.kajitsy.thaumaturgetinker.KamiStartupConfig;
-
+import xyz.kajitsy.thaumaturgetinker.item.BlockTalisman;
+import xyz.kajitsy.thaumaturgetinker.item.PlacementMirror;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemStackRenderState;

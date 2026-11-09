@@ -31,8 +31,6 @@ public final class CatAmulet extends Item {
         super(ThaumicTinkererModern.itemProps("cat_amulet", new Properties().stacksTo(1).rarity(Rarity.EPIC)));
     }
 
-    public static void init() {}
-
     @Override
     public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity entity, @Nullable EquipmentSlot slot) {
         if (entity instanceof LivingEntity living) onWornTick(stack, living);

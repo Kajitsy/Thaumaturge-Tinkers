@@ -6,10 +6,10 @@ import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-public final class PlatformEntity extends BlockEntity implements MovableTile {
+public final class PlatformEntity extends BlockEntity implements MovableTile, CamouflagedTile {
  private BlockState camouflage;
  public PlatformEntity(BlockPos pos,BlockState state){super(ThaumicTinkererModern.PLATFORM_ENTITY.get(),pos,state);}
- public BlockState camouflage(){return camouflage;}
+ @Override public BlockState camouflage(){return camouflage;}
  public void camouflage(BlockState state){camouflage=state;setChanged();if(level!=null)level.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),3);}
  @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output){super.saveAdditional(output);if(camouflage!=null)output.store("Camouflage",BlockState.CODEC,camouflage);}
  @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input){super.loadAdditional(input);camouflage=input.read("Camouflage",BlockState.CODEC).orElse(null);}

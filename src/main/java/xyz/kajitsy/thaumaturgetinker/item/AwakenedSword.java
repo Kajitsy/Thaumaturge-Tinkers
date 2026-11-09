@@ -1,9 +1,7 @@
 package xyz.kajitsy.thaumaturgetinker.item;
 
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
-import xyz.kajitsy.thaumaturgetinker.client.gui.AdvancedToolHud;
 import xyz.kajitsy.thaumaturgetinker.network.SoulHearts;
-
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -28,8 +26,6 @@ public final class AwakenedSword extends IchorSword implements AdvancedTool {
         super("ichor_sword_gem");
     }
 
-    public static void init() {}
-
     @Override
     public InteractionResult useOn(UseOnContext context) {
         return InteractionResult.PASS;
@@ -47,15 +43,8 @@ public final class AwakenedSword extends IchorSword implements AdvancedTool {
 
     @Override
     public InteractionResult use(Level level, Player p, InteractionHand hand) {
-        var stack = p.getItemInHand(hand);
-        if (p.isShiftKeyDown()) {
-            AdvancedToolModes.change(stack);
-            if (level.isClientSide()) {
-                AdvancedToolHud.show(AdvancedToolModes.description("sword", stack).getString());
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.use(level, p, hand);
+        var result = tryToggleMode(level, p, p.getItemInHand(hand));
+        return result != InteractionResult.PASS ? result : super.use(level, p, hand);
     }
 
     @Override

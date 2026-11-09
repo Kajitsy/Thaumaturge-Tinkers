@@ -2,10 +2,9 @@ package xyz.kajitsy.thaumaturgetinker.item;
 
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
-import xyz.kajitsy.thaumaturgetinker.client.gui.AdvancedToolHud;
-
 
 import com.leclowndu93150.thaumaturge.registry.TTSounds;
+import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +15,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -42,8 +42,6 @@ public final class PlacementMirror extends Item {
         super(ThaumicTinkererModern.itemProps("placement_mirror", new Properties().stacksTo(1).rarity(Rarity.EPIC)));
     }
 
-    public static void init() {}
-
     public static int size(ItemStack s) {
         int n = BlockTalisman.data(s).getIntOr("size", 3);
         return n >= 3 && n <= 11 ? n | 1 : 3;
@@ -56,13 +54,28 @@ public final class PlacementMirror extends Item {
         });
     }
 
+    /** Original mirror builds upward on walls; looking almost straight down changes it to a floor square. */
+    public static List<BlockPos> positions(BlockPos hit, Direction side, int size, float yaw, float pitch) {
+        int range = ((size | 1) ^ 1) / 2, rotation = Mth.floor(yaw * 4f / 360f + .5) & 3;
+        boolean horizontal = side.getAxis() == Direction.Axis.Y, down = pitch > 75f;
+        int x = side.getAxis() == Direction.Axis.X ? 0 : horizontal ? (down || (rotation & 1) == 0 ? range : 0) : range;
+        int y = horizontal ? (down ? 0 : range) : range;
+        int z = side.getAxis() == Direction.Axis.Z ? 0 : horizontal ? (down || (rotation & 1) == 1 ? range : 0) : range;
+        var result = new ArrayList<BlockPos>();
+        for (int dx = -x; dx <= x; dx++)
+            for (int dy = 0; dy <= 2 * y; dy++)
+                for (int dz = -z; dz <= z; dz++)
+                    result.add(hit.offset(dx, dy, dz).relative(side));
+        return result;
+    }
+
     public static List<BlockPos> targets(ItemStack s, Player p) {
         var start = p.getEyePosition();
         var hit = p.level().clip(new ClipContext(start, start.add(p.getViewVector(1).scale(5)), ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, p));
         if (hit.getType() != HitResult.Type.BLOCK) return List.of();
         var pos = hit.getBlockPos();
         if (p.level().getBlockState(pos).canBeReplaced()) pos = pos.below();
-        return PlacementMirrorPattern.positions(pos, hit.getDirection(), size(s), p.getYRot(), p.getXRot()).stream()
+        return positions(pos, hit.getDirection(), size(s), p.getYRot(), p.getXRot()).stream()
             .filter(at -> p.level().getBlockState(at).canBeReplaced())
             .toList();
     }
@@ -164,7 +177,7 @@ public final class PlacementMirror extends Item {
         if (p.isShiftKeyDown()) {
             int n = size(s);
             CustomData.update(DataComponents.CUSTOM_DATA, s, t -> t.putInt("size", n == 11 ? 3 : n + 2));
-            if (level.isClientSide()) AdvancedToolHud.show(size(s) + " x " + size(s));
+            if (level.isClientSide()) AdvancedToolModes.notifyHud(size(s) + " x " + size(s));
             p.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 0.1f);
             return InteractionResult.SUCCESS;
         }

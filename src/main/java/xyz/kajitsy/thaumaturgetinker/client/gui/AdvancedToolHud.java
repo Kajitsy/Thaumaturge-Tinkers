@@ -1,5 +1,7 @@
 package xyz.kajitsy.thaumaturgetinker.client.gui;
 
+import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
+
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -11,6 +13,10 @@ import net.neoforged.neoforge.client.gui.GuiLayer;
 
 @EventBusSubscriber(modid = "thaumaturgetinker", value = Dist.CLIENT)
 public final class AdvancedToolHud implements GuiLayer {
+    static {
+        AdvancedToolModes.HUD_NOTIFICATION = AdvancedToolHud::show;
+    }
+
     public static String text;
     public static int remaining;
     public static long elapsed;

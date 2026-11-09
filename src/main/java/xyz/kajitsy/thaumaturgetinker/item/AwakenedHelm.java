@@ -3,7 +3,6 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.network.AwakenedArmorStatus;
 
-
 import com.leclowndu93150.thaumaturge.registry.TTDataComponents;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.equipment.ArmorType;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.NeoForgeMod;
@@ -34,8 +32,6 @@ public final class AwakenedHelm extends AwakenedArmorItem {
     public AwakenedHelm() {
         super("ichorcloth_helm_gem", ArmorType.HELMET, new Properties().component(TTDataComponents.GOGGLES_UPGRADE.get(), Unit.INSTANCE));
     }
-
-    public static void init(IEventBus bus) {}
 
     public static boolean worn(Player player) {
         return player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof AwakenedHelm;

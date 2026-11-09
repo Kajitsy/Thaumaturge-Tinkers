@@ -1,9 +1,7 @@
 package xyz.kajitsy.thaumaturgetinker.item;
 
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
-import xyz.kajitsy.thaumaturgetinker.client.gui.AdvancedToolHud;
 import xyz.kajitsy.thaumaturgetinker.world.BedrockPortal;
-
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -14,21 +12,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-public final class AwakenedPick extends Item implements AdvancedMiningTool {
+public final class AwakenedPick extends Item implements AdvancedTool {
     public static final DeferredItem<AwakenedPick> ITEM = KamiRegistries.ITEMS.register("ichor_pick_gem", AwakenedPick::new);
 
     public AwakenedPick() {
         super(KamiTools.properties("ichor_pick_gem").pickaxe(KamiTools.TIER, 2, -2.8f));
     }
-
-    public static void init() {}
 
     @Override
     public String toolType() {
@@ -42,15 +37,8 @@ public final class AwakenedPick extends Item implements AdvancedMiningTool {
 
     @Override
     public InteractionResult use(Level level, Player p, InteractionHand hand) {
-        var stack = p.getItemInHand(hand);
-        if (p.isShiftKeyDown()) {
-            AdvancedToolModes.change(stack);
-            if (level.isClientSide()) {
-                AdvancedToolHud.show(AdvancedToolModes.description("pick", stack).getString());
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.use(level, p, hand);
+        var result = tryToggleMode(level, p, p.getItemInHand(hand));
+        return result != InteractionResult.PASS ? result : super.use(level, p, hand);
     }
 
     @Override
@@ -73,8 +61,7 @@ public final class AwakenedPick extends Item implements AdvancedMiningTool {
     @Override
     public void startMining(ServerPlayer p, BlockPos pos) {
         if (!AdvancedToolMining.material(p.level().getBlockState(pos), "pick")) return;
-        var eye = p.getEyePosition();
-        var hit = p.level().clip(new ClipContext(eye, eye.add(p.getLookAngle().scale(p.blockInteractionRange())), ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, p));
+        var hit = AdvancedTool.raycast(p);
         if (hit.getType() != HitResult.Type.BLOCK) return;
         BedrockPortal.open(p, pos);
         AdvancedToolMining.harvest(p, pos, AdvancedToolModes.pick(AdvancedToolModes.get(p.getMainHandItem()), hit.getDirection()), s -> AdvancedToolMining.material(s, "pick"));

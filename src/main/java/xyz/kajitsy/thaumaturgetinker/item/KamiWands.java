@@ -1,14 +1,10 @@
 package xyz.kajitsy.thaumaturgetinker.item;
 
-import xyz.kajitsy.thaumaturgetinker.KamiStartupConfig;
-
-
 import com.leclowndu93150.thaumaturge.api.wands.WandCap;
 import com.leclowndu93150.thaumaturge.api.wands.WandRod;
 import com.leclowndu93150.thaumaturge.content.wands.WandRodPrimalOnUpdate;
 import java.util.List;
 import net.minecraft.resources.Identifier;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -23,12 +19,4 @@ public final class KamiWands {
     public static final DeferredHolder<WandRod, WandRod> ROD_ICHORCLOTH = RODS.register("ichorcloth", () ->
         new WandRod(1000, 10, Identifier.fromNamespaceAndPath("thaumaturgetinker", "textures/model/rodichorcloth.png"), new WandRodPrimalOnUpdate(), true, false, false, Identifier.fromNamespaceAndPath("thaumaturgetinker", "rod_ichorcloth"))
     );
-
-    public static void init(IEventBus bus) {
-        if (!KamiStartupConfig.enabled()) return;
-        CAPS.register(bus);
-        RODS.register(bus);
-    }
-
-    public static void register() {}
 }

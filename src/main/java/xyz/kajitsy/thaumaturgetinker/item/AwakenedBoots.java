@@ -31,8 +31,6 @@ public final class AwakenedBoots extends AwakenedArmorItem {
         super("ichorcloth_boots_gem", ArmorType.BOOTS);
     }
 
-    public static void init() {}
-
     public static boolean worn(Player p) {
         return p.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof AwakenedBoots;
     }

@@ -33,8 +33,6 @@ public final class AwakenedLegs extends AwakenedArmorItem {
         super("ichorcloth_legs_gem", ArmorType.LEGGINGS);
     }
 
-    public static void init() {}
-
     public static boolean worn(Player player) {
         return player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof AwakenedLegs;
     }

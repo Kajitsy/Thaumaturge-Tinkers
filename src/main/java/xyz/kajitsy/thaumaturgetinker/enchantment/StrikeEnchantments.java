@@ -9,14 +9,19 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 @EventBusSubscriber(modid="thaumaturgetinker")
 public final class StrikeEnchantments {
- public static final ResourceKey<Enchantment> FOCUSED=key("focused_strike"),DISPERSED=key("dispersed_strikes");
+ public static final ResourceKey<Enchantment> FOCUSED=key("focused_strike"),DISPERSED=key("dispersed_strikes"),VALIANCE=key("valiance"),FINAL=key("final_strike");
  private static ResourceKey<Enchantment> key(String name){return ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath("thaumaturgetinker",name));}
+ public static float criticalDamage(float input,int finalRank,int valianceRank,float health,float maxHealth,java.util.function.IntUnaryOperator random){
+  if(finalRank>0&&random.applyAsInt(20-finalRank)==0)input*=3;
+  if(valianceRank>0&&health/maxHealth<.5f)input=(float)(input*(1+.1*valianceRank));
+  return input;
+ }
  @SubscribeEvent public static void incoming(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event){
   if(event.getEntity().level().isClientSide()||!(event.getSource().getEntity() instanceof LivingEntity attacker))return;
   var stack=attacker.getMainHandItem();var registry=attacker.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
   FallCombatEnchantments.pounce(event,attacker);
-  int finalRank=stack.getEnchantmentLevel(registry.getOrThrow(CriticalEnchantments.FINAL)),valianceRank=stack.getEnchantmentLevel(registry.getOrThrow(CriticalEnchantments.VALIANCE));
-  if(finalRank>0||valianceRank>0)event.setAmount(CriticalEnchantments.damage(event.getAmount(),finalRank,valianceRank,attacker.getHealth(),attacker.getMaxHealth(),bound->new java.util.Random().nextInt(bound)));
+  int finalRank=stack.getEnchantmentLevel(registry.getOrThrow(FINAL)),valianceRank=stack.getEnchantmentLevel(registry.getOrThrow(VALIANCE));
+  if(finalRank>0||valianceRank>0)event.setAmount(criticalDamage(event.getAmount(),finalRank,valianceRank,attacker.getHealth(),attacker.getMaxHealth(),bound->new java.util.Random().nextInt(bound)));
   int focused=stack.getEnchantmentLevel(registry.getOrThrow(FOCUSED)),dispersed=stack.getEnchantmentLevel(registry.getOrThrow(DISPERSED));if(focused<=0&&dispersed<=0)return;
   var data=stack.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();int target=event.getEntity().getId(),last=data.getIntOr("TTEnchantLastTarget",0),successive=data.getIntOr("TTEnchantSuccessiveStrike",0);
   if(last!=target){data.putInt("TTEnchantSuccessiveStrike",0);successive=0;}else{data.putInt("TTEnchantSuccessiveStrike",successive+1);successive=1;} // Exact build164 local-counter behavior.

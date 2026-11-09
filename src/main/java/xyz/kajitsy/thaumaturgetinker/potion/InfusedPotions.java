@@ -3,23 +3,13 @@ package xyz.kajitsy.thaumaturgetinker.potion;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.item.ImbuedPotionItem;
 
-
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
-import java.util.List;
-import java.util.Optional;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PotionItem;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -34,7 +24,7 @@ public final class InfusedPotions {
         WATER = effect("water", 0x3CD4FC);
 
     private static DeferredHolder<MobEffect, MobEffect> effect(String name, int color) {
-        return EFFECTS.register(name + "_imbued", () -> new ImbuedEffect(color));
+        return EFFECTS.register(name + "_imbued", () -> new MobEffect(MobEffectCategory.BENEFICIAL, color) {});
     }
 
     public static final DeferredItem<ImbuedPotionItem>

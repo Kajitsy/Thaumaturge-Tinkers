@@ -2,13 +2,9 @@ package xyz.kajitsy.thaumaturgetinker.block;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.TinkererConfig;
-import xyz.kajitsy.thaumaturgetinker.client.fx.InfusedFireSmoke;
-import xyz.kajitsy.thaumaturgetinker.potion.InfusedFireKind;
-import xyz.kajitsy.thaumaturgetinker.potion.InfusedFireTransformations;
-import xyz.kajitsy.thaumaturgetinker.potion.OrderFireResolver;
-
 
 import com.mojang.serialization.MapCodec;
+import java.util.function.Consumer;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -17,7 +13,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.phys.Vec3;
 
 /** Build 164 fire algorithm, with target coordinates represented consistently by BlockPos. */
 public final class InfusedFireBlock extends FireBlock {
@@ -85,9 +81,24 @@ public final class InfusedFireBlock extends FireBlock {
   if(random.nextInt(age+10)<5&&!level.isRainingAt(pos))convertOrPlace(level,pos,Math.min(15,age+random.nextInt(5)/4),this,random);
   else convertOrPlace(level,pos,0,Blocks.AIR,random);
  }
+ /** Original smoke checks vanilla flammability, not elemental transformation targets. */
+ public static void emitSmoke(Level level,BlockPos pos,RandomSource random,Consumer<Vec3> output){
+  var below=pos.below();var vanilla=(FireBlock)Blocks.FIRE;
+  if(level.isLoaded(below)&&(level.getBlockState(below).isFaceSturdy(level,below,Direction.UP)||vanilla.canCatchFire(level,below,Direction.UP))){
+   for(int i=0;i<3;i++)output.accept(new Vec3(pos.getX()+random.nextFloat(),pos.getY()+random.nextFloat()*.5f+.5f,pos.getZ()+random.nextFloat()));return;
+  }
+  for(var direction:new Direction[]{Direction.WEST,Direction.EAST,Direction.NORTH,Direction.SOUTH,Direction.UP}){
+   var neighbor=pos.relative(direction);if(!level.isLoaded(neighbor)||!vanilla.canCatchFire(level,neighbor,direction.getOpposite()))continue;
+   for(int i=0;i<2;i++){
+    float rx=random.nextFloat(),ry=random.nextFloat(),rz=random.nextFloat();float x=pos.getX()+rx,y=pos.getY()+ry,z=pos.getZ()+rz;
+    switch(direction){case WEST->x=pos.getX()+rx*.1f;case EAST->x=pos.getX()+1-rx*.1f;case NORTH->z=pos.getZ()+rz*.1f;case SOUTH->z=pos.getZ()+1-rz*.1f;case UP->y=pos.getY()+1-ry*.1f;default->{}}
+    output.accept(new Vec3(x,y,z));
+   }
+  }
+ }
  @Override public void animateTick(BlockState state,Level level,BlockPos pos,RandomSource random){
   if(random.nextInt(24)==0)level.playLocalSound(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5,net.minecraft.sounds.SoundEvents.FIRE_AMBIENT,net.minecraft.sounds.SoundSource.BLOCKS,1+random.nextFloat(),random.nextFloat()*.7f+.3f,false);
-  InfusedFireSmoke.emit(level,pos,random,p->level.addParticle(net.minecraft.core.particles.ParticleTypes.LARGE_SMOKE,p.x,p.y,p.z,0,0,0));
+  emitSmoke(level,pos,random,p->level.addParticle(net.minecraft.core.particles.ParticleTypes.LARGE_SMOKE,p.x,p.y,p.z,0,0,0));
  }
  @Override protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random){
   if(!level.canSpreadFireAround(pos)||!TinkererConfig.fireEnabled())return;

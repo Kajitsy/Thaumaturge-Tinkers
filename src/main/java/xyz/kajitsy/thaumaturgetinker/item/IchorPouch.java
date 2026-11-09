@@ -23,14 +23,15 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 /** Original 117-slot general inventory, not the ordinary 18-focus pouch. */
 public final class IchorPouch extends Item {
+    public static final int SLOTS = 117;
     public static final DeferredItem<IchorPouch> ITEM = KamiRegistries.ITEMS.register("ichor_pouch", IchorPouch::new);
 
     public IchorPouch() {
         super(ThaumicTinkererModern.itemProps("ichor_pouch", new Properties().stacksTo(1).rarity(Rarity.EPIC)));
     }
 
-    public static void init() {
-        IchorPouchMenu.init();
+    public static boolean isPouch(ItemStack stack) {
+        return stack != null && !stack.isEmpty() && stack.getItem() instanceof IchorPouch;
     }
 
     @Override
@@ -45,9 +46,9 @@ public final class IchorPouch extends Item {
     }
 
     public static List<ItemStack> contents(ItemStack pouch) {
-        var result = new ArrayList<ItemStack>(Collections.nCopies(117, ItemStack.EMPTY));
+        var result = new ArrayList<ItemStack>(Collections.nCopies(SLOTS, ItemStack.EMPTY));
         var stored = pouch.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-        for (int i = 0; i < Math.min(117, stored.getSlots()); i++) {
+        for (int i = 0; i < Math.min(SLOTS, stored.getSlots()); i++) {
             result.set(i, stored.getStackInSlot(i).copy());
         }
         return result;
@@ -58,7 +59,7 @@ public final class IchorPouch extends Item {
     }
 
     public static void store(ItemStack pouch, List<ItemStack> items) {
-        if (items.size() != 117) throw new IllegalArgumentException("Ichor pouch requires 117 slots");
+        if (items.size() != SLOTS) throw new IllegalArgumentException("Ichor pouch requires " + SLOTS + " slots");
         for (var stack : items) {
             if (!stack.isEmpty() && !allowed(stack)) throw new IllegalArgumentException("Nested focus pouches are not allowed");
         }

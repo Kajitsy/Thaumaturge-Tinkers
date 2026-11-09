@@ -12,13 +12,13 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-public final class DislocatorEntity extends BlockEntity implements MovableTile, TransvectorLink{
+public final class DislocatorEntity extends BlockEntity implements MovableTile, TransvectorLink, CamouflagedTile {
     private BlockPos target;
     private BlockState camouflage;
     int cooldown;boolean pulseStored;
     public DislocatorEntity(BlockPos pos,BlockState state){super(ThaumicTinkererModern.DISLOCATOR_ENTITY.get(),pos,state);}
     public BlockPos target(){return target;}
-    public BlockState camouflage(){return camouflage;}
+    @Override public BlockState camouflage(){return camouflage;}
     public void camouflage(BlockState state){camouflage=state;changed();}
     void changed(){setChanged();if(level!=null)level.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),3);}
     public boolean inRange(BlockPos pos){return !pos.equals(worldPosition)&&Math.abs((long)pos.getX()-worldPosition.getX())<=16&&Math.abs((long)pos.getY()-worldPosition.getY())<=16&&Math.abs((long)pos.getZ()-worldPosition.getZ())<=16;}
@@ -31,11 +31,12 @@ public final class DislocatorEntity extends BlockEntity implements MovableTile, 
         if(cooldown>0){pulseStored=true;setChanged();return;}
         var atTarget=server.getEntities((Entity)null,new AABB(target));var atAdjacent=server.getEntities((Entity)null,new AABB(adjacent));
         if(movable(server,target)&&movable(server,adjacent)){
-            var first=DislocatorSnapshot.capture(server,target);var second=DislocatorSnapshot.capture(server,adjacent);
+            var firstState=server.getBlockState(target);var firstTile=server.getBlockEntity(target);var firstData=firstTile==null?null:firstTile.saveWithFullMetadata(server.registryAccess());
+            var secondState=server.getBlockState(adjacent);var secondTile=server.getBlockEntity(adjacent);var secondData=secondTile==null?null:secondTile.saveWithFullMetadata(server.registryAccess());
             // Remove tiles before changing states so vanilla onRemove cannot spill inventories.
             server.removeBlockEntity(target);server.removeBlockEntity(adjacent);
-            second.install(server,target);first.install(server,adjacent);
-            server.updateNeighborsAt(target,second.state().getBlock());server.updateNeighborsAt(adjacent,first.state().getBlock());
+            MovableTile.install(server,target,secondState,secondData);MovableTile.install(server,adjacent,firstState,firstData);
+            server.updateNeighborsAt(target,secondState.getBlock());server.updateNeighborsAt(adjacent,firstState.getBlock());
         }
         var delta=net.minecraft.world.phys.Vec3.atLowerCornerOf(adjacent.subtract(target));
         for(var entity:atTarget)move(entity,delta);

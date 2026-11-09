@@ -1,8 +1,6 @@
 package xyz.kajitsy.thaumaturgetinker.item;
 
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
-import xyz.kajitsy.thaumaturgetinker.client.gui.AdvancedToolHud;
-
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -15,20 +13,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-public final class AwakenedAxe extends Item implements AdvancedMiningTool {
+public final class AwakenedAxe extends Item implements AdvancedTool {
     public static final DeferredItem<AwakenedAxe> ITEM = KamiRegistries.ITEMS.register("ichor_axe_gem", AwakenedAxe::new);
 
     public AwakenedAxe() {
         super(KamiTools.properties("ichor_axe_gem").axe(KamiTools.TIER, 3, -3.0f));
     }
-
-    public static void init() {}
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -47,15 +42,8 @@ public final class AwakenedAxe extends Item implements AdvancedMiningTool {
 
     @Override
     public InteractionResult use(Level level, Player p, InteractionHand hand) {
-        var stack = p.getItemInHand(hand);
-        if (p.isShiftKeyDown()) {
-            AdvancedToolModes.change(stack);
-            if (level.isClientSide()) {
-                AdvancedToolHud.show(AdvancedToolModes.description("axe", stack).getString());
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.use(level, p, hand);
+        var result = tryToggleMode(level, p, p.getItemInHand(hand));
+        return result != InteractionResult.PASS ? result : super.use(level, p, hand);
     }
 
     @Override
@@ -73,8 +61,7 @@ public final class AwakenedAxe extends Item implements AdvancedMiningTool {
     @Override
     public void startMining(ServerPlayer p, BlockPos pos) {
         if (!AdvancedToolMining.material(p.level().getBlockState(pos), "axe")) return;
-        var eye = p.getEyePosition();
-        var hit = p.level().clip(new ClipContext(eye, eye.add(p.getLookAngle().scale(p.blockInteractionRange())), ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, p));
+        var hit = AdvancedTool.raycast(p);
         if (hit.getType() != HitResult.Type.BLOCK) return;
         if (AdvancedToolModes.get(p.getMainHandItem()) == 2) {
             AdvancedToolMining.fell(p, pos);

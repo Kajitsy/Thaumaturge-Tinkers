@@ -1,4 +1,9 @@
-package xyz.kajitsy.thaumaturgetinker.item;
+package xyz.kajitsy.thaumaturgetinker.client.render;
+
+import xyz.kajitsy.thaumaturgetinker.item.BlockTalisman;
+import xyz.kajitsy.thaumaturgetinker.item.BloodSwordItem;
+import xyz.kajitsy.thaumaturgetinker.item.CleansingTalismanItem;
+import xyz.kajitsy.thaumaturgetinker.item.XPTalismanItem;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

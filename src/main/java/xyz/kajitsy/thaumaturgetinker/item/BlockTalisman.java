@@ -37,8 +37,6 @@ public final class BlockTalisman extends Item {
         super(ThaumicTinkererModern.itemProps("block_talisman", new Properties().stacksTo(1).rarity(Rarity.EPIC)));
     }
 
-    public static void init() {}
-
     public static CompoundTag data(ItemStack s) {
         return s.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
     }

@@ -4,8 +4,7 @@ import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.block.entity.InfusedFarmlandEntity;
 import xyz.kajitsy.thaumaturgetinker.block.entity.InfusedGrainEntity;
 import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropHarvest;
-import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropLootRuntime;
-
+import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropLoot;
 
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
@@ -95,7 +94,7 @@ public final class InfusedGrainBlock extends CropBlock implements EntityBlock {
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         if (level.getBlockEntity(pos) instanceof InfusedGrainEntity crop) {
             var soil = level.getBlockEntity(pos.below()) instanceof InfusedFarmlandEntity farmland ? farmland : null;
-            var loot = InfusedCropLootRuntime.get(level);
+            var loot = InfusedCropLoot.get(level);
             var drops = InfusedCropHarvest.collect(level.registryAccess(), crop.data(), state.getValue(AGE), soil == null ? null : soil.aspects(), level.getRandom(), a -> {
                 if (soil != null) soil.fertilize(a);
             }, a -> loot.roll(a, level.getRandom()));

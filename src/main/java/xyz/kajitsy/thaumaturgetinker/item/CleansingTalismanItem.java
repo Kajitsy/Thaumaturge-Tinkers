@@ -2,7 +2,6 @@ package xyz.kajitsy.thaumaturgetinker.item;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
-
 import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -27,8 +26,12 @@ public final class CleansingTalismanItem extends Item {
         return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("enabled", false);
     }
 
+    public static void setEnabled(ItemStack stack, boolean value) {
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> t.putBoolean("enabled", value));
+    }
+
     public static void toggle(ItemStack stack) {
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> t.putBoolean("enabled", !t.getBooleanOr("enabled", false)));
+        setEnabled(stack, !enabled(stack));
     }
 
     @Override

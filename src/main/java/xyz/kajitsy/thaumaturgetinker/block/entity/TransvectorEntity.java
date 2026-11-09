@@ -14,10 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 
 /** Build 164 range is four blocks per axis. Links never load a chunk. */
-public final class TransvectorEntity extends BlockEntity implements MovableTile, TransvectorLink {
+public final class TransvectorEntity extends BlockEntity implements MovableTile, TransvectorLink, CamouflagedTile {
     private BlockPos target;
     private BlockState camouflage;
 
+    @Override
     public BlockState camouflage() {
         return camouflage;
     }

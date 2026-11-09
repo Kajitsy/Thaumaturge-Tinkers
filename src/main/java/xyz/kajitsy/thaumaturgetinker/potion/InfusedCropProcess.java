@@ -14,12 +14,13 @@ import net.minecraft.util.RandomSource;
 
 /** Build-164 growth and tendency exchange; world mutation is performed by the crop entity. */
 public final class InfusedCropProcess {
+    public record Transfer(int neighbor, InfusedSeedData recipient, InfusedSeedData donor, ResourceKey<IAspect> aspect) {}
 
     public static int grow(InfusedSeedData data, int age, int light, RandomSource random) {
         return light >= 9 && age < 7 && random.nextInt(data.growthBound()) == 0 ? age + 1 : age;
     }
 
-    public static InfusedCropTransfer transfer(InfusedSeedData data, List<InfusedSeedData> neighbors, RandomSource random) {
+    public static Transfer transfer(InfusedSeedData data, List<InfusedSeedData> neighbors, RandomSource random) {
         if (random.nextInt(data.transferBound()) != 0 || data.mainAspect() == null || TTAspects.PRIMALS.contains(data.mainAspect())) {
             return null;
         }
@@ -33,7 +34,7 @@ public final class InfusedCropProcess {
                 if (own.getOrDefault(aspect, 0) >= 5) continue;
                 own.put(aspect, own.getOrDefault(aspect, 0) + 1);
                 saturate(own, 50, random);
-                return new InfusedCropTransfer(i, new InfusedSeedData(data.mainAspect(), own), neighbor, aspect);
+                return new Transfer(i, new InfusedSeedData(data.mainAspect(), own), neighbor, aspect);
             }
             var choices = new ArrayList<>(other.keySet());
             if (choices.isEmpty()) return null;
@@ -44,7 +45,7 @@ public final class InfusedCropProcess {
             if (remainingOther > 0) other.put(aspect, remainingOther);
             else other.remove(aspect);
             saturate(own, 50, random);
-            return new InfusedCropTransfer(i, new InfusedSeedData(data.mainAspect(), own), new InfusedSeedData(neighbor.mainAspect(), other), aspect);
+            return new Transfer(i, new InfusedSeedData(data.mainAspect(), own), new InfusedSeedData(neighbor.mainAspect(), other), aspect);
         }
         return null;
     }

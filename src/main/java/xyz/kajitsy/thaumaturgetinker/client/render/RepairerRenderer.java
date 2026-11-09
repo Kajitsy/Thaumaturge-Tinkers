@@ -2,12 +2,12 @@ package xyz.kajitsy.thaumaturgetinker.client.render;
 
 import xyz.kajitsy.thaumaturgetinker.block.entity.RepairerEntity;
 
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -18,7 +18,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
-public final class RepairerRenderer implements BlockEntityRenderer<RepairerEntity, RepairerRenderState> {
+public final class RepairerRenderer implements BlockEntityRenderer<RepairerEntity, RepairerRenderer.State> {
+    public static final class State extends BlockEntityRenderState {
+        public @Nullable ItemStackRenderState item;
+        public float ticks;
+    }
+
     private final ItemModelResolver itemModelResolver;
 
     public RepairerRenderer(BlockEntityRendererProvider.Context context) {
@@ -26,12 +31,12 @@ public final class RepairerRenderer implements BlockEntityRenderer<RepairerEntit
     }
 
     @Override
-    public RepairerRenderState createRenderState() {
-        return new RepairerRenderState();
+    public State createRenderState() {
+        return new State();
     }
 
     @Override
-    public void extractRenderState(RepairerEntity tile, RepairerRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+    public void extractRenderState(RepairerEntity tile, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(tile, state, partialTicks, cameraPosition, breakProgress);
         ItemStack stack = tile.inventory.getItem(0);
         if (stack.isEmpty()) {
@@ -45,7 +50,7 @@ public final class RepairerRenderer implements BlockEntityRenderer<RepairerEntit
     }
 
     @Override
-    public void submit(RepairerRenderState state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
         if (state.item == null) return;
         pose.pushPose();
         pose.translate(0.5, 0.75 + Math.sin(state.ticks / 10.0) * 0.05, 0.5);

@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -18,7 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
-public final class EnchanterRenderer implements BlockEntityRenderer<EnchanterEntity, EnchanterRenderState> {
+public final class EnchanterRenderer implements BlockEntityRenderer<EnchanterEntity, EnchanterRenderer.State> {
+    public static final class State extends BlockEntityRenderState {
+        public @Nullable ItemStackRenderState tool;
+        public @Nullable ItemStackRenderState wand;
+        public float ticks;
+    }
+
     private final ItemModelResolver itemModelResolver;
 
     public EnchanterRenderer(BlockEntityRendererProvider.Context context) {
@@ -26,12 +33,12 @@ public final class EnchanterRenderer implements BlockEntityRenderer<EnchanterEnt
     }
 
     @Override
-    public EnchanterRenderState createRenderState() {
-        return new EnchanterRenderState();
+    public State createRenderState() {
+        return new State();
     }
 
     @Override
-    public void extractRenderState(EnchanterEntity tile, EnchanterRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+    public void extractRenderState(EnchanterEntity tile, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(tile, state, partialTicks, cameraPosition, breakProgress);
 
         ItemStack toolStack = tile.inventory.getItem(0);
@@ -57,7 +64,7 @@ public final class EnchanterRenderer implements BlockEntityRenderer<EnchanterEnt
     }
 
     @Override
-    public void submit(EnchanterRenderState state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
         if (state.tool != null) {
             pose.pushPose();
             pose.translate(0.5, 0.76, 0.5);

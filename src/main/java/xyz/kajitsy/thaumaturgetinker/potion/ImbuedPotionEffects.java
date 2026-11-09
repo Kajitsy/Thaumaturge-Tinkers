@@ -2,7 +2,10 @@ package xyz.kajitsy.thaumaturgetinker.potion;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -17,14 +20,11 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-
 @EventBusSubscriber(modid = ThaumicTinkererModern.ID)
 public final class ImbuedPotionEffects {
-    private static final Map<LivingEntity, PotionHit> AIR_HITS = new WeakHashMap<>(), FIRE_HITS = new WeakHashMap<>();
+    private record Hit(ServerLevel level, long time) {}
+
+    private static final Map<LivingEntity, Hit> AIR_HITS = new WeakHashMap<>(), FIRE_HITS = new WeakHashMap<>();
 
     @SubscribeEvent
     public static void incoming(LivingIncomingDamageEvent event) {
@@ -32,8 +32,8 @@ public final class ImbuedPotionEffects {
         var target = event.getEntity();
         if (event.getSource().getEntity() instanceof Player attacker) {
             if (attacker.hasEffect(InfusedPotions.EARTH)) earth(attacker, target);
-            if (attacker.hasEffect(InfusedPotions.AIR)) AIR_HITS.put(target, new PotionHit(level, level.getGameTime()));
-            if (attacker.hasEffect(InfusedPotions.FIRE)) FIRE_HITS.put(target, new PotionHit(level, level.getGameTime()));
+            if (attacker.hasEffect(InfusedPotions.AIR)) AIR_HITS.put(target, new Hit(level, level.getGameTime()));
+            if (attacker.hasEffect(InfusedPotions.FIRE)) FIRE_HITS.put(target, new Hit(level, level.getGameTime()));
         } else if (target instanceof Player victim && event.getSource().getEntity() instanceof LivingEntity mobAttacker) {
             if (victim.hasEffect(InfusedPotions.EARTH)) earth(victim, mobAttacker);
         }
@@ -82,7 +82,7 @@ public final class ImbuedPotionEffects {
         applyHits(FIRE_HITS, level, now, true);
     }
 
-    private static void applyHits(Map<LivingEntity, PotionHit> hits, ServerLevel level, long now, boolean fire) {
+    private static void applyHits(Map<LivingEntity, Hit> hits, ServerLevel level, long now, boolean fire) {
         var iterator = hits.entrySet().iterator();
         while (iterator.hasNext()) {
             var entry = iterator.next();

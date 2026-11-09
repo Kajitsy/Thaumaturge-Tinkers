@@ -2,36 +2,40 @@ package xyz.kajitsy.thaumaturgetinker.client.render;
 
 import xyz.kajitsy.thaumaturgetinker.block.entity.WarpGateEntity;
 
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
-public final class WarpGateRenderer implements BlockEntityRenderer<WarpGateEntity, WarpGateRenderState> {
+public final class WarpGateRenderer implements BlockEntityRenderer<WarpGateEntity, WarpGateRenderer.State> {
+    public static final class State extends BlockEntityRenderState {
+        public int playerTicks;
+    }
+
     public WarpGateRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
-    public WarpGateRenderState createRenderState() {
-        return new WarpGateRenderState();
+    public State createRenderState() {
+        return new State();
     }
 
     @Override
-    public void extractRenderState(WarpGateEntity gate, WarpGateRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+    public void extractRenderState(WarpGateEntity gate, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(gate, state, partialTicks, cameraPosition, breakProgress);
         var player = Minecraft.getInstance().player;
         state.playerTicks = player == null ? 0 : player.tickCount;
     }
 
     @Override
-    public void submit(WarpGateRenderState state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
         collector.submitCustomGeometry(pose, RenderTypes.debugQuads(), (p, out) -> {
             PoseStack local = new PoseStack();
             local.last().set(p);

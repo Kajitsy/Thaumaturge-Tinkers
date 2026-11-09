@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class CasterManagerMixin {
     @Inject(method = "isPouch", at = @At("HEAD"), cancellable = true)
     private static void thaumaturgetinker$isPouch(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IchorPouch) {
+        if (IchorPouch.isPouch(stack)) {
             cir.setReturnValue(true);
         }
     }

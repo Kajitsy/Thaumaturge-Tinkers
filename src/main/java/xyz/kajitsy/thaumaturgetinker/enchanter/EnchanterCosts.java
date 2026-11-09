@@ -9,9 +9,19 @@ import net.minecraft.resources.ResourceKey;
 
 /** Exact build164 cost catalog. Amounts are whole vis; conversion to centivis is at consumption. */
 public final class EnchanterCosts {
-    public static final Map<String, EnchanterCostEntry> ENTRIES;
+    public record Entry(String texture, boolean vanilla, String research, Map<ResourceKey<IAspect>, Integer> base) {
+        public Map<ResourceKey<IAspect>, Integer> cost(int level) {
+            if (level < 1 || level > 255) throw new IllegalArgumentException("Invalid enchantment level");
+            double multiplier = level * (1.0 + level * 0.2);
+            var result = new LinkedHashMap<ResourceKey<IAspect>, Integer>();
+            base.forEach((aspect, amount) -> result.put(aspect, (int) (amount * multiplier)));
+            return result;
+        }
+    }
+
+    public static final Map<String, Entry> ENTRIES;
     static {
-        var entries = new LinkedHashMap<String, EnchanterCostEntry>();
+        var entries = new LinkedHashMap<String, Entry>();
         add(entries, "minecraft:protection", "thaumaturgetinker:textures/enchants/protection.png", true, "", TTAspects.TERRA, 10, TTAspects.PERDITIO, 7);
         add(entries, "minecraft:fire_protection", "thaumaturgetinker:textures/enchants/fireprotection.png", true, "", TTAspects.IGNIS, 10, TTAspects.PERDITIO, 3, TTAspects.AQUA, 4);
         add(entries, "minecraft:feather_falling", "thaumaturgetinker:textures/enchants/featherfalling.png", true, "", TTAspects.AER, 16, TTAspects.ORDO, 5);
@@ -52,13 +62,16 @@ public final class EnchanterCosts {
         add(entries, "thaumaturgetinker:pounce", "thaumaturgetinker:textures/enchants/pounce.png", false, "TTENCH_POUNCE", TTAspects.TERRA, 16, TTAspects.AER, 16);
         ENTRIES = Collections.unmodifiableMap(entries);
     }
+
     @SuppressWarnings("unchecked")
-    private static void add(Map<String, EnchanterCostEntry> entries, String key, String texture, boolean vanilla, String research, Object... pairs) {
+    private static void add(Map<String, Entry> entries, String key, String texture, boolean vanilla, String research, Object... pairs) {
         var base = new LinkedHashMap<ResourceKey<IAspect>, Integer>();
         for (int i = 0; i < pairs.length; i += 2) base.put((ResourceKey<IAspect>) pairs[i], (Integer) pairs[i + 1]);
-        if (entries.put(key, new EnchanterCostEntry(texture, vanilla, research, Collections.unmodifiableMap(base))) != null)
+        if (entries.put(key, new Entry(texture, vanilla, research, Collections.unmodifiableMap(base))) != null) {
             throw new IllegalStateException("Duplicate enchanter cost: " + key);
+        }
     }
+
     public static java.util.Set<String> allResearch() {
         var set = new java.util.HashSet<String>();
         for (var entry : ENTRIES.values()) {

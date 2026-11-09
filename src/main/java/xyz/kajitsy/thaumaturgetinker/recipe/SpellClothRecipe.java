@@ -11,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import xyz.kajitsy.thaumaturgetinker.api.INoRemoveEnchant;
 
 /** Build 164: one cloth + one enchanted item; remove only enchantments, use cloth once. */
 public final class SpellClothRecipe extends CustomRecipe {
@@ -29,7 +28,7 @@ public final class SpellClothRecipe extends CustomRecipe {
             var stack = input.getItem(i);
             if (stack.isEmpty()) continue;
             if (stack.is(ThaumicTinkererModern.SPELL_CLOTH.get()) && !cloth) cloth = true;
-            else if (stack.isEnchanted() && !(stack.getItem() instanceof INoRemoveEnchant) && target.isEmpty()) target = stack;
+            else if (stack.isEnchanted() && target.isEmpty()) target = stack;
             else return ItemStack.EMPTY;
         }
         return cloth ? target : ItemStack.EMPTY;

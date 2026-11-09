@@ -1,4 +1,4 @@
-package xyz.kajitsy.thaumaturgetinker.potion;
+package xyz.kajitsy.thaumaturgetinker.block;
 
 import java.util.*;
 import net.minecraft.world.level.block.*;

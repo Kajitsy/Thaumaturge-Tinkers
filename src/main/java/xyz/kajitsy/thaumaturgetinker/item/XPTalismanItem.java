@@ -3,8 +3,6 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.mixin.ExperienceOrbAccessor;
 
-
-import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -91,13 +89,13 @@ public final class XPTalismanItem extends Item {
     public void onWornTick(ItemStack stack, LivingEntity entity) {
         if (entity.level().isClientSide() || !enabled(stack)) return;
         if (xp(stack) >= 1500) {
-            CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> t.putBoolean("enabled", false));
+            CleansingTalismanItem.setEnabled(stack, false);
             return;
         }
         var pos = entity.position();
         var box = new AABB(pos.x - 3, pos.y - 3, pos.z - 3, pos.x + 3, pos.y + 3, pos.z + 3);
         for (var orb : entity.level().getEntitiesOfClass(ExperienceOrb.class, box, o -> o.isAlive())) {
-            var access = (xyz.kajitsy.thaumaturgetinker.mixin.ExperienceOrbAccessor) orb;
+            var access = (ExperienceOrbAccessor) orb;
             int value = orb.getValue();
             if (value <= 0) continue;
             int count = Math.min(access.thaumaturgetinker$count(), (1500 - xp(stack)) / value);

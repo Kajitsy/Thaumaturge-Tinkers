@@ -1,6 +1,5 @@
 package xyz.kajitsy.thaumaturgetinker.world;
 
-import xyz.kajitsy.thaumaturgetinker.KamiResourceKind;
 import xyz.kajitsy.thaumaturgetinker.KamiResources;
 import xyz.kajitsy.thaumaturgetinker.KamiStartupConfig;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
@@ -12,8 +11,8 @@ import net.minecraft.world.level.Level;
 public final class DimensionalShardDrops {
  public static net.minecraft.world.item.ItemStack drop(LivingEntity victim,net.minecraft.world.damagesource.DamageSource source,double roll){
   if(!KamiStartupConfig.enabled())return net.minecraft.world.item.ItemStack.EMPTY;if(victim.level().isClientSide()||!(source.getEntity() instanceof Player))return net.minecraft.world.item.ItemStack.EMPTY;
-  if(victim instanceof net.minecraft.world.entity.monster.EnderMan&&victim.level().dimension().equals(Level.END)&&roll<=.03125)return new net.minecraft.world.item.ItemStack(KamiResources.item(KamiResourceKind.ENDER_SHARD));
-  if(victim instanceof net.minecraft.world.entity.monster.zombie.ZombifiedPiglin&&victim.level().dimension().equals(Level.NETHER)&&roll<=.0625)return new net.minecraft.world.item.ItemStack(KamiResources.item(KamiResourceKind.NETHER_SHARD));
+  if(victim instanceof net.minecraft.world.entity.monster.EnderMan&&victim.level().dimension().equals(Level.END)&&roll<=.03125)return new net.minecraft.world.item.ItemStack(KamiResources.item(KamiResources.Kind.ENDER_SHARD));
+  if(victim instanceof net.minecraft.world.entity.monster.zombie.ZombifiedPiglin&&victim.level().dimension().equals(Level.NETHER)&&roll<=.0625)return new net.minecraft.world.item.ItemStack(KamiResources.item(KamiResources.Kind.NETHER_SHARD));
   return net.minecraft.world.item.ItemStack.EMPTY;
  }
  @net.neoforged.bus.api.SubscribeEvent public static void drops(net.neoforged.neoforge.event.entity.living.LivingDropsEvent event){append(event,Math.random());}

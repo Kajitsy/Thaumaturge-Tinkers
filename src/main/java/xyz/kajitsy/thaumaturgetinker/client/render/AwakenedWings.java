@@ -6,6 +6,11 @@ import xyz.kajitsy.thaumaturgetinker.item.AwakenedChest;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedHelm;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedLegs;
 import xyz.kajitsy.thaumaturgetinker.item.KamiArmor;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.AnimationUtils;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -14,9 +19,17 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.player.RemotePlayer;
+import net.minecraft.client.renderer.entity.state.ArmorStandRenderState;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.core.Rotations;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.Equippable;
@@ -31,9 +44,161 @@ public final class AwakenedWings {
     private static final int TEX_WIDTH = 64;
     private static final int TEX_HEIGHT = 64;
 
-    public static class WingsModel extends AwakenedWingsModel {
+    public static final class WingsModel extends HumanoidModel<HumanoidRenderState> {
+        private static final class WingAnimState {
+            float flightBlend = 0.0f;
+            float leftY = -0.6108652f;
+            float rightY = 0.4468043f;
+            float leftZ = 0.0f;
+            float rightZ = 0.0f;
+            float outerLeftY = -0.14f;
+            float outerRightY = 0.14f;
+            float lastAge = -1.0f;
+        }
+
+        private static final Map<Integer, WingAnimState> WING_STATES = new ConcurrentHashMap<>();
+
         public WingsModel(ModelPart root) {
             super(root);
+        }
+
+        @Override
+        public void setupAnim(HumanoidRenderState state) {
+            super.setupAnim(state);
+
+            if (state instanceof ZombieRenderState zombie) {
+                AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, zombie.isAggressive, zombie);
+            }
+            if (state instanceof ArmorStandRenderState stand) {
+                applyStandPose(stand);
+            }
+
+            boolean flying = state.isFallFlying;
+            int entityKey = 0;
+            if (state instanceof AvatarRenderState avatar) {
+                entityKey = avatar.id;
+                if (!flying) {
+                    var mc = Minecraft.getInstance();
+                    Player player = null;
+                    if (mc.level != null) {
+                        var entity = mc.level.getEntity(avatar.id);
+                        if (entity instanceof Player p) {
+                            player = p;
+                        }
+                    }
+                    if (player == null && mc.player != null && (avatar.id == mc.player.getId() || avatar.id == 0)) {
+                        player = mc.player;
+                    }
+                    if (player != null) {
+                        if (player.getAbilities().flying) {
+                            flying = true;
+                        } else if (player instanceof RemotePlayer) {
+                            if (!player.onGround() && !player.isInWater() && !player.isPassenger() && (player.getDeltaMovement().y > -0.05 || player.fallDistance == 0)) {
+                                flying = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (body.hasChild("front_flap") && body.hasChild("back_flap")) {
+                var frontFlap = body.getChild("front_flap");
+                var backFlap = body.getChild("back_flap");
+                if (state instanceof ArmorStandRenderState) {
+                    frontFlap.xRot = -0.05f;
+                    backFlap.xRot = 0.08f;
+                } else {
+                    float fwd = Math.min(0.0f, Math.min(rightLeg.xRot, leftLeg.xRot));
+                    float bwd = Math.max(0.0f, Math.max(rightLeg.xRot, leftLeg.xRot));
+                    float crouch = state.isCrouching ? 0.32f : 0.0f;
+                    float flutter = flying
+                        ? (float) (Math.sin(state.ageInTicks * 0.35f) * 0.09f + 0.22f)
+                        : (float) (Math.sin(state.ageInTicks * 0.08f) * 0.025f);
+                    frontFlap.xRot = Math.min(-0.05f, fwd * 0.78f - crouch - flutter * 0.35f);
+                    backFlap.xRot = Math.max(0.08f, bwd * 0.78f + crouch * 0.85f + flutter);
+                    if (frontFlap.hasChild("front_hem")) {
+                        frontFlap.getChild("front_hem").xRot = Math.min(0.0f, fwd * 0.35f - flutter * 0.25f);
+                    }
+                    if (backFlap.hasChild("back_hem")) {
+                        backFlap.getChild("back_hem").xRot = Math.max(0.06f, bwd * 0.35f + flutter * 0.5f);
+                    }
+                }
+            }
+
+            if (body.hasChild("wing1") && body.hasChild("wing2")) {
+                var left = body.getChild("wing1");
+                var right = body.getChild("wing2");
+
+                WingAnimState anim = WING_STATES.computeIfAbsent(entityKey, k -> new WingAnimState());
+                float dt = anim.lastAge < 0.0f ? 0.0f : Mth.clamp(state.ageInTicks - anim.lastAge, 0.0f, 3.0f);
+                anim.lastAge = state.ageInTicks;
+
+                if (dt == 0.0f && state.ageInTicks == 0.0f) {
+                    anim.flightBlend = flying ? 1.0f : 0.0f;
+                } else {
+                    float step = (dt > 0.0f ? dt : 0.25f) * 0.16f;
+                    anim.flightBlend = Mth.clamp(anim.flightBlend + (flying ? step : -step), 0.0f, 1.0f);
+                }
+
+                float s = anim.flightBlend * anim.flightBlend * (3.0f - 2.0f * anim.flightBlend);
+
+                float crouchOpen = state.isCrouching ? 0.16f : 0.0f;
+                float idle = (float) (Math.sin(state.ageInTicks * 0.06f) * 0.03f);
+                float restLeftY = -0.6108652f - idle - crouchOpen;
+                float restRightY = 0.4468043f + idle + crouchOpen;
+                float restOuterLeftY = -0.14f - idle * 0.5f;
+                float restOuterRightY = 0.14f + idle * 0.5f;
+
+                float flyLeftY = (float) ((Math.sin(state.ageInTicks) + 1.0) * (Math.PI / 180.0) * 15.0 - 0.6108651757240295);
+                float flyRightY = -flyLeftY;
+                float phase = state.ageInTicks * 0.42f;
+                float flyLeftZ = (float) (Math.cos(phase) * 0.07f - 0.04f);
+                float flyRightZ = -flyLeftZ;
+                float tipWave = (float) (Math.sin(state.ageInTicks - 0.9f) * 0.22f);
+                float flyOuterLeftY = tipWave - 0.10f;
+                float flyOuterRightY = -tipWave + 0.10f;
+
+                float targetLeftY = Mth.lerp(s, restLeftY, flyLeftY);
+                float targetRightY = Mth.lerp(s, restRightY, flyRightY);
+                float targetLeftZ = Mth.lerp(s, 0.0f, flyLeftZ);
+                float targetRightZ = Mth.lerp(s, 0.0f, flyRightZ);
+                float targetOuterLeftY = Mth.lerp(s, restOuterLeftY, flyOuterLeftY);
+                float targetOuterRightY = Mth.lerp(s, restOuterRightY, flyOuterRightY);
+
+                float damp = dt > 0.0f ? Mth.clamp(dt * 0.42f, 0.12f, 1.0f) : 1.0f;
+                anim.leftY = Mth.lerp(damp, anim.leftY, targetLeftY);
+                anim.rightY = Mth.lerp(damp, anim.rightY, targetRightY);
+                anim.leftZ = Mth.lerp(damp, anim.leftZ, targetLeftZ);
+                anim.rightZ = Mth.lerp(damp, anim.rightZ, targetRightZ);
+                anim.outerLeftY = Mth.lerp(damp, anim.outerLeftY, targetOuterLeftY);
+                anim.outerRightY = Mth.lerp(damp, anim.outerRightY, targetOuterRightY);
+
+                left.yRot = anim.leftY;
+                right.yRot = anim.rightY;
+                left.zRot = anim.leftZ;
+                right.zRot = anim.rightZ;
+
+                if (left.hasChild("wing1_outer") && right.hasChild("wing2_outer")) {
+                    left.getChild("wing1_outer").yRot = anim.outerLeftY;
+                    right.getChild("wing2_outer").yRot = anim.outerRightY;
+                }
+            }
+        }
+
+        private void applyStandPose(ArmorStandRenderState stand) {
+            setRotation(this.head, stand.headPose);
+            setRotation(this.body, stand.bodyPose);
+            setRotation(this.leftArm, stand.leftArmPose);
+            setRotation(this.rightArm, stand.rightArmPose);
+            setRotation(this.leftLeg, stand.leftLegPose);
+            setRotation(this.rightLeg, stand.rightLegPose);
+        }
+
+        private static void setRotation(ModelPart part, Rotations rot) {
+            final float degToRad = (float) (Math.PI / 180.0);
+            part.xRot = degToRad * rot.x();
+            part.yRot = degToRad * rot.y();
+            part.zRot = degToRad * rot.z();
         }
     }
 
@@ -121,7 +286,7 @@ public final class AwakenedWings {
         MeshDefinition mesh = emptyHumanoidMesh();
         PartDefinition head = mesh.getRoot().getChild("head");
 
-        // Base cowl (inflation 1.0f clears the player's 2nd skin/hat layer which is at 0.5f) + 3D neck collar mantle
+        // Base cowl (inflation 1.0f clears the player's 2nd skin/hat layer which is at 0.5f)
         head.addOrReplaceChild(
             "cowl_base",
             CubeListBuilder.create()
@@ -130,7 +295,6 @@ public final class AwakenedWings {
             PartPose.ZERO
         );
 
-        // 3D Forward-slanted golden brow / hood visor
         head.addOrReplaceChild(
             "hood_brow",
             CubeListBuilder.create()
@@ -138,7 +302,6 @@ public final class AwakenedWings {
             PartPose.offsetAndRotation(0.0f, -7.8f, -4.2f, 0.18f, 0.0f, 0.0f)
         );
 
-        // 3D Swept mage hood peak (upper + lower trailing tip)
         PartDefinition peakUpper = head.addOrReplaceChild(
             "hood_peak_upper",
             CubeListBuilder.create()
@@ -153,7 +316,6 @@ public final class AwakenedWings {
         );
 
         if (awakened) {
-            // 3D Awakened celestial crown & protruding Aqua Sapphire bezel
             head.addOrReplaceChild(
                 "awakened_crown",
                 CubeListBuilder.create()
@@ -171,7 +333,6 @@ public final class AwakenedWings {
         PartDefinition root = mesh.getRoot();
         PartDefinition body = root.getChild("body");
 
-        // 1. Torso base + 3D raised chest plastron, back plate & waist belt with golden clasp
         body.addOrReplaceChild(
             "robe_torso",
             CubeListBuilder.create()
@@ -183,7 +344,6 @@ public final class AwakenedWings {
             PartPose.ZERO
         );
 
-        // 2. Animated 3D front & back robe tabards/tails
         PartDefinition frontFlap = body.addOrReplaceChild(
             "front_flap",
             CubeListBuilder.create()
@@ -210,7 +370,7 @@ public final class AwakenedWings {
             PartPose.offset(0.0f, 4.8f, 0.0f)
         );
 
-        // 3. Right & Left Sleeves + 3D Pauldrons (placed directly on right_arm/left_arm with 4x12x4 base at 40,16 so first-person mods render cleanly!)
+        // Placed directly on right_arm/left_arm with 4x12x4 base at 40,16 so first-person mods render cleanly
         CubeListBuilder rightSleeve = CubeListBuilder.create()
             .texOffs(40, 16).addBox(-3.0f, -2.0f, -2.0f, 4.0f, 12.0f, 4.0f, new CubeDeformation(0.55f))
             .texOffs(40, 32).addBox(-3.5f, -2.5f, -2.5f, 5.0f, 4.0f, 5.0f, new CubeDeformation(0.2f));
@@ -227,7 +387,7 @@ public final class AwakenedWings {
         }
         root.addOrReplaceChild("left_arm", leftSleeve, PartPose.offset(5.0f, 2.0f, 0.0f));
 
-        // 4. 3D Volumetric Stepped Wings on Awakened Chestplate (every feather tier is a solid 100%-opaque 3D box, zero overlap with arm/torso UVs!)
+        // Zero overlap with arm/torso UVs
         if (awakened) {
             PartDefinition wing1 = body.addOrReplaceChild(
                 "wing1",
@@ -281,7 +441,6 @@ public final class AwakenedWings {
         PartDefinition rightLeg = root.getChild("right_leg");
         PartDefinition leftLeg = root.getChild("left_leg");
 
-        // Waist girdle
         body.addOrReplaceChild(
             "legs_waist",
             CubeListBuilder.create()
@@ -289,7 +448,6 @@ public final class AwakenedWings {
             PartPose.ZERO
         );
 
-        // Right leg greave + 3D angled hip tasset & 3D knee guard
         CubeListBuilder rightGreave = CubeListBuilder.create()
             .texOffs(0, 16).addBox(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, new CubeDeformation(0.38f))
             .texOffs(24, 32).addBox(-1.5f, 3.2f, -2.65f, 3.0f, 3.0f, 1.0f, new CubeDeformation(0.05f));
@@ -306,7 +464,6 @@ public final class AwakenedWings {
             PartPose.offsetAndRotation(-0.25f, 0.0f, 0.0f, 0.0f, 0.0f, 0.10f)
         );
 
-        // Left leg greave + 3D angled hip tasset & 3D knee guard
         CubeListBuilder leftGreave = CubeListBuilder.create()
             .texOffs(0, 16).mirror().addBox(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, new CubeDeformation(0.38f)).mirror(false)
             .texOffs(24, 32).mirror().addBox(-1.5f, 3.2f, -2.65f, 3.0f, 3.0f, 1.0f, new CubeDeformation(0.05f)).mirror(false);
@@ -332,7 +489,6 @@ public final class AwakenedWings {
         PartDefinition rightLeg = root.getChild("right_leg");
         PartDefinition leftLeg = root.getChild("left_leg");
 
-        // Right 3D Boot: base boot + 3D flared ichor cuff + 3D shin guard + 3D protruding toe cap
         CubeListBuilder rightBoot = CubeListBuilder.create()
             .texOffs(0, 16).addBox(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, new CubeDeformation(0.75f))
             .texOffs(40, 50).addBox(-2.5f, 5.5f, -2.5f, 5.0f, 2.0f, 5.0f, new CubeDeformation(0.15f))
@@ -343,7 +499,6 @@ public final class AwakenedWings {
         }
         rightLeg.addOrReplaceChild("right_boot", rightBoot, PartPose.ZERO);
 
-        // Left 3D Boot
         CubeListBuilder leftBoot = CubeListBuilder.create()
             .texOffs(0, 16).mirror().addBox(-2.0f, 0.0f, -2.0f, 4.0f, 12.0f, 4.0f, new CubeDeformation(0.75f)).mirror(false)
             .texOffs(40, 50).mirror().addBox(-2.5f, 5.5f, -2.5f, 5.0f, 2.0f, 5.0f, new CubeDeformation(0.15f)).mirror(false)

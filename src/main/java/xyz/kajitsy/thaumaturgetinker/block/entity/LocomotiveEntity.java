@@ -38,26 +38,24 @@ public final class LocomotiveEntity extends BlockEntity{
         // Detach before state replacement: inventory blocks must never spill or duplicate contents.
         level.removeBlockEntity(pos);if(movePassenger)level.removeBlockEntity(above);
         level.setBlock(pos,Blocks.AIR.defaultBlockState(),Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);
-        install(server,target,state,data);
+        MovableTile.install(server,target,state,data);
         if(movePassenger){
             level.setBlock(above,Blocks.AIR.defaultBlockState(),Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);
             boolean completed=false;
             try{
-                install(server,target.above(),passenger,passengerData);
-                if(level.getBlockEntity(target.above()) instanceof MovableTile moved)moved.doneMoving();
+                MovableTile.install(server,target.above(),passenger,passengerData);
                 completed=true;
             }catch(RuntimeException error){org.slf4j.LoggerFactory.getLogger(LocomotiveEntity.class).warn("Locomotive passenger transfer failed at {}; restoring source",above,error);}
             if(!completed){
                 // A failed foreign handler may already have installed a partial destination entity.
                 for(var clear:java.util.List.of(target.above(),target)){level.removeBlockEntity(clear);level.setBlock(clear,Blocks.AIR.defaultBlockState(),Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);level.invalidateCapabilities(clear);}
-                install(server,pos,state,data);install(server,above,passenger,passengerData);
+                MovableTile.install(server,pos,state,data);MovableTile.install(server,above,passenger,passengerData);
                 for(var at:java.util.List.of(pos,above,target,target.above()))level.updateNeighborsAt(at,level.getBlockState(at).getBlock());
                 return;
             }
         }
         for(var at:java.util.List.of(pos,above,target,target.above()))level.updateNeighborsAt(at,level.getBlockState(at).getBlock());
     }
-    public static void install(ServerLevel level,BlockPos pos,BlockState state,CompoundTag data){level.setBlock(pos,state,Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);if(data!=null){data=data.copy();data.putInt("x",pos.getX());data.putInt("y",pos.getY());data.putInt("z",pos.getZ());var tile=BlockEntity.loadStatic(pos,state,data,level.registryAccess());if(tile==null)throw new IllegalStateException("Cannot restore locomotive passenger at "+pos);level.setBlockEntity(tile);tile.setChanged();}level.invalidateCapabilities(pos);level.sendBlockUpdated(pos,state,state,3);}
     @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output){super.saveAdditional(output);output.putBoolean("Linked",linked);if(first!=null)output.putLong("First",first.asLong());if(second!=null)output.putLong("Second",second.asLong());output.putString("Direction",direction.getName());output.putLong("LastMove",lastMove);}
     @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input){super.loadAdditional(input);linked=input.getBooleanOr("Linked",false);first=input.getLong("First").map(BlockPos::of).orElse(null);second=input.getLong("Second").map(BlockPos::of).orElse(null);var d=Direction.byName(input.getStringOr("Direction","north"));direction=d!=null&&d.getAxis().isHorizontal()?d:Direction.NORTH;lastMove=input.getLongOr("LastMove",Long.MIN_VALUE);}
 }

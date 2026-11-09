@@ -3,26 +3,27 @@ package xyz.kajitsy.thaumaturgetinker.client.gui;
 import xyz.kajitsy.thaumaturgetinker.SkyPearlData;
 import xyz.kajitsy.thaumaturgetinker.block.entity.WarpGateEntity;
 import xyz.kajitsy.thaumaturgetinker.item.SkyPearl;
-import xyz.kajitsy.thaumaturgetinker.network.WarpGateTeleportPayload;
+import xyz.kajitsy.thaumaturgetinker.network.WarpGateNetwork;
 
-
+import java.awt.Color;
+import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import org.lwjgl.glfw.GLFW;
-
-import java.awt.Color;
-import java.util.List;
 
 /** Original one-world-block-per-screen-pixel destination map. */
 public final class WarpGateDestinations extends Screen {
@@ -33,6 +34,38 @@ public final class WarpGateDestinations extends Screen {
     public WarpGateDestinations(WarpGateEntity gate) {
         super(Component.translatable("ttmisc.destinations"));
         this.gate = gate;
+    }
+
+    public static void tickGate(WarpGateEntity gate) {
+        var mc = Minecraft.getInstance();
+        if (mc.screen != null || mc.player == null || !mc.player.isShiftKeyDown()) return;
+        var p = gate.getBlockPos();
+        if (mc.player.getBoundingBox().intersects(new AABB(p.getX(), p.getY() + 1, p.getZ(), p.getX() + 1, p.getY() + 1.5, p.getZ() + 1))) {
+            mc.setScreen(new WarpGateDestinations(gate));
+        }
+    }
+
+    public static void appendPearlInfo(ItemStack stack, Consumer<Component> builder) {
+        var mc = Minecraft.getInstance();
+        var player = mc.player;
+        if (player == null) return;
+        if (!SkyPearlData.dimension(stack).equals(player.level().dimension().identifier())) {
+            builder.accept(Component.translatable("ttmisc.differentDim").withStyle(ChatFormatting.RED));
+        } else {
+            Vec3 origin = player.position().add(0, player.getBbHeight() / 2d, 0);
+            boolean simple = false;
+            if (mc.screen instanceof WarpGateScreen warpScreen) {
+                var gate = warpScreen.getMenu().gate;
+                for (int i = 0; i < gate.inventory.getContainerSize(); i++) {
+                    if (gate.inventory.getItem(i) == stack) {
+                        origin = Vec3.atLowerCornerOf(gate.getBlockPos());
+                        simple = true;
+                        break;
+                    }
+                }
+            }
+            builder.accept(Component.translatable("ttmisc.distance").append(": " + SkyPearlData.distance(stack, origin, simple) + "m").withStyle(ChatFormatting.BLUE));
+        }
     }
 
     @Override
@@ -92,7 +125,7 @@ public final class WarpGateDestinations extends Screen {
                 var pearl = gate.inventory.getItem(i);
                 if (!visible(pearl)) continue;
                 if (event.x() >= 3 && event.x() <= 220 && event.y() >= 52 + i * 11 && event.y() <= 64 + i * 11) {
-                    ClientPacketDistributor.sendToServer(new WarpGateTeleportPayload(gate.getBlockPos(), i));
+                    ClientPacketDistributor.sendToServer(new WarpGateNetwork.Payload(gate.getBlockPos(), i));
                     onClose();
                     return true;
                 }
@@ -105,7 +138,7 @@ public final class WarpGateDestinations extends Screen {
                 double dx = event.x() - px;
                 double dz = event.y() - pz;
                 if (dx * dx + dz * dz <= 100) {
-                    ClientPacketDistributor.sendToServer(new WarpGateTeleportPayload(gate.getBlockPos(), i));
+                    ClientPacketDistributor.sendToServer(new WarpGateNetwork.Payload(gate.getBlockPos(), i));
                     onClose();
                     return true;
                 }

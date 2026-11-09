@@ -25,13 +25,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.level.BlockEvent;
 
 public final class SmeltFocus extends TinkererFocus {
+    private record Progress(ResourceKey<Level> dimension, BlockPos pos, BlockState input, int ticks) {}
+
     public SmeltFocus() {
         super("focus_smelt");
     }
-    private final Map<UUID, SmeltProgress> progress = new HashMap<>();
+
+    private final Map<UUID, Progress> progress = new HashMap<>();
 
     @Override
     public Map<ResourceKey<IAspect>, Integer> getVisCost(ItemStack focus) {
@@ -94,7 +96,7 @@ public final class SmeltFocus extends TinkererFocus {
             ticks = old.ticks() - 1;
         }
         if (ticks > 0) {
-            progress.put(player.getUUID(), new SmeltProgress(level.dimension(), pos.immutable(), state, ticks));
+            progress.put(player.getUUID(), new Progress(level.dimension(), pos.immutable(), state, ticks));
             return false;
         }
         progress.remove(player.getUUID());
@@ -104,9 +106,7 @@ public final class SmeltFocus extends TinkererFocus {
         if (!consumeVis(wand, player)) return false;
         level.setBlock(pos, block.getBlock().defaultBlockState(), 3);
         level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.6f, 1);
-        if (level instanceof ServerLevel server) {
-            server.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 25, 0.3, 0.3, 0.3, 0.02);
-        }
+        level.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 25, 0.3, 0.3, 0.3, 0.02);
         return true;
     }
 }

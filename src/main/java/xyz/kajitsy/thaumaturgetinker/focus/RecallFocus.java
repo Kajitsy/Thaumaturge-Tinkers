@@ -5,7 +5,6 @@ import xyz.kajitsy.thaumaturgetinker.SkyPearlData;
 import xyz.kajitsy.thaumaturgetinker.block.entity.WarpGateEntity;
 import xyz.kajitsy.thaumaturgetinker.item.SkyPearl;
 
-
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import java.util.Map;
@@ -14,7 +13,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 /** Build164 recall: the first attuned hotbar pearl wins, including a wrong-dimension pearl. */
@@ -24,8 +22,6 @@ public final class RecallFocus extends TinkererFocus {
     public RecallFocus() {
         super("focus_recall", Rarity.EPIC);
     }
-
-    public static void init(IEventBus bus) {}
 
     @Override
     public Map<ResourceKey<IAspect>, Integer> getVisCost(ItemStack focus) {
@@ -61,12 +57,7 @@ public final class RecallFocus extends TinkererFocus {
                 }
             }
             if (!pearl.isEmpty()) {
-                var targetDim = SkyPearlData.dimension(pearl);
-                var mcServer = server.level().getServer();
-                var targetLevel = mcServer != null ? mcServer.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION, targetDim)) : null;
-                if (targetLevel == null && targetDim.equals(player.level().dimension().identifier())) {
-                    targetLevel = server.level();
-                }
+                var targetLevel = SkyPearlData.targetLevel(server, pearl, false);
                 if (targetLevel != null && consumeVis(wand, player)) {
                     WarpGateEntity.teleport(server, targetLevel, SkyPearlData.position(pearl));
                 }

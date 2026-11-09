@@ -3,7 +3,6 @@ package xyz.kajitsy.thaumaturgetinker.potion;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.item.LegacyCropEggItem;
 
-
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.registry.TTItems;
@@ -11,34 +10,64 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 
 /** Build-164 item entries. Optional tag expansions and Thaumcraft variants are added separately. */
 public final class InfusedCropLoot {
-    
-    private final Map<ResourceKey<IAspect>, List<InfusedCropLootEntry>> table = new LinkedHashMap<>();
+    public record Entry(ItemStack stack, int weight) {
+        public Entry {
+            stack = stack.copy();
+            if (weight <= 0) throw new IllegalArgumentException("nonpositive crop loot weight");
+        }
+
+        @Override
+        public ItemStack stack() {
+            return stack.copy();
+        }
+    }
+
+    private static final Map<ServerLevel, InfusedCropLoot> CACHE = new WeakHashMap<>();
+
+    public static InfusedCropLoot get(ServerLevel level) {
+        return CACHE.computeIfAbsent(level, l -> complete(l.registryAccess()));
+    }
+
+    public static void register() {
+        NeoForge.EVENT_BUS.addListener(InfusedCropLoot::reload);
+    }
+
+    private static void reload(AddServerReloadListenersEvent event) {
+        event.addListener(Identifier.fromNamespaceAndPath("thaumaturgetinker", "crop_loot"), (ResourceManagerReloadListener) resources -> CACHE.clear());
+    }
+
+    private final Map<ResourceKey<IAspect>, List<Entry>> table = new LinkedHashMap<>();
 
     void add(ResourceKey<IAspect> aspect, ItemStack stack, int weight) {
-        table.computeIfAbsent(aspect, a -> new ArrayList<>()).add(new InfusedCropLootEntry(stack, weight));
+        table.computeIfAbsent(aspect, a -> new ArrayList<>()).add(new Entry(stack, weight));
     }
 
     void add(ResourceKey<IAspect> aspect, ItemLike item, int count, int weight) {
         add(aspect, new ItemStack(item, count), weight);
     }
 
-    List<InfusedCropLootEntry> entries(ResourceKey<IAspect> aspect) {
+    List<Entry> entries(ResourceKey<IAspect> aspect) {
         return List.copyOf(table.getOrDefault(aspect, List.of()));
     }
 
@@ -156,7 +185,7 @@ public final class InfusedCropLoot {
         loot.add(TTAspects.INSTRUMENTUM, TTItems.THAUMIUM_SHOVEL.get(), 1, 1);
         loot.add(TTAspects.INSTRUMENTUM, TTItems.THAUMIUM_AXE.get(), 1, 1);
         loot.add(TTAspects.MOTUS, TTItems.STONE_ARCANE_BRICK.get(), 8, 1);
-        loot.table.computeIfAbsent(TTAspects.LUX, a -> new ArrayList<>()).add(1, new InfusedCropLootEntry(new ItemStack(TTItems.NITORS.get(DyeColor.YELLOW).get(), 4), 1));
+        loot.table.computeIfAbsent(TTAspects.LUX, a -> new ArrayList<>()).add(1, new Entry(new ItemStack(TTItems.NITORS.get(DyeColor.YELLOW).get(), 4), 1));
         loot.add(TTAspects.PERMUTATIO, TTItems.RAW_CINNABAR.get(), 4, 1);
         loot.add(TTAspects.POTENTIA, TTItems.ALUMENTUM.get(), 12, 1);
         loot.add(TTAspects.ALKIMIA, TTItems.QUICKSILVER.get(), 16, 1);

@@ -16,7 +16,6 @@ public final class BedrockPortal extends Block {
  public static final net.neoforged.neoforge.registries.DeferredBlock<BedrockPortal> BLOCK=KamiRegistries.BLOCKS.register("bedrock_portal",BedrockPortal::new);
  public static final net.minecraft.resources.ResourceKey<Level> DIMENSION=net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,net.minecraft.resources.Identifier.fromNamespaceAndPath("thaumaturgetinker","bedrock"));
  public BedrockPortal(){super(ThaumicTinkererModern.blockProps("bedrock_portal", Properties.of().strength(-1,6000000).sound(SoundType.STONE).noCollision().noOcclusion().noLootTable().isValidSpawn((s,l,p,t)->false)));}
- public static void init(){}
  public static boolean bedrock(Level level){return level.dimension().equals(DIMENSION);}
  public static boolean surface(Level level){return level.dimension().equals(Level.OVERWORLD);}
  public static boolean open(net.minecraft.server.level.ServerPlayer player,BlockPos pos){var level=player.level();if(!TinkererConfig.bedrockEnabled()||!level.getBlockState(pos).is(Blocks.BEDROCK)||!level.mayInteract(player,pos)||player.isSpectator()||player.blockActionRestricted(level,pos,player.gameMode.getGameModeForPlayer()))return false;if(surface(level)&&pos.getY()<5||bedrock(level)&&pos.getY()>253)return level.setBlockAndUpdate(pos,BLOCK.get().defaultBlockState());if(bedrock(level)&&pos.getY()<=253)return level.setBlockAndUpdate(pos,Blocks.AIR.defaultBlockState());return false;}

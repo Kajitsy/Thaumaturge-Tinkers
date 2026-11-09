@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 
 /** Compatibility names for the removed OreDictionary. Individual tag matches remain distinct. */
 public final class CropOreTags {
+    public record Source(String name, List<ItemStack> items) {}
 
     public static String legacyName(Identifier id) {
         var path = id.getPath();
@@ -57,8 +58,8 @@ public final class CropOreTags {
         };
     }
 
-    public static List<CropOreSource> sources() {
-        var result = new ArrayList<CropOreSource>();
+    public static List<Source> sources() {
+        var result = new ArrayList<Source>();
         BuiltInRegistries.ITEM.getTags().sorted(Comparator.comparing(tag -> tag.key().location().toString())).forEach(tag -> {
             var name = legacyName(tag.key().location());
             if (name != null) {
@@ -66,13 +67,13 @@ public final class CropOreTags {
                 for (var itemHolder : tag) {
                     stacks.add(new ItemStack(itemHolder.value()));
                 }
-                result.add(new CropOreSource(name, stacks));
+                result.add(new Source(name, stacks));
             }
         });
         return result;
     }
 
-    public static void expand(InfusedCropLoot loot, ResourceKey<IAspect> aspect, String target, int count, int repeats, List<CropOreSource> sources) {
+    public static void expand(InfusedCropLoot loot, ResourceKey<IAspect> aspect, String target, int count, int repeats, List<Source> sources) {
         String capital = target.isEmpty() ? target : Character.toUpperCase(target.charAt(0)) + target.substring(1).toLowerCase(Locale.ROOT);
         for (int pass = 0; pass < repeats; pass++) {
             for (var source : sources) {

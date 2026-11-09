@@ -1,13 +1,12 @@
 package xyz.kajitsy.thaumaturgetinker.focus;
 
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
-import xyz.kajitsy.thaumaturgetinker.client.XPDrainFocusClient;
-
 
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.content.wands.ItemWand;
 import com.leclowndu93150.thaumaturge.content.wands.WandVisHelper;
+import java.awt.Color;
 import java.util.Map;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -28,9 +26,8 @@ public final class XPDrainFocus extends TinkererFocus {
     public XPDrainFocus() {
         super("focus_xp_drain", Rarity.EPIC);
     }
-    private int lastGiven;
 
-    public static void init(IEventBus bus) {}
+    private int lastGiven;
 
     @Override
     public Map<ResourceKey<IAspect>, Integer> getVisCost(ItemStack focus) {
@@ -54,7 +51,7 @@ public final class XPDrainFocus extends TinkererFocus {
 
     @Override
     public int getFocusColor(ItemStack focus) {
-        return FMLEnvironment.getDist() == Dist.CLIENT ? XPDrainFocusClient.color() : 0xFFFFFF;
+        return FMLEnvironment.getDist() == Dist.CLIENT ? Color.HSBtoRGB((System.currentTimeMillis() / 25 % 360) / 360f, 1, 1) : 0xFFFFFF;
     }
 
     @Override

@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FocusPouchItemMixin {
     @Inject(method = "getInventory", at = @At("HEAD"), cancellable = true)
     private static void thaumaturgetinker$getIchorPouchInventory(ItemStack stack, CallbackInfoReturnable<NonNullList<ItemStack>> cir) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IchorPouch) {
+        if (IchorPouch.isPouch(stack)) {
             var items = IchorPouch.contents(stack);
-            NonNullList<ItemStack> list = NonNullList.withSize(117, ItemStack.EMPTY);
+            NonNullList<ItemStack> list = NonNullList.withSize(IchorPouch.SLOTS, ItemStack.EMPTY);
             for (int i = 0; i < items.size(); i++) {
                 list.set(i, items.get(i));
             }
@@ -28,7 +28,7 @@ public class FocusPouchItemMixin {
 
     @Inject(method = "setInventory", at = @At("HEAD"), cancellable = true)
     private static void thaumaturgetinker$setIchorPouchInventory(ItemStack stack, NonNullList<ItemStack> list, CallbackInfo ci) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IchorPouch) {
+        if (IchorPouch.isPouch(stack)) {
             List<ItemStack> items = new ArrayList<>(IchorPouch.contents(stack));
             for (int i = 0; i < Math.min(items.size(), list.size()); i++) {
                 items.set(i, list.get(i));
