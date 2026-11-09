@@ -1,5 +1,6 @@
 package xyz.kajitsy.thaumaturgetinker.client.gui;
 
+import xyz.kajitsy.thaumaturgetinker.block.entity.EnchanterEntity;
 import xyz.kajitsy.thaumaturgetinker.enchanter.EnchanterCosts;
 import xyz.kajitsy.thaumaturgetinker.enchanter.EnchanterSelection;
 import xyz.kajitsy.thaumaturgetinker.menu.EnchanterMenu;
@@ -121,8 +122,9 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
         }
         if (row > 0) {
             int sx = leftPos + 151, sy = topPos + 33;
+            boolean formed = minecraft.level != null && !EnchanterEntity.findPillars(minecraft.level, menu.tile.getBlockPos()).isEmpty();
             g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, sx, sy, 176, menu.working() ? 39 : 24, 15, 15, 256, 256);
-            hits.add(new Hit(sx, sy, 15, 15, 0, List.of(Component.translatable("ttmisc.startEnchant"))));
+            hits.add(new Hit(sx, sy, 15, 15, formed ? 0 : -1, List.of(Component.translatable("ttmisc.startEnchant"))));
             var primals = TTAspects.PRIMALS;
             var aspectLookup = minecraft.level == null ? null : minecraft.level.registryAccess().lookup(IAspect.REGISTRY_KEY).orElse(null);
             for (int i = 0; i < 6; i++) {

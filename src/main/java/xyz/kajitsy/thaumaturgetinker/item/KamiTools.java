@@ -9,9 +9,11 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -33,11 +35,11 @@ public final class KamiTools {
         @Override public boolean isFoil(ItemStack stack) { return true; }
     });
 
-    public static final DeferredItem<Item> SHOVEL = KamiRegistries.ITEMS.register("ichor_shovel", () -> new Item(properties("ichor_shovel").shovel(TIER, 1, -3.0f)) {
+    public static final DeferredItem<ShovelItem> SHOVEL = KamiRegistries.ITEMS.register("ichor_shovel", () -> new ShovelItem(TIER, 1, -3.0f, properties("ichor_shovel")) {
         @Override public boolean isFoil(ItemStack stack) { return true; }
     });
 
-    public static final DeferredItem<Item> AXE = KamiRegistries.ITEMS.register("ichor_axe", () -> new Item(properties("ichor_axe").axe(TIER, 3, -3.0f)) {
+    public static final DeferredItem<AxeItem> AXE = KamiRegistries.ITEMS.register("ichor_axe", () -> new AxeItem(TIER, 3, -3.0f, properties("ichor_axe")) {
         @Override public boolean isFoil(ItemStack stack) { return true; }
     });
 

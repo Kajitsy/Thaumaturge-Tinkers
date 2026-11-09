@@ -8,26 +8,21 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-public final class AwakenedAxe extends Item implements AdvancedTool {
+public final class AwakenedAxe extends AxeItem implements AdvancedTool {
     public static final DeferredItem<AwakenedAxe> ITEM = KamiRegistries.ITEMS.register("ichor_axe_gem", AwakenedAxe::new);
 
     public AwakenedAxe() {
-        super(KamiTools.properties("ichor_axe_gem").axe(KamiTools.TIER, 3, -3.0f));
-    }
-
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        return InteractionResult.PASS;
+        super(KamiTools.TIER, 3, -3.0f, KamiTools.properties("ichor_axe_gem"));
     }
 
     @Override

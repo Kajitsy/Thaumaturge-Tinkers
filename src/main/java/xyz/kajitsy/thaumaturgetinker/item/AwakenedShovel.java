@@ -10,22 +10,17 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-public final class AwakenedShovel extends Item implements AdvancedTool {
+public final class AwakenedShovel extends ShovelItem implements AdvancedTool {
     public static final DeferredItem<AwakenedShovel> ITEM = KamiRegistries.ITEMS.register("ichor_shovel_gem", AwakenedShovel::new);
 
     public AwakenedShovel() {
-        super(KamiTools.properties("ichor_shovel_gem").shovel(KamiTools.TIER, 1, -3.0f));
-    }
-
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        return InteractionResult.PASS;
+        super(KamiTools.TIER, 1, -3.0f, KamiTools.properties("ichor_shovel_gem"));
     }
 
     @Override

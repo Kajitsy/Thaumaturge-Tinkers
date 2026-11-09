@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 public final class EnchanterMenu extends AbstractContainerMenu {
     public static final List<String> IDS = List.copyOf(EnchanterCosts.ENTRIES.keySet());
     public static final int DATA_COUNT = 1 + IDS.size() + TTAspects.PRIMALS.size();
-    final EnchanterEntity tile;
+    public final EnchanterEntity tile;
     private final ContainerData data;
 
     public EnchanterMenu(int id, Inventory inventory, EnchanterEntity tile) {
@@ -122,7 +122,7 @@ public final class EnchanterMenu extends AbstractContainerMenu {
         if (!stillValid(player) || !(player.level() instanceof ServerLevel server) || working() || button < 0) return false;
         boolean changed;
         if (button == 0) {
-            changed = !tile.inventory.getItem(0).isEmpty() && tile.process.start();
+            changed = !tile.inventory.getItem(0).isEmpty() && !EnchanterEntity.findPillars(server, tile.getBlockPos()).isEmpty() && tile.process.start();
         } else {
             int index = (button - 1) / 3, action = (button - 1) % 3;
             if (index < 0 || index >= IDS.size()) return false;
