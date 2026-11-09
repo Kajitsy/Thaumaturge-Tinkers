@@ -10,7 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
@@ -43,7 +43,7 @@ public final class BloodSwordItem extends Item {
         0,
         0,
         22,
-        TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots/iron"))
+        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "ingots/iron"))
     );
     public static final Set<UUID> SELF_DAMAGE = new HashSet<>();
 
@@ -53,7 +53,7 @@ public final class BloodSwordItem extends Item {
             .attributes(ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 10, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -2.4, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.MOVEMENT_SPEED, new AttributeModifier(Identifier.fromNamespaceAndPath("thaumaturgetinker", "blood_sword_speed"), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.MOVEMENT_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "blood_sword_speed"), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND)
                 .build()
             )
         ));

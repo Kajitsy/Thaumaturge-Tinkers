@@ -8,7 +8,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TriState;
@@ -50,7 +50,7 @@ public final class InfusedFarmlandBlock extends FarmlandBlock implements EntityB
 
     @Override
     public TriState canSustainPlant(BlockState state, BlockGetter level, BlockPos pos, Direction direction, BlockState plant) {
-        return BuiltInRegistries.BLOCK.getKey(plant.getBlock()).equals(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "infused_grain"))
+        return BuiltInRegistries.BLOCK.getKey(plant.getBlock()).equals(ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, "infused_grain"))
                 ? TriState.TRUE
                 : TriState.FALSE;
     }

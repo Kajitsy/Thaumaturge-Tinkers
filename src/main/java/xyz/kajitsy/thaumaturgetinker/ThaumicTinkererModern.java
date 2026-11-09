@@ -106,11 +106,11 @@ public final class ThaumicTinkererModern {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
 
     public static net.minecraft.resources.ResourceKey<Block> blockKey(String name) {
-        return net.minecraft.resources.ResourceKey.create(Registries.BLOCK, net.minecraft.resources.Identifier.fromNamespaceAndPath(ID, name));
+        return net.minecraft.resources.ResourceKey.create(Registries.BLOCK, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(ID, name));
     }
 
     public static net.minecraft.resources.ResourceKey<Item> itemKey(String name) {
-        return net.minecraft.resources.ResourceKey.create(Registries.ITEM, net.minecraft.resources.Identifier.fromNamespaceAndPath(ID, name));
+        return net.minecraft.resources.ResourceKey.create(Registries.ITEM, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(ID, name));
     }
 
     public static BlockBehaviour.Properties blockProps(String name, BlockBehaviour.Properties properties) {

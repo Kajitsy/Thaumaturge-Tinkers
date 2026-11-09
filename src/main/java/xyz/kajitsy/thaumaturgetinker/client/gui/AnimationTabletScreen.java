@@ -9,11 +9,11 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class AnimationTabletScreen extends AbstractContainerScreen<AnimationTabletMenu> {
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/animationtablet.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/animationtablet.png");
 
     private final class ModeButton extends AbstractButton {
         private final int choice;

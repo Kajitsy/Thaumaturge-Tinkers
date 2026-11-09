@@ -2,7 +2,7 @@ package xyz.kajitsy.thaumaturgetinker.enchantment;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.component.CustomData;
@@ -17,7 +17,7 @@ public final class HarvestSpeedEnchantments {
     public static final ResourceKey<Enchantment> TUNNEL = key("tunnel"), SHATTER = key("shatter");
 
     private static ResourceKey<Enchantment> key(String name) {
-        return ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("thaumaturgetinker", name));
+        return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", name));
     }
 
     @SubscribeEvent

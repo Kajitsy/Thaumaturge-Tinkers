@@ -16,7 +16,7 @@ plugins {
 rootProject.name = "Thaumaturge-Tinkers"
 
 prism {
-    version("26.1.2") {
+    version("1.21.1") {
         neoforge()
         atRoot()
     }

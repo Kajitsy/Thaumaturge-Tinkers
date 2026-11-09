@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -108,7 +108,7 @@ public final class EnchanterMenu extends AbstractContainerMenu {
         var set = new HashSet<String>();
         for (var entry : EnchanterCosts.ENTRIES.values()) {
             if (!entry.research().isEmpty()) {
-                var rl = Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, entry.research().toLowerCase(Locale.ROOT));
+                var rl = ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, entry.research().toLowerCase(Locale.ROOT));
                 if (knowledge.isResearchComplete(rl) || knowledge.isResearchKnown(rl)) {
                     set.add(entry.research());
                 }

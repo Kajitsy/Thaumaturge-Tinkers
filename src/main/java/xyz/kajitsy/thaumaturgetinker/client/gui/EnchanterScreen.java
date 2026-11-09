@@ -15,12 +15,12 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu> {
-    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/enchanter.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/enchanter.png");
 
     private record Hit(int x, int y, int width, int height, int button, List<Component> tooltip) {
         boolean contains(double mx, double my) {
@@ -59,9 +59,9 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
 
     private void icon(GuiGraphicsExtractor g, int index, int x, int y, boolean selected) {
         var entry = EnchanterCosts.ENTRIES.get(EnchanterMenu.IDS.get(index));
-        g.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse(entry.texture()), x, y, 0, 0, 16, 16, 16, 16);
+        g.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.parse(entry.texture()), x, y, 0, 0, 16, 16, 16, 16);
         var tooltip = new ArrayList<Component>();
-        var enchant = minecraft.level == null ? null : minecraft.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT, Identifier.parse(EnchanterMenu.IDS.get(index)))).orElse(null);
+        var enchant = minecraft.level == null ? null : minecraft.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(EnchanterMenu.IDS.get(index)))).orElse(null);
         tooltip.add(enchant == null ? Component.literal(EnchanterMenu.IDS.get(index)) : enchant.value().description());
         var cost = entry.cost(Math.max(1, menu.rank(index)));
         var aspectLookup = minecraft.level == null ? null : minecraft.level.registryAccess().lookup(IAspect.REGISTRY_KEY).orElse(null);

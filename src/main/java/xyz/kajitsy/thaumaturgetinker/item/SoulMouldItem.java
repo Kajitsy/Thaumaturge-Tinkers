@@ -6,7 +6,7 @@ import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,7 +47,7 @@ public final class SoulMouldItem extends Item {
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
         var name = pattern(stack);
-        var id = Identifier.tryParse(name);
+        var id = ResourceLocation.tryParse(name);
         var type = id == null ? null : BuiltInRegistries.ENTITY_TYPE.getOptional(id).orElse(null);
         builder.accept(type == null ? Component.translatable("ttmisc.soulMould.nonAssigned") : Component.translatable("ttmisc.soulMould.pattern", type.getDescription()));
     }

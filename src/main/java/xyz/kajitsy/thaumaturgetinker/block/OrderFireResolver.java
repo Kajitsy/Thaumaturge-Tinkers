@@ -7,7 +7,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
@@ -17,7 +17,7 @@ public final class OrderFireResolver {
  private static final Map<ServerLevel,Map<BlockState,Optional<BlockState>>> CACHE=new WeakHashMap<>();
  public static void register(){NeoForge.EVENT_BUS.addListener(OrderFireResolver::reloadListeners);}
  private static void reloadListeners(AddServerReloadListenersEvent event){
-  event.addListener(Identifier.fromNamespaceAndPath("thaumaturgetinker", "order_fire"), (ResourceManagerReloadListener) resources -> clear());
+  event.addListener(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "order_fire"), (ResourceManagerReloadListener) resources -> clear());
  }
  public static void clear(){CACHE.clear();}
  public static boolean isResult(ServerLevel level,BlockState state){return CACHE.getOrDefault(level,Map.of()).values().stream().anyMatch(value->value.isPresent()&&value.get().getBlock()==state.getBlock());}

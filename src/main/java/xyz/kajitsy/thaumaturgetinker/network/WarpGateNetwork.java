@@ -7,12 +7,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 @net.neoforged.fml.common.EventBusSubscriber(modid = "thaumaturgetinker")
 public final class WarpGateNetwork {
     public record Payload(BlockPos gate, int index) implements CustomPacketPayload {
-        public static final Type<Payload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("thaumaturgetinker", "warp_gate_teleport"));
+        public static final Type<Payload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "warp_gate_teleport"));
         public static final StreamCodec<FriendlyByteBuf, Payload> CODEC = StreamCodec.composite(BlockPos.STREAM_CODEC, Payload::gate, ByteBufCodecs.VAR_INT, Payload::index, Payload::new);
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }

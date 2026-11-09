@@ -17,7 +17,7 @@ public final class DislocationStorage {
         var state=level.getBlockState(pos);
         return !state.isAir() && !state.is(Blocks.MOVING_PISTON) && !state.is(Blocks.PISTON_HEAD)
             && !state.is(Blocks.BEDROCK) && state.getDestroySpeed(level, pos) >= 0
-            && !state.is(net.minecraft.tags.BlockTags.create(net.minecraft.resources.Identifier.fromNamespaceAndPath("thaumaturgetinker", "dislocator_immovable")));
+            && !state.is(net.minecraft.tags.BlockTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "dislocator_immovable")));
     }
     public static boolean pickup(ServerLevel level,BlockPos pos,CompoundTag payload){
         if(available(payload)||!movable(level,pos))return false;

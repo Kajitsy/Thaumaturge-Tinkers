@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -64,12 +64,12 @@ public final class EnchanterProcess {
         if (missing.isEmpty()) {
             var registry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
             for (var id : selection.entries().keySet()) {
-                if (registry.get(ResourceKey.create(Registries.ENCHANTMENT, Identifier.parse(id))).isEmpty()) {
+                if (registry.get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(id))).isEmpty()) {
                     working = false;
                     return true;
                 }
             }
-            selection.entries().forEach((id, rank) -> tool.enchant(registry.getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, Identifier.parse(id))), rank));
+            selection.entries().forEach((id, rank) -> tool.enchant(registry.getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(id))), rank));
             working = false;
             current.clear();
             selection.clear();
@@ -104,7 +104,7 @@ public final class EnchanterProcess {
         current.clear();
         var curTag = tag.getCompoundOrEmpty("Current");
         for (var key : curTag.keySet()) {
-            var rk = ResourceKey.create(IAspect.REGISTRY_KEY, Identifier.parse(key));
+            var rk = ResourceKey.create(IAspect.REGISTRY_KEY, ResourceLocation.parse(key));
             current.put(rk, curTag.getIntOr(key, 0));
         }
         selection.clear();

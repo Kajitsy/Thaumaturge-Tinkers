@@ -46,16 +46,13 @@ prism {
             loaderVersion = prop("neo_version")
 
             dependencies {
-                implementation("com.leclowndu93150:thaumaturge-26.1.2-neoforge:1.1.0")
+                implementation("com.leclowndu93150:thaumaturge-1.21.1-neoforge:1.0.12")
 
                 compileOnly("top.theillusivec4.curios:curios-neoforge:${prop("curios_version")}+$minecraftVersion:api")
                 runtimeOnly("top.theillusivec4.curios:curios-neoforge:${prop("curios_version")}+$minecraftVersion")
 
                 compileOnly("mezz.jei:jei-$minecraftVersion-common-api:${prop("jei_version")}")
                 compileOnly("mezz.jei:jei-$minecraftVersion-neoforge-api:${prop("jei_version")}")
-
-                compileOnly("dev.architectury:architectury-neoforge:${prop("architectury_version")}")
-                compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${prop("rei_version")}")
 
                 compileOnly("maven.modrinth:jade:${prop("jade_version")}")
                 runtimeOnly("maven.modrinth:jade:${prop("jade_version")}")

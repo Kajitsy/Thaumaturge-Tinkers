@@ -7,14 +7,14 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
 /** Original separate 0..20 soul-health reserve, never vanilla absorption. */
 @net.neoforged.fml.common.EventBusSubscriber(modid = "thaumaturgetinker")
 public final class SoulHearts {
     public record Payload(int hearts) implements CustomPacketPayload {
-        public static final Type<Payload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("thaumaturgetinker", "soul_hearts"));
+        public static final Type<Payload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "soul_hearts"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Payload> CODEC = StreamCodec.composite(ByteBufCodecs.INT, Payload::hearts, Payload::new);
         @Override public Type<Payload> type() { return TYPE; }
     }

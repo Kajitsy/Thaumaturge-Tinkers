@@ -46,7 +46,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -95,21 +95,21 @@ public final class ClientSetup {
 
     @SubscribeEvent
     public static void guiLayers(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, Identifier.fromNamespaceAndPath("thaumaturgetinker", "advanced_tool_hud"), new AdvancedToolHud());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "advanced_tool_hud"), new AdvancedToolHud());
     }
 
     @SubscribeEvent
     public static void modelProperties(net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent event) {
-        event.register(Identifier.fromNamespaceAndPath("thaumaturgetinker", "tool_mode"), ToolModeProperty.TYPE);
-        event.register(Identifier.fromNamespaceAndPath("thaumaturgetinker", "active"), ActiveProperty.TYPE);
+        event.register(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "tool_mode"), ToolModeProperty.TYPE);
+        event.register(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "active"), ActiveProperty.TYPE);
     }
 
-    private static final Identifier PROGRESSBAR_BORDER_SPRITE = Identifier.withDefaultNamespace("container/bundle/bundle_progressbar_border");
-    private static final Identifier PROGRESSBAR_FILL_SPRITE = Identifier.withDefaultNamespace("container/bundle/bundle_progressbar_fill");
-    private static final Identifier PROGRESSBAR_FULL_SPRITE = Identifier.withDefaultNamespace("container/bundle/bundle_progressbar_full");
-    private static final Identifier SLOT_HIGHLIGHT_BACK_SPRITE = Identifier.withDefaultNamespace("container/bundle/slot_highlight_back");
-    private static final Identifier SLOT_HIGHLIGHT_FRONT_SPRITE = Identifier.withDefaultNamespace("container/bundle/slot_highlight_front");
-    private static final Identifier SLOT_BACKGROUND_SPRITE = Identifier.withDefaultNamespace("container/bundle/slot_background");
+    private static final ResourceLocation PROGRESSBAR_BORDER_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/bundle_progressbar_border");
+    private static final ResourceLocation PROGRESSBAR_FILL_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/bundle_progressbar_fill");
+    private static final ResourceLocation PROGRESSBAR_FULL_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/bundle_progressbar_full");
+    private static final ResourceLocation SLOT_HIGHLIGHT_BACK_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/slot_highlight_back");
+    private static final ResourceLocation SLOT_HIGHLIGHT_FRONT_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/slot_highlight_front");
+    private static final ResourceLocation SLOT_BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/slot_background");
     private static final Component BUNDLE_FULL_TEXT = Component.translatable("item.minecraft.bundle.full");
     private static final Component BUNDLE_EMPTY_TEXT = Component.translatable("item.minecraft.bundle.empty");
     private static final Component BUNDLE_EMPTY_DESCRIPTION = Component.translatable("item.minecraft.bundle.empty.description");

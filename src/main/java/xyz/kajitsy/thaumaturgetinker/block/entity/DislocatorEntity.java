@@ -23,7 +23,7 @@ public final class DislocatorEntity extends BlockEntity implements MovableTile, 
     void changed(){setChanged();if(level!=null)level.sendBlockUpdated(worldPosition,getBlockState(),getBlockState(),3);}
     public boolean inRange(BlockPos pos){return !pos.equals(worldPosition)&&Math.abs((long)pos.getX()-worldPosition.getX())<=16&&Math.abs((long)pos.getY()-worldPosition.getY())<=16&&Math.abs((long)pos.getZ()-worldPosition.getZ())<=16;}
     public boolean link(BlockPos pos){if(level==null||!inRange(pos)||!level.isLoaded(pos)||level.getBlockEntity(pos) instanceof TransvectorLink)return false;target=pos.immutable();changed();return true;}
-    public static boolean movable(Level level,BlockPos pos){var state=level.getBlockState(pos);return !state.is(Blocks.BEDROCK)&&state.getDestroySpeed(level,pos)>=0&&!state.is(net.minecraft.tags.BlockTags.create(net.minecraft.resources.Identifier.fromNamespaceAndPath("thaumaturgetinker","dislocator_immovable")));}
+    public static boolean movable(Level level,BlockPos pos){var state=level.getBlockState(pos);return !state.is(Blocks.BEDROCK)&&state.getDestroySpeed(level,pos)>=0&&!state.is(net.minecraft.tags.BlockTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("thaumaturgetinker","dislocator_immovable")));}
     public void pulse(){
         if(!(level instanceof ServerLevel server)||target==null||!inRange(target)||!server.isLoaded(target))return;
         var adjacent=worldPosition.relative(getBlockState().getValue(DislocatorBlock.FACING));

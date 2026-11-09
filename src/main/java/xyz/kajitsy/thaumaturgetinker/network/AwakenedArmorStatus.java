@@ -24,7 +24,7 @@ public final class AwakenedArmorStatus {
     }
 
     public record Payload(boolean enabled) implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
-        public static final Type<Payload> TYPE = new Type<>(net.minecraft.resources.Identifier.fromNamespaceAndPath("thaumaturgetinker", "armor_status"));
+        public static final Type<Payload> TYPE = new Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "armor_status"));
         public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Payload> CODEC = net.minecraft.network.codec.StreamCodec.composite(net.minecraft.network.codec.ByteBufCodecs.BOOL, Payload::enabled, Payload::new);
         @Override public Type<Payload> type() { return TYPE; }
     }

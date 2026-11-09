@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -54,7 +54,7 @@ public final class InfusedCropLoot {
     }
 
     private static void reload(AddServerReloadListenersEvent event) {
-        event.addListener(Identifier.fromNamespaceAndPath("thaumaturgetinker", "crop_loot"), (ResourceManagerReloadListener) resources -> CACHE.clear());
+        event.addListener(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "crop_loot"), (ResourceManagerReloadListener) resources -> CACHE.clear());
     }
 
     private final Map<ResourceKey<IAspect>, List<Entry>> table = new LinkedHashMap<>();
@@ -166,7 +166,7 @@ public final class InfusedCropLoot {
         return loot;
     }
 
-    public static final TagKey<Enchantment> BOOKS = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "crop_books"));
+    public static final TagKey<Enchantment> BOOKS = TagKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, "crop_books"));
 
     void addBooks(HolderLookup.Provider registries) {
         var enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);

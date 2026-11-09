@@ -18,7 +18,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -91,7 +91,7 @@ public final class SummonEntity extends BlockEntity {
                         boolean same = selected.stream().allMatch(p -> matchesLast(p.getItem(), level, pos));
                         if (!infused || same) {
                             if (id.equals("minecraft:skeleton") && level.dimension() == Level.NETHER) id = "minecraft:wither_skeleton";
-                            var typeOpt = BuiltInRegistries.ENTITY_TYPE.get(Identifier.parse(id));
+                            var typeOpt = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id));
                             if (typeOpt.isEmpty()) return;
                             var entity = typeOpt.get().value().create(level, EntitySpawnReason.MOB_SUMMONED);
                             if (!(entity instanceof Mob mob)) return;

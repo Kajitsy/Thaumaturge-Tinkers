@@ -8,11 +8,11 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class MagnetScreen extends AbstractContainerScreen<MagnetMenu> {
-    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/mobmagnet.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/mobmagnet.png");
 
     public MagnetScreen(MagnetMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

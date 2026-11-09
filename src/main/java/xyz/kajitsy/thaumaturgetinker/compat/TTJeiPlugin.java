@@ -8,14 +8,14 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 @JeiPlugin
 public final class TTJeiPlugin implements IModPlugin {
-    private static final Identifier UID = Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "jei_plugin");
+    private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, "jei_plugin");
 
     @Override
-    public Identifier getPluginUid() {
+    public ResourceLocation getPluginUid() {
         return UID;
     }
 

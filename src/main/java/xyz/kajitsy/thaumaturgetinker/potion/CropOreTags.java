@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 
@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 public final class CropOreTags {
     public record Source(String name, List<ItemStack> items) {}
 
-    public static String legacyName(Identifier id) {
+    public static String legacyName(ResourceLocation id) {
         var path = id.getPath();
         if (id.getNamespace().equals("thaumaturgetinker") && path.startsWith("crop_ores/")) {
             var words = path.substring("crop_ores/".length()).split("_");

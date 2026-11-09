@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 @net.neoforged.fml.common.EventBusSubscriber(modid="thaumaturgetinker")
 public final class BedrockPortal extends Block {
  public static final net.neoforged.neoforge.registries.DeferredBlock<BedrockPortal> BLOCK=KamiRegistries.BLOCKS.register("bedrock_portal",BedrockPortal::new);
- public static final net.minecraft.resources.ResourceKey<Level> DIMENSION=net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,net.minecraft.resources.Identifier.fromNamespaceAndPath("thaumaturgetinker","bedrock"));
+ public static final net.minecraft.resources.ResourceKey<Level> DIMENSION=net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("thaumaturgetinker","bedrock"));
  public BedrockPortal(){super(ThaumicTinkererModern.blockProps("bedrock_portal", Properties.of().strength(-1,6000000).sound(SoundType.STONE).noCollision().noOcclusion().noLootTable().isValidSpawn((s,l,p,t)->false)));}
  public static boolean bedrock(Level level){return level.dimension().equals(DIMENSION);}
  public static boolean surface(Level level){return level.dimension().equals(Level.OVERWORLD);}

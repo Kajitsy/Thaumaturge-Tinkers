@@ -8,7 +8,7 @@ import java.util.Set;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -24,7 +24,7 @@ public final class EnchanterSelection {
     public boolean change(RegistryAccess access, ItemStack tool, Set<String> research, String id, int requested) {
         if (requested == -1) return selected.remove(id) != null;
         var data = EnchanterCosts.ENTRIES.get(id);
-        var location = Identifier.tryParse(id);
+        var location = ResourceLocation.tryParse(id);
         if (id.equals("thaumaturgetinker:auto_smelt") && BuiltInRegistries.ITEM.getKey(tool.getItem()).toString().equals("thaumaturge:elemental_axe")) {
             return false;
         }
@@ -44,7 +44,7 @@ public final class EnchanterSelection {
         int level = selected.containsKey(id) ? Math.max(minLevel, Math.min(maxLevel, requested)) : minLevel;
         for (var other : selected.keySet()) {
             if (other.equals(id)) continue;
-            var otherHolder = registry.get(ResourceKey.create(Registries.ENCHANTMENT, Identifier.parse(other))).orElse(null);
+            var otherHolder = registry.get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(other))).orElse(null);
             if (otherHolder == null || !Enchantment.areCompatible(holder, otherHolder)) return false;
         }
         selected.put(id, level);

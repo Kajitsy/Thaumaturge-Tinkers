@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
@@ -36,8 +36,8 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 @EventBusSubscriber(modid = "thaumaturgetinker")
 public class KamiArmor extends Item implements IVisDiscountGear {
-    public static final ResourceKey<EquipmentAsset> ASSET_ICHOR = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath("thaumaturgetinker", "ichor"));
-    public static final ResourceKey<EquipmentAsset> ASSET_ICHORGEM = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath("thaumaturgetinker", "ichorgem"));
+    public static final ResourceKey<EquipmentAsset> ASSET_ICHOR = ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichor"));
+    public static final ResourceKey<EquipmentAsset> ASSET_ICHORGEM = ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichorgem"));
 
     public static final ArmorMaterial MATERIAL = new ArmorMaterial(
         0,
@@ -46,7 +46,7 @@ public class KamiArmor extends Item implements IVisDiscountGear {
         SoundEvents.ARMOR_EQUIP_LEATHER,
         0.0F,
         0.0F,
-        TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("thaumaturgetinker", "ichor_cloth")),
+        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichor_cloth")),
         ASSET_ICHOR
     );
 
@@ -57,7 +57,7 @@ public class KamiArmor extends Item implements IVisDiscountGear {
         SoundEvents.ARMOR_EQUIP_LEATHER,
         0.0F,
         0.0F,
-        TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("thaumaturgetinker", "ichor_cloth")),
+        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichor_cloth")),
         ASSET_ICHORGEM
     );
 

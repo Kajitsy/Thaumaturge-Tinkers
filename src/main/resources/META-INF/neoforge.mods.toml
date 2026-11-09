@@ -11,13 +11,13 @@ description="Thaumaturge Tinker for modern Minecraft on top of Thaumaturge."
 [[dependencies.thaumaturgetinker]]
 modId="neoforge"
 type="required"
-versionRange="[26.1.2.122,)"
+versionRange="[21.1,)"
 ordering="AFTER"
 side="BOTH"
 [[dependencies.thaumaturgetinker]]
 modId="minecraft"
 type="required"
-versionRange="[26.1.2,27.1)"
+versionRange="[1.21.1,1.21.2)"
 ordering="AFTER"
 side="BOTH"
 [[dependencies.thaumaturgetinker]]
@@ -33,6 +33,6 @@ config="thaumaturgetinker.mixins.json"
 [[dependencies.thaumaturgetinker]]
 modId="jade"
 type="optional"
-versionRange="[26.1.8,)"
+versionRange="[15,)"
 ordering="AFTER"
 side="BOTH"

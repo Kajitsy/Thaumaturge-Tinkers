@@ -7,7 +7,7 @@ import java.util.Map;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -38,7 +38,7 @@ public InfusedSeedData {
     private static ResourceKey<IAspect> parseAspect(String str) {
         if (str == null || str.isEmpty()) return null;
         if (!str.contains(":")) str = "thaumaturge:" + str;
-        return ResourceKey.create(IAspect.REGISTRY_KEY, Identifier.parse(str));
+        return ResourceKey.create(IAspect.REGISTRY_KEY, ResourceLocation.parse(str));
     }
 
     public static InfusedSeedData read(CompoundTag tag) {

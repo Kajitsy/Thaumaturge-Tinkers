@@ -8,7 +8,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -20,8 +20,8 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 @EventBusSubscriber(modid = "thaumaturgetinker", value = Dist.CLIENT)
 public final class SoulHeartsHud {
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/soulhearts.png");
-    public static final Identifier LAYER_ID = Identifier.fromNamespaceAndPath("thaumaturgetinker", "soul_hearts");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/gui/soulhearts.png");
+    public static final ResourceLocation LAYER_ID = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "soul_hearts");
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {

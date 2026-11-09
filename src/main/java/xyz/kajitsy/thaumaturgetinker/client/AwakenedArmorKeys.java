@@ -7,7 +7,7 @@ import xyz.kajitsy.thaumaturgetinker.network.AwakenedArmorStatus;
 
 @net.neoforged.fml.common.EventBusSubscriber(modid = "thaumaturgetinker", value = net.neoforged.api.distmarker.Dist.CLIENT)
 public final class AwakenedArmorKeys {
-    public static final net.minecraft.client.KeyMapping.Category CATEGORY = new net.minecraft.client.KeyMapping.Category(net.minecraft.resources.Identifier.fromNamespaceAndPath("thaumaturgetinker", "keys"));
+    public static final net.minecraft.client.KeyMapping.Category CATEGORY = new net.minecraft.client.KeyMapping.Category(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "keys"));
     public static final net.minecraft.client.KeyMapping TOGGLE = new net.minecraft.client.KeyMapping("ttmisc.toggleArmor", org.lwjgl.glfw.GLFW.GLFW_KEY_U, CATEGORY);
     public static final net.minecraft.client.KeyMapping OPEN_POUCH = new net.minecraft.client.KeyMapping("ttmisc.openPouch", org.lwjgl.glfw.GLFW.GLFW_KEY_B, CATEGORY);
 

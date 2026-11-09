@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -101,7 +101,7 @@ public final class AnimationTabletRenderer implements BlockEntityRenderer<Animat
         pose.pushPose();
         pose.translate(0.5, height, 0.5);
         pose.mulPose(Axis.YP.rotationDegrees(rotation == 0 ? force : (state.ticks * rotation) % 360));
-        var tex = Identifier.fromNamespaceAndPath("thaumaturgetinker", "textures/misc/" + texture + ".png");
+        var tex = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/misc/" + texture + ".png");
         collector.submitCustomGeometry(pose, RenderTypes.entityTranslucent(tex), (p, out) -> {
             float h = size / 2;
             float[][] corners = {{-h, h, 0, 1}, {h, h, 1, 1}, {h, -h, 1, 0}, {-h, -h, 0, 0}};

@@ -10,7 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ARGB;
@@ -48,13 +48,13 @@ public final class IchorPouch extends Item {
     public static final DeferredItem<IchorPouch> ITEM = KamiRegistries.ITEMS.register("ichor_pouch", IchorPouch::new);
 
     public record OpenPayload() implements CustomPacketPayload {
-        public static final Type<OpenPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "open_pouch"));
+        public static final Type<OpenPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, "open_pouch"));
         public static final StreamCodec<RegistryFriendlyByteBuf, OpenPayload> CODEC = StreamCodec.unit(new OpenPayload());
         @Override public Type<OpenPayload> type() { return TYPE; }
     }
 
     public record SelectPayload(int slotId, int selectedIndex) implements CustomPacketPayload {
-        public static final Type<SelectPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "select_pouch_item"));
+        public static final Type<SelectPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, "select_pouch_item"));
         public static final StreamCodec<RegistryFriendlyByteBuf, SelectPayload> CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, SelectPayload::slotId,
             ByteBufCodecs.VAR_INT, SelectPayload::selectedIndex,

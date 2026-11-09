@@ -5,7 +5,7 @@ import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
@@ -24,7 +24,7 @@ public final class KamiTools {
         10.0F,
         5.0F,
         25,
-        TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("thaumaturgetinker", "ichorium"))
+        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichorium"))
     );
 
     public static Item.Properties properties(String name) {

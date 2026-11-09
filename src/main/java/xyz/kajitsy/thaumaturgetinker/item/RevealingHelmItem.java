@@ -8,7 +8,7 @@ import com.leclowndu93150.thaumaturge.registry.TTDataComponents;
 import java.util.Map;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
@@ -23,7 +23,7 @@ import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.EquipmentAssets;
 
 public final class RevealingHelmItem extends Item implements IVisDiscountGear {
-    public static final ResourceKey<EquipmentAsset> ASSET_REVEALING = ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath("thaumaturgetinker", "revealing"));
+    public static final ResourceKey<EquipmentAsset> ASSET_REVEALING = ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "revealing"));
     public static final ArmorMaterial MATERIAL = new ArmorMaterial(
         25,
         Map.of(ArmorType.BOOTS, 2, ArmorType.LEGGINGS, 5, ArmorType.CHESTPLATE, 6, ArmorType.HELMET, 2),
@@ -31,7 +31,7 @@ public final class RevealingHelmItem extends Item implements IVisDiscountGear {
         SoundEvents.ARMOR_EQUIP_IRON,
         1.0F,
         0.0F,
-        TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ingots/thaumium")),
+        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "ingots/thaumium")),
         ASSET_REVEALING
     );
 

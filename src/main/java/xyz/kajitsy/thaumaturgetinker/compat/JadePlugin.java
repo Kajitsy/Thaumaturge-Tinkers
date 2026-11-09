@@ -19,7 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import snownee.jade.api.BlockAccessor;
@@ -35,7 +35,7 @@ import snownee.jade.api.config.IPluginConfig;
 @WailaPlugin("thaumaturgetinker")
 public final class JadePlugin implements IWailaPlugin {
     public static final String DATA = "thaumaturgetinker:device_tooltip";
-    private static final Identifier UID = Identifier.fromNamespaceAndPath("thaumaturgetinker", "devices");
+    private static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "devices");
 
     @Override
     public void register(IWailaCommonRegistration registration) {
@@ -90,7 +90,7 @@ public final class JadePlugin implements IWailaPlugin {
                 if (filter.isEmpty()) {
                     lines.add(text(key));
                 } else {
-                    var id = Identifier.tryParse(SoulMouldItem.pattern(filter));
+                    var id = ResourceLocation.tryParse(SoulMouldItem.pattern(filter));
                     var type = id == null ? null : BuiltInRegistries.ENTITY_TYPE.getOptional(id).orElse(null);
                     lines.add(text(key + "Type", type == null ? Component.translatable("ttmisc.soulMould.nonAssigned") : type.getDescription()));
                 }
@@ -102,7 +102,7 @@ public final class JadePlugin implements IWailaPlugin {
     public enum ServerProvider implements IServerDataProvider<BlockAccessor> {
         INSTANCE;
 
-        @Override public Identifier getUid() { return UID; }
+        @Override public ResourceLocation getUid() { return UID; }
 
         @Override
         public void appendServerData(CompoundTag tag, BlockAccessor accessor) {
@@ -114,7 +114,7 @@ public final class JadePlugin implements IWailaPlugin {
     public enum ClientProvider implements IBlockComponentProvider {
         INSTANCE;
 
-        @Override public Identifier getUid() { return UID; }
+        @Override public ResourceLocation getUid() { return UID; }
 
         @Override
         public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {

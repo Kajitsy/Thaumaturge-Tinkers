@@ -3,7 +3,7 @@ package xyz.kajitsy.thaumaturgetinker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,10 +28,10 @@ public final class SkyPearlData {
         return new BlockPos(t.getIntOr("x", 0), t.getIntOr("y", 0), t.getIntOr("z", 0));
     }
 
-    public static Identifier dimension(ItemStack stack) {
-        if (!attuned(stack)) return Identifier.withDefaultNamespace("overworld");
-        var id = Identifier.tryParse(tag(stack).getStringOr("dim", ""));
-        return id == null ? Identifier.withDefaultNamespace("overworld") : id;
+    public static ResourceLocation dimension(ItemStack stack) {
+        if (!attuned(stack)) return ResourceLocation.withDefaultNamespace("overworld");
+        var id = ResourceLocation.tryParse(tag(stack).getStringOr("dim", ""));
+        return id == null ? ResourceLocation.withDefaultNamespace("overworld") : id;
     }
 
     public static ServerLevel targetLevel(ServerPlayer player, ItemStack pearl, boolean fallbackToCurrent) {
@@ -44,7 +44,7 @@ public final class SkyPearlData {
         return level;
     }
 
-    public static void bind(ItemStack stack, BlockPos pos, Identifier dimension) {
+    public static void bind(ItemStack stack, BlockPos pos, ResourceLocation dimension) {
         CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> {
             t.putInt("x", pos.getX());
             t.putInt("y", pos.getY());

@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -150,7 +150,7 @@ public final class WarpGateDestinations extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float partial) {
         int rgb = Color.HSBtoRGB((float) (Math.sin(ticks / 150d) + .5), .5f, .4f);
-        g.blit(RenderPipelines.GUI_TEXTURED, Identifier.withDefaultNamespace("textures/entity/end_portal/end_portal.png"), 0, 0, 0, 0, width, height, 256, 256, (0xFF << 24) | (rgb & 0xFFFFFF));
+        g.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("textures/entity/end_portal/end_portal.png"), 0, 0, 0, 0, width, height, 256, 256, (0xFF << 24) | (rgb & 0xFFFFFF));
         int gx = (int) (gate.getBlockPos().getX() - originX), gz = (int) (gate.getBlockPos().getZ() - originZ);
         int alpha = (int) (((Math.sin(ticks / 10d) + 1) / 4 + .25) * 255);
         for (int i = 0; i < 10; i++) {

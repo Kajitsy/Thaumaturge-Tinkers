@@ -3,7 +3,7 @@ package xyz.kajitsy.thaumaturgetinker.potion;
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 
@@ -38,7 +38,7 @@ public final class InfusedSoilData {
             String keyStr = item.getStringOr("key", "");
             if (keyStr.isEmpty()) continue;
             if (!keyStr.contains(":")) keyStr = "thaumaturge:" + keyStr;
-            var aspect = ResourceKey.create(IAspect.REGISTRY_KEY, Identifier.parse(keyStr));
+            var aspect = ResourceKey.create(IAspect.REGISTRY_KEY, ResourceLocation.parse(keyStr));
             aspects.put(aspect, item.getIntOr("amount", 1));
         }
     }
