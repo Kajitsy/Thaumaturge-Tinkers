@@ -4,14 +4,13 @@ import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
@@ -19,7 +18,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
-import org.jspecify.annotations.Nullable;
 
 @EventBusSubscriber(modid = ThaumicTinkererModern.ID)
 public final class Protoclay extends Item {
@@ -53,7 +51,7 @@ public final class Protoclay extends Item {
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             var stack = inventory.getItem(slot);
             if (stack == current || !(stack.getItem() instanceof AdvancedTool candidate) || !candidate.toolType().equals(desired)) continue;
-            inventory.setItem(inventory.getSelectedSlot(), stack);
+            inventory.setItem(inventory.selected, stack);
             inventory.setItem(slot, current);
             inventory.setChanged();
             break;
@@ -76,7 +74,7 @@ public final class Protoclay extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (entity instanceof Player player) {
             update(player);
         }

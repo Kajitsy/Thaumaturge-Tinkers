@@ -33,9 +33,15 @@
     " I "
   ],
   "key": {
-    "T": "thaumaturge:ingot_thaumium",
-    "I": "thaumaturgetinker:ichor",
-    "D": "minecraft:diamond"
+    "T": {
+      "item": "thaumaturge:ingot_thaumium"
+    },
+    "I": {
+      "item": "thaumaturgetinker:ichor"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:ichorium",

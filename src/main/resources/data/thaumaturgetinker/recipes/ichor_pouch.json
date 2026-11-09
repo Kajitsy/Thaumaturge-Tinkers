@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:focus_pouch",
+  "catalyst": {
+    "item": "thaumaturge:focus_pouch"
+  },
   "components": [
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturge:focus_1",
-    "minecraft:diamond",
-    "thaumaturge:hungry_chest",
-    "thaumaturge:jar_normal"
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturge:hungry_chest"
+    },
+    {
+      "item": "thaumaturge:jar_normal"
+    }
   ],
   "aspects": [
     {

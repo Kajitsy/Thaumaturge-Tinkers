@@ -91,7 +91,7 @@ public final class EnchanterProcess {
         var tag = new CompoundTag();
         tag.putBoolean("Working", working);
         var curTag = new CompoundTag();
-        current.forEach((k, v) -> curTag.putInt(k.identifier().toString(), v));
+        current.forEach((k, v) -> curTag.putInt(k.location().toString(), v));
         tag.put("Current", curTag);
         var selTag = new CompoundTag();
         selection.entries().forEach(selTag::putInt);
@@ -100,17 +100,17 @@ public final class EnchanterProcess {
     }
 
     public void load(ServerLevel level, ItemStack tool, CompoundTag tag) {
-        working = tag.getBooleanOr("Working", false);
+        working = tag.getBoolean("Working");
         current.clear();
-        var curTag = tag.getCompoundOrEmpty("Current");
+        var curTag = tag.getCompound("Current");
         for (var key : curTag.keySet()) {
             var rk = ResourceKey.create(IAspect.REGISTRY_KEY, ResourceLocation.parse(key));
-            current.put(rk, curTag.getIntOr(key, 0));
+            current.put(rk, curTag.getInt(key));
         }
         selection.clear();
-        var selTag = tag.getCompoundOrEmpty("Selection");
+        var selTag = tag.getCompound("Selection");
         for (var key : selTag.keySet()) {
-            selection.change(level.registryAccess(), tool, EnchanterCosts.allResearch(), key, selTag.getIntOr(key, 0));
+            selection.change(level.registryAccess(), tool, EnchanterCosts.allResearch(), key, selTag.getInt(key));
         }
     }
 }

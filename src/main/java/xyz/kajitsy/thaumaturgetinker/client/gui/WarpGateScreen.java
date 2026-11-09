@@ -2,12 +2,10 @@ package xyz.kajitsy.thaumaturgetinker.client.gui;
 
 import xyz.kajitsy.thaumaturgetinker.menu.WarpGateMenu;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.InputWithModifiers;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,7 +19,7 @@ public final class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> 
         }
 
         @Override
-        public void onPress(InputWithModifiers input) {
+        public void onPress() {
             if (minecraft != null && minecraft.gameMode != null) {
                 minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
             }
@@ -33,9 +31,9 @@ public final class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> 
         }
 
         @Override
-        protected void extractContents(GuiGraphicsExtractor g, int mx, int my, float partial) {
+        protected void renderWidget(GuiGraphics g, int mx, int my, float partial) {
             if (menu.gate.locked) {
-                g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, getX(), getY(), 176.0f, 0.0f, 13, 13, 256, 256);
+                g.blit(TEXTURE, getX(), getY(), 176.0f, 0.0f, 13, 13, 256, 256);
             }
         }
     }
@@ -51,9 +49,14 @@ public final class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> 
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float partial) {
-        super.extractBackground(g, mx, my, partial);
-        g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
-        g.text(font, Component.translatable("ttmisc.lockedGate"), leftPos + 20, topPos + 7, 0xFF999999, false);
+    public void render(GuiGraphics g, int mx, int my, float partialTick) {
+        super.render(g, mx, my, partialTick);
+        renderTooltip(g, mx, my);
+    }
+
+    @Override
+    protected void renderBg(GuiGraphics g, float partial, int mx, int my) {
+        g.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        g.drawString(font, Component.translatable("ttmisc.lockedGate"), leftPos + 20, topPos + 7, 0xFF999999, false);
     }
 }

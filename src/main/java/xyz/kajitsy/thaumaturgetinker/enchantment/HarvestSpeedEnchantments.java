@@ -10,7 +10,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber(modid = "thaumaturgetinker")
 public final class HarvestSpeedEnchantments {
@@ -35,14 +35,14 @@ public final class HarvestSpeedEnchantments {
         }
         var data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (tunnel > 0 && data.contains("TTEnchantTunnelDir")) {
-            float difference = Math.abs(data.getFloatOr("TTEnchantTunnelDir", 0f) - player.getYRot());
+            float difference = Math.abs(data.getFloat("TTEnchantTunnelDir") - player.getYRot());
             speed = (float) (speed * (difference < 50 ? 1 + .2 * tunnel : .3));
         }
         event.setNewSpeed(speed);
     }
 
     @SubscribeEvent
-    public static void broken(BreakBlockEvent event) {
+    public static void broken(BlockEvent.BreakEvent event) {
         var player = event.getPlayer();
         if (player.level().isClientSide()) return;
         var stack = player.getMainHandItem();

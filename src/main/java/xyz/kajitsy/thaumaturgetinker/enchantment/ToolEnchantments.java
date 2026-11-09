@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 public final class ToolEnchantments {
     public static final ResourceKey<Enchantment> FLAME=key("auto_smelt"),SOFT=key("desintegrate");
     public static final TagKey<net.minecraft.world.level.block.Block> WOOD=TagKey.create(Registries.BLOCK,id("wood_material"));
-    private static Identifier id(String name){return Identifier.fromNamespaceAndPath("thaumaturgetinker",name);}
+    private static ResourceLocation id(String name){return ResourceLocation.fromNamespaceAndPath("thaumaturgetinker",name);}
     private static ResourceKey<Enchantment> key(String name){return ResourceKey.create(Registries.ENCHANTMENT,id(name));}
     @SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.HIGHEST) public static void speed(net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed event){
         var player=event.getEntity();var stack=player.getMainHandItem();var registry=player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);

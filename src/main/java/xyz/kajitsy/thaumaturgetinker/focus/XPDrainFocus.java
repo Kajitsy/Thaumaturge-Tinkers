@@ -7,6 +7,7 @@ import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.content.wands.ItemWand;
 import com.leclowndu93150.thaumaturge.content.wands.WandVisHelper;
 import java.awt.Color;
+import java.util.List;
 import java.util.Map;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -74,9 +75,8 @@ public final class XPDrainFocus extends TinkererFocus {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack focus, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(focus, context, display, builder, flag);
-        builder.accept(Component.translatable("ttmisc.experience").append(" x 15").withStyle(ChatFormatting.GREEN));
+    public void appendHoverText(ItemStack focus, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        super.appendHoverText(focus, context, tooltipComponents, flag);
+        tooltipComponents.add(Component.translatable("ttmisc.experience").append(" x 15").withStyle(ChatFormatting.GREEN));
     }
 }

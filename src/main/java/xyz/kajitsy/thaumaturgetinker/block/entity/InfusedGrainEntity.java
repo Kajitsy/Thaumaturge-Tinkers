@@ -62,15 +62,15 @@ public final class InfusedGrainEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
-        super.saveAdditional(output);
-        data.write(output);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        data.write(tag);
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
-        super.loadAdditional(input);
-        data = InfusedSeedData.read(input);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        data = InfusedSeedData.read(tag);
     }
 
     @Override

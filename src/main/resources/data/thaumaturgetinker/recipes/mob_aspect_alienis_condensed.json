@@ -7,7 +7,9 @@
     "XXX"
   ],
   "key": {
-    "X": "thaumaturgetinker:mob_aspect_alienis"
+    "X": {
+      "item": "thaumaturgetinker:mob_aspect_alienis"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:mob_aspect_alienis_condensed",

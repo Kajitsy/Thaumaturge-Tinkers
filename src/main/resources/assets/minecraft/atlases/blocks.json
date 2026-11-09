@@ -6,6 +6,11 @@
       "prefix": "blocks/"
     },
     {
+      "type": "minecraft:directory",
+      "source": "items",
+      "prefix": "items/"
+    },
+    {
       "type": "minecraft:single",
       "resource": "thaumaturgetinker:model/repairer",
       "sprite": "thaumaturgetinker:model/repairer"

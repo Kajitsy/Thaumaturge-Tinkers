@@ -17,9 +17,15 @@
     "P"
   ],
   "key": {
-    "M": "thaumaturge:mirror",
-    "E": "minecraft:ender_eye",
-    "P": "thaumaturge:focus_1"
+    "M": {
+      "item": "thaumaturge:mirror"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "P": {
+      "item": "thaumaturge:focus_1"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:focus_ender_chest",

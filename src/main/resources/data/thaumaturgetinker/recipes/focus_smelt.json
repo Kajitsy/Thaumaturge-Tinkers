@@ -19,9 +19,15 @@
     "FNE"
   ],
   "key": {
-    "F": "thaumaturge:focus_1",
-    "N": "thaumaturge:nitor_yellow",
-    "E": "thaumaturge:crystal_ignis"
+    "F": {
+      "item": "thaumaturge:focus_1"
+    },
+    "N": {
+      "item": "thaumaturge:nitor_yellow"
+    },
+    "E": {
+      "item": "thaumaturge:crystal_ignis"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:focus_smelt",

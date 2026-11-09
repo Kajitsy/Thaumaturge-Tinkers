@@ -33,9 +33,15 @@
     "DDD"
   ],
   "key": {
-    "C": "thaumaturge:fabric",
-    "I": "thaumaturgetinker:ichor",
-    "D": "minecraft:diamond"
+    "C": {
+      "item": "thaumaturge:fabric"
+    },
+    "I": {
+      "item": "thaumaturgetinker:ichor"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:ichor_cloth",

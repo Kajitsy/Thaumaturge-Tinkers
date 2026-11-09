@@ -1,11 +1,21 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgeadditions:void_traveller_boots",
+  "catalyst": {
+    "item": "thaumaturgeadditions:void_traveller_boots"
+  },
   "components": [
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth"
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    }
   ],
   "aspects": [
     {

@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:ichorcloth_helm",
+  "catalyst": {
+    "item": "thaumaturgetinker:ichorcloth_helm"
+  },
   "components": [
-    "minecraft:diamond",
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "thaumaturge:thaumonomicon",
-    "thaumaturge:focus_3",
-    "minecraft:golden_helmet",
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturge:thaumonomicon"
+    },
+    {
+      "item": "thaumaturge:focus_3"
+    },
+    {
+      "item": "minecraft:golden_helmet"
+    },
     {
       "neoforge:ingredient_type": "neoforge:components",
       "items": "minecraft:potion",
@@ -17,11 +31,21 @@
         }
       }
     },
-    "thaumaturge:goggles_revealing",
-    "minecraft:ghast_tear",
-    "minecraft:cod",
-    "minecraft:cake",
-    "minecraft:ender_eye"
+    {
+      "item": "thaumaturge:goggles_revealing"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "minecraft:cod"
+    },
+    {
+      "item": "minecraft:cake"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    }
   ],
   "aspects": [
     {

@@ -7,7 +7,9 @@
     "XXX"
   ],
   "key": {
-    "X": "thaumaturgetinker:mob_aspect_iter"
+    "X": {
+      "item": "thaumaturgetinker:mob_aspect_iter"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:mob_aspect_iter_condensed",

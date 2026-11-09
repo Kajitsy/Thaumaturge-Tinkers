@@ -1,19 +1,45 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:ichorcloth_boots",
+  "catalyst": {
+    "item": "thaumaturgetinker:ichorcloth_boots"
+  },
   "components": [
-    "minecraft:diamond",
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "thaumaturge:thaumonomicon",
-    "thaumaturge:focus_3",
-    "minecraft:golden_boots",
-    "minecraft:grass_block",
-    "thaumaturge:paving_stone_travel",
-    "thaumaturge:paving_stone_barrier",
-    "minecraft:wheat_seeds",
-    "minecraft:white_wool",
-    "minecraft:lead"
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturge:thaumonomicon"
+    },
+    {
+      "item": "thaumaturge:focus_3"
+    },
+    {
+      "item": "minecraft:golden_boots"
+    },
+    {
+      "item": "minecraft:grass_block"
+    },
+    {
+      "item": "thaumaturge:paving_stone_travel"
+    },
+    {
+      "item": "thaumaturge:paving_stone_barrier"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:lead"
+    }
   ],
   "aspects": [
     {

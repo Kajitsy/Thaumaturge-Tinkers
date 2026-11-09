@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:mob_aspect_venenum_condensed",
+  "catalyst": {
+    "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+  },
   "components": [
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed",
-    "thaumaturgetinker:mob_aspect_venenum_condensed"
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_venenum_condensed"
+    }
   ],
   "aspects": [
     {

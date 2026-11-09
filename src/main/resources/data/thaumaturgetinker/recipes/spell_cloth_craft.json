@@ -1,6 +1,8 @@
 {
   "type": "thaumaturge:crucible",
-  "catalyst": "thaumaturge:fabric",
+  "catalyst": {
+    "item": "thaumaturge:fabric"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:praecantatio",

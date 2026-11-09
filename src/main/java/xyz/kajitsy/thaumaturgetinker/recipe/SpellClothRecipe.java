@@ -2,24 +2,24 @@ package xyz.kajitsy.thaumaturgetinker.recipe;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
-
-import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 /** Build 164: one cloth + one enchanted item; remove only enchantments, use cloth once. */
 public final class SpellClothRecipe extends CustomRecipe {
-    public static final SpellClothRecipe INSTANCE = new SpellClothRecipe();
-    public static final MapCodec<SpellClothRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
-    public static final StreamCodec<RegistryFriendlyByteBuf, SpellClothRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
-    public static final RecipeSerializer<SpellClothRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final SimpleCraftingRecipeSerializer<SpellClothRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(SpellClothRecipe::new);
 
-    public SpellClothRecipe() {}
+    public SpellClothRecipe(CraftingBookCategory category) {
+        super(category);
+    }
 
     private static ItemStack target(CraftingInput input) {
         boolean cloth = false;
@@ -40,12 +40,17 @@ public final class SpellClothRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input) {
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
         var target = target(input);
         if (target.isEmpty()) return ItemStack.EMPTY;
         var result = target.copyWithCount(1);
         result.remove(DataComponents.ENCHANTMENTS);
         return result;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 2;
     }
 
     @Override

@@ -2,12 +2,10 @@ package xyz.kajitsy.thaumaturgetinker.client.gui;
 
 import xyz.kajitsy.thaumaturgetinker.menu.AnimationTabletMenu;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.InputWithModifiers;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,7 +22,7 @@ public final class AnimationTabletScreen extends AbstractContainerScreen<Animati
         }
 
         @Override
-        public void onPress(InputWithModifiers input) {
+        public void onPress() {
             select(choice);
         }
 
@@ -34,10 +32,10 @@ public final class AnimationTabletScreen extends AbstractContainerScreen<Animati
         }
 
         @Override
-        protected void extractContents(GuiGraphicsExtractor g, int mx, int my, float partial) {
+        protected void renderWidget(GuiGraphics g, int mx, int my, float partial) {
             int u = choice == 0 ? (menu.tile.redstone ? 13 : 0) : (menu.tile.leftClick == (choice == 1) ? 13 : 0);
             int v = choice == 0 ? 0 : (choice == 1 ? 13 : 26);
-            g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, getX(), getY(), 176.0f + u, v, 13, 13, 256, 256);
+            g.blit(TEXTURE, getX(), getY(), 176.0f + u, (float) v, 13, 13, 256, 256);
         }
     }
 
@@ -60,12 +58,18 @@ public final class AnimationTabletScreen extends AbstractContainerScreen<Animati
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float partial) {
-        g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256);
+    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
+        super.render(g, mouseX, mouseY, partialTick);
+        renderTooltip(g, mouseX, mouseY);
+    }
+
+    @Override
+    protected void renderBg(GuiGraphics g, float partial, int mouseX, int mouseY) {
+        g.blit(TEXTURE, leftPos, topPos, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256);
         var left = Component.translatable("ttmisc.leftClick");
-        g.text(font, left, leftPos + 48 - font.width(left), topPos + 18, 0x999999, false);
-        g.text(font, Component.translatable("ttmisc.rightClick"), leftPos + 128, topPos + 18, 0x999999, false);
+        g.drawString(font, left, leftPos + 48 - font.width(left), topPos + 18, 0x999999, false);
+        g.drawString(font, Component.translatable("ttmisc.rightClick"), leftPos + 128, topPos + 18, 0x999999, false);
         var redstone = Component.translatable("ttmisc.redstoneControl");
-        g.text(font, redstone, leftPos + 88 - font.width(redstone) / 2, topPos + 50, 0x999999, false);
+        g.drawString(font, redstone, leftPos + 88 - font.width(redstone) / 2, topPos + 50, 0x999999, false);
     }
 }

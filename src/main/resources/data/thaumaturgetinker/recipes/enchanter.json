@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:enchanting_table",
+  "catalyst": {
+    "item": "minecraft:enchanting_table"
+  },
   "components": [
-    "thaumaturge:obsidian_tile",
-    "thaumaturge:obsidian_tile",
-    "thaumaturge:obsidian_tile",
-    "thaumaturge:obsidian_tile",
-    "thaumaturge:obsidian_tile",
-    "thaumaturge:ingot_thaumium",
-    "thaumaturge:ingot_thaumium",
-    "thaumaturgetinker:spell_cloth"
+    {
+      "item": "thaumaturge:obsidian_tile"
+    },
+    {
+      "item": "thaumaturge:obsidian_tile"
+    },
+    {
+      "item": "thaumaturge:obsidian_tile"
+    },
+    {
+      "item": "thaumaturge:obsidian_tile"
+    },
+    {
+      "item": "thaumaturge:obsidian_tile"
+    },
+    {
+      "item": "thaumaturge:ingot_thaumium"
+    },
+    {
+      "item": "thaumaturge:ingot_thaumium"
+    },
+    {
+      "item": "thaumaturgetinker:spell_cloth"
+    }
   ],
   "aspects": [
     {

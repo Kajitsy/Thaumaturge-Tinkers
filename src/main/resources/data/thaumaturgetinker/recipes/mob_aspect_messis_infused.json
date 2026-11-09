@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:mob_aspect_messis_condensed",
+  "catalyst": {
+    "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+  },
   "components": [
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed",
-    "thaumaturgetinker:mob_aspect_messis_condensed"
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_messis_condensed"
+    }
   ],
   "aspects": [
     {

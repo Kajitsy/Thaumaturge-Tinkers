@@ -34,8 +34,9 @@ public final class MagnetBlock extends BaseEntityBlock {
         }else if(!level.isClientSide()){level.setBlock(pos,level.getBlockState(pos).cycle(PULLING),3);level.playSound(null,pos,net.minecraft.sounds.SoundEvents.UI_BUTTON_CLICK.value(),net.minecraft.sounds.SoundSource.BLOCKS,1,.5f);}
         return true;
     }
-    @Override protected InteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){return interact(level,pos,player,stack)?(level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.CONSUME):InteractionResult.FAIL;}
+    @Override protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){return interact(level,pos,player,stack)?(level.isClientSide()?net.minecraft.world.ItemInteractionResult.SUCCESS:net.minecraft.world.ItemInteractionResult.CONSUME):net.minecraft.world.ItemInteractionResult.FAIL;}
     @Override protected InteractionResult useWithoutItem(BlockState state,Level level,BlockPos pos,Player player,BlockHitResult hit){return interact(level,pos,player,ItemStack.EMPTY)?(level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.CONSUME):InteractionResult.FAIL;}
+    @Override public void onRemove(BlockState state,Level level,BlockPos pos,BlockState newState,boolean movedByPiston){if(!state.is(newState.getBlock())&&level.getBlockEntity(pos) instanceof MagnetEntity tile)tile.dropContents(level,pos);super.onRemove(state,level,pos,newState,movedByPiston);}
     @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state){return new MagnetEntity(pos,state);}
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level,BlockState state,BlockEntityType<T> type){return level.isClientSide()?null:createTickerHelper(type,ThaumicTinkererModern.MAGNET_ENTITY.get(),MagnetEntity::tick);}
 }

@@ -3,11 +3,9 @@ package xyz.kajitsy.thaumaturgetinker.client.gui;
 import xyz.kajitsy.thaumaturgetinker.KamiStartupConfig;
 import xyz.kajitsy.thaumaturgetinker.network.SoulHearts;
 
-
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -28,7 +26,7 @@ public final class SoulHeartsHud {
         event.registerAbove(VanillaGuiLayers.ARMOR_LEVEL, LAYER_ID, SoulHeartsHud::renderLayer);
     }
 
-    public static void renderLayer(GuiGraphicsExtractor gui, DeltaTracker deltaTracker) {
+    public static void renderLayer(GuiGraphics gui, DeltaTracker deltaTracker) {
         if (!KamiStartupConfig.enabled()) return;
         var mc = Minecraft.getInstance();
         if (mc.player == null || mc.options.hideGui || !mc.gameMode.canHurtPlayer()) return;
@@ -39,7 +37,7 @@ public final class SoulHeartsHud {
         draw(gui, mc.player, hp, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
     }
 
-    public static void draw(GuiGraphicsExtractor gui, Player player, int hp, int width, int height) {
+    public static void draw(GuiGraphics gui, Player player, int hp, int width, int height) {
         int left = width / 2 - 91;
         int top = height - 39;
 
@@ -62,7 +60,7 @@ public final class SoulHeartsHud {
             int heartX = left + col * 8;
             int heartY = y - row * 10;
 
-            gui.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, heartX, heartY, half ? 9 : 0, 0, half ? 7 : 9, 9, 16, 16);
+            gui.blit(TEXTURE, heartX, heartY, half ? 9.0F : 0.0F, 0.0F, half ? 7 : 9, 9, 16, 16);
             it++;
         }
     }

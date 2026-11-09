@@ -3,9 +3,11 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.network.SoulHearts;
 
+import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -42,16 +44,15 @@ public final class AwakenedSword extends IchorSword implements AdvancedTool {
     }
 
     @Override
-    public InteractionResult use(Level level, Player p, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand) {
         var result = tryToggleMode(level, p, p.getItemInHand(hand));
-        return result != InteractionResult.PASS ? result : super.use(level, p, hand);
+        return result.getResult() != InteractionResult.PASS ? result : super.use(level, p, hand);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flags) {
-        super.appendHoverText(stack, context, display, builder, flags);
-        builder.accept(AdvancedToolModes.description("sword", stack));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag flags) {
+        super.appendHoverText(stack, context, tooltipComponents, flags);
+        tooltipComponents.add(AdvancedToolModes.description("sword", stack));
     }
 
     private boolean attackingGroup;

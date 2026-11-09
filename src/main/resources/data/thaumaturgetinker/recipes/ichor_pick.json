@@ -1,12 +1,24 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:void_pickaxe",
+  "catalyst": {
+    "item": "thaumaturge:void_pickaxe"
+  },
   "components": [
-    "thaumaturgetinker:ichorium",
-    "thaumaturgetinker:ichorium",
-    "thaumaturgetinker:ichorium",
-    "thaumaturge:wand_rod_silverwood",
-    "thaumaturge:wand_rod_silverwood"
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturge:wand_rod_silverwood"
+    },
+    {
+      "item": "thaumaturge:wand_rod_silverwood"
+    }
   ],
   "aspects": [
     {

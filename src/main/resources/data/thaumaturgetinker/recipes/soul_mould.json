@@ -12,9 +12,15 @@
     }
   ],
   "ingredients": [
-    "minecraft:soul_sand",
-    "minecraft:clay_ball",
-    "thaumaturge:salis_mundus"
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "thaumaturge:salis_mundus"
+    }
   ],
   "result": {
     "id": "thaumaturgetinker:soul_mould",

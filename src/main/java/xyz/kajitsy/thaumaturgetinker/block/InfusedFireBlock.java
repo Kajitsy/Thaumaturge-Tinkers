@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -45,7 +44,7 @@ public final class InfusedFireBlock extends FireBlock {
    state=state.setValue(switch(d){case NORTH->NORTH;case SOUTH->SOUTH;case WEST->WEST;case EAST->EAST;default->UP;},burn);
   }return state;
  }
- @Override protected BlockState updateShape(BlockState state,LevelReader level,net.minecraft.world.level.ScheduledTickAccess ticks,BlockPos pos,Direction direction,BlockPos neighborPos,BlockState neighbor,RandomSource random){
+ @Override protected BlockState updateShape(BlockState state,Direction direction,BlockState neighbor,LevelAccessor level,BlockPos pos,BlockPos neighborPos){
   // Client receives the authoritative state; do not remove server-supported fire locally.
   if(level instanceof ServerLevel server)return supported(server,pos)?visualState(server,pos,state.getValue(AGE)):Blocks.AIR.defaultBlockState();
   return state;
@@ -113,7 +112,7 @@ public final class InfusedFireBlock extends FireBlock {
   int age=level.getBlockState(pos).is(this)?level.getBlockState(pos).getValue(AGE):0;
   if(age<15&&level.getBlockState(pos).is(this))level.setBlock(pos,visualState(level,pos,age+random.nextInt(3)/2),4);
   level.scheduleTick(pos,this,delay()+random.nextInt(3));
-  boolean humid=level.environmentAttributes().getValue(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, pos);
+  boolean humid=wet(level,pos);
   for(var d:Direction.values())catchFire(level,pos.relative(d),humid?250:300,age,d,random);
   for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)for(int y=-1;y<=2;y++){
    if(x==0&&y==0&&z==0)continue;var next=pos.offset(x,y,z);

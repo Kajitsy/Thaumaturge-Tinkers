@@ -1,6 +1,8 @@
 {
   "type": "thaumaturge:crucible",
-  "catalyst": "thaumaturge:crystal_perditio",
+  "catalyst": {
+    "item": "thaumaturge:crystal_perditio"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:ignis",

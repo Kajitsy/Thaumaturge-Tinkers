@@ -7,7 +7,9 @@
     "XXX"
   ],
   "key": {
-    "X": "thaumaturgetinker:mob_aspect_praecantatio"
+    "X": {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:mob_aspect_praecantatio_condensed",

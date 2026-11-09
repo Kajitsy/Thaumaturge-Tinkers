@@ -1,14 +1,30 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:void_legs",
+  "catalyst": {
+    "item": "thaumaturge:void_legs"
+  },
   "components": [
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth"
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    }
   ],
   "aspects": [
     {

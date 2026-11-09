@@ -7,8 +7,12 @@
     "QQQ"
   ],
   "key": {
-    "Q": "minecraft:ink_sac",
-    "C": "thaumaturgetinker:infused_inkwell"
+    "Q": {
+      "item": "minecraft:ink_sac"
+    },
+    "C": {
+      "item": "thaumaturgetinker:infused_inkwell"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:infused_inkwell",

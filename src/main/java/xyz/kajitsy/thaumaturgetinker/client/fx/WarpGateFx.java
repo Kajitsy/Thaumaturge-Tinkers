@@ -4,7 +4,7 @@ import com.leclowndu93150.thaumaturge.content.particle.SparkleParticleOptions;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ParticleStatus;
+import net.minecraft.client.ParticleStatus;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 

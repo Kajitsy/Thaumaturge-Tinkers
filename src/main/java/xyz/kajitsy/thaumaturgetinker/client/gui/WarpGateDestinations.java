@@ -5,16 +5,14 @@ import xyz.kajitsy.thaumaturgetinker.block.entity.WarpGateEntity;
 import xyz.kajitsy.thaumaturgetinker.item.SkyPearl;
 import xyz.kajitsy.thaumaturgetinker.network.WarpGateNetwork;
 
+import com.mojang.math.Axis;
 import java.awt.Color;
 import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -22,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
 /** Original one-world-block-per-screen-pixel destination map. */
@@ -49,7 +47,7 @@ public final class WarpGateDestinations extends Screen {
         var mc = Minecraft.getInstance();
         var player = mc.player;
         if (player == null) return;
-        if (!SkyPearlData.dimension(stack).equals(player.level().dimension().identifier())) {
+        if (!SkyPearlData.dimension(stack).equals(player.level().dimension().location())) {
             builder.accept(Component.translatable("ttmisc.differentDim").withStyle(ChatFormatting.RED));
         } else {
             Vec3 origin = player.position().add(0, player.getBbHeight() / 2d, 0);
@@ -79,7 +77,7 @@ public final class WarpGateDestinations extends Screen {
     }
 
     boolean visible(ItemStack pearl) {
-        return !pearl.isEmpty() && SkyPearlData.attuned(pearl) && gate.getLevel() != null && SkyPearlData.dimension(pearl).equals(gate.getLevel().dimension().identifier());
+        return !pearl.isEmpty() && SkyPearlData.attuned(pearl) && gate.getLevel() != null && SkyPearlData.dimension(pearl).equals(gate.getLevel().dimension().location());
     }
 
     @Override
@@ -94,38 +92,38 @@ public final class WarpGateDestinations extends Screen {
     }
 
     @Override
-    public boolean mouseDragged(MouseButtonEvent event, double dx, double dy) {
-        if (event.button() == 0) {
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dx, double dy) {
+        if (button == 0) {
             originX -= dx;
             originZ -= dy;
             return true;
         }
-        return super.mouseDragged(event, dx, dy);
+        return super.mouseDragged(mouseX, mouseY, button, dx, dy);
     }
 
     @Override
-    public boolean keyPressed(KeyEvent event) {
-        if (event.key() == GLFW.GLFW_KEY_SPACE) {
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_SPACE) {
             center(gate.getBlockPos());
             return true;
         }
-        int index = event.key() == GLFW.GLFW_KEY_0 ? 9 : event.key() - GLFW.GLFW_KEY_1;
+        int index = keyCode == GLFW.GLFW_KEY_0 ? 9 : keyCode - GLFW.GLFW_KEY_1;
         if (index >= 0 && index < 10) {
             var pearl = gate.inventory.getItem(index);
             if (visible(pearl)) center(SkyPearlData.position(pearl));
             return true;
         }
-        return super.keyPressed(event);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == 0) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0) {
             for (int i = 0; i < 10; i++) {
                 var pearl = gate.inventory.getItem(i);
                 if (!visible(pearl)) continue;
-                if (event.x() >= 3 && event.x() <= 220 && event.y() >= 52 + i * 11 && event.y() <= 64 + i * 11) {
-                    ClientPacketDistributor.sendToServer(new WarpGateNetwork.Payload(gate.getBlockPos(), i));
+                if (mouseX >= 3 && mouseX <= 220 && mouseY >= 52 + i * 11 && mouseY <= 64 + i * 11) {
+                    PacketDistributor.sendToServer(new WarpGateNetwork.Payload(gate.getBlockPos(), i));
                     onClose();
                     return true;
                 }
@@ -135,22 +133,28 @@ public final class WarpGateDestinations extends Screen {
                 if (!visible(pearl)) continue;
                 var pos = SkyPearlData.position(pearl);
                 double px = pos.getX() - originX, pz = pos.getZ() - originZ;
-                double dx = event.x() - px;
-                double dz = event.y() - pz;
+                double dx = mouseX - px;
+                double dz = mouseY - pz;
                 if (dx * dx + dz * dz <= 100) {
-                    ClientPacketDistributor.sendToServer(new WarpGateNetwork.Payload(gate.getBlockPos(), i));
+                    PacketDistributor.sendToServer(new WarpGateNetwork.Payload(gate.getBlockPos(), i));
                     onClose();
                     return true;
                 }
             }
         }
-        return super.mouseClicked(event, doubleClick);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float partial) {
+    public void render(GuiGraphics g, int mx, int my, float partial) {
         int rgb = Color.HSBtoRGB((float) (Math.sin(ticks / 150d) + .5), .5f, .4f);
-        g.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("textures/entity/end_portal/end_portal.png"), 0, 0, 0, 0, width, height, 256, 256, (0xFF << 24) | (rgb & 0xFFFFFF));
+        float r = ((rgb >> 16) & 0xFF) / 255.0f;
+        float gr = ((rgb >> 8) & 0xFF) / 255.0f;
+        float b = (rgb & 0xFF) / 255.0f;
+        g.setColor(r, gr, b, 1.0f);
+        g.blit(ResourceLocation.withDefaultNamespace("textures/entity/end_portal/end_portal.png"), 0, 0, 0, 0, width, height, 256, 256);
+        g.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+
         int gx = (int) (gate.getBlockPos().getX() - originX), gz = (int) (gate.getBlockPos().getZ() - originZ);
         int alpha = (int) (((Math.sin(ticks / 10d) + 1) / 4 + .25) * 255);
         for (int i = 0; i < 10; i++) {
@@ -158,11 +162,11 @@ public final class WarpGateDestinations extends Screen {
             if (!visible(pearl)) continue;
             var p = SkyPearlData.position(pearl);
             int x = (int) (p.getX() - originX), z = (int) (p.getZ() - originZ);
-            g.pose().pushMatrix();
-            g.pose().translate(gx, gz);
-            g.pose().rotate((float) Math.atan2(z - gz, x - gx));
+            g.pose().pushPose();
+            g.pose().translate(gx, gz, 0);
+            g.pose().mulPose(Axis.ZP.rotation((float) Math.atan2(z - gz, x - gx)));
             g.fill(0, -1, (int) Math.hypot(x - gx, z - gz), 1, alpha << 24 | 0xFFFFFF);
-            g.pose().popMatrix();
+            g.pose().popPose();
         }
         icon(g, new ItemStack(SkyPearl.ITEM.get()), gx, gz);
         double gdx = mx - gx;
@@ -177,7 +181,7 @@ public final class WarpGateDestinations extends Screen {
             int x = (int) (p.getX() - originX), z = (int) (p.getZ() - originZ);
             icon(g, pearl, x, z);
             var name = pearl.has(DataComponents.CUSTOM_NAME) ? pearl.getHoverName() : Component.translatable("ttmisc.destination");
-            g.text(font, Component.literal((i + 1) + ": ").append(name), 5, 54 + i * 11, -1, false);
+            g.drawString(font, Component.literal((i + 1) + ": ").append(name), 5, 54 + i * 11, -1, false);
             double dx = mx - x;
             double dz = my - z;
             boolean hoveredNode = dx * dx + dz * dz <= 100;
@@ -188,17 +192,17 @@ public final class WarpGateDestinations extends Screen {
                         Component.translatable("ttmisc.clickToTeleport"));
             }
         }
-        g.text(font, title.copy().withStyle(ChatFormatting.UNDERLINE), 3, 40, -1, false);
-        g.centeredText(font, Component.translatable("ttmisc.numberKeys"), width / 2, 5, -1);
-        g.centeredText(font, Component.translatable("ttmisc.spaceToReset"), width / 2, 16, -1);
-        if (tooltip != null) g.setComponentTooltipForNextFrame(font, tooltip, mx, my);
+        g.drawString(font, title.copy().withStyle(ChatFormatting.UNDERLINE), 3, 40, -1, false);
+        g.drawCenteredString(font, Component.translatable("ttmisc.numberKeys"), width / 2, 5, -1);
+        g.drawCenteredString(font, Component.translatable("ttmisc.spaceToReset"), width / 2, 16, -1);
+        if (tooltip != null) g.renderComponentTooltip(font, tooltip, mx, my);
     }
 
-    private static void icon(GuiGraphicsExtractor g, ItemStack pearl, int x, int z) {
-        g.pose().pushMatrix();
-        g.pose().translate(x, z);
-        g.pose().scale(.5f, .5f);
-        g.item(new ItemStack(SkyPearl.ITEM.get()), -8, -8);
-        g.pose().popMatrix();
+    private static void icon(GuiGraphics g, ItemStack pearl, int x, int z) {
+        g.pose().pushPose();
+        g.pose().translate(x, z, 0);
+        g.pose().scale(.5f, .5f, 1f);
+        g.renderItem(new ItemStack(SkyPearl.ITEM.get()), -8, -8);
+        g.pose().popPose();
     }
 }

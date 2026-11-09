@@ -32,7 +32,7 @@ public final class EnchanterSelection {
             || !data.research().isEmpty() && !research.contains(data.research())) return false;
         var registry = access.lookupOrThrow(Registries.ENCHANTMENT);
         var holder = registry.get(ResourceKey.create(Registries.ENCHANTMENT, location)).orElse(null);
-        if (holder == null || !tool.supportsEnchantment(holder)) return false;
+        if (holder == null || !holder.value().canEnchant(tool)) return false;
         var existing = tool.getOrDefault(net.minecraft.core.component.DataComponents.ENCHANTMENTS, net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
         if (existing.getLevel(holder) >= holder.value().getMaxLevel()) return false;
         for (var e : existing.keySet()) {

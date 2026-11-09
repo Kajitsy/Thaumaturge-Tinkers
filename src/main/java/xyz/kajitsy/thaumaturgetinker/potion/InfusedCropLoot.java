@@ -20,14 +20,14 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 /** Build-164 item entries. Optional tag expansions and Thaumcraft variants are added separately. */
 public final class InfusedCropLoot {
@@ -53,8 +53,8 @@ public final class InfusedCropLoot {
         NeoForge.EVENT_BUS.addListener(InfusedCropLoot::reload);
     }
 
-    private static void reload(AddServerReloadListenersEvent event) {
-        event.addListener(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "crop_loot"), (ResourceManagerReloadListener) resources -> CACHE.clear());
+    private static void reload(AddReloadListenerEvent event) {
+        event.addListener((ResourceManagerReloadListener) resources -> CACHE.clear());
     }
 
     private final Map<ResourceKey<IAspect>, List<Entry>> table = new LinkedHashMap<>();
@@ -171,7 +171,7 @@ public final class InfusedCropLoot {
     void addBooks(HolderLookup.Provider registries) {
         var enchantments = registries.lookupOrThrow(Registries.ENCHANTMENT);
         for (var enchantment : enchantments.getOrThrow(BOOKS)) {
-            add(TTAspects.COGNITIO, EnchantmentHelper.createBook(new EnchantmentInstance(enchantment, 1)), 1);
+            add(TTAspects.COGNITIO, EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, 1)), 1);
         }
     }
 

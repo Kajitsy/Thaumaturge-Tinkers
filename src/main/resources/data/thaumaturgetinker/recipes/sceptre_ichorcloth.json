@@ -33,9 +33,15 @@
     "C  "
   ],
   "key": {
-    "C": "thaumaturgetinker:ichor_cap",
-    "R": "thaumaturgetinker:ichorcloth_rod",
-    "P": "thaumaturge:primal_charm"
+    "C": {
+      "item": "thaumaturgetinker:ichor_cap"
+    },
+    "R": {
+      "item": "thaumaturgetinker:ichorcloth_rod"
+    },
+    "P": {
+      "item": "thaumaturge:primal_charm"
+    }
   },
   "result": {
     "id": "thaumaturge:wand",

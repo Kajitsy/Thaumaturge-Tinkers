@@ -15,11 +15,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -30,7 +30,7 @@ public final class AwakenedLegs extends AwakenedArmorItem {
     public static final DeferredItem<AwakenedLegs> ITEM = KamiRegistries.ITEMS.register("ichorcloth_legs_gem", AwakenedLegs::new);
 
     public AwakenedLegs() {
-        super("ichorcloth_legs_gem", ArmorType.LEGGINGS);
+        super("ichorcloth_legs_gem", ArmorItem.Type.LEGGINGS);
     }
 
     public static boolean worn(Player player) {

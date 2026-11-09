@@ -1,10 +1,18 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:void_sword",
+  "catalyst": {
+    "item": "thaumaturge:void_sword"
+  },
   "components": [
-    "thaumaturgetinker:ichorium",
-    "thaumaturgetinker:ichorium",
-    "thaumaturge:wand_rod_silverwood"
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturge:wand_rod_silverwood"
+    }
   ],
   "aspects": [
     {

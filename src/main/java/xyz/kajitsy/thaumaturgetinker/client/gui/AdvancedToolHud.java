@@ -4,15 +4,15 @@ import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.gui.GuiLayer;
 
 @EventBusSubscriber(modid = "thaumaturgetinker", value = Dist.CLIENT)
-public final class AdvancedToolHud implements GuiLayer {
+public final class AdvancedToolHud implements LayeredDraw.Layer {
     static {
         AdvancedToolModes.HUD_NOTIFICATION = AdvancedToolHud::show;
     }
@@ -40,13 +40,13 @@ public final class AdvancedToolHud implements GuiLayer {
     }
 
     @Override
-    public void render(GuiGraphicsExtractor gui, DeltaTracker deltaTracker) {
+    public void render(GuiGraphics gui, DeltaTracker deltaTracker) {
         var mc = Minecraft.getInstance();
         if (mc.player == null || mc.options.hideGui) return;
         if (remaining > 0 && text != null && !text.isEmpty()) {
             int width = gui.guiWidth();
             int height = gui.guiHeight();
-            gui.text(mc.font, text, (width - mc.font.width(text)) / 2, height - 72, color(remaining, elapsed), false);
+            gui.drawString(mc.font, text, (width - mc.font.width(text)) / 2, height - 72, color(remaining, elapsed), false);
         }
     }
 }

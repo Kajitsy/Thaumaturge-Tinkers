@@ -21,7 +21,7 @@ public final class AdvancedToolModes {
     }
 
     public static int get(ItemStack stack) {
-        int mode = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("ToolMode", 0);
+        int mode = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("ToolMode");
         return mode >= 0 && mode <= 2 ? mode : 0;
     }
 

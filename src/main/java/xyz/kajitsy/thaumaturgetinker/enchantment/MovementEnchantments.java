@@ -1,17 +1,19 @@
 package xyz.kajitsy.thaumaturgetinker.enchantment;
+import java.util.List;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 @EventBusSubscriber(modid="thaumaturgetinker")
 public final class MovementEnchantments {
-    public static final ResourceKey<Enchantment> ASCENT=ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath("thaumaturgetinker","ascent_boost"));
-    public static final ResourceKey<Enchantment> SLOW_FALL=ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath("thaumaturgetinker","slow_fall"));
+    public static final ResourceKey<Enchantment> ASCENT=ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath("thaumaturgetinker","ascent_boost"));
+    public static final ResourceKey<Enchantment> SLOW_FALL=ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath("thaumaturgetinker","slow_fall"));
     public static int armorRank(Player player,ResourceKey<Enchantment> key){
         var holder=player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(key).orElse(null);if(holder==null)return 0;
-        int result=0;for(var slot:net.minecraft.world.entity.EquipmentSlotGroup.ARMOR){var stack=player.getItemBySlot(slot);result=Math.max(result,stack.getEnchantmentLevel(holder));}return result;
+        int result=0;for(var slot:List.of(EquipmentSlot.HEAD,EquipmentSlot.CHEST,EquipmentSlot.LEGS,EquipmentSlot.FEET)){var stack=player.getItemBySlot(slot);result=Math.max(result,stack.getEnchantmentLevel(holder));}return result;
     }
     @SubscribeEvent public static void jump(net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent event){
         if(!(event.getEntity() instanceof Player player)||player.isShiftKeyDown())return;int rank=armorRank(player,ASCENT);

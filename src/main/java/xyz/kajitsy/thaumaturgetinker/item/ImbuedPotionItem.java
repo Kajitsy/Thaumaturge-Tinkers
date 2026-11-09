@@ -2,7 +2,6 @@ package xyz.kajitsy.thaumaturgetinker.item;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
-
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -14,10 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.component.TooltipDisplay;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public final class ImbuedPotionItem extends PotionItem {
     public final ResourceKey<IAspect> aspect;
@@ -29,9 +26,7 @@ public final class ImbuedPotionItem extends PotionItem {
     public ImbuedPotionItem(String name, ResourceKey<IAspect> aspect, Holder<MobEffect> effect, int color) {
         super(ThaumicTinkererModern.itemProps(name, new Properties()
                 .stacksTo(1)
-                .component(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.of(color), List.of(new MobEffectInstance(effect, 3600, 0)), Optional.empty()))
-                .component(DataComponents.CONSUMABLE, net.minecraft.world.item.component.Consumables.DEFAULT_DRINK)
-                .usingConvertsTo(net.minecraft.world.item.Items.GLASS_BOTTLE)));
+                .component(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.of(color), List.of(new MobEffectInstance(effect, 3600, 0))))));
         this.aspect = aspect;
     }
 
@@ -46,8 +41,7 @@ public final class ImbuedPotionItem extends PotionItem {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        builder.accept(Component.translatable("aspect." + aspect.identifier().getNamespace() + "." + aspect.identifier().getPath()));
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        tooltipComponents.add(Component.translatable("aspect." + aspect.location().getNamespace() + "." + aspect.location().getPath()));
     }
 }

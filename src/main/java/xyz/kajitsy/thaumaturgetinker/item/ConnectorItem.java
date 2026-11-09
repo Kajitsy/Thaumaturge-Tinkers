@@ -20,16 +20,16 @@ public final class ConnectorItem extends Item {
         if(level.isClientSide())return InteractionResult.SUCCESS;
         var stack=context.getItemInHand();var data=stack.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();String message;
         if(level.getBlockEntity(pos) instanceof TransvectorLink){
-            if(data.contains("Interface")&&pos.asLong()==data.getLongOr("Interface",0L)){
+            if(data.contains("Interface")&&pos.asLong()==data.getLong("Interface")){
                 data.remove("Interface");data.remove("Dimension");message="ttmisc.connector.clear";
             }else{
-                data.putLong("Interface",pos.asLong());data.putString("Dimension",level.dimension().identifier().toString());message="ttmisc.connector.set";
+                data.putLong("Interface",pos.asLong());data.putString("Dimension",level.dimension().location().toString());message="ttmisc.connector.set";
             }
         }else if(!data.contains("Interface")){
             message="ttmisc.connector.notinterf";
-        }else if(!level.dimension().identifier().toString().equals(data.getStringOr("Dimension",""))){message="ttmisc.connector.dimension";}
+        }else if(!level.dimension().location().toString().equals(data.getString("Dimension"))){message="ttmisc.connector.dimension";}
         else {
-            var source=BlockPos.of(data.getLongOr("Interface", 0L));
+            var source=BlockPos.of(data.getLong("Interface"));
             if(!level.isLoaded(source)){message="ttmisc.connector.unloaded";}
             else if(!(level.getBlockEntity(source) instanceof TransvectorLink tile)){data.remove("Interface");data.remove("Dimension");message="ttmisc.connector.notpresent";}
             else if(!tile.inRange(pos)){message="ttmisc.connector.toofar";}

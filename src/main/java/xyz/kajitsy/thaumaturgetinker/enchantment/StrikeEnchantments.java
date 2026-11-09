@@ -10,7 +10,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 @EventBusSubscriber(modid="thaumaturgetinker")
 public final class StrikeEnchantments {
  public static final ResourceKey<Enchantment> FOCUSED=key("focused_strike"),DISPERSED=key("dispersed_strikes"),VALIANCE=key("valiance"),FINAL=key("final_strike");
- private static ResourceKey<Enchantment> key(String name){return ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath("thaumaturgetinker",name));}
+ private static ResourceKey<Enchantment> key(String name){return ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.fromNamespaceAndPath("thaumaturgetinker",name));}
  public static float criticalDamage(float input,int finalRank,int valianceRank,float health,float maxHealth,java.util.function.IntUnaryOperator random){
   if(finalRank>0&&random.applyAsInt(20-finalRank)==0)input*=3;
   if(valianceRank>0&&health/maxHealth<.5f)input=(float)(input*(1+.1*valianceRank));
@@ -23,7 +23,7 @@ public final class StrikeEnchantments {
   int finalRank=stack.getEnchantmentLevel(registry.getOrThrow(FINAL)),valianceRank=stack.getEnchantmentLevel(registry.getOrThrow(VALIANCE));
   if(finalRank>0||valianceRank>0)event.setAmount(criticalDamage(event.getAmount(),finalRank,valianceRank,attacker.getHealth(),attacker.getMaxHealth(),bound->new java.util.Random().nextInt(bound)));
   int focused=stack.getEnchantmentLevel(registry.getOrThrow(FOCUSED)),dispersed=stack.getEnchantmentLevel(registry.getOrThrow(DISPERSED));if(focused<=0&&dispersed<=0)return;
-  var data=stack.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();int target=event.getEntity().getId(),last=data.getIntOr("TTEnchantLastTarget",0),successive=data.getIntOr("TTEnchantSuccessiveStrike",0);
+  var data=stack.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();int target=event.getEntity().getId(),last=data.getInt("TTEnchantLastTarget"),successive=data.getInt("TTEnchantSuccessiveStrike");
   if(last!=target){data.putInt("TTEnchantSuccessiveStrike",0);successive=0;}else{data.putInt("TTEnchantSuccessiveStrike",successive+1);successive=1;} // Exact build164 local-counter behavior.
   float damage=event.getAmount();if(focused>0){damage/=2;damage=(float)(damage+.5*successive*damage*focused);}if(dispersed>0){damage*=1+successive/5;damage/=1+successive*2;}
   data.putInt("TTEnchantLastTarget",target);stack.set(DataComponents.CUSTOM_DATA,CustomData.of(data));event.setAmount(damage);

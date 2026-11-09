@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:metal_thaumium",
+  "catalyst": {
+    "item": "thaumaturge:metal_thaumium"
+  },
   "components": [
-    "minecraft:iron_ingot",
-    "minecraft:gold_ingot",
-    "minecraft:diamond",
-    "minecraft:cobblestone",
-    "minecraft:oak_planks",
-    "minecraft:leather",
-    "thaumaturge:fabric",
-    "thaumaturge:ingot_thaumium"
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "item": "minecraft:oak_planks"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "thaumaturge:fabric"
+    },
+    {
+      "item": "thaumaturge:ingot_thaumium"
+    }
   ],
   "aspects": [
     {

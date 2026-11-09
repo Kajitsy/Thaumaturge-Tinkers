@@ -17,10 +17,18 @@
     "QQQ"
   ],
   "key": {
-    "D": "thaumaturgetinker:dark_quartz",
-    "T": "thaumaturgetinker:gaseous_light_bottle",
-    "G": "thaumaturgetinker:gaseous_shadow_bottle",
-    "Q": "minecraft:quartz"
+    "D": {
+      "item": "thaumaturgetinker:dark_quartz"
+    },
+    "T": {
+      "item": "thaumaturgetinker:gaseous_light_bottle"
+    },
+    "G": {
+      "item": "thaumaturgetinker:gaseous_shadow_bottle"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:gas_remover",

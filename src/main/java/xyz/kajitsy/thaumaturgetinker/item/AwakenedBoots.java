@@ -12,7 +12,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -28,7 +28,7 @@ public final class AwakenedBoots extends AwakenedArmorItem {
     private static final Map<Player, Double> STEPS = new WeakHashMap<>();
 
     public AwakenedBoots() {
-        super("ichorcloth_boots_gem", ArmorType.BOOTS);
+        super("ichorcloth_boots_gem", ArmorItem.Type.BOOTS);
     }
 
     public static boolean worn(Player p) {
@@ -98,9 +98,9 @@ public final class AwakenedBoots extends AwakenedArmorItem {
         if (source.is(net.minecraft.world.damagesource.DamageTypes.THORNS)) {
             return;
         }
-        if (source.getEntity() instanceof net.minecraft.world.entity.LivingEntity attacker && attacker != player && attacker.isAlive() && player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+        if (source.getEntity() instanceof net.minecraft.world.entity.LivingEntity attacker && attacker != player && attacker.isAlive()) {
             float reflected = Math.max(1.0f, event.getOriginalDamage());
-            attacker.hurtServer(serverLevel, player.damageSources().thorns(player), reflected);
+            attacker.hurt(player.damageSources().thorns(player), reflected);
         }
     }
 }

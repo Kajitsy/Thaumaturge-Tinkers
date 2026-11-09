@@ -7,27 +7,18 @@ import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import com.leclowndu93150.thaumaturge.api.items.IVisDiscountGear;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.Unit;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.equipment.ArmorMaterial;
-import net.minecraft.world.item.equipment.ArmorType;
-import net.minecraft.world.item.equipment.EquipmentAsset;
-import net.minecraft.world.item.equipment.EquipmentAssets;
+import net.minecraft.world.item.component.Unbreakable;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -35,67 +26,45 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 @EventBusSubscriber(modid = "thaumaturgetinker")
-public class KamiArmor extends Item implements IVisDiscountGear {
-    public static final ResourceKey<EquipmentAsset> ASSET_ICHOR = ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichor"));
-    public static final ResourceKey<EquipmentAsset> ASSET_ICHORGEM = ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichorgem"));
+public class KamiArmor extends ArmorItem implements IVisDiscountGear {
+    public static final Holder<ArmorMaterial> MATERIAL = ThaumicTinkererModern.ARMOR_ICHOR;
+    public static final Holder<ArmorMaterial> GEM_MATERIAL = ThaumicTinkererModern.ARMOR_ICHORGEM;
 
-    public static final ArmorMaterial MATERIAL = new ArmorMaterial(
-        0,
-        Map.of(ArmorType.BOOTS, 3, ArmorType.LEGGINGS, 6, ArmorType.CHESTPLATE, 8, ArmorType.HELMET, 3),
-        20,
-        SoundEvents.ARMOR_EQUIP_LEATHER,
-        0.0F,
-        0.0F,
-        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichor_cloth")),
-        ASSET_ICHOR
-    );
-
-    public static final ArmorMaterial GEM_MATERIAL = new ArmorMaterial(
-        0,
-        Map.of(ArmorType.BOOTS, 3, ArmorType.LEGGINGS, 6, ArmorType.CHESTPLATE, 8, ArmorType.HELMET, 3),
-        20,
-        SoundEvents.ARMOR_EQUIP_LEATHER,
-        0.0F,
-        0.0F,
-        TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "ichor_cloth")),
-        ASSET_ICHORGEM
-    );
-
-    public static final List<ArmorType> TYPES = List.of(ArmorType.HELMET, ArmorType.CHESTPLATE, ArmorType.LEGGINGS, ArmorType.BOOTS);
+    public static final List<ArmorItem.Type> TYPES = List.of(ArmorItem.Type.HELMET, ArmorItem.Type.CHESTPLATE, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS);
     public static final List<String> IDS = List.of("ichorcloth_helm", "ichorcloth_chest", "ichorcloth_legs", "ichorcloth_boots");
     public static final List<DeferredItem<KamiArmor>> ITEMS = new ArrayList<>();
 
     static {
         for (int i = 0; i < 4; i++) {
-            final ArmorType type = TYPES.get(i);
+            final ArmorItem.Type type = TYPES.get(i);
             final String id = IDS.get(i);
             ITEMS.add(KamiRegistries.ITEMS.register(id, () -> new KamiArmor(id, type)));
         }
     }
 
-    public final ArmorType armorType;
-    public final ArmorMaterial armorMaterial;
+    public final ArmorItem.Type armorType;
+    public final Holder<ArmorMaterial> armorMaterial;
 
-    public KamiArmor(String name, ArmorType type) {
+    public KamiArmor(String name, ArmorItem.Type type) {
         this(name, type, MATERIAL);
     }
 
-    public KamiArmor(String name, ArmorType type, ArmorMaterial material) {
+    public KamiArmor(String name, ArmorItem.Type type, Holder<ArmorMaterial> material) {
         this(name, type, material, new Properties());
     }
 
-    public KamiArmor(String name, ArmorType type, ArmorMaterial material, Properties properties) {
-        super(ThaumicTinkererModern.itemProps(name, properties
+    public KamiArmor(String name, ArmorItem.Type type, Holder<ArmorMaterial> material, Properties properties) {
+        super(material, type, ThaumicTinkererModern.itemProps(name, properties
             .stacksTo(1)
             .rarity(Rarity.EPIC)
-            .humanoidArmor(material, type)
-            .component(DataComponents.UNBREAKABLE, Unit.INSTANCE)));
+            .component(DataComponents.UNBREAKABLE, new Unbreakable(true))));
         this.armorType = type;
         this.armorMaterial = material;
     }
 
+    @Override
     public int getDefense() {
-        return armorMaterial.defense().getOrDefault(armorType, 0);
+        return super.getDefense();
     }
 
     @Override
@@ -105,7 +74,7 @@ public class KamiArmor extends Item implements IVisDiscountGear {
 
     @Override
     public int getVisDiscount(ItemStack stack) {
-        return armorType == ArmorType.BOOTS ? 3 : 4;
+        return armorType == ArmorItem.Type.BOOTS ? 3 : 4;
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -118,7 +87,7 @@ public class KamiArmor extends Item implements IVisDiscountGear {
 
         float totalRatio = 0.0f;
         boolean hasKami = false;
-        for (EquipmentSlot slot : EquipmentSlotGroup.ARMOR) {
+        for (EquipmentSlot slot : List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)) {
             ItemStack stack = entity.getItemBySlot(slot);
             if (stack.isEmpty()) continue;
             if (stack.getItem() instanceof KamiArmor kami) {
@@ -137,7 +106,7 @@ public class KamiArmor extends Item implements IVisDiscountGear {
 
         if (hasKami && totalRatio > 0.0f) {
             float cappedRatio = Math.min(1.0f, totalRatio);
-            float originalDamage = event.getContainer().getOriginalDamage();
+            float originalDamage = event.getOriginalDamage();
             if (originalDamage > 0.0f) {
                 float targetDamage = Math.max(0.0f, originalDamage * (1.0f - cappedRatio));
                 event.setNewDamage(Math.min(event.getNewDamage(), targetDamage));

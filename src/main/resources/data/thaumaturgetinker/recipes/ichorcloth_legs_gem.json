@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:ichorcloth_legs",
+  "catalyst": {
+    "item": "thaumaturgetinker:ichorcloth_legs"
+  },
   "components": [
-    "minecraft:diamond",
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "thaumaturge:focus_3",
-    "thaumaturge:thaumonomicon",
-    "minecraft:golden_leggings",
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturge:focus_3"
+    },
+    {
+      "item": "thaumaturge:thaumonomicon"
+    },
+    {
+      "item": "minecraft:golden_leggings"
+    },
     {
       "neoforge:ingredient_type": "neoforge:components",
       "items": "minecraft:potion",
@@ -17,11 +31,21 @@
         }
       }
     },
-    "thaumaturgetinker:focus_smelt",
-    "thaumaturgetinker:bright_nitor",
-    "minecraft:lava_bucket",
-    "minecraft:fire_charge",
-    "minecraft:blaze_rod"
+    {
+      "item": "thaumaturgetinker:focus_smelt"
+    },
+    {
+      "item": "thaumaturgetinker:bright_nitor"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "item": "minecraft:fire_charge"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    }
   ],
   "aspects": [
     {

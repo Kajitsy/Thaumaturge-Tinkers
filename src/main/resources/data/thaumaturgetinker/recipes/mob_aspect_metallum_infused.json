@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:mob_aspect_metallum_condensed",
+  "catalyst": {
+    "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+  },
   "components": [
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed",
-    "thaumaturgetinker:mob_aspect_metallum_condensed"
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_metallum_condensed"
+    }
   ],
   "aspects": [
     {

@@ -2,34 +2,25 @@ package xyz.kajitsy.thaumaturgetinker.client.render;
 
 import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public record ToolModeProperty() implements SelectItemModelProperty<Integer> {
-    public static final MapCodec<ToolModeProperty> MAP_CODEC = MapCodec.unit(new ToolModeProperty());
-    public static final SelectItemModelProperty.Type<ToolModeProperty, Integer> TYPE =
-            SelectItemModelProperty.Type.create(MAP_CODEC, Codec.INT);
+public final class ToolModeProperty implements ClampedItemPropertyFunction {
+    public static final ToolModeProperty INSTANCE = new ToolModeProperty();
 
     @Override
-    public Integer get(ItemStack stack, ClientLevel level, LivingEntity entity, int seed, ItemDisplayContext displayContext) {
-        return AdvancedToolModes.get(stack);
+    public float unclampedCall(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
+        return (float) AdvancedToolModes.get(stack);
     }
 
     @Override
-    public SelectItemModelProperty.Type<ToolModeProperty, Integer> type() {
-        return TYPE;
-    }
-
-    @Override
-    public Codec<Integer> valueCodec() {
-        return Codec.INT;
+    public float call(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
+        return (float) AdvancedToolModes.get(stack);
     }
 }

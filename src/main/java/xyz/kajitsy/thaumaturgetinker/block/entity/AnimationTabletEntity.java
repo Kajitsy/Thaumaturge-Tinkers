@@ -143,8 +143,8 @@ public final class AnimationTabletEntity extends BlockEntity implements MovableT
         var state = level.getBlockState(at);
         if (state.getDestroySpeed(level, at) < 0 || !level.mayInteract(p, at)) return;
         var event = net.neoforged.neoforge.common.CommonHooks.onLeftClickBlock(p, at, facing().getOpposite(), net.minecraft.network.protocol.game.ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK);
-        if (event.isCanceled() || event.getUseItem() == net.minecraft.util.TriState.FALSE) return;
-        if (event.getUseBlock() != net.minecraft.util.TriState.FALSE) state.attack(level, at, p);
+        if (event.isCanceled() || event.getUseItem() == net.neoforged.neoforge.common.util.TriState.FALSE) return;
+        if (event.getUseBlock() != net.neoforged.neoforge.common.util.TriState.FALSE) state.attack(level, at, p);
         breaking = true;
         breakingState = state;
         damage = 0;
@@ -167,10 +167,29 @@ public final class AnimationTabletEntity extends BlockEntity implements MovableT
         }
     }
 
-    @Override public void preRemoveSideEffects(BlockPos pos, BlockState state) { if (level != null) Containers.dropContents(level, pos, inventory); super.preRemoveSideEffects(pos, state); }
+    public void dropContents(Level level, BlockPos pos) { Containers.dropContents(level, pos, inventory); }
     @Override public void setRemoved() { stopBreaking(); super.setRemoved(); player = null; }
-    @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) { super.saveAdditional(output); ContainerHelper.saveAllItems(output.child("Inventory"), inventory.getItems()); output.putBoolean("LeftClick", leftClick); output.putBoolean("Redstone", redstone); output.putInt("Progress", swingProgress); output.putInt("Mod", swingMod); }
-    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) { super.loadAdditional(input); inventory.clearContent(); ContainerHelper.loadAllItems(input.childOrEmpty("Inventory"), inventory.getItems()); leftClick = input.getBooleanOr("LeftClick", true); redstone = input.getBooleanOr("Redstone", false); swingProgress = Math.clamp(input.getIntOr("Progress", 0), 0, 46); swingMod = Math.clamp(input.getIntOr("Mod", 0), -3, 3); }
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        var invTag = new CompoundTag();
+        ContainerHelper.saveAllItems(invTag, inventory.getItems(), registries);
+        tag.put("Inventory", invTag);
+        tag.putBoolean("LeftClick", leftClick);
+        tag.putBoolean("Redstone", redstone);
+        tag.putInt("Progress", swingProgress);
+        tag.putInt("Mod", swingMod);
+    }
+    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        inventory.clearContent();
+        if (tag.contains("Inventory")) {
+            ContainerHelper.loadAllItems(tag.getCompound("Inventory"), inventory.getItems(), registries);
+        }
+        leftClick = !tag.contains("LeftClick") || tag.getBoolean("LeftClick");
+        redstone = tag.getBoolean("Redstone");
+        swingProgress = Math.clamp(tag.getInt("Progress"), 0, 46);
+        swingMod = Math.clamp(tag.getInt("Mod"), -3, 3);
+    }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithoutMetadata(registries); }
     @Override public net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket getUpdatePacket() { return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this); }
 }

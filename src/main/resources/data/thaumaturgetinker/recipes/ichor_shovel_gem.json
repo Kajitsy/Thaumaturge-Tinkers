@@ -1,19 +1,45 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:ichor_shovel",
+  "catalyst": {
+    "item": "thaumaturgetinker:ichor_shovel"
+  },
   "components": [
-    "thaumaturgetinker:ichorium",
-    "thaumaturgetinker:ichor",
-    "thaumaturge:elemental_shovel",
-    "thaumaturge:elemental_shovel",
-    "thaumaturge:focus_1",
-    "thaumaturge:focus_1",
-    "minecraft:tnt",
-    "thaumaturge:nugget_thaumium",
-    "minecraft:gold_nugget",
-    "minecraft:iron_nugget",
-    "minecraft:diamond",
-    "thaumaturgetinker:ichor_cloth"
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturge:elemental_shovel"
+    },
+    {
+      "item": "thaumaturge:elemental_shovel"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    },
+    {
+      "item": "minecraft:tnt"
+    },
+    {
+      "item": "thaumaturge:nugget_thaumium"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    }
   ],
   "aspects": [
     {

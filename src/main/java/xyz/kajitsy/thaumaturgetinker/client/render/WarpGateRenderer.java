@@ -5,47 +5,25 @@ import xyz.kajitsy.thaumaturgetinker.block.entity.WarpGateEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
 
-public final class WarpGateRenderer implements BlockEntityRenderer<WarpGateEntity, WarpGateRenderer.State> {
-    public static final class State extends BlockEntityRenderState {
-        public int playerTicks;
-        public boolean occluded;
-    }
-
+public final class WarpGateRenderer implements BlockEntityRenderer<WarpGateEntity> {
     public WarpGateRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
-    public State createRenderState() {
-        return new State();
-    }
-
-    @Override
-    public void extractRenderState(WarpGateEntity gate, State state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
-        BlockEntityRenderer.super.extractRenderState(gate, state, partialTicks, cameraPosition, breakProgress);
+    public void render(WarpGateEntity gate, float partialTicks, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
         var player = Minecraft.getInstance().player;
-        state.playerTicks = player == null ? 0 : player.tickCount;
+        int playerTicks = player == null ? 0 : player.tickCount;
         var level = gate.getLevel();
         var above = gate.getBlockPos().above();
-        state.occluded = level != null && !level.getBlockState(above).getCollisionShape(level, above).isEmpty();
-    }
+        boolean occluded = level != null && !level.getBlockState(above).getCollisionShape(level, above).isEmpty();
+        if (occluded) return;
 
-    @Override
-    public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
-        if (state.occluded) return;
-        collector.submitCustomGeometry(pose, RenderTypes.debugQuads(), (p, out) -> {
-            PoseStack local = new PoseStack();
-            local.last().set(p);
-            draw(local, out, state.playerTicks);
-        });
+        VertexConsumer out = buffers.getBuffer(RenderType.debugQuads());
+        draw(pose, out, playerTicks);
     }
 
     public static void draw(PoseStack pose, VertexConsumer out, int playerTicks) {

@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:quartz_block",
+  "catalyst": {
+    "item": "minecraft:quartz_block"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "minecraft:gold_ingot",
-    "minecraft:gold_ingot",
-    "minecraft:cocoa_beans",
-    "minecraft:jungle_leaves",
-    "minecraft:cod"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "minecraft:jungle_leaves"
+    },
+    {
+      "item": "minecraft:cod"
+    }
   ],
   "aspects": [
     {

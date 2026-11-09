@@ -10,9 +10,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public final class GasItem extends Item {
@@ -24,10 +25,10 @@ public final class GasItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
         var pos = player.blockPosition().above();
-        if (!player.mayUseItemAt(pos, Direction.UP, stack)) return InteractionResult.FAIL;
+        if (!player.mayUseItemAt(pos, Direction.UP, stack)) return InteractionResultHolder.fail(stack);
         if (!level.isClientSide()) {
             if (level.getBlockState(pos).isAir() || level.getBlockState(pos).getBlock() instanceof GasBlock || level.getBlockState(pos).getBlock() instanceof NitorLightBlock) {
                 level.setBlock(pos, gas.get().defaultBlockState().setValue(GasBlock.POWER, 4), 2);
@@ -35,6 +36,6 @@ public final class GasItem extends Item {
             if (!player.getAbilities().instabuild) stack.shrink(1);
             level.playSound(null, player.blockPosition(), SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, .5f, .5f);
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 }

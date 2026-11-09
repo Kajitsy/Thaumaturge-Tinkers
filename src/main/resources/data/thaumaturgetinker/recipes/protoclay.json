@@ -1,11 +1,21 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:clay_ball",
+  "catalyst": {
+    "item": "minecraft:clay_ball"
+  },
   "components": [
-    "minecraft:dirt",
-    "minecraft:stone",
-    "minecraft:oak_log",
-    "thaumaturgetinker:ender_shard"
+    {
+      "item": "minecraft:dirt"
+    },
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:oak_log"
+    },
+    {
+      "item": "thaumaturgetinker:ender_shard"
+    }
   ],
   "aspects": [
     {

@@ -1,11 +1,21 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:focus_flight",
+  "catalyst": {
+    "item": "thaumaturgetinker:focus_flight"
+  },
   "components": [
-    "thaumaturge:mirrored_glass",
-    "thaumaturge:mirrored_glass",
-    "thaumaturge:paving_stone_barrier",
-    "thaumaturge:crystal_ordo"
+    {
+      "item": "thaumaturge:mirrored_glass"
+    },
+    {
+      "item": "thaumaturge:mirrored_glass"
+    },
+    {
+      "item": "thaumaturge:paving_stone_barrier"
+    },
+    {
+      "item": "thaumaturge:crystal_ordo"
+    }
   ],
   "aspects": [
     {

@@ -3,10 +3,11 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.mixin.ExperienceOrbAccessor;
 
+import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +26,7 @@ public final class XPTalismanItem extends Item {
     }
 
     public static int xp(ItemStack stack) {
-        return Math.clamp(stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("xp", 0), 0, 1500);
+        return Math.clamp(stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("xp"), 0, 1500);
     }
 
     public static boolean enabled(ItemStack stack) {
@@ -37,25 +38,25 @@ public final class XPTalismanItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
             CleansingTalismanItem.toggle(stack);
             if (!level.isClientSide()) {
                 level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP, net.minecraft.sounds.SoundSource.PLAYERS, .3f, .1f);
             }
-            return InteractionResult.SUCCESS;
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         }
         if (!level.isClientSide()) {
             if (!bottle(stack, player)) {
                 drainToPlayer(stack, player);
             }
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity entity, @org.jetbrains.annotations.Nullable net.minecraft.world.entity.EquipmentSlot slot) {
+    public void inventoryTick(ItemStack stack, Level level, net.minecraft.world.entity.Entity entity, int slotId, boolean isSelected) {
         if (entity instanceof LivingEntity living) onWornTick(stack, living);
     }
 
@@ -117,9 +118,8 @@ public final class XPTalismanItem extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
-        builder.accept(Component.literal("XP: " + xp(stack) + " / 1500"));
-        builder.accept(Component.translatable(xp(stack) >= 1500 ? "ttmisc.full" : enabled(stack) ? "ttmisc.absorbing" : "ttmisc.notAbsorbing"));
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        tooltipComponents.add(Component.literal("XP: " + xp(stack) + " / 1500"));
+        tooltipComponents.add(Component.translatable(xp(stack) >= 1500 ? "ttmisc.full" : enabled(stack) ? "ttmisc.absorbing" : "ttmisc.notAbsorbing"));
     }
 }

@@ -7,7 +7,9 @@
     "NNN"
   ],
   "key": {
-    "N": "thaumaturgetinker:ichor_nugget"
+    "N": {
+      "item": "thaumaturgetinker:ichor_nugget"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:ichorium",

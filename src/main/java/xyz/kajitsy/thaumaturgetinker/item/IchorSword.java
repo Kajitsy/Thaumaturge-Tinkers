@@ -2,23 +2,23 @@ package xyz.kajitsy.thaumaturgetinker.item;
 
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 /** 1.7 swords reduce positive blockable damage immediately, before armor, from every direction. */
-public class IchorSword extends Item {
+public class IchorSword extends SwordItem {
     public IchorSword() {
         this("ichor_sword");
     }
 
     public IchorSword(String name) {
-        super(KamiTools.properties(name).sword(KamiTools.TIER, 4.0F, -2.4F));
+        super(KamiTools.TIER, KamiTools.properties(name).attributes(SwordItem.createAttributes(KamiTools.TIER, 4.0F, -2.4F)));
     }
 
     @Override
@@ -31,16 +31,20 @@ public class IchorSword extends Item {
         return 72000;
     }
 
-    @Override
-    public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.BLOCK;
+    public int getUseDuration(ItemStack stack) {
+        return 72000;
     }
 
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.BLOCK;
+    }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         player.startUsingItem(hand);
-        return InteractionResult.CONSUME;
+        return InteractionResultHolder.consume(stack);
     }
 
     public static float reduce(Player player, DamageSource source, float damage) {

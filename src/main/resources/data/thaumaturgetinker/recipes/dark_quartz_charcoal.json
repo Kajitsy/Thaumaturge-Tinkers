@@ -7,8 +7,12 @@
     "Q Q"
   ],
   "key": {
-    "Q": "minecraft:quartz",
-    "C": "minecraft:charcoal"
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "C": {
+      "item": "minecraft:charcoal"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:dark_quartz",

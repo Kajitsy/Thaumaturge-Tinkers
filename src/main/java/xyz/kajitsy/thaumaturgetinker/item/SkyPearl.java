@@ -5,6 +5,7 @@ import xyz.kajitsy.thaumaturgetinker.SkyPearlData;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.block.WarpGateBlock;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,21 +42,21 @@ public final class SkyPearl extends Item {
         var level = context.getLevel();
         var stack = context.getItemInHand();
         if (!SkyPearlData.attuned(stack) && level.getBlockState(context.getClickedPos()).is(WarpGateBlock.BLOCK.get())) {
-            SkyPearlData.bind(stack, context.getClickedPos(), level.dimension().identifier());
+            SkyPearlData.bind(stack, context.getClickedPos(), level.dimension().location());
             sound(level, context.getPlayer());
         }
         return InteractionResult.SUCCESS;
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown() && SkyPearlData.attuned(stack)) {
             sound(level, player);
             SkyPearlData.reset(stack);
-            return InteractionResult.SUCCESS;
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return InteractionResultHolder.pass(stack);
     }
 
     private static void sound(Level level, Player player) {
@@ -64,14 +66,13 @@ public final class SkyPearl extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltipComponents, flag);
         if (!SkyPearlData.attuned(stack)) return;
         var p = SkyPearlData.position(stack);
-        builder.accept(Component.literal("X: " + p.getX()));
-        builder.accept(Component.literal("Y: " + p.getY()));
-        builder.accept(Component.literal("Z: " + p.getZ()));
-        CLIENT_TOOLTIP.accept(stack, builder);
+        tooltipComponents.add(Component.literal("X: " + p.getX()));
+        tooltipComponents.add(Component.literal("Y: " + p.getY()));
+        tooltipComponents.add(Component.literal("Z: " + p.getZ()));
+        CLIENT_TOOLTIP.accept(stack, tooltipComponents::add);
     }
 }

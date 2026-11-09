@@ -1,6 +1,8 @@
 {
   "type": "thaumaturge:crucible",
-  "catalyst": "thaumaturge:crystal_terra",
+  "catalyst": {
+    "item": "thaumaturge:crystal_terra"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:ignis",

@@ -3,12 +3,14 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
 
+import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -23,7 +25,7 @@ public final class SoulMouldItem extends Item {
     }
 
     public static String pattern(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getStringOr("pattern", "");
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getString("pattern");
     }
 
     @Override
@@ -35,20 +37,19 @@ public final class SoulMouldItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown() && !level.isClientSide()) {
             CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.remove("pattern"));
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
         var name = pattern(stack);
         var id = ResourceLocation.tryParse(name);
         var type = id == null ? null : BuiltInRegistries.ENTITY_TYPE.getOptional(id).orElse(null);
-        builder.accept(type == null ? Component.translatable("ttmisc.soulMould.nonAssigned") : Component.translatable("ttmisc.soulMould.pattern", type.getDescription()));
+        tooltipComponents.add(type == null ? Component.translatable("ttmisc.soulMould.nonAssigned") : Component.translatable("ttmisc.soulMould.pattern", type.getDescription()));
     }
 }

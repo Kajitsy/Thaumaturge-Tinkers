@@ -12,18 +12,11 @@
     "CatTargetGoalMixin",
     "CatMobAccessor",
     "CatCreeperAccessor",
-    "FocalManipulatorMenuMixin",
-    "FocalManipulatorDrawerMixin",
     "FocusPouchItemMixin",
-    "CasterManagerMixin",
-    "CasterManagerPouchStoreMixin",
     "ItemWandMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "client": [
-    "RadialFocusOverlayMixin",
-    "PunchyArmRendererMixin"
-  ]
+  "client": []
 }

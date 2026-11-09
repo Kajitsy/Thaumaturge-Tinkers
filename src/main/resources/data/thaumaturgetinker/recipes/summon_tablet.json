@@ -16,8 +16,12 @@
     "SSS"
   ],
   "key": {
-    "W": "thaumaturge:obsidian_tile",
-    "S": "minecraft:stone"
+    "W": {
+      "item": "thaumaturge:obsidian_tile"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:summon_tablet",

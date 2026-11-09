@@ -6,7 +6,9 @@
     "Q"
   ],
   "key": {
-    "Q": "thaumaturgetinker:dark_quartz_slab"
+    "Q": {
+      "item": "thaumaturgetinker:dark_quartz_slab"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:chiseled_dark_quartz",

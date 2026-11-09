@@ -92,6 +92,6 @@ public final class LocomotiveRelayEntity extends BlockEntity implements MovableT
 
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithoutMetadata(registries); }
     @Override public net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket getUpdatePacket() { return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this); }
-    @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) { super.saveAdditional(output); if (partner != null) output.putLong("Partner", partner.asLong()); }
-    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) { super.loadAdditional(input); partner = input.getLong("Partner").map(BlockPos::of).orElse(null); }
+    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.saveAdditional(tag, registries); if (partner != null) tag.putLong("Partner", partner.asLong()); }
+    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) { super.loadAdditional(tag, registries); partner = tag.contains("Partner") ? BlockPos.of(tag.getLong("Partner")) : null; }
 }

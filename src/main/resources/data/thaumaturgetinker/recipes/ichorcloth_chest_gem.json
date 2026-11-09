@@ -1,19 +1,45 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:ichorcloth_chest",
+  "catalyst": {
+    "item": "thaumaturgetinker:ichorcloth_chest"
+  },
   "components": [
-    "minecraft:diamond",
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "thaumaturge:focus_3",
-    "thaumaturge:thaumonomicon",
-    "minecraft:golden_chestplate",
-    "thaumaturgetinker:focus_flight",
-    "thaumaturge:thaumostatic_harness",
-    "thaumaturgetinker:focus_deflect",
-    "minecraft:feather",
-    "minecraft:ghast_tear",
-    "minecraft:arrow"
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturge:focus_3"
+    },
+    {
+      "item": "thaumaturge:thaumonomicon"
+    },
+    {
+      "item": "minecraft:golden_chestplate"
+    },
+    {
+      "item": "thaumaturgetinker:focus_flight"
+    },
+    {
+      "item": "thaumaturge:thaumostatic_harness"
+    },
+    {
+      "item": "thaumaturgetinker:focus_deflect"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "minecraft:arrow"
+    }
   ],
   "aspects": [
     {

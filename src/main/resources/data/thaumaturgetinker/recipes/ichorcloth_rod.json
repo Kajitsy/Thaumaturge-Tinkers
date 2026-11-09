@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:wand_rod_silverwood",
+  "catalyst": {
+    "item": "thaumaturge:wand_rod_silverwood"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturgetinker:ichor_cloth",
-    "thaumaturge:salis_mundus",
-    "thaumaturge:salis_mundus",
-    "minecraft:ghast_tear"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturge:salis_mundus"
+    },
+    {
+      "item": "thaumaturge:salis_mundus"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
   ],
   "aspects": [
     {

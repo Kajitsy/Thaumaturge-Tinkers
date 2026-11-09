@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:focus_1",
+  "catalyst": {
+    "item": "thaumaturge:focus_1"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "minecraft:arrow",
-    "minecraft:diamond",
-    "thaumaturge:focus_1",
-    "thaumaturgetinker:focus_deflect"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    },
+    {
+      "item": "thaumaturgetinker:focus_deflect"
+    }
   ],
   "aspects": [
     {

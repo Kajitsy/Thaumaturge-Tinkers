@@ -18,6 +18,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +44,8 @@ public final class PlacementMirror extends Item {
     }
 
     public static int size(ItemStack s) {
-        int n = BlockTalisman.data(s).getIntOr("size", 3);
+        var tag = BlockTalisman.data(s);
+        int n = tag.contains("size") ? tag.getInt("size") : 3;
         return n >= 3 && n <= 11 ? n | 1 : 3;
     }
 
@@ -115,9 +117,10 @@ public final class PlacementMirror extends Item {
         var level = p.level();
         var block = BlockTalisman.block(mirror);
         if (level.isClientSide() || block.asItem() == Items.AIR || !p.getAbilities().instabuild && available(mirror, p) < positions.size()) return 0;
-        var stateTag = BlockTalisman.data(mirror).getCompound("blockState");
-        if (stateTag.isEmpty()) return 0;
-        var state = NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), stateTag.get());
+        var data = BlockTalisman.data(mirror);
+        if (!data.contains("blockState")) return 0;
+        var stateTag = data.getCompound("blockState");
+        var state = NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), stateTag);
         if (state.isAir()) return 0;
         int placed = 0;
         for (var at : positions) {
@@ -172,24 +175,23 @@ public final class PlacementMirror extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player p, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand) {
         var s = p.getItemInHand(hand);
         if (p.isShiftKeyDown()) {
             int n = size(s);
             CustomData.update(DataComponents.CUSTOM_DATA, s, t -> t.putInt("size", n == 11 ? 3 : n + 2));
             if (level.isClientSide()) AdvancedToolModes.notifyHud(size(s) + " x " + size(s));
             p.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 0.1f);
-            return InteractionResult.SUCCESS;
+            return InteractionResultHolder.sidedSuccess(s, level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return InteractionResultHolder.pass(s);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack s, Item.TooltipContext c, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag f) {
-        builder.accept(Component.literal(size(s) + " x " + size(s)));
+    public void appendHoverText(ItemStack s, Item.TooltipContext c, List<Component> tooltipComponents, TooltipFlag f) {
+        tooltipComponents.add(Component.literal(size(s) + " x " + size(s)));
         if (BlockTalisman.block(s) != net.minecraft.world.level.block.Blocks.AIR) {
-            builder.accept(Component.translatable(BlockTalisman.block(s).getDescriptionId()));
+            tooltipComponents.add(Component.translatable(BlockTalisman.block(s).getDescriptionId()));
         }
     }
 }

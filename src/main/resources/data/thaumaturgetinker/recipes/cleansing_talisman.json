@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:ender_pearl",
+  "catalyst": {
+    "item": "minecraft:ender_pearl"
+  },
   "components": [
-    "thaumaturgetinker:dark_quartz",
-    "thaumaturgetinker:dark_quartz",
-    "thaumaturgetinker:dark_quartz",
-    "thaumaturgetinker:dark_quartz",
-    "minecraft:ghast_tear",
-    "thaumaturge:nitor_yellow"
+    {
+      "item": "thaumaturgetinker:dark_quartz"
+    },
+    {
+      "item": "thaumaturgetinker:dark_quartz"
+    },
+    {
+      "item": "thaumaturgetinker:dark_quartz"
+    },
+    {
+      "item": "thaumaturgetinker:dark_quartz"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    },
+    {
+      "item": "thaumaturge:nitor_yellow"
+    }
   ],
   "aspects": [
     {

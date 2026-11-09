@@ -22,7 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
@@ -51,13 +51,13 @@ public final class SummonEntity extends BlockEntity {
 
     public static boolean matchesLast(ItemStack stack, Level level, BlockPos pos) {
         var tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return !tag.contains("LastTablet") || (tag.getLongOr("LastTablet", 0L) == pos.asLong() && tag.getStringOr("LastDimension", "").equals(level.dimension().identifier().toString()));
+        return !tag.contains("LastTablet") || (tag.getLong("LastTablet") == pos.asLong() && tag.getString("LastDimension").equals(level.dimension().location().toString()));
     }
 
     public static void mark(ItemStack stack, Level level, BlockPos pos) {
         CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
             tag.putLong("LastTablet", pos.asLong());
-            tag.putString("LastDimension", level.dimension().identifier().toString());
+            tag.putString("LastDimension", level.dimension().location().toString());
         });
     }
 
@@ -93,10 +93,10 @@ public final class SummonEntity extends BlockEntity {
                             if (id.equals("minecraft:skeleton") && level.dimension() == Level.NETHER) id = "minecraft:wither_skeleton";
                             var typeOpt = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(id));
                             if (typeOpt.isEmpty()) return;
-                            var entity = typeOpt.get().value().create(level, EntitySpawnReason.MOB_SUMMONED);
+                            var entity = typeOpt.get().value().create(level);
                             if (!(entity instanceof Mob mob)) return;
                             mob.snapTo(pos.getX() + .5, pos.getY() + 1.0, pos.getZ() + .5, 0f, 0f);
-                            net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(mob, server, server.getCurrentDifficultyAt(pos), EntitySpawnReason.MOB_SUMMONED, null);
+                            net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(mob, server, server.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, null);
                             mob.setPersistenceRequired();
                             if (!server.addFreshEntity(mob)) return;
                             // Original consumes whole non-infused pedestal stacks, rather than one item each.
@@ -119,14 +119,14 @@ public final class SummonEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
-        super.saveAdditional(output);
-        output.putLong("LastCheck", lastCheck);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putLong("LastCheck", lastCheck);
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
-        super.loadAdditional(input);
-        lastCheck = input.getLongOr("LastCheck", Long.MIN_VALUE);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        lastCheck = tag.contains("LastCheck") ? tag.getLong("LastCheck") : Long.MIN_VALUE;
     }
 }

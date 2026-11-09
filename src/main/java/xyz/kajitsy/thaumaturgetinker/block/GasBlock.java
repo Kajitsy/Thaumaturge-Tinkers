@@ -21,7 +21,7 @@ public final class GasBlock extends Block {
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder){builder.add(POWER);}
     @Override protected net.minecraft.world.phys.shapes.VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,net.minecraft.world.phys.shapes.CollisionContext context){return net.minecraft.world.phys.shapes.Shapes.empty();}
     @Override protected RenderShape getRenderShape(BlockState state){return RenderShape.INVISIBLE;}
-    @Override protected int getLightDampening(BlockState state){return shadow?15:0;}
+    @Override protected int getLightBlock(BlockState state,BlockGetter level,BlockPos pos){return shadow?15:0;}
     @Override protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState old,boolean moving){if(!level.isClientSide())level.scheduleTick(pos,this,10);}
     @Override protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random){
         int power=state.getValue(POWER);if(power==0)return;

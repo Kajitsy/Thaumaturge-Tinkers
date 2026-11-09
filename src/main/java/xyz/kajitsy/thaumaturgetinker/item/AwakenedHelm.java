@@ -14,11 +14,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.NeoForgeMod;
@@ -30,7 +30,7 @@ public final class AwakenedHelm extends AwakenedArmorItem {
     public static final DeferredItem<AwakenedHelm> ITEM = KamiRegistries.ITEMS.register("ichorcloth_helm_gem", AwakenedHelm::new);
 
     public AwakenedHelm() {
-        super("ichorcloth_helm_gem", ArmorType.HELMET, new Properties().component(TTDataComponents.GOGGLES_UPGRADE.get(), Unit.INSTANCE));
+        super("ichorcloth_helm_gem", ArmorItem.Type.HELMET, new Properties().component(TTDataComponents.GOGGLES_UPGRADE.get(), Unit.INSTANCE));
     }
 
     public static boolean worn(Player player) {

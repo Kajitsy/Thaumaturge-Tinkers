@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:mob_aspect_bestia_condensed",
+  "catalyst": {
+    "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+  },
   "components": [
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed",
-    "thaumaturgetinker:mob_aspect_bestia_condensed"
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_bestia_condensed"
+    }
   ],
   "aspects": [
     {

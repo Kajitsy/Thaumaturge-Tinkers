@@ -17,9 +17,15 @@
     " C "
   ],
   "key": {
-    "M": "thaumaturge:mirrored_glass",
-    "I": "thaumaturgetinker:transvector_interface",
-    "C": "minecraft:comparator"
+    "M": {
+      "item": "thaumaturge:mirrored_glass"
+    },
+    "I": {
+      "item": "thaumaturgetinker:transvector_interface"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:dislocator",

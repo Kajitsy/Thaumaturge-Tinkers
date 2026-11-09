@@ -100,7 +100,7 @@ public final class SmeltFocus extends TinkererFocus {
             return false;
         }
         progress.remove(player.getUUID());
-        var event = new net.neoforged.neoforge.event.level.block.BreakBlockEvent(level, pos, state, player);
+        var event = new net.neoforged.neoforge.event.level.BlockEvent(level, pos, state, player);
         NeoForge.EVENT_BUS.post(event);
         if (event.isCanceled()) return false;
         if (!consumeVis(wand, player)) return false;

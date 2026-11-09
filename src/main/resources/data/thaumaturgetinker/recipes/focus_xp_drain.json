@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:ender_pearl",
+  "catalyst": {
+    "item": "minecraft:ender_pearl"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "minecraft:experience_bottle",
-    "minecraft:diamond",
-    "thaumaturgetinker:xp_talisman",
-    "minecraft:enchanting_table"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "minecraft:experience_bottle"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:xp_talisman"
+    },
+    {
+      "item": "minecraft:enchanting_table"
+    }
   ],
   "aspects": [
     {

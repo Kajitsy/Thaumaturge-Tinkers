@@ -1,11 +1,21 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:nether_star",
+  "catalyst": {
+    "item": "minecraft:nether_star"
+  },
   "components": [
-    "minecraft:diamond",
-    "thaumaturgetinker:ender_shard",
-    "minecraft:ender_eye",
-    "thaumaturgetinker:nether_shard"
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturgetinker:ender_shard"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "thaumaturgetinker:nether_shard"
+    }
   ],
   "aspects": [
     {

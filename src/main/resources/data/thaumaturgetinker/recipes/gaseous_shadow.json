@@ -1,6 +1,8 @@
 {
   "type": "thaumaturge:crucible",
-  "catalyst": "minecraft:glass_bottle",
+  "catalyst": {
+    "item": "minecraft:glass_bottle"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:tenebrae",

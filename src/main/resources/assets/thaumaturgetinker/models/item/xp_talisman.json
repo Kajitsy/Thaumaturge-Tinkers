@@ -6,7 +6,7 @@
   "overrides": [
     {
       "predicate": {
-        "thaumaturgetinker:enabled": 1
+        "thaumaturgetinker:active": 1
       },
       "model": "thaumaturgetinker:item/xp_talisman_enabled"
     }

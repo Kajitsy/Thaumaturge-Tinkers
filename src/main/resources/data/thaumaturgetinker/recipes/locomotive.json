@@ -1,11 +1,21 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:levitator",
+  "catalyst": {
+    "item": "thaumaturge:levitator"
+  },
   "components": [
-    "minecraft:iron_ingot",
-    "minecraft:iron_ingot",
-    "minecraft:feather",
-    "thaumaturge:obsidian_tile"
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "thaumaturge:obsidian_tile"
+    }
   ],
   "aspects": [
     {

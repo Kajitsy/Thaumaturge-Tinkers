@@ -7,7 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 @EventBusSubscriber(modid="thaumaturgetinker")
 public final class VampirismEnchantment {
- public static final ResourceKey<Enchantment> KEY=ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("thaumaturgetinker:vampirism"));
+ public static final ResourceKey<Enchantment> KEY=ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.parse("thaumaturgetinker:vampirism"));
  @SubscribeEvent public static void incoming(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event){
   if(event.getEntity().level().isClientSide()||!(event.getSource().getEntity() instanceof LivingEntity attacker))return;
   var holder=attacker.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(KEY).orElse(null);if(holder==null)return;

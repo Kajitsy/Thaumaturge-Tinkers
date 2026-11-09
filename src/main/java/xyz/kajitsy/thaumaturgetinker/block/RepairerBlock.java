@@ -30,9 +30,12 @@ public final class RepairerBlock extends BaseEntityBlock {
         super.onPlace(state,level,pos,oldState,movedByPiston);
         com.leclowndu93150.thaumaturge.content.essentia.tube.BlockEssentiaTransport.refreshConnectionsAround(level,pos);
     }
-    @Override protected void affectNeighborsAfterRemoval(BlockState state,net.minecraft.server.level.ServerLevel level,BlockPos pos,boolean movedByPiston){
-        com.leclowndu93150.thaumaturge.content.essentia.tube.BlockEssentiaTransport.refreshConnectionsAround(level,pos);
-        super.affectNeighborsAfterRemoval(state,level,pos,movedByPiston);
+    @Override public void onRemove(BlockState state,Level level,BlockPos pos,BlockState newState,boolean movedByPiston){
+        if(!state.is(newState.getBlock())){
+            com.leclowndu93150.thaumaturge.content.essentia.tube.BlockEssentiaTransport.refreshConnectionsAround(level,pos);
+            if(level.getBlockEntity(pos) instanceof RepairerEntity tile)tile.dropContents(level,pos);
+        }
+        super.onRemove(state,level,pos,newState,movedByPiston);
     }
     private static boolean interact(Level level,BlockPos pos,Player player,ItemStack held){
         if(!level.mayInteract(player,pos)||!(level.getBlockEntity(pos) instanceof RepairerEntity tile))return false;
@@ -43,7 +46,7 @@ public final class RepairerBlock extends BaseEntityBlock {
         }else if(!level.isClientSide()){var stack=tile.inventory.removeItem(0,1);player.getInventory().placeItemBackInInventory(stack);}
         return true;
     }
-    @Override protected InteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){return interact(level,pos,player,stack)?(level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.CONSUME):InteractionResult.TRY_WITH_EMPTY_HAND;}
+    @Override protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){return interact(level,pos,player,stack)?(level.isClientSide()?net.minecraft.world.ItemInteractionResult.SUCCESS:net.minecraft.world.ItemInteractionResult.CONSUME):net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;}
     @Override protected InteractionResult useWithoutItem(BlockState state,Level level,BlockPos pos,Player player,BlockHitResult hit){return interact(level,pos,player,ItemStack.EMPTY)?(level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.CONSUME):InteractionResult.PASS;}
     @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state){return new RepairerEntity(pos,state);}
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level,BlockState state,BlockEntityType<T> type){return createTickerHelper(type,ThaumicTinkererModern.REPAIRER_ENTITY.get(),RepairerEntity::tick);}

@@ -2,7 +2,7 @@ package xyz.kajitsy.thaumaturgetinker.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -15,13 +15,13 @@ public interface AdvancedTool {
 
     default void startMining(ServerPlayer player, BlockPos pos) {}
 
-    default InteractionResult tryToggleMode(Level level, Player player, ItemStack stack) {
-        if (!player.isShiftKeyDown()) return InteractionResult.PASS;
+    default InteractionResultHolder<ItemStack> tryToggleMode(Level level, Player player, ItemStack stack) {
+        if (!player.isShiftKeyDown()) return InteractionResultHolder.pass(stack);
         AdvancedToolModes.change(stack);
         if (level.isClientSide()) {
             AdvancedToolModes.notifyHud(AdvancedToolModes.description(toolType(), stack).getString());
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
     static BlockHitResult raycast(Player player) {

@@ -6,7 +6,7 @@ import java.util.List;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +23,7 @@ public final class CleansingTalismanItem extends Item {
     }
 
     public static boolean enabled(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("enabled", false);
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBoolean("enabled");
     }
 
     public static void setEnabled(ItemStack stack, boolean value) {
@@ -35,27 +35,26 @@ public final class CleansingTalismanItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
             toggle(stack);
             if (!level.isClientSide()) {
                 level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP, net.minecraft.sounds.SoundSource.PLAYERS, .3f, .1f);
             }
-            return InteractionResult.SUCCESS;
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.success(stack);
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, net.minecraft.world.entity.Entity entity, @org.jetbrains.annotations.Nullable net.minecraft.world.entity.EquipmentSlot slot) {
+    public void inventoryTick(ItemStack stack, Level level, net.minecraft.world.entity.Entity entity, int slotId, boolean isSelected) {
         if (entity instanceof LivingEntity living) onWornTick(stack, living);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
-        builder.accept(Component.translatable(enabled(stack) ? "ttmisc.active" : "ttmisc.inactive"));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        tooltipComponents.add(Component.translatable(enabled(stack) ? "ttmisc.active" : "ttmisc.inactive"));
     }
 
     public void onWornTick(ItemStack stack, LivingEntity entity) {
@@ -69,11 +68,11 @@ public final class CleansingTalismanItem extends Item {
             for (var effect : List.copyOf(entity.getActiveEffects())) {
                 if (effect.getEffect().value().getCategory() != MobEffectCategory.HARMFUL) continue;
                 var key = effect.getEffect().unwrapKey().orElse(null);
-                if (key != null && key.identifier().getPath().equals("warp_ward")) continue;
+                if (key != null && key.location().getPath().equals("warp_ward")) continue;
                 entity.removeEffect(effect.getEffect());
                 removed = true;
-                if (key != null && key.identifier().getNamespace().equals("thaumaturge")
-                        && List.of("blurred_vision", "death_gaze", "infectious_vis_exhaust", "sun_scorned", "unnatural_hunger").contains(key.identifier().getPath())) {
+                if (key != null && key.location().getNamespace().equals("thaumaturge")
+                        && List.of("blurred_vision", "death_gaze", "infectious_vis_exhaust", "sun_scorned", "unnatural_hunger").contains(key.location().getPath())) {
                     cost = 10;
                 }
                 break;

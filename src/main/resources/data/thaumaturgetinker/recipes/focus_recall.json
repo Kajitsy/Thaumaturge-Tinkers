@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:sky_pearl",
+  "catalyst": {
+    "item": "thaumaturgetinker:sky_pearl"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "minecraft:ender_pearl",
-    "minecraft:diamond",
-    "thaumaturge:mirror",
-    "thaumaturge:focus_1"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "thaumaturge:mirror"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    }
   ],
   "aspects": [
     {

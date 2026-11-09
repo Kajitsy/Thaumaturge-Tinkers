@@ -20,9 +20,15 @@
     "ICI"
   ],
   "key": {
-    "G": "minecraft:gold_ingot",
-    "I": "minecraft:iron_ingot",
-    "C": "thaumaturge:mechanism_simple"
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "thaumaturge:mechanism_simple"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:animation_tablet",

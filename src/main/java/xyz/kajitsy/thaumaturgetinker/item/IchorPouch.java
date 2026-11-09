@@ -13,10 +13,9 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
@@ -43,8 +42,8 @@ import xyz.kajitsy.thaumaturgetinker.menu.IchorPouchMenu;
 @EventBusSubscriber(modid = ThaumicTinkererModern.ID)
 public final class IchorPouch extends Item {
     public static final int SLOTS = 117;
-    private static final int FULL_BAR_COLOR = ARGB.colorFromFloat(1.0F, 1.0F, 0.33F, 0.33F);
-    private static final int BAR_COLOR = ARGB.colorFromFloat(1.0F, 0.44F, 0.53F, 1.0F);
+    private static final int FULL_BAR_COLOR = net.minecraft.util.FastColor.ARGB32.colorFromFloat(1.0F, 1.0F, 0.33F, 0.33F);
+    private static final int BAR_COLOR = net.minecraft.util.FastColor.ARGB32.colorFromFloat(1.0F, 0.44F, 0.53F, 1.0F);
     public static final DeferredItem<IchorPouch> ITEM = KamiRegistries.ITEMS.register("ichor_pouch", IchorPouch::new);
 
     public record OpenPayload() implements CustomPacketPayload {
@@ -95,7 +94,8 @@ public final class IchorPouch extends Item {
     }
 
     public static int getSelectedItem(ItemStack pouch) {
-        return pouch.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("SelectedItem", -1);
+        var tag = pouch.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        return tag.contains("SelectedItem") ? tag.getInt("SelectedItem") : -1;
     }
 
     public static void toggleSelectedItem(ItemStack pouch, int index) {
@@ -147,7 +147,7 @@ public final class IchorPouch extends Item {
 
     public static int findSlot(Player player) {
         var inv = player.getInventory();
-        if (isPouch(inv.getItem(inv.getSelectedSlot()))) return inv.getSelectedSlot();
+        if (isPouch(inv.getItem(inv.selected))) return inv.selected;
         if (isPouch(player.getOffhandItem())) return -1;
         if (!TTCuriosCompat.findFirstCurio(player, ITEM.get()).isEmpty()) return -2;
         for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -178,12 +178,13 @@ public final class IchorPouch extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer server) {
-            int slotCode = hand == InteractionHand.OFF_HAND ? -1 : player.getInventory().getSelectedSlot();
+            int slotCode = hand == InteractionHand.OFF_HAND ? -1 : player.getInventory().selected;
             open(server, slotCode);
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
     public static int insert(ItemStack pouch, ItemStack stack) {
@@ -329,12 +330,10 @@ public final class IchorPouch extends Item {
     }
 
     public static List<ItemStack> contents(ItemStack pouch) {
-        var result = new ArrayList<ItemStack>(Collections.nCopies(SLOTS, ItemStack.EMPTY));
+        var result = net.minecraft.core.NonNullList.withSize(SLOTS, ItemStack.EMPTY);
         var stored = pouch.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
-        for (int i = 0; i < Math.min(SLOTS, stored.getSlots()); i++) {
-            result.set(i, stored.getStackInSlot(i).copy());
-        }
-        return result;
+        stored.copyInto(result);
+        return new ArrayList<>(result);
     }
 
     public static boolean allowed(ItemStack stack) {

@@ -5,13 +5,13 @@ import net.minecraft.world.entity.player.Player;
 @net.neoforged.fml.common.EventBusSubscriber(modid = "thaumaturgetinker")
 public final class AwakenedArmorStatus {
     public static boolean enabled(Player player) {
-        var tag = player.getPersistentData().getCompoundOrEmpty("ThaumicTinkerer");
-        return tag.getBooleanOr("GemArmor", true);
+        var tag = player.getPersistentData().getCompound("ThaumicTinkerer");
+        return !tag.contains("GemArmor") || tag.getBoolean("GemArmor");
     }
 
     public static void set(Player player, boolean value) {
         var data = player.getPersistentData();
-        var tag = data.getCompoundOrEmpty("ThaumicTinkerer");
+        var tag = data.getCompound("ThaumicTinkerer");
         tag.putBoolean("GemArmor", value);
         data.put("ThaumicTinkerer", tag);
     }

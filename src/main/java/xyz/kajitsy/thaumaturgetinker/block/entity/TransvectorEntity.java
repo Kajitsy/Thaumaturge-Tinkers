@@ -79,16 +79,24 @@ public final class TransvectorEntity extends BlockEntity implements MovableTile,
     }
 
     @Override
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
-        super.saveAdditional(output);
-        if (target != null) output.putLong("Target", target.asLong());
-        if (camouflage != null) output.store("Camouflage", BlockState.CODEC, camouflage);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        if (target != null) tag.putLong("Target", target.asLong());
+        if (camouflage != null) {
+            BlockState.CODEC.encodeStart(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), camouflage)
+                .result().ifPresent(t -> tag.put("Camouflage", t));
+        }
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
-        super.loadAdditional(input);
-        target = input.getLong("Target").map(BlockPos::of).orElse(null);
-        camouflage = input.read("Camouflage", BlockState.CODEC).orElse(null);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        target = tag.contains("Target") ? BlockPos.of(tag.getLong("Target")) : null;
+        if (tag.contains("Camouflage")) {
+            camouflage = BlockState.CODEC.parse(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), tag.get("Camouflage"))
+                .result().orElse(null);
+        } else {
+            camouflage = null;
+        }
     }
 }

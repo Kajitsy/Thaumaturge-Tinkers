@@ -31,8 +31,12 @@
     "GH"
   ],
   "key": {
-    "G": "thaumaturge:goggles_revealing",
-    "H": "thaumaturge:thaumium_helm"
+    "G": {
+      "item": "thaumaturge:goggles_revealing"
+    },
+    "H": {
+      "item": "thaumaturge:thaumium_helm"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:revealing_helm",

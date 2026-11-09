@@ -7,7 +7,9 @@
     "XXX"
   ],
   "key": {
-    "X": "thaumaturgetinker:mob_aspect_exanimis"
+    "X": {
+      "item": "thaumaturgetinker:mob_aspect_exanimis"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:mob_aspect_exanimis_condensed",

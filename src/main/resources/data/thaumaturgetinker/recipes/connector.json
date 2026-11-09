@@ -17,9 +17,15 @@
     "S  "
   ],
   "key": {
-    "I": "minecraft:iron_ingot",
-    "W": "minecraft:stick",
-    "S": "thaumaturge:crystal_ordo"
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "W": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "thaumaturge:crystal_ordo"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:connector",

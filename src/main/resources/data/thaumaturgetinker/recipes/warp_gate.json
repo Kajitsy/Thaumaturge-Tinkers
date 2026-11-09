@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:paving_stone_travel",
+  "catalyst": {
+    "item": "thaumaturge:paving_stone_travel"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ender_shard",
-    "thaumaturgetinker:dislocator",
-    "thaumaturgetinker:nether_shard",
-    "minecraft:diamond",
-    "minecraft:feather"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ender_shard"
+    },
+    {
+      "item": "thaumaturgetinker:dislocator"
+    },
+    {
+      "item": "thaumaturgetinker:nether_shard"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:feather"
+    }
   ],
   "aspects": [
     {

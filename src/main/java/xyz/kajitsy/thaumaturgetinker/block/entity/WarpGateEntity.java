@@ -25,8 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 public final class WarpGateEntity extends BlockEntity {
@@ -101,25 +99,27 @@ public final class WarpGateEntity extends BlockEntity {
         return teleport(player, player.level(), destination);
     }
 
-    @Override
-    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+    public void dropContents(Level level, BlockPos pos) {
         if (level != null) Containers.dropContents(level, pos, inventory);
-        super.preRemoveSideEffects(pos, state);
     }
 
     @Override
-    protected void saveAdditional(ValueOutput output) {
-        super.saveAdditional(output);
-        output.putBoolean("locked", locked);
-        ContainerHelper.saveAllItems(output.child("Inventory"), inventory.getItems());
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putBoolean("locked", locked);
+        var invTag = new CompoundTag();
+        ContainerHelper.saveAllItems(invTag, inventory.getItems(), registries);
+        tag.put("Inventory", invTag);
     }
 
     @Override
-    protected void loadAdditional(ValueInput input) {
-        super.loadAdditional(input);
-        locked = input.getBooleanOr("locked", false);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        locked = tag.getBoolean("locked");
         inventory.clearContent();
-        ContainerHelper.loadAllItems(input.childOrEmpty("Inventory"), inventory.getItems());
+        if (tag.contains("Inventory")) {
+            ContainerHelper.loadAllItems(tag.getCompound("Inventory"), inventory.getItems(), registries);
+        }
         lastTeleportTick = Long.MIN_VALUE;
     }
 

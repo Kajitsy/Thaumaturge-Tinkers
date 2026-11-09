@@ -16,8 +16,12 @@
     "G G"
   ],
   "key": {
-    "S": "thaumaturge:slab_greatwood",
-    "G": "thaumaturge:plank_greatwood"
+    "S": {
+      "item": "thaumaturge:slab_greatwood"
+    },
+    "G": {
+      "item": "thaumaturge:plank_greatwood"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:platform",

@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /** Transfer payload for the dislocation focus. Permissions and vis belong to the focus caller. */
 public final class DislocationStorage {
-    public static boolean available(CompoundTag payload){return payload.getBooleanOr("available",false);}
+    public static boolean available(CompoundTag payload){return payload.getBoolean("available");}
     public static boolean movable(ServerLevel level,BlockPos pos){
         if(level.isOutsideBuildHeight(pos)||!level.isLoaded(pos))return false;
         var state=level.getBlockState(pos);
@@ -36,13 +36,13 @@ public final class DislocationStorage {
     public static boolean place(ServerLevel level,BlockPos pos,CompoundTag payload,java.util.function.BooleanSupplier accept){return place(level,pos,payload,accept,java.util.function.UnaryOperator.identity(),state->{});}
     public static boolean place(ServerLevel level,BlockPos pos,CompoundTag payload,java.util.function.BooleanSupplier accept,java.util.function.UnaryOperator<BlockState> orientation,java.util.function.Consumer<BlockState> placed){
         if(!available(payload)||level.isOutsideBuildHeight(pos)||!level.isLoaded(pos)||!level.getBlockState(pos).canBeReplaced()||level.getBlockEntity(pos)!=null)return false;
-        var saved=payload.getCompoundOrEmpty("dislocation");
+        var saved=payload.getCompound("dislocation");
         if(!saved.contains("state"))return false;
-        BlockState state=NbtUtils.readBlockState(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.BLOCK),saved.getCompoundOrEmpty("state"));
+        BlockState state=NbtUtils.readBlockState(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.BLOCK),saved.getCompound("state"));
         if(state.isAir())return false;state=orientation.apply(state);
         BlockEntity restored=null;
         if(saved.contains("tileCmp")){
-            var data=saved.getCompoundOrEmpty("tileCmp").copy();data.putInt("x",pos.getX());data.putInt("y",pos.getY());data.putInt("z",pos.getZ());
+            var data=saved.getCompound("tileCmp").copy();data.putInt("x",pos.getX());data.putInt("y",pos.getY());data.putInt("z",pos.getZ());
             restored=BlockEntity.loadStatic(pos,state,data,level.registryAccess());
             if(restored==null||!restored.getType().isValid(state))return false;
         }

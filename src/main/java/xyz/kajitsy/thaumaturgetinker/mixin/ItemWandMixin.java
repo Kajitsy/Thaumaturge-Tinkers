@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemWand.class)
 public abstract class ItemWandMixin {
     @Shadow
-    public abstract ItemStack getFocusStack(ItemStack stack);
+    public abstract ItemStack socketedFocus(ItemStack stack);
 
     @Inject(method = "onUseTick", at = @At("HEAD"), cancellable = true)
     private void thaumaturgetinker$skipRefineForTinkererFocus(Level level, LivingEntity user, ItemStack stack, int remaining, CallbackInfo ci) {
-        ItemStack focus = getFocusStack(stack);
+        ItemStack focus = socketedFocus(stack);
         if (!focus.isEmpty() && focus.getItem() instanceof TinkererFocus) {
             ci.cancel();
         }

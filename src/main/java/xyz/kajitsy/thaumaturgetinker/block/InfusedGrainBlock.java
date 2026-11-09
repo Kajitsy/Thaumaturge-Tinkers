@@ -79,7 +79,7 @@ public final class InfusedGrainBlock extends CropBlock implements EntityBlock {
     }
 
     @Override
-    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
         var stack = new ItemStack(ThaumicTinkererModern.INFUSED_SEEDS.get());
         if (level.getBlockEntity(pos) instanceof InfusedGrainEntity crop) crop.data().write(stack);
         return stack;
@@ -91,20 +91,22 @@ public final class InfusedGrainBlock extends CropBlock implements EntityBlock {
     }
 
     @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof InfusedGrainEntity crop) {
-            var soil = level.getBlockEntity(pos.below()) instanceof InfusedFarmlandEntity farmland ? farmland : null;
-            var loot = InfusedCropLoot.get(level);
-            var drops = InfusedCropHarvest.collect(level.registryAccess(), crop.data(), state.getValue(AGE), soil == null ? null : soil.aspects(), level.getRandom(), a -> {
-                if (soil != null) soil.fertilize(a);
-            }, a -> loot.roll(a, level.getRandom()));
-            for (var stack : drops) {
-                var entity = new ItemEntity(level, pos.getX() + .15 + level.getRandom().nextFloat() * .7, pos.getY() + .15 + level.getRandom().nextFloat() * .7, pos.getZ() + .15 + level.getRandom().nextFloat() * .7, stack);
-                entity.setPickUpDelay(10);
-                level.addFreshEntity(entity);
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock()) && level instanceof ServerLevel server) {
+            if (server.getBlockEntity(pos) instanceof InfusedGrainEntity crop) {
+                var soil = server.getBlockEntity(pos.below()) instanceof InfusedFarmlandEntity farmland ? farmland : null;
+                var loot = InfusedCropLoot.get(server);
+                var drops = InfusedCropHarvest.collect(server.registryAccess(), crop.data(), state.getValue(AGE), soil == null ? null : soil.aspects(), server.getRandom(), a -> {
+                    if (soil != null) soil.fertilize(a);
+                }, a -> loot.roll(a, server.getRandom()));
+                for (var stack : drops) {
+                    var entity = new ItemEntity(server, pos.getX() + .15 + server.getRandom().nextFloat() * .7, pos.getY() + .15 + server.getRandom().nextFloat() * .7, pos.getZ() + .15 + server.getRandom().nextFloat() * .7, stack);
+                    entity.setPickUpDelay(10);
+                    server.addFreshEntity(entity);
+                }
             }
         }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     public static int texture(ResourceKey<IAspect> aspect) {

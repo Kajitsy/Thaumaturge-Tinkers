@@ -18,6 +18,7 @@ public final class EnchanterBlock extends BaseEntityBlock {
     @Override protected RenderShape getRenderShape(BlockState state){return RenderShape.MODEL;}
     @Override protected VoxelShape getShape(BlockState state,BlockGetter level,BlockPos pos,CollisionContext context){return Block.box(0,0,0,16,12,16);}
     @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state){return new EnchanterEntity(pos,state);}
+    @Override public void onRemove(BlockState state,Level level,BlockPos pos,BlockState newState,boolean movedByPiston){if(!state.is(newState.getBlock())&&level.getBlockEntity(pos) instanceof EnchanterEntity tile)tile.dropContents(level,pos);super.onRemove(state,level,pos,newState,movedByPiston);}
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level,BlockState state,BlockEntityType<T> type){return createTickerHelper(type,ThaumicTinkererModern.ENCHANTER_ENTITY.get(),EnchanterEntity::tick);}
     @Override protected net.minecraft.world.InteractionResult useWithoutItem(BlockState state,Level level,BlockPos pos,net.minecraft.world.entity.player.Player player,net.minecraft.world.phys.BlockHitResult hit){
         if(!level.mayInteract(player,pos))return net.minecraft.world.InteractionResult.FAIL;

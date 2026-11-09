@@ -8,7 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 @EventBusSubscriber(modid="thaumaturgetinker")
 public final class QuickDrawEnchantment {
- public static final ResourceKey<Enchantment> KEY=ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("thaumaturgetinker:quick_draw"));
+ public static final ResourceKey<Enchantment> KEY=ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.parse("thaumaturgetinker:quick_draw"));
  @SubscribeEvent(priority=net.neoforged.bus.api.EventPriority.HIGHEST)
  public static void tick(net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent.Tick event){
   if(!(event.getEntity() instanceof Player player)||!(event.getItem().getItem() instanceof BowItem)||event.getDuration()<=0)return;

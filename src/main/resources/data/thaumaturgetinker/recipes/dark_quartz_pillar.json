@@ -6,7 +6,9 @@
     "Q"
   ],
   "key": {
-    "Q": "thaumaturgetinker:dark_quartz_block"
+    "Q": {
+      "item": "thaumaturgetinker:dark_quartz_block"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:dark_quartz_pillar",

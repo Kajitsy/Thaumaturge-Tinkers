@@ -1,11 +1,21 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:ender_pearl",
+  "catalyst": {
+    "item": "minecraft:ender_pearl"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ender_shard",
-    "minecraft:lapis_block",
-    "minecraft:diamond"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ender_shard"
+    },
+    {
+      "item": "minecraft:lapis_block"
+    },
+    {
+      "item": "minecraft:diamond"
+    }
   ],
   "aspects": [
     {

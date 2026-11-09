@@ -21,11 +21,21 @@
     "WFW"
   ],
   "key": {
-    "G": "minecraft:gold_ingot",
-    "S": "thaumaturge:crystal_aer",
-    "s": "thaumaturge:crystal_terra",
-    "W": "thaumaturge:log_greatwood",
-    "F": "thaumaturgetinker:focus_telekinesis"
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "thaumaturge:crystal_aer"
+    },
+    "s": {
+      "item": "thaumaturge:crystal_terra"
+    },
+    "W": {
+      "item": "thaumaturge:log_greatwood"
+    },
+    "F": {
+      "item": "thaumaturgetinker:focus_telekinesis"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:mob_magnet",

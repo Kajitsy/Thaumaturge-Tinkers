@@ -7,11 +7,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
@@ -46,16 +45,16 @@ public final class BlockTalisman extends Item {
     }
 
     public static Block block(ItemStack s) {
-        var id = ResourceLocation.tryParse(data(s).getStringOr("blockName", ""));
+        var id = ResourceLocation.tryParse(data(s).getString("blockName"));
         return id == null ? Blocks.AIR : BuiltInRegistries.BLOCK.getOptional(id).orElse(Blocks.AIR);
     }
 
     public static int count(ItemStack s) {
-        return Math.max(0, data(s).getIntOr("blockCount", 0));
+        return Math.max(0, data(s).getInt("blockCount"));
     }
 
     public static boolean active(ItemStack s) {
-        return data(s).getBooleanOr("active", false);
+        return data(s).getBoolean("active");
     }
 
     public static void count(ItemStack s, int value) {
@@ -151,16 +150,16 @@ public final class BlockTalisman extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player p, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player p, InteractionHand hand) {
         var s = p.getItemInHand(hand);
         if (p.isShiftKeyDown() && block(s) != Blocks.AIR) {
             CustomData.update(DataComponents.CUSTOM_DATA, s, t -> t.putBoolean("active", !active(s)));
             if (!level.isClientSide()) {
                 level.playSound(null, p.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, net.minecraft.sounds.SoundSource.PLAYERS, 0.3f, 0.1f);
             }
-            return InteractionResult.SUCCESS;
+            return InteractionResultHolder.sidedSuccess(s, level.isClientSide());
         }
-        return InteractionResult.PASS;
+        return InteractionResultHolder.pass(s);
     }
 
     @Override
@@ -178,16 +177,24 @@ public final class BlockTalisman extends Item {
         }
         var item = block(s).asItem();
         if (item == Items.AIR || count(s) == 0) return InteractionResult.PASS;
-        var rawHandler = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, context.getClickedPos(), context.getClickedFace());
+        var rawHandler = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK, context.getClickedPos(), context.getClickedFace());
         if (rawHandler != null) {
-            try (var tx = net.neoforged.neoforge.transfer.transaction.Transaction.openRoot()) {
-                int inserted = rawHandler.insert(net.neoforged.neoforge.transfer.item.ItemResource.of(item), count(s), tx);
-                if (inserted > 0) {
-                    tx.commit();
-                    remove(s, inserted);
-                }
+            int maxInsert = count(s);
+            int totalInserted = 0;
+            while (totalInserted < maxInsert) {
+                int chunkSize = Math.min(maxInsert - totalInserted, item.getDefaultMaxStackSize());
+                var chunk = new ItemStack(item, chunkSize);
+                var remainder = net.neoforged.neoforge.items.ItemHandlerHelper.insertItem(rawHandler, chunk, false);
+                int inserted = chunkSize - remainder.getCount();
+                if (inserted <= 0) break;
+                totalInserted += inserted;
+                if (!remainder.isEmpty()) break;
             }
-            return InteractionResult.CONSUME;
+            if (totalInserted > 0) {
+                remove(s, totalInserted);
+                return InteractionResult.CONSUME;
+            }
+            return InteractionResult.PASS;
         }
         var placed = new ItemStack(item);
         var result = placed.useOn(new UseOnContext(level, p, context.getHand(), placed, new BlockHitResult(context.getClickLocation(), context.getClickedFace(), context.getClickedPos(), context.isInside())));
@@ -198,8 +205,8 @@ public final class BlockTalisman extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack s, ServerLevel level, net.minecraft.world.entity.Entity entity, EquipmentSlot slot) {
-        if (entity instanceof Player player) {
+    public void inventoryTick(ItemStack s, Level level, net.minecraft.world.entity.Entity entity, int slotId, boolean isSelected) {
+        if (!level.isClientSide() && entity instanceof Player player) {
             handleTick(s, player);
         }
     }
@@ -281,11 +288,10 @@ public final class BlockTalisman extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack s, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
+    public void appendHoverText(ItemStack s, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
         if (block(s) != Blocks.AIR) {
-            builder.accept(Component.translatable(block(s).getDescriptionId()).append(" (x" + count(s) + ")"));
+            tooltipComponents.add(Component.translatable(block(s).getDescriptionId()).append(" (x" + count(s) + ")"));
         }
-        builder.accept(Component.translatable(active(s) ? "ttmisc.active" : "ttmisc.inactive"));
+        tooltipComponents.add(Component.translatable(active(s) ? "ttmisc.active" : "ttmisc.inactive"));
     }
 }

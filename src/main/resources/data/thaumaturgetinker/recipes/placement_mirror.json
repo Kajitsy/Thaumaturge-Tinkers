@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:block_talisman",
+  "catalyst": {
+    "item": "thaumaturgetinker:block_talisman"
+  },
   "components": [
-    "thaumaturgetinker:ichor",
-    "thaumaturgetinker:ichor",
-    "minecraft:dropper",
-    "minecraft:diamond",
-    "minecraft:glass",
-    "minecraft:blaze_powder"
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "minecraft:dropper"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    }
   ],
   "aspects": [
     {

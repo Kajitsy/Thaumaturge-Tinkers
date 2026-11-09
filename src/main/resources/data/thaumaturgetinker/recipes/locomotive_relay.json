@@ -21,11 +21,21 @@
     "WFW"
   ],
   "key": {
-    "I": "minecraft:iron_ingot",
-    "S": "thaumaturge:crystal_aer",
-    "s": "thaumaturge:crystal_terra",
-    "W": "thaumaturge:log_greatwood",
-    "F": "minecraft:glass"
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "thaumaturge:crystal_aer"
+    },
+    "s": {
+      "item": "thaumaturge:crystal_terra"
+    },
+    "W": {
+      "item": "thaumaturge:log_greatwood"
+    },
+    "F": {
+      "item": "minecraft:glass"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:locomotive_relay",

@@ -20,12 +20,12 @@ public final class SoulHearts {
     }
 
     public static int get(Player player) {
-        return player.getPersistentData().getCompoundOrEmpty("ThaumicTinkerer").getIntOr("soulHearts", 0);
+        return player.getPersistentData().getCompound("ThaumicTinkerer").getInt("soulHearts");
     }
 
     public static void set(Player player, int value) {
         var data = player.getPersistentData();
-        var tag = data.getCompoundOrEmpty("ThaumicTinkerer");
+        var tag = data.getCompound("ThaumicTinkerer");
         tag.putInt("soulHearts", Math.clamp(value, 0, 20));
         data.put("ThaumicTinkerer", tag);
     }

@@ -139,25 +139,27 @@ public final class EnchanterEntity extends BlockEntity implements MovableTile {
         }
     }
 
-    @Override
-    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+    public void dropContents(Level level, BlockPos pos) {
         if (level != null) net.minecraft.world.Containers.dropContents(level, pos, inventory);
-        super.preRemoveSideEffects(pos, state);
     }
 
     @Override
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
-        super.saveAdditional(output);
-        ContainerHelper.saveAllItems(output.child("Inventory"), inventory.getItems());
-        output.store("Process", CompoundTag.CODEC, pending == null ? process.save() : pending.copy());
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        var invTag = new CompoundTag();
+        ContainerHelper.saveAllItems(invTag, inventory.getItems(), registries);
+        tag.put("Inventory", invTag);
+        tag.put("Process", pending == null ? process.save() : pending.copy());
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
-        super.loadAdditional(input);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         inventory.clearContent();
-        ContainerHelper.loadAllItems(input.childOrEmpty("Inventory"), inventory.getItems());
-        pending = input.read("Process", CompoundTag.CODEC).map(CompoundTag::copy).orElse(null);
+        if (tag.contains("Inventory")) {
+            ContainerHelper.loadAllItems(tag.getCompound("Inventory"), inventory.getItems(), registries);
+        }
+        pending = tag.contains("Process") ? tag.getCompound("Process").copy() : null;
     }
 
     @Override

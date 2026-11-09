@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "thaumaturgetinker:ichorium"
+    {
+      "item": "thaumaturgetinker:ichorium"
+    }
   ],
   "result": {
     "id": "thaumaturgetinker:ichor_nugget",

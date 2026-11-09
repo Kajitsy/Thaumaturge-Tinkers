@@ -69,14 +69,21 @@ import com.leclowndu93150.thaumaturge.api.essentia.EssentiaCapabilities;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -91,7 +98,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
-import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -104,6 +111,37 @@ public final class ThaumicTinkererModern {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
+    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, ID);
+
+    public static final Holder<ArmorMaterial> ARMOR_REVEALING = ARMOR_MATERIALS.register("revealing", () -> new ArmorMaterial(
+            Map.of(ArmorItem.Type.BOOTS, 2, ArmorItem.Type.LEGGINGS, 5, ArmorItem.Type.CHESTPLATE, 6, ArmorItem.Type.HELMET, 2),
+            25,
+            SoundEvents.ARMOR_EQUIP_IRON,
+            () -> Ingredient.of(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "ingots/thaumium"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ID, "revealing"))),
+            1.0F,
+            0.0F
+    ));
+
+    public static final Holder<ArmorMaterial> ARMOR_ICHOR = ARMOR_MATERIALS.register("ichor", () -> new ArmorMaterial(
+            Map.of(ArmorItem.Type.BOOTS, 3, ArmorItem.Type.LEGGINGS, 6, ArmorItem.Type.CHESTPLATE, 8, ArmorItem.Type.HELMET, 3),
+            20,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.of(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ID, "ichor_cloth"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ID, "ichor"))),
+            0.0F,
+            0.0F
+    ));
+
+    public static final Holder<ArmorMaterial> ARMOR_ICHORGEM = ARMOR_MATERIALS.register("ichorgem", () -> new ArmorMaterial(
+            Map.of(ArmorItem.Type.BOOTS, 3, ArmorItem.Type.LEGGINGS, 6, ArmorItem.Type.CHESTPLATE, 8, ArmorItem.Type.HELMET, 3),
+            20,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.of(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ID, "ichor_cloth"))),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(ID, "ichorgem"))),
+            0.0F,
+            0.0F
+    ));
 
     public static net.minecraft.resources.ResourceKey<Block> blockKey(String name) {
         return net.minecraft.resources.ResourceKey.create(Registries.BLOCK, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(ID, name));
@@ -114,11 +152,11 @@ public final class ThaumicTinkererModern {
     }
 
     public static BlockBehaviour.Properties blockProps(String name, BlockBehaviour.Properties properties) {
-        return properties.setId(blockKey(name));
+        return properties;
     }
 
     public static Item.Properties itemProps(String name, Item.Properties properties) {
-        return properties.setId(itemKey(name));
+        return properties;
     }
 
     public static Item.Properties itemProps(String name) {
@@ -271,12 +309,13 @@ public final class ThaumicTinkererModern {
         ENTITIES.register(bus);
         BLOCKS.register(bus);
         ITEMS.register(bus);
+        ARMOR_MATERIALS.register(bus);
         TABS.register(bus);
         SERIALIZERS.register(bus);
         OrderFireResolver.register();
         InfusedCropLoot.register();
 
-        bus.addListener((net.neoforged.neoforge.data.event.GatherDataEvent.Client e) -> {
+        bus.addListener((net.neoforged.neoforge.data.event.GatherDataEvent e) -> {
             var builder = new net.minecraft.core.RegistrySetBuilder()
                 .add(com.leclowndu93150.thaumaturge.api.aspect.IAspect.REGISTRY_KEY, com.leclowndu93150.thaumaturge.data.worldgen.aspect.AspectBootstrap::bootstrap)
                 .add(com.leclowndu93150.thaumaturge.api.research.IResearchCategory.REGISTRY_KEY, com.leclowndu93150.thaumaturge.data.worldgen.research.CategoryBootstrap::bootstrap)
@@ -316,13 +355,13 @@ public final class ThaumicTinkererModern {
         });
 
         bus.addListener((RegisterCapabilitiesEvent e) -> {
-            e.registerBlockEntity(Capabilities.Item.BLOCK, ANIMATION_TABLET_ENTITY.get(), (tile, side) -> VanillaContainerWrapper.of(tile.inventory));
-            e.registerBlockEntity(Capabilities.Item.BLOCK, REPAIRER_ENTITY.get(), (tile, side) -> VanillaContainerWrapper.of(tile.inventory));
+            e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ANIMATION_TABLET_ENTITY.get(), (tile, side) -> new InvWrapper(tile.inventory));
+            e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, REPAIRER_ENTITY.get(), (tile, side) -> new InvWrapper(tile.inventory));
             e.registerBlockEntity(EssentiaCapabilities.TRANSPORT, REPAIRER_ENTITY.get(), (tile, side) -> tile);
-            e.registerBlockEntity(Capabilities.Item.BLOCK, FUNNEL_ENTITY.get(), (tile, side) -> side == Direction.DOWN ? null : VanillaContainerWrapper.of(tile.inventory));
-            e.registerBlockEntity(Capabilities.Item.BLOCK, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(Capabilities.Item.BLOCK, side));
-            e.registerBlockEntity(Capabilities.Fluid.BLOCK, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(Capabilities.Fluid.BLOCK, side));
-            e.registerBlockEntity(Capabilities.Energy.BLOCK, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(Capabilities.Energy.BLOCK, side));
+            e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FUNNEL_ENTITY.get(), (tile, side) -> side == Direction.DOWN ? null : new InvWrapper(tile.inventory));
+            e.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(Capabilities.ItemHandler.BLOCK, side));
+            e.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(Capabilities.FluidHandler.BLOCK, side));
+            e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(Capabilities.EnergyStorage.BLOCK, side));
             e.registerBlockEntity(AspectCapabilities.CONTAINER, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(AspectCapabilities.CONTAINER, side));
             e.registerBlockEntity(EssentiaCapabilities.TRANSPORT, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(EssentiaCapabilities.TRANSPORT, side));
             e.registerBlockEntity(EssentiaCapabilities.STORAGE, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(EssentiaCapabilities.STORAGE, side));

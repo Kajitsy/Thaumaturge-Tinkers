@@ -18,9 +18,6 @@ public class TTModernMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.contains("Punchy")) {
-            return FMLLoader.getCurrent().getLoadingModList().getModFileById("punchy") != null;
-        }
         return true;
     }
 

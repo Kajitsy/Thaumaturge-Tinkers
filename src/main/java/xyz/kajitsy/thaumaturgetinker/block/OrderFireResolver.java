@@ -10,14 +10,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 /** Recipe-driven Ordo conversion. No items are removed/created while resolving. */
 public final class OrderFireResolver {
  private static final Map<ServerLevel,Map<BlockState,Optional<BlockState>>> CACHE=new WeakHashMap<>();
  public static void register(){NeoForge.EVENT_BUS.addListener(OrderFireResolver::reloadListeners);}
- private static void reloadListeners(AddServerReloadListenersEvent event){
-  event.addListener(ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "order_fire"), (ResourceManagerReloadListener) resources -> clear());
+ private static void reloadListeners(AddReloadListenerEvent event){
+  event.addListener((ResourceManagerReloadListener) resources -> clear());
  }
  public static void clear(){CACHE.clear();}
  public static boolean isResult(ServerLevel level,BlockState state){return CACHE.getOrDefault(level,Map.of()).values().stream().anyMatch(value->value.isPresent()&&value.get().getBlock()==state.getBlock());}
@@ -49,8 +49,8 @@ public final class OrderFireResolver {
   var output=craftNine(level,input);
   if(output.isEmpty()){
    var single=new SingleRecipeInput(input);
-   var smelt=level.recipeAccess().getRecipeFor(RecipeType.SMELTING,single,level);
-   output=smelt.map(r->craftNine(level,r.value().assemble(single))).orElse(ItemStack.EMPTY);
+   var smelt=level.getRecipeManager().getRecipeFor(RecipeType.SMELTING,single,level);
+   output=smelt.map(r->craftNine(level,r.value().assemble(single,level.registryAccess()))).orElse(ItemStack.EMPTY);
   }
   return output.getItem() instanceof BlockItem block?block.getBlock().defaultBlockState():null;
  }
@@ -58,7 +58,7 @@ public final class OrderFireResolver {
   if(stack.isEmpty())return ItemStack.EMPTY;
   var slots=new ArrayList<ItemStack>(9);for(int i=0;i<9;i++)slots.add(stack.copy());
   var input=CraftingInput.of(3,3,slots);
-  return level.recipeAccess().getRecipeFor(RecipeType.CRAFTING,input,level).map(r->r.value().assemble(input)).orElse(ItemStack.EMPTY);
+  return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,input,level).map(r->r.value().assemble(input,level.registryAccess())).orElse(ItemStack.EMPTY);
  }
  private OrderFireResolver(){}
 }

@@ -7,6 +7,7 @@ import xyz.kajitsy.thaumaturgetinker.potion.InfusedSeedData;
 
 
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
+import java.util.List;
 import java.util.Map;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -17,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class InfusedSeedsItem extends Item {
@@ -37,17 +38,16 @@ public final class InfusedSeedsItem extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, builder, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltipComponents, flag);
         var data = InfusedSeedData.read(stack);
         if (data.mainAspect() != null) {
-            builder.accept(Component.translatable("aspect." + data.mainAspect().identifier().getNamespace() + "." + data.mainAspect().identifier().getPath()));
+            tooltipComponents.add(Component.translatable("aspect." + data.mainAspect().location().getNamespace() + "." + data.mainAspect().location().getPath()));
         }
         for (var entry : data.tendencies().entrySet()) {
             var key = entry.getKey();
-            var name = Component.translatable("aspect." + key.identifier().getNamespace() + "." + key.identifier().getPath());
-            builder.accept(name.append(Component.literal(": " + entry.getValue())));
+            var name = Component.translatable("aspect." + key.location().getNamespace() + "." + key.location().getPath());
+            tooltipComponents.add(name.append(Component.literal(": " + entry.getValue())));
         }
     }
 
@@ -58,7 +58,7 @@ public final class InfusedSeedsItem extends Item {
         var above = pos.above();
         var player = context.getPlayer();
         var stack = context.getItemInHand();
-        if (context.getClickedFace() != Direction.UP || player == null || !(level.getBlockState(pos).getBlock() instanceof FarmlandBlock)
+        if (context.getClickedFace() != Direction.UP || player == null || !(level.getBlockState(pos).getBlock() instanceof FarmBlock)
                 || !level.isEmptyBlock(above) || !level.mayInteract(player, pos) || !level.mayInteract(player, above)
                 || !player.mayUseItemAt(pos, Direction.UP, stack) || !player.mayUseItemAt(above, Direction.UP, stack)) {
             return InteractionResult.FAIL;

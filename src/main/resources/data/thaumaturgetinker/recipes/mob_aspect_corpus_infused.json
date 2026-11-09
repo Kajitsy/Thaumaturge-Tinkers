@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:mob_aspect_corpus_condensed",
+  "catalyst": {
+    "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+  },
   "components": [
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed",
-    "thaumaturgetinker:mob_aspect_corpus_condensed"
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_corpus_condensed"
+    }
   ],
   "aspects": [
     {

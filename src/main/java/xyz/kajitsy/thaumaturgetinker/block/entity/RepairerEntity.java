@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public final class RepairerEntity extends BlockEntity implements MovableTile, IEssentiaTransport {
     public int ticks;
@@ -179,25 +179,27 @@ public final class RepairerEntity extends BlockEntity implements MovableTile, IE
         return 1;
     }
 
-    @Override
-    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+    public void dropContents(Level level, BlockPos pos) {
         if (level != null) Containers.dropContents(level, pos, inventory);
-        super.preRemoveSideEffects(pos, state);
     }
 
     @Override
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
-        super.saveAdditional(output);
-        ContainerHelper.saveAllItems(output.child("Inventory"), inventory.getItems());
-        output.putBoolean("Repairing", repairing);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        var invTag = new CompoundTag();
+        ContainerHelper.saveAllItems(invTag, inventory.getItems(), registries);
+        tag.put("Inventory", invTag);
+        tag.putBoolean("Repairing", repairing);
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
-        super.loadAdditional(input);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         inventory.clearContent();
-        ContainerHelper.loadAllItems(input.childOrEmpty("Inventory"), inventory.getItems());
-        repairing = input.getBooleanOr("Repairing", false);
+        if (tag.contains("Inventory")) {
+            ContainerHelper.loadAllItems(tag.getCompound("Inventory"), inventory.getItems(), registries);
+        }
+        repairing = tag.getBoolean("Repairing");
     }
 
     @Override

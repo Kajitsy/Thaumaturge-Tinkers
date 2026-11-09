@@ -15,8 +15,12 @@
     "STS"
   ],
   "key": {
-    "S": "minecraft:stone",
-    "T": "thaumaturge:ingot_thaumium"
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "T": {
+      "item": "thaumaturge:ingot_thaumium"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:funnel",

@@ -1,14 +1,30 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "minecraft:ender_pearl",
+  "catalyst": {
+    "item": "minecraft:ender_pearl"
+  },
   "components": [
-    "minecraft:quartz",
-    "minecraft:quartz",
-    "minecraft:quartz",
-    "minecraft:quartz",
-    "minecraft:feather",
-    "minecraft:feather",
-    "thaumaturge:crystal_aer"
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "thaumaturge:crystal_aer"
+    }
   ],
   "aspects": [
     {

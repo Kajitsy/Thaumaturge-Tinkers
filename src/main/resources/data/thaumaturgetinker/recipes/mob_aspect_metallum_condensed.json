@@ -7,7 +7,9 @@
     "XXX"
   ],
   "key": {
-    "X": "thaumaturgetinker:mob_aspect_metallum"
+    "X": {
+      "item": "thaumaturgetinker:mob_aspect_metallum"
+    }
   },
   "result": {
     "id": "thaumaturgetinker:mob_aspect_metallum_condensed",

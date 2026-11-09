@@ -6,7 +6,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +29,7 @@ public final class IchorPouchMenu extends AbstractContainerMenu {
     private final int slotCode;
 
     public IchorPouchMenu(int id, Inventory inventory, boolean offhand) {
-        this(id, inventory, offhand ? -1 : inventory.getSelectedSlot());
+        this(id, inventory, offhand ? -1 : inventory.selected);
     }
 
     public IchorPouchMenu(int id, Inventory inventory, int slotCode) {
@@ -96,9 +96,9 @@ public final class IchorPouchMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public void clicked(int index, int button, ContainerInput type, Player player) {
+    public void clicked(int index, int button, ClickType type, Player player) {
         int lockedMenuSlot = slotCode >= 0 && slotCode < 9 ? IchorPouch.SLOTS + 27 + slotCode : (slotCode >= 9 && slotCode < 36 ? IchorPouch.SLOTS + slotCode - 9 : -99);
-        if (!stillValid(player) || index == lockedMenuSlot || type == ContainerInput.SWAP && (button == slotCode || slotCode == -1 && button == 40)) {
+        if (!stillValid(player) || index == lockedMenuSlot || type == ClickType.SWAP && (button == slotCode || slotCode == -1 && button == 40)) {
             return;
         }
         super.clicked(index, button, type, player);

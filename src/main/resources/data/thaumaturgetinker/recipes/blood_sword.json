@@ -1,13 +1,27 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturge:thaumium_sword",
+  "catalyst": {
+    "item": "thaumaturge:thaumium_sword"
+  },
   "components": [
-    "minecraft:rotten_flesh",
-    "minecraft:porkchop",
-    "minecraft:beef",
-    "minecraft:bone",
-    "minecraft:diamond",
-    "minecraft:ghast_tear"
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:beef"
+    },
+    {
+      "item": "minecraft:bone"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
   ],
   "aspects": [
     {

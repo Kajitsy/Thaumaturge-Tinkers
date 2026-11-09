@@ -16,9 +16,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -103,25 +103,27 @@ public final class MagnetEntity extends BlockEntity implements MovableTile {
         }
     }
 
-    @Override
-    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+    public void dropContents(Level level, BlockPos pos) {
         if (level != null) net.minecraft.world.Containers.dropContents(level, pos, inventory);
-        super.preRemoveSideEffects(pos, state);
     }
 
     @Override
-    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
-        super.saveAdditional(output);
-        output.putBoolean("Adult", adult);
-        ContainerHelper.saveAllItems(output.child("Inventory"), inventory.getItems());
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putBoolean("Adult", adult);
+        var invTag = new CompoundTag();
+        ContainerHelper.saveAllItems(invTag, inventory.getItems(), registries);
+        tag.put("Inventory", invTag);
     }
 
     @Override
-    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
-        super.loadAdditional(input);
-        adult = input.getBooleanOr("Adult", true);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        adult = !tag.contains("Adult") || tag.getBoolean("Adult");
         inventory.clearContent();
-        ContainerHelper.loadAllItems(input.childOrEmpty("Inventory"), inventory.getItems());
+        if (tag.contains("Inventory")) {
+            ContainerHelper.loadAllItems(tag.getCompound("Inventory"), inventory.getItems(), registries);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package xyz.kajitsy.thaumaturgetinker.item;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
 
+import java.util.List;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,8 +25,7 @@ public final class MobAspectItem extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> builder, TooltipFlag flag) {
-        builder.accept(Component.literal(aspect.displayName()));
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
+        tooltipComponents.add(Component.literal(aspect.displayName()));
     }
 }

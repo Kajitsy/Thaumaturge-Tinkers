@@ -19,18 +19,18 @@ public final class SkyPearlData {
 
     public static boolean attuned(ItemStack stack) {
         var t = tag(stack);
-        return t.getIntOr("y", -1) != -1;
+        return t.contains("y") && t.getInt("y") != -1;
     }
 
     public static BlockPos position(ItemStack stack) {
         if (!attuned(stack)) return BlockPos.ZERO;
         var t = tag(stack);
-        return new BlockPos(t.getIntOr("x", 0), t.getIntOr("y", 0), t.getIntOr("z", 0));
+        return new BlockPos(t.getInt("x"), t.getInt("y"), t.getInt("z"));
     }
 
     public static ResourceLocation dimension(ItemStack stack) {
         if (!attuned(stack)) return ResourceLocation.withDefaultNamespace("overworld");
-        var id = ResourceLocation.tryParse(tag(stack).getStringOr("dim", ""));
+        var id = ResourceLocation.tryParse(tag(stack).getString("dim"));
         return id == null ? ResourceLocation.withDefaultNamespace("overworld") : id;
     }
 
@@ -38,7 +38,7 @@ public final class SkyPearlData {
         var targetDim = dimension(pearl);
         var server = player.level().getServer();
         var level = server != null ? server.getLevel(ResourceKey.create(Registries.DIMENSION, targetDim)) : null;
-        if (level == null && (fallbackToCurrent || targetDim.equals(player.level().dimension().identifier()))) {
+        if (level == null && (fallbackToCurrent || targetDim.equals(player.level().dimension().location()))) {
             return player.level();
         }
         return level;

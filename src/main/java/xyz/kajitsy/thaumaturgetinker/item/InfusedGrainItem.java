@@ -18,6 +18,6 @@ public final class InfusedGrainItem extends Item {
     }
 
     public Map<String, Integer> aspects() {
-        return Map.of(aspect.identifier().getPath(), 1, "herba", 1);
+        return Map.of(aspect.location().getPath(), 1, "herba", 1);
     }
 }

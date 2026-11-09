@@ -1,15 +1,33 @@
 {
   "type": "thaumaturge:infusion",
-  "catalyst": "thaumaturgetinker:mob_aspect_praecantatio_condensed",
+  "catalyst": {
+    "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+  },
   "components": [
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed",
-    "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    },
+    {
+      "item": "thaumaturgetinker:mob_aspect_praecantatio_condensed"
+    }
   ],
   "aspects": [
     {

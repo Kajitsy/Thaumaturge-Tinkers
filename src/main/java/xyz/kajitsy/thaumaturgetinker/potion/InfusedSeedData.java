@@ -7,6 +7,7 @@ import java.util.Map;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.component.CustomData;
 public record InfusedSeedData(ResourceKey<IAspect> mainAspect, Map<ResourceKey<IAspect>, Integer> tendencies) {
     public static final int MAX_TENDENCIES = 50;
 
-public InfusedSeedData {
+    public InfusedSeedData {
         var clean = new LinkedHashMap<ResourceKey<IAspect>, Integer>();
         int remaining = MAX_TENDENCIES;
         if (tendencies != null) {
@@ -43,52 +44,24 @@ public InfusedSeedData {
 
     public static InfusedSeedData read(CompoundTag tag) {
         ResourceKey<IAspect> main = null;
-        var list = tag.getCompoundOrEmpty("mainAspect").getListOrEmpty("Aspects");
-        for (var entry : list) {
-            if (entry instanceof CompoundTag value) {
-                var aspect = parseAspect(value.getStringOr("key", ""));
-                if (aspect != null && value.getIntOr("amount", 0) > 0) {
-                    main = aspect;
-                    break;
-                }
+        var list = tag.getCompound("mainAspect").getList("Aspects", Tag.TAG_COMPOUND);
+        for (int i = 0; i < list.size(); i++) {
+            CompoundTag value = list.getCompound(i);
+            var aspect = parseAspect(value.getString("key"));
+            if (aspect != null && value.getInt("amount") > 0) {
+                main = aspect;
+                break;
             }
         }
         var tendencies = new LinkedHashMap<ResourceKey<IAspect>, Integer>();
         int remaining = MAX_TENDENCIES;
-        for (var entry : tag.getCompoundOrEmpty("aspectTendencies").getListOrEmpty("Aspects")) {
-            if (entry instanceof CompoundTag value) {
-                var aspect = parseAspect(value.getStringOr("key", ""));
-                if (aspect == null || !TTAspects.PRIMALS.contains(aspect)) continue;
-                if (value.getIntOr("amount", 0) < 0) continue;
-                int amount = Math.min(remaining, value.getIntOr("amount", 0));
-                tendencies.put(aspect, amount);
-                remaining -= amount;
-            }
-        }
-        return new InfusedSeedData(main, tendencies);
-    }
-
-    public void write(net.minecraft.world.level.storage.ValueOutput output) {
-        if (mainAspect != null) {
-            output.putString("mainAspect", mainAspect.identifier().toString());
-        }
-        var list = output.childrenList("tendencies");
-        for (var e : tendencies.entrySet()) {
-            var item = list.addChild();
-            item.putString("key", e.getKey().identifier().toString());
-            item.putInt("amount", e.getValue());
-        }
-    }
-
-    public static InfusedSeedData read(net.minecraft.world.level.storage.ValueInput input) {
-        var main = input.getString("mainAspect").map(InfusedSeedData::parseAspect).orElse(null);
-        var tendencies = new LinkedHashMap<ResourceKey<IAspect>, Integer>();
-        int remaining = MAX_TENDENCIES;
-        for (var item : input.childrenListOrEmpty("tendencies")) {
-            var aspect = parseAspect(item.getStringOr("key", ""));
+        var tendencyList = tag.getCompound("aspectTendencies").getList("Aspects", Tag.TAG_COMPOUND);
+        for (int i = 0; i < tendencyList.size(); i++) {
+            CompoundTag value = tendencyList.getCompound(i);
+            var aspect = parseAspect(value.getString("key"));
             if (aspect == null || !TTAspects.PRIMALS.contains(aspect)) continue;
-            int amount = Math.min(remaining, item.getIntOr("amount", 0));
-            if (amount <= 0) continue;
+            if (value.getInt("amount") < 0) continue;
+            int amount = Math.min(remaining, value.getInt("amount"));
             tendencies.put(aspect, amount);
             remaining -= amount;
         }
@@ -106,7 +79,7 @@ public InfusedSeedData {
         var mainList = new ListTag();
         if (mainAspect != null) {
             var entry = new CompoundTag();
-            entry.putString("key", mainAspect.identifier().getPath());
+            entry.putString("key", mainAspect.location().getPath());
             entry.putInt("amount", 1);
             mainList.add(entry);
         }
@@ -117,7 +90,7 @@ public InfusedSeedData {
         var tendencyList = new ListTag();
         for (var e : tendencies.entrySet()) {
             var entry = new CompoundTag();
-            entry.putString("key", e.getKey().identifier().getPath());
+            entry.putString("key", e.getKey().location().getPath());
             entry.putInt("amount", e.getValue());
             tendencyList.add(entry);
         }
