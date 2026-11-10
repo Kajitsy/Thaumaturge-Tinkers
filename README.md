@@ -2,6 +2,10 @@
 
 Addon for **Thaumaturge** on **Minecraft 26.1.2 (NeoForge)**, bringing classic Thaumic Tinkerer & KAMI content to modern Minecraft.
 
+## Links
+
+- **CurseForge**: https://www.curseforge.com/minecraft/mc-mods/thaumaturge-tinker
+
 ## Features
 
 - **Osmotic Enchanter & Custom Enchantments**: Empower tools and armor with vis-fueled enchanting and unique enchantments (Ascent Boost, Auto-Smelt, Disintegrate, Pounce, Shockwave, Tunnel, Vampirism, Valiance, and more).
