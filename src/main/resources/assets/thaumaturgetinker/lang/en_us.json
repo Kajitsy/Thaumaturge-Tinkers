@@ -705,5 +705,7 @@
   "wand.thaumaturge.cap.ichor": "Ichorium Adorned",
   "wand.thaumaturge.rod.ichorcloth": "Ichorcloth Strapped Silverwood",
   "wand.thaumaturgetinker.cap.ichor": "Ichorium Adorned",
-  "wand.thaumaturgetinker.rod.ichorcloth": "Ichorcloth Strapped Silverwood"
+  "wand.thaumaturgetinker.rod.ichorcloth": "Ichorcloth Strapped Silverwood",
+  "pack.thaumaturgetinker.classic_1_7_10.title": "Thaumic Tinkerer 1.7.10 (Classic)",
+  "pack.thaumaturgetinker.classic_1_7_10.description": "Original textures and models from Thaumic Tinkerer 1.7.10"
 }

@@ -66,7 +66,7 @@ prism {
                     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
                 }
                 tasks.named<Jar>("jar") {
-                    archiveBaseName.set("Thaumaturge-Tinkers")
+                    archiveBaseName.set("Thaumaturge-Tinkers-$minecraftVersion")
                 }
             }
         }

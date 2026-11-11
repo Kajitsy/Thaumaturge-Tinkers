@@ -1,5 +1,6 @@
 package xyz.kajitsy.thaumaturgetinker.client.render;
 
+import xyz.kajitsy.thaumaturgetinker.block.EnchanterBlock;
 import xyz.kajitsy.thaumaturgetinker.block.entity.EnchanterEntity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,6 +10,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,10 +23,20 @@ public final class EnchanterRenderer implements BlockEntityRenderer<EnchanterEnt
 
     @Override
     public void render(EnchanterEntity tile, float partialTicks, PoseStack pose, MultiBufferSource buffers, int light, int overlay) {
+        var blockState = tile.getBlockState();
+        Direction facing = blockState.hasProperty(EnchanterBlock.FACING) ? blockState.getValue(EnchanterBlock.FACING) : Direction.NORTH;
+        float yRot = switch (facing) {
+            case EAST -> -90f;
+            case SOUTH -> 180f;
+            case WEST -> 90f;
+            default -> 0f;
+        };
+
         ItemStack toolStack = tile.inventory.getItem(0);
         if (!toolStack.isEmpty()) {
             pose.pushPose();
             pose.translate(0.5, 0.76, 0.5);
+            pose.mulPose(Axis.YP.rotationDegrees(yRot));
             pose.mulPose(Axis.XP.rotationDegrees(90f));
             pose.mulPose(Axis.ZP.rotationDegrees(30f));
             pose.scale(0.7f, 0.7f, 0.7f);
@@ -39,6 +51,7 @@ public final class EnchanterRenderer implements BlockEntityRenderer<EnchanterEnt
             pose.pushPose();
             double bob = Math.sin(ticks / 10.0) * 0.05;
             pose.translate(0.5, 1.25 + bob, 0.5);
+            pose.mulPose(Axis.YP.rotationDegrees(yRot));
             pose.mulPose(Axis.XP.rotationDegrees(90f));
             pose.scale(0.6f, 0.6f, 0.6f);
             pose.mulPose(Axis.ZP.rotationDegrees(-70f));

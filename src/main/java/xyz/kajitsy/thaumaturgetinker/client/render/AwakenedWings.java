@@ -6,6 +6,8 @@ import xyz.kajitsy.thaumaturgetinker.item.AwakenedChest;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedHelm;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedLegs;
 import xyz.kajitsy.thaumaturgetinker.item.KamiArmor;
+import com.mojang.blaze3d.platform.NativeImage;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.client.model.AnimationUtils;
@@ -19,6 +21,8 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.Rotations;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -182,7 +186,13 @@ public final class AwakenedWings {
         }
     }
 
+    private static final ResourceLocation ICHOR_TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/models/armor/ichor_layer_1.png");
+    private static final ResourceLocation ICHOR_GEM_TEXTURE = ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/models/armor/ichorgem_layer_1.png");
+    private static volatile boolean classicIchorArmor;
+    private static volatile boolean classicGemArmor;
+
     public static WingsModel model;
+    private static WingsModel classicGemChest;
     private static WingsModel ichorHead;
     private static WingsModel ichorChest;
     private static WingsModel ichorLegs;
@@ -191,11 +201,49 @@ public final class AwakenedWings {
     private static WingsModel gemLegs;
     private static WingsModel gemBoots;
 
+    public static void reloadClassicModelState(ResourceManager resourceManager) {
+        classicIchorArmor = isClassicHalfHeightTexture(resourceManager, ICHOR_TEXTURE);
+        classicGemArmor = isClassicHalfHeightTexture(resourceManager, ICHOR_GEM_TEXTURE);
+    }
+
+    private static boolean isClassicHalfHeightTexture(ResourceManager resourceManager, ResourceLocation texture) {
+        var resource = resourceManager.getResource(texture);
+        if (resource.isEmpty()) return false;
+        try (var stream = resource.get().open(); var image = NativeImage.read(stream)) {
+            return image.getHeight() <= 32;
+        } catch (IOException ignored) {
+            return false;
+        }
+    }
+
     public static WingsModel model() {
         if (model == null) {
             model = new WingsModel(createChestLayer(true).bakeRoot());
         }
         return model;
+    }
+
+    public static WingsModel classicGemChestModel() {
+        if (classicGemChest == null) {
+            classicGemChest = new WingsModel(createClassicChestLayer().bakeRoot());
+        }
+        return classicGemChest;
+    }
+
+    public static LayerDefinition createClassicChestLayer() {
+        MeshDefinition mesh = HumanoidModel.createMesh(new CubeDeformation(1.0f), 0.0f);
+        PartDefinition body = mesh.getRoot().getChild("body");
+        body.addOrReplaceChild(
+            "wing1",
+            CubeListBuilder.create().texOffs(16, -12).addBox(0.0f, 0.0f, 0.0f, 0.0f, 7.0f, 12.0f),
+            PartPose.offsetAndRotation(-2.0f, 1.0f, 2.0f, 0.0f, -0.6108652f, 0.0f)
+        );
+        body.addOrReplaceChild(
+            "wing2",
+            CubeListBuilder.create().texOffs(16, -12).addBox(0.1f, 0.0f, 0.0f, 0.0f, 7.0f, 12.0f),
+            PartPose.offsetAndRotation(2.0f, 1.0f, 2.0f, 0.0f, 0.4468043f, 0.0f)
+        );
+        return LayerDefinition.create(mesh, TEX_WIDTH, 32);
     }
 
     public static WingsModel modelFor(ItemStack stack, EquipmentSlot slot, boolean awakened) {
@@ -488,6 +536,9 @@ public final class AwakenedWings {
         IClientItemExtensions normalExt = new IClientItemExtensions() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
+                if (classicIchorArmor) {
+                    return original;
+                }
                 return modelFor(stack, slot, false);
             }
         };
@@ -495,6 +546,12 @@ public final class AwakenedWings {
         IClientItemExtensions awakenedExt = new IClientItemExtensions() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
+                if (classicGemArmor) {
+                    if (slot == EquipmentSlot.CHEST) {
+                        return classicGemChestModel();
+                    }
+                    return original;
+                }
                 return modelFor(stack, slot, true);
             }
         };

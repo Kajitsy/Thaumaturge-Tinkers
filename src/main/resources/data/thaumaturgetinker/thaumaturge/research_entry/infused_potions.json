@@ -32,7 +32,11 @@
     {
       "text": "ttresearch.page.INFUSED_POTIONS.0",
       "recipes": [
-        "thaumaturgetinker:infused_inkwell_refill"
+        "thaumaturgetinker:infused_inkwell_refill",
+        "thaumaturgetinker:infused_potion_air",
+        "thaumaturgetinker:infused_potion_fire",
+        "thaumaturgetinker:infused_potion_earth",
+        "thaumaturgetinker:infused_potion_water"
       ],
       "warp": 1,
       "obtain": [
