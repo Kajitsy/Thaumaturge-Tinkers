@@ -15,6 +15,7 @@ public final class IchorPouchScreen extends AbstractContainerScreen<IchorPouchMe
         super(menu, inventory, title);
         this.imageWidth = 256;
         this.imageHeight = 256;
+        this.inventoryLabelY = this.imageHeight - 94;
     }
 
     @Override

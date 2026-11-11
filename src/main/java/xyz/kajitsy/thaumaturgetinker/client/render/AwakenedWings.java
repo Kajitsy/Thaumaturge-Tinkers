@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -71,6 +72,10 @@ public final class AwakenedWings {
                 applyStandPose(stand);
             }
 
+            animateArmorParts(entity, ageInTicks);
+        }
+
+        public void animateArmorParts(LivingEntity entity, float ageInTicks) {
             boolean flying = entity.isFallFlying();
             int entityKey = entity.getId();
             if (entity instanceof Player player) {
@@ -529,32 +534,34 @@ public final class AwakenedWings {
         return LayerDefinition.create(mesh, TEX_WIDTH, TEX_HEIGHT);
     }
 
+    private static IClientItemExtensions armorExtensions(boolean awakened) {
+        return new IClientItemExtensions() {
+            @Override
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
+                if (!awakened && classicIchorArmor) {
+                    return original;
+                }
+                if (awakened && classicGemArmor) {
+                    return slot == EquipmentSlot.CHEST ? classicGemChestModel() : original;
+                }
+                return modelFor(stack, slot, awakened);
+            }
+
+            @Override
+            public void setupModelAnimations(LivingEntity entity, ItemStack stack, EquipmentSlot slot, Model model, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+                if (model instanceof WingsModel wings) {
+                    wings.animateArmorParts(entity, ageInTicks);
+                }
+            }
+        };
+    }
+
     @SubscribeEvent
     public static void register(RegisterClientExtensionsEvent event) {
         if (!KamiStartupConfig.enabled()) return;
 
-        IClientItemExtensions normalExt = new IClientItemExtensions() {
-            @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
-                if (classicIchorArmor) {
-                    return original;
-                }
-                return modelFor(stack, slot, false);
-            }
-        };
-
-        IClientItemExtensions awakenedExt = new IClientItemExtensions() {
-            @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> original) {
-                if (classicGemArmor) {
-                    if (slot == EquipmentSlot.CHEST) {
-                        return classicGemChestModel();
-                    }
-                    return original;
-                }
-                return modelFor(stack, slot, true);
-            }
-        };
+        IClientItemExtensions normalExt = armorExtensions(false);
+        IClientItemExtensions awakenedExt = armorExtensions(true);
 
         event.registerItem(
             normalExt,
