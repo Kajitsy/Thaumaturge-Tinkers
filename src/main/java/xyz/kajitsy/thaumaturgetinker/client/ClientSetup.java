@@ -15,6 +15,7 @@ import xyz.kajitsy.thaumaturgetinker.client.gui.WarpGateDestinations;
 import xyz.kajitsy.thaumaturgetinker.client.gui.WarpGateScreen;
 import xyz.kajitsy.thaumaturgetinker.client.render.ActiveProperty;
 import xyz.kajitsy.thaumaturgetinker.client.render.AnimationTabletRenderer;
+import xyz.kajitsy.thaumaturgetinker.client.render.AwakenedWings;
 import xyz.kajitsy.thaumaturgetinker.client.render.CamouflageRenderer;
 import xyz.kajitsy.thaumaturgetinker.client.render.EnchanterRenderer;
 import xyz.kajitsy.thaumaturgetinker.client.render.FunnelRenderer;
@@ -47,12 +48,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
@@ -61,6 +67,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import org.apache.commons.lang3.math.Fraction;
 
 @EventBusSubscriber(modid = ThaumicTinkererModern.ID, value = Dist.CLIENT)
@@ -96,6 +103,26 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void guiLayers(RegisterGuiLayersEvent event) {
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, Identifier.fromNamespaceAndPath("thaumaturgetinker", "advanced_tool_hud"), new AdvancedToolHud());
+    }
+
+    @SubscribeEvent
+    public static void addPackFinders(AddPackFindersEvent event) {
+        event.addPackFinders(
+            Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "resourcepacks/classic_1_7_10"),
+            PackType.CLIENT_RESOURCES,
+            Component.translatable("pack.thaumaturgetinker.classic_1_7_10.title"),
+            PackSource.BUILT_IN,
+            false,
+            Pack.Position.TOP
+        );
+    }
+
+    @SubscribeEvent
+    public static void addReloadListeners(AddClientReloadListenersEvent event) {
+        event.addListener(
+            Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "classic_models"),
+            (ResourceManagerReloadListener) AwakenedWings::reloadClassicModelState
+        );
     }
 
     @SubscribeEvent

@@ -1,0 +1,12 @@
+{
+  "pack": {
+    "description": {
+      "translate": "pack.thaumaturgetinker.classic_1_7_10.description"
+    },
+    "min_format": 84,
+    "max_format": [
+      101,
+      1
+    ]
+  }
+}

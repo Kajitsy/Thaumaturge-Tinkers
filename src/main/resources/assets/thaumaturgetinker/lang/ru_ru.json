@@ -705,5 +705,7 @@
   "wand.thaumaturge.cap.ichor": "Ихориевым",
   "wand.thaumaturge.rod.ichorcloth": "Ихорного серебряного дерева",
   "wand.thaumaturgetinker.cap.ichor": "Ихориевым",
-  "wand.thaumaturgetinker.rod.ichorcloth": "Ихорного серебряного дерева"
+  "wand.thaumaturgetinker.rod.ichorcloth": "Ихорного серебряного дерева",
+  "pack.thaumaturgetinker.classic_1_7_10.title": "Thaumic Tinkerer 1.7.10 (Классика)",
+  "pack.thaumaturgetinker.classic_1_7_10.description": "Оригинальные текстуры и модели из Thaumic Tinkerer 1.7.10"
 }
