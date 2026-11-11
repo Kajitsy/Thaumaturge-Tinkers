@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#thaumaturge:has_silverwood",
-  "features": "thaumaturge:silverwood_natural",
-  "step": "vegetal_decoration"
-}

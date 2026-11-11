@@ -1,8 +1,0 @@
-{
-  "blocks": "thaumaturge:metal_void",
-  "items": [
-    "thaumaturge:ingot_void",
-    "thaumaturge:plate_void"
-  ],
-  "key": "thaumaturge:f_matvoid"
-}

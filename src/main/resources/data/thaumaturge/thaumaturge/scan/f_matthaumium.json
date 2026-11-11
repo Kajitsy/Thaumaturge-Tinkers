@@ -1,8 +1,0 @@
-{
-  "blocks": "thaumaturge:metal_thaumium",
-  "items": [
-    "thaumaturge:ingot_thaumium",
-    "thaumaturge:plate_thaumium"
-  ],
-  "key": "thaumaturge:f_matthaumium"
-}

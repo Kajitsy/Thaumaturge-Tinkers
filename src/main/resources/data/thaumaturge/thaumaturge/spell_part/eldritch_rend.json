@@ -1,8 +1,0 @@
-{
-  "behavior": {
-    "type": "thaumaturge:eldritch_rend"
-  },
-  "color": 11305168,
-  "hidden": true,
-  "icon": "thaumaturge:textures/foci/flux.png"
-}

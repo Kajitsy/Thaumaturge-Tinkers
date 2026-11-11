@@ -1,7 +1,0 @@
-{
-  "type": "thaumaturge:outer_lands",
-  "generator": {
-    "type": "thaumaturge:outer_lands",
-    "biome": "thaumaturge:eldritch"
-  }
-}

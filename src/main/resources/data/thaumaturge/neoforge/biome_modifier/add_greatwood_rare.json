@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#thaumaturge:has_greatwood_rare",
-  "features": "thaumaturge:greatwood_natural_rare",
-  "step": "vegetal_decoration"
-}

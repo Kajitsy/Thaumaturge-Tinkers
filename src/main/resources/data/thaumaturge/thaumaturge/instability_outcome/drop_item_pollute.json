@@ -1,7 +1,0 @@
-{
-  "effect": {
-    "type": "thaumaturge:eject",
-    "aftermath": "pollute"
-  },
-  "weight": 2
-}

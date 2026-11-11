@@ -1,8 +1,0 @@
-{
-  "entities": [
-    "minecraft:spider",
-    "minecraft:cave_spider",
-    "thaumaturge:mind_spider"
-  ],
-  "key": "thaumaturge:f_spider"
-}

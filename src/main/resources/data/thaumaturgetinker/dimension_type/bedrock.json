@@ -1,20 +1,11 @@
 {
   "ambient_light": 0.0,
-  "attributes": {
-    "minecraft:gameplay/bed_rule": {
-      "can_set_spawn": "never",
-      "can_sleep": "never",
-      "explodes": false
-    },
-    "minecraft:gameplay/respawn_anchor_works": false,
-    "minecraft:visual/fog_color": "#181318",
-    "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/sky_light_factor": 0.0
-  },
+  "bed_works": false,
   "coordinate_scale": 1.0,
+  "effects": "minecraft:the_nether",
+  "fixed_time": 18000,
   "has_ceiling": false,
-  "has_ender_dragon_fight": false,
-  "has_fixed_time": true,
+  "has_raids": false,
   "has_skylight": false,
   "height": 256,
   "infiniburn": "#minecraft:infiniburn_overworld",
@@ -23,8 +14,11 @@
   "monster_spawn_block_light_limit": 7,
   "monster_spawn_light_level": {
     "type": "minecraft:uniform",
-    "min_inclusive": 0,
-    "max_inclusive": 7
+    "max_inclusive": 7,
+    "min_inclusive": 0
   },
-  "skybox": "none"
+  "natural": false,
+  "piglin_safe": false,
+  "respawn_anchor_works": false,
+  "ultrawarm": false
 }

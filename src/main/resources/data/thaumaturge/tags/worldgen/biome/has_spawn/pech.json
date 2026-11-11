@@ -1,8 +1,0 @@
-{
-  "remove": [
-    "thaumaturge:eldritch"
-  ],
-  "values": [
-    "#thaumaturge:is_magical"
-  ]
-}
