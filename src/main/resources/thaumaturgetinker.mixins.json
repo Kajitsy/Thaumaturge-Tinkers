@@ -13,10 +13,14 @@
     "CatMobAccessor",
     "CatCreeperAccessor",
     "FocusPouchItemMixin",
-    "ItemWandMixin"
+    "ItemWandMixin",
+    "BaseFireBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "client": []
+  "client": [
+    "EntityRenderDispatcherMixin",
+    "ScreenEffectRendererMixin"
+  ]
 }
