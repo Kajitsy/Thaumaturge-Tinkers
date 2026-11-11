@@ -17,13 +17,16 @@
     "FocusPouchItemMixin",
     "CasterManagerMixin",
     "CasterManagerPouchStoreMixin",
-    "ItemWandMixin"
+    "ItemWandMixin",
+    "BaseFireBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
     "RadialFocusOverlayMixin",
-    "PunchyArmRendererMixin"
+    "PunchyArmRendererMixin",
+    "ScreenEffectRendererAccessor",
+    "FlameFeatureRendererMixin"
   ]
 }

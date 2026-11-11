@@ -9,6 +9,9 @@ import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.entity.InsideBlockEffectType;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -31,12 +34,29 @@ public final class InfusedFireBlock extends FireBlock {
  private static boolean loaded(LevelReader level,BlockPos pos){return !level.isOutsideBuildHeight(pos)&&(level instanceof Level l?l.isLoaded(pos):level.getChunkForCollisions(SectionPos.blockToSectionCoord(pos.getX()),SectionPos.blockToSectionCoord(pos.getZ()))!=null);}
  boolean adjacentTarget(ServerLevel level,BlockPos pos){for(var d:Direction.values())if(transformation(level,pos.relative(d))!=null)return true;return false;}
  private boolean wet(ServerLevel level,BlockPos pos){if(loaded(level,pos)&&level.isRainingAt(pos))return true;for(var d:Direction.Plane.HORIZONTAL)if(loaded(level,pos.relative(d))&&level.isRainingAt(pos.relative(d)))return true;return false;}
- @Override protected boolean canSurvive(BlockState state,LevelReader level,BlockPos pos){return true;}
+ @Override protected boolean canSurvive(BlockState state,LevelReader level,BlockPos pos){return !(level.getBlockState(pos.below()).getBlock() instanceof BaseFireBlock);}
+ @Override
+ protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean isPrecise) {
+  super.entityInside(state, level, pos, entity, applier, isPrecise);
+  if (!level.isClientSide()) {
+   applier.runAfter(InsideBlockEffectType.FIRE_IGNITE, e -> {
+    if (e.getRemainingFireTicks() > 0 && !e.fireImmune()) {
+     InfusedFireAttachment.set(e, kind);
+    }
+   });
+  }
+ }
  private boolean supported(LevelReader level,BlockPos pos){
   if(loaded(level,pos.below())&&level.getBlockState(pos.below()).isFaceSturdy(level,pos.below(),Direction.UP))return true;
   return level instanceof ServerLevel server&&adjacentTarget(server,pos);
  }
- @Override public BlockState getStateForPlacement(BlockPlaceContext context){return visualState(context.getLevel(),context.getClickedPos(),0);}
+ @Override public BlockState getStateForPlacement(BlockPlaceContext context){
+  var level = context.getLevel();
+  var pos = context.getClickedPos();
+  if (level.getBlockState(pos).getBlock() instanceof BaseFireBlock) return null;
+  if (level.getBlockState(pos.below()).getBlock() instanceof BaseFireBlock) return null;
+  return visualState(level, pos, 0);
+ }
  private BlockState visualState(BlockGetter level,BlockPos pos,int age){
   var state=defaultBlockState().setValue(AGE,age);
   if(level instanceof LevelReader reader&&!loaded(reader,pos.below()))return state;

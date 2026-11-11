@@ -7,6 +7,7 @@ import xyz.kajitsy.thaumaturgetinker.block.ForcefieldBlock;
 import xyz.kajitsy.thaumaturgetinker.block.FunnelBlock;
 import xyz.kajitsy.thaumaturgetinker.block.GasBlock;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFarmlandBlock;
+import xyz.kajitsy.thaumaturgetinker.block.InfusedFireAttachment;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFireBlock;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFireKind;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedGrainBlock;
@@ -266,6 +267,7 @@ public final class ThaumicTinkererModern {
         TTCuriosCompat.init(bus);
         BedrockDimensionCondition.init(bus);
         InfusedPotions.register(bus);
+        InfusedFireAttachment.register(bus);
         KamiRegistries.register(bus);
         MENUS.register(bus);
         ENTITIES.register(bus);
