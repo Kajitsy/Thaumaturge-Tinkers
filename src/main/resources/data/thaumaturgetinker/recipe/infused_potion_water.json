@@ -1,0 +1,21 @@
+{
+  "type": "thaumaturge:crucible",
+  "catalyst": "thaumaturgetinker:infused_grain_water",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "thaumaturgetinker:infused_potion_water",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:infused_potions"
+  }
+}
