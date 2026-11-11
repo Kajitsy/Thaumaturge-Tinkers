@@ -1,6 +1,10 @@
 # Thaumaturge Tinker
 
-Addon for **Thaumaturge** on **Minecraft 26.1.2 (NeoForge)**, bringing classic Thaumic Tinkerer & KAMI content to modern Minecraft.
+Addon for **Thaumaturge** on **Minecraft 1.21.1 (NeoForge)**, bringing classic Thaumic Tinkerer & KAMI content to modern Minecraft.
+
+## Links
+
+- **CurseForge**: https://www.curseforge.com/minecraft/mc-mods/thaumaturge-tinker
 
 ## Features
 
