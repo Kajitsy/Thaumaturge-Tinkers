@@ -19,14 +19,17 @@ public final class TooltipIndicators {
     }
 
     public static void append(ItemStack stack, List<Component> tooltip, boolean enabled) {
-        if (!enabled || stack == null || stack.isEmpty()) return;
+        if (!enabled || stack == null || stack.isEmpty() || tooltip == null) return;
         append(BuiltInRegistries.ITEM.getKey(stack.getItem()), tooltip, true);
     }
 
     public static void append(Identifier itemId, List<Component> tooltip, boolean enabled) {
         if (!enabled || itemId == null || tooltip == null) return;
         if (!ThaumicTinkererModern.ID.equals(itemId.getNamespace())) return;
-        if (tooltip.stream().anyMatch(c -> "[TT]".equals(c.getString()))) return;
-        tooltip.add(INDICATOR);
+        if (tooltip.stream().anyMatch(c -> c != null && "[TT]".equals(c.getString()))) return;
+        try {
+            tooltip.add(INDICATOR);
+        } catch (UnsupportedOperationException ignored) {
+        }
     }
 }

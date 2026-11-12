@@ -293,10 +293,48 @@ class PortFixesTest {
         TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, true);
         assertEquals(1, ttLines.size());
         assertEquals("[TT]", ttLines.getFirst().getString());
+        assertEquals(
+                net.minecraft.network.chat.TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.DARK_GRAY),
+                ttLines.getFirst().getStyle().getColor());
 
         // Idempotent if called again on the same tooltip list
         TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, true);
         assertEquals(1, ttLines.size());
+
+        // Null elements inside tooltip list and unmodifiable lists do not throw
+        var withNull = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+        withNull.add(null);
+        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor"), withNull, true);
+        assertEquals(2, withNull.size());
+        assertEquals("[TT]", withNull.getLast().getString());
+        assertDoesNotThrow(() -> TooltipIndicators.append(
+                Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor"),
+                List.of(),
+                true));
+
+        // Loaded ModConfigSpec toggles TinkererConfig.tooltipIndicators() at runtime
+        try {
+            var config = com.electronwill.nightconfig.core.CommentedConfig.inMemory();
+            TinkererConfig.SPEC.correct(config);
+            config.set("tooltipIndicators.enabled", false);
+            var ctor = Class.forName("net.neoforged.fml.config.LoadedConfig")
+                    .getDeclaredConstructor(com.electronwill.nightconfig.core.CommentedConfig.class,
+                            java.nio.file.Path.class,
+                            net.neoforged.fml.config.ModConfig.class);
+            ctor.setAccessible(true);
+            var loaded = (net.neoforged.fml.config.IConfigSpec.ILoadedConfig) ctor.newInstance(config, null, null);
+            TinkererConfig.SPEC.acceptConfig(loaded);
+            assertTrue(TinkererConfig.SPEC.isLoaded());
+            assertFalse(TinkererConfig.tooltipIndicators());
+
+            config.set("tooltipIndicators.enabled", true);
+            TinkererConfig.SPEC.afterReload();
+            assertTrue(TinkererConfig.tooltipIndicators());
+        } catch (ReflectiveOperationException e) {
+            fail(e);
+        } finally {
+            TinkererConfig.SPEC.acceptConfig(null);
+        }
 
         // Non-TT items, empty stacks, and null inputs are ignored
         var otherLines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
@@ -305,6 +343,7 @@ class PortFixesTest {
         TooltipIndicators.append(ItemStack.EMPTY, otherLines, true);
         TooltipIndicators.append((ItemStack) null, otherLines, true);
         TooltipIndicators.append((Identifier) null, otherLines, true);
+        TooltipIndicators.append(new ItemStack(Items.STICK), null, true);
         assertTrue(otherLines.isEmpty());
     }
 }
