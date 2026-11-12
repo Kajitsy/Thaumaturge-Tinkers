@@ -12,6 +12,7 @@ run-*/
 .DS_Store
 .agents/
 .factory/
+AGENTS.md
 GEMINI.md
 related/
 releases/
