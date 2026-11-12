@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFireKind;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFireTransformations;
 import xyz.kajitsy.thaumaturgetinker.block.OrderFireResolver;
+import xyz.kajitsy.thaumaturgetinker.client.TooltipIndicators;
 import xyz.kajitsy.thaumaturgetinker.enchantment.StrikeEnchantments;
 import xyz.kajitsy.thaumaturgetinker.focus.FlightFocus;
 import xyz.kajitsy.thaumaturgetinker.focus.HealFocus;
@@ -279,5 +280,31 @@ class PortFixesTest {
         var attrs = bedrockDim.getAsJsonObject("attributes");
         assertEquals("#a080a0", attrs.get("minecraft:visual/fog_color").getAsString());
         assertEquals(1.0, attrs.get("minecraft:visual/sky_light_factor").getAsDouble(), 0.001);
+    }
+
+    @Test
+    void tooltipIndicatorsRespectConfigAndNamespace() {
+        assertTrue(TinkererConfig.tooltipIndicators());
+
+        var ttLines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, false);
+        assertTrue(ttLines.isEmpty());
+
+        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, true);
+        assertEquals(1, ttLines.size());
+        assertEquals("[TT]", ttLines.getFirst().getString());
+
+        // Idempotent if called again on the same tooltip list
+        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, true);
+        assertEquals(1, ttLines.size());
+
+        // Non-TT items, empty stacks, and null inputs are ignored
+        var otherLines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+        TooltipIndicators.append(Identifier.fromNamespaceAndPath("thaumaturge", "thaumonomicon"), otherLines, true);
+        TooltipIndicators.append(new ItemStack(Items.STICK), otherLines);
+        TooltipIndicators.append(ItemStack.EMPTY, otherLines, true);
+        TooltipIndicators.append((ItemStack) null, otherLines, true);
+        TooltipIndicators.append((Identifier) null, otherLines, true);
+        assertTrue(otherLines.isEmpty());
     }
 }
