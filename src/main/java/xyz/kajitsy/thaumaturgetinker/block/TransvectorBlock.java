@@ -60,8 +60,8 @@ public final class TransvectorBlock extends BaseEntityBlock {
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
     @Override protected InteractionResult useWithoutItem(BlockState state,Level level,BlockPos pos,Player player,BlockHitResult hit){
-        if(!player.getMainHandItem().isEmpty()||!level.mayInteract(player,pos))return InteractionResult.PASS;
-        if(level.getBlockEntity(pos) instanceof TransvectorEntity tile&&tile.camouflage()!=null){
+        if(!level.mayInteract(player,pos))return InteractionResult.PASS;
+        if(player.getMainHandItem().isEmpty()&&level.getBlockEntity(pos) instanceof TransvectorEntity tile&&tile.camouflage()!=null){
             if(!level.isClientSide())tile.camouflage(null);
             return level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.CONSUME;
         }

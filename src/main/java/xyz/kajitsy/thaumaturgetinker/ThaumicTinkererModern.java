@@ -343,7 +343,9 @@ public final class ThaumicTinkererModern {
             "cap_ichor", "rod_ichorcloth", "ichor_tools", "ichor_pouch",
             "ichorcloth_armor",
             "ichor_pick_gem", "ichor_axe_gem", "ichor_shovel_gem", "ichor_sword_gem",
-            "ichorcloth_helm_gem", "ichorcloth_chest_gem", "ichorcloth_legs_gem", "ichorcloth_boots_gem"
+            "ichorcloth_helm_gem", "ichorcloth_chest_gem", "ichorcloth_legs_gem", "ichorcloth_boots_gem",
+            "cat_amulet", "focus_shadowbeam", "focus_xp_drain", "protoclay",
+            "block_talisman", "placement_mirror", "warp_gate", "focus_recall"
     );
 
     public static boolean requiresEntryForKami(net.minecraft.resources.Identifier id, boolean hasParents, boolean autoUnlock) {

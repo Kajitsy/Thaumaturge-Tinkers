@@ -258,10 +258,9 @@ public final class BlockTalisman extends Item {
             }
         }
         if (highest == -1) {
-            var held = p.getMainHandItem();
-            var offhand = p.getOffhandItem();
-            if (free && (held.isEmpty() || held.is(boundItem) || offhand.is(boundItem))) {
-                int amount = Math.min(64, count(s));
+            var carried = p.containerMenu != null ? p.containerMenu.getCarried() : ItemStack.EMPTY;
+            if (free && (carried.isEmpty() || !carried.is(boundItem))) {
+                int amount = Math.min(boundItem.getDefaultMaxStackSize(), count(s));
                 if (amount > 0) {
                     var stack = new ItemStack(boundItem, amount);
                     inv.add(stack);

@@ -132,6 +132,13 @@ class PortFixesTest {
         assertEquals(5, SmeltFocus.smeltDurationTicks(3));
         assertEquals(9, TelekinesisFocus.telekinesisRange(3));
         assertEquals(11f, ShadowbeamTrace.damageForPotency(3));
+
+        var xpDrain = new ItemStack(Items.STICK);
+        assertFalse(TinkererFocus.hasFrugal(xpDrain));
+        assertEquals(0, TinkererFocus.potencyLevel(xpDrain));
+        assertEquals(15, xyz.kajitsy.thaumaturgetinker.focus.XPDrainFocus.xpUse(xpDrain));
+        Spells.setSpell(xpDrain, Spell.empty().withRoot(SpellNode.of(Spell.ORIGIN).then(SpellNode.of(TTSpellParts.EFFICIENT))));
+        assertEquals(11, xyz.kajitsy.thaumaturgetinker.focus.XPDrainFocus.xpUse(xpDrain));
     }
 
     @Test
@@ -179,6 +186,67 @@ class PortFixesTest {
         assertFalse(ThaumicTinkererModern.requiresEntryForKami(Identifier.fromNamespaceAndPath("thaumaturgetinker", "dark_quartz"), true, true));
         assertFalse(ThaumicTinkererModern.requiresEntryForKami(Identifier.fromNamespaceAndPath("thaumaturge", "flux"), false, false));
         assertFalse(ThaumicTinkererModern.requiresEntryForKami(Identifier.fromNamespaceAndPath("other_mod", "entry"), true, false));
+    }
+
+    @Test
+    void noKamiDescendantCreatesResearchDeadlock() throws Exception {
+        var resource = getClass().getResource("/data/thaumaturgetinker/thaumaturge/research_entry/ichor.json");
+        assertNotNull(resource);
+        var uri = resource.toURI();
+        var parentsByPath = new java.util.HashMap<String, List<String>>();
+        var autoByPath = new java.util.HashMap<String, Boolean>();
+        if ("jar".equals(uri.getScheme())) {
+            try (var fs = java.nio.file.FileSystems.newFileSystem(uri, Map.of())) {
+                readResearchEntries(fs.getPath("/data/thaumaturgetinker/thaumaturge/research_entry"), parentsByPath, autoByPath);
+            }
+        } else {
+            readResearchEntries(java.nio.file.Path.of(uri).getParent(), parentsByPath, autoByPath);
+        }
+        assertFalse(parentsByPath.isEmpty());
+        // Any TT entry whose parent chain reaches thaumaturgetinker:ichor must NOT be required to unlock ichor!
+        for (var path : parentsByPath.keySet()) {
+            boolean reachesIchor = reachesIchor(path, parentsByPath, new java.util.HashSet<>());
+            if (reachesIchor) {
+                assertFalse(
+                        ThaumicTinkererModern.requiresEntryForKami(
+                                Identifier.fromNamespaceAndPath("thaumaturgetinker", path),
+                                !parentsByPath.get(path).isEmpty(),
+                                autoByPath.getOrDefault(path, false)),
+                        "KAMI entry '" + path + "' depends on ichor and would deadlock KAMI unlock");
+            }
+        }
+    }
+
+    private static void readResearchEntries(
+            java.nio.file.Path dir,
+            Map<String, List<String>> parentsByPath,
+            Map<String, Boolean> autoByPath) throws Exception {
+        try (var stream = java.nio.file.Files.list(dir)) {
+            for (var file : stream.filter(p -> p.toString().endsWith(".json")).toList()) {
+                String path = file.getFileName().toString().replace(".json", "");
+                var obj = com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(file)).getAsJsonObject();
+                var parents = new java.util.ArrayList<String>();
+                if (obj.has("parents")) {
+                    for (var el : obj.getAsJsonArray("parents")) {
+                        parents.add(el.getAsString().replaceFirst("^~", ""));
+                    }
+                }
+                parentsByPath.put(path, parents);
+                boolean auto = obj.has("meta") && obj.getAsJsonArray("meta").asList().stream().anyMatch(m -> "autounlock".equals(m.getAsString()));
+                autoByPath.put(path, auto);
+            }
+        }
+    }
+
+    private static boolean reachesIchor(String path, Map<String, List<String>> parentsByPath, Set<String> visited) {
+        if ("ichor".equals(path)) return true;
+        if (!visited.add(path)) return false;
+        for (var parent : parentsByPath.getOrDefault(path, List.of())) {
+            if (parent.startsWith("thaumaturgetinker:") && reachesIchor(parent.substring("thaumaturgetinker:".length()), parentsByPath, visited)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Test

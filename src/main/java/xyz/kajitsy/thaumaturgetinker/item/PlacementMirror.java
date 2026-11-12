@@ -114,13 +114,16 @@ public final class PlacementMirror extends Item {
     public static int place(ItemStack mirror, Player p, List<BlockPos> positions) {
         var level = p.level();
         var block = BlockTalisman.block(mirror);
-        if (level.isClientSide() || block.asItem() == Items.AIR || !p.getAbilities().instabuild && available(mirror, p) < positions.size()) return 0;
+        boolean creative = p.getAbilities().instabuild;
+        long remaining = creative ? positions.size() : available(mirror, p);
+        if (level.isClientSide() || block.asItem() == Items.AIR || remaining <= 0) return 0;
         var stateTag = BlockTalisman.data(mirror).getCompound("blockState");
         if (stateTag.isEmpty()) return 0;
         var state = NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), stateTag.get());
         if (state.isAir()) return 0;
         int placed = 0;
         for (var at : positions) {
+            if (!creative && remaining <= 0) break;
             if (!level.getBlockState(at).canBeReplaced() || !level.mayInteract(p, at) || !p.mayUseItemAt(at, Direction.UP, mirror)) continue;
             var snapshot = BlockSnapshot.create(level.dimension(), level, at);
             boolean outerCapture = level.captureBlockSnapshots;
@@ -145,7 +148,10 @@ public final class PlacementMirror extends Item {
             }
             state.onPlace(level, at, snapshot.getState(), false);
             level.markAndNotifyBlock(at, level.getChunkAt(at), snapshot.getState(), state, 3, 512);
-            if (!p.getAbilities().instabuild) consume(mirror, p);
+            if (!creative) {
+                consume(mirror, p);
+                remaining--;
+            }
             placed++;
         }
         return placed;
@@ -162,9 +168,7 @@ public final class PlacementMirror extends Item {
             }
         } else {
             var positions = targets(c.getItemInHand(), p);
-            boolean enough = p.getAbilities().instabuild || available(c.getItemInHand(), p) >= positions.size();
-            place(c.getItemInHand(), p, positions);
-            if (enough && !c.getLevel().isClientSide()) {
+            if (place(c.getItemInHand(), p, positions) > 0 && !c.getLevel().isClientSide()) {
                 c.getLevel().playSound(null, p.blockPosition(), TTSounds.WAND.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
             }
         }

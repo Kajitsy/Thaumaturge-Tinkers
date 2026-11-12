@@ -82,7 +82,7 @@ public abstract class TinkererFocus extends Item {
     public static int potencyLevel(ItemStack focus) {
         if (focus.isEmpty()) return 0;
         var spell = com.leclowndu93150.thaumaturge.api.spell.Spells.spellOf(focus);
-        if (spell.isEmpty()) return 0;
+        if (spell == null || spell.isEmpty()) return 0;
         int total = 0;
         for (var node : spell.nodes()) {
             if (com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.AMPLIFY.equals(node.part())) {
@@ -95,7 +95,7 @@ public abstract class TinkererFocus extends Item {
     public static boolean hasFrugal(ItemStack focus) {
         if (focus.isEmpty()) return false;
         var spell = com.leclowndu93150.thaumaturge.api.spell.Spells.spellOf(focus);
-        if (spell.isEmpty()) return false;
+        if (spell == null || spell.isEmpty()) return false;
         for (var node : spell.nodes()) {
             if (com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.EFFICIENT.equals(node.part())) {
                 return true;
@@ -139,6 +139,38 @@ public abstract class TinkererFocus extends Item {
     public java.util.Map<net.minecraft.resources.ResourceKey<com.leclowndu93150.thaumaturge.api.aspect.IAspect>, Integer> effectiveVisCost(ItemStack wand) {
         ItemStack focus = resolveFocus(wand);
         return applyFrugal(getVisCost(focus), hasFrugal(focus));
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack focus, Item.TooltipContext context,
+            net.minecraft.world.item.component.TooltipDisplay display,
+            java.util.function.Consumer<net.minecraft.network.chat.Component> builder,
+            net.minecraft.world.item.TooltipFlag flag) {
+        int potency = potencyLevel(focus);
+        boolean frugal = hasFrugal(focus);
+        if (potency > 0) {
+            builder.accept(com.leclowndu93150.thaumaturge.content.spell.SpellText.partName(com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.AMPLIFY)
+                    .append(" " + potency)
+                    .withStyle(net.minecraft.ChatFormatting.DARK_PURPLE));
+        }
+        if (frugal) {
+            builder.accept(com.leclowndu93150.thaumaturge.content.spell.SpellText.partName(com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.EFFICIENT)
+                    .withStyle(net.minecraft.ChatFormatting.DARK_PURPLE));
+        }
+        var visCost = applyFrugal(getVisCost(focus), frugal);
+        if (!visCost.isEmpty()) {
+            var line = net.minecraft.network.chat.Component.empty();
+            boolean first = true;
+            for (var entry : visCost.entrySet()) {
+                if (!first) line.append(", ");
+                first = false;
+                float vis = entry.getValue() / 100.0f;
+                String amount = vis == (int) vis ? Integer.toString((int) vis) : String.format(java.util.Locale.ROOT, "%.1f", vis);
+                line.append(amount + " ").append(com.leclowndu93150.thaumaturge.content.spell.SpellText.aspectName(entry.getKey()));
+            }
+            builder.accept(com.leclowndu93150.thaumaturge.content.spell.SpellText.visCost(line));
+        }
     }
 
     public boolean hasVis(ItemStack wand, Player player) {
