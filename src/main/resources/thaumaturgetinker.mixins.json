@@ -12,8 +12,6 @@
     "CatTargetGoalMixin",
     "CatMobAccessor",
     "CatCreeperAccessor",
-    "FocalManipulatorMenuMixin",
-    "FocalManipulatorDrawerMixin",
     "FocusPouchItemMixin",
     "CasterManagerMixin",
     "CasterManagerPouchStoreMixin",

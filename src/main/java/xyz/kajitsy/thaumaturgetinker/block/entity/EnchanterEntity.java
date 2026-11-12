@@ -70,7 +70,7 @@ public final class EnchanterEntity extends BlockEntity implements MovableTile {
             var pos = base.above(height);
             if (!level.isInWorldBounds(pos) || !level.isLoaded(pos)) return null;
             var state = level.getBlockState(pos);
-            if (state.is(TTBlocks.OBSIDIAN_TOTEM.get()) || state.is(TTBlocks.OBSIDIAN_TOTEM_CHARGED.get()) || state.is(TTBlocks.OBSIDIAN_TILE.get()) || state.is(Blocks.OBSIDIAN)) continue;
+            if (state.is(TTBlocks.OBSIDIAN_TOTEM.get())) continue;
             return height >= 2 && state.getBlock() instanceof BlockNitor ? pos : null;
         }
         return null;
@@ -92,8 +92,6 @@ public final class EnchanterEntity extends BlockEntity implements MovableTile {
             for (int dz = -4; dz <= 4; dz++) {
                 if (dx == 0 && dz == 0) continue;
                 var found = cap(level, center.offset(dx, 0, dz));
-                if (found == null) found = cap(level, center.offset(dx, -1, dz));
-                if (found == null) found = cap(level, center.offset(dx, 1, dz));
                 if (found != null && !result.contains(found)) {
                     result.add(found);
                 }

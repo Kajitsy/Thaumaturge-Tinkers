@@ -75,10 +75,84 @@ public abstract class TinkererFocus extends Item {
 
     public void onPlayerStoppedUsing(ItemStack wand, Level level, LivingEntity entity, int timeLeft) {}
 
+    public boolean allowsPotency() {
+        return false;
+    }
+
+    public static int potencyLevel(ItemStack focus) {
+        if (focus.isEmpty()) return 0;
+        var spell = com.leclowndu93150.thaumaturge.api.spell.Spells.spellOf(focus);
+        if (spell.isEmpty()) return 0;
+        int total = 0;
+        for (var node : spell.nodes()) {
+            if (com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.AMPLIFY.equals(node.part())) {
+                total += Math.clamp(node.settings().getOrDefault("level", 1), 1, 3);
+            }
+        }
+        return Math.min(5, total);
+    }
+
+    public static boolean hasFrugal(ItemStack focus) {
+        if (focus.isEmpty()) return false;
+        var spell = com.leclowndu93150.thaumaturge.api.spell.Spells.spellOf(focus);
+        if (spell.isEmpty()) return false;
+        for (var node : spell.nodes()) {
+            if (com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.EFFICIENT.equals(node.part())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static java.util.Map<net.minecraft.resources.ResourceKey<com.leclowndu93150.thaumaturge.api.aspect.IAspect>, Integer> applyFrugal(
+            java.util.Map<net.minecraft.resources.ResourceKey<com.leclowndu93150.thaumaturge.api.aspect.IAspect>, Integer> baseCost, boolean frugal) {
+        if (!frugal || baseCost.isEmpty()) return baseCost;
+        var scaled = new java.util.LinkedHashMap<net.minecraft.resources.ResourceKey<com.leclowndu93150.thaumaturge.api.aspect.IAspect>, Integer>(baseCost.size());
+        for (var entry : baseCost.entrySet()) {
+            int value = entry.getValue();
+            scaled.put(entry.getKey(), value <= 0 ? 0 : Math.max(1, (int) ((value * 7L + 5L) / 10L)));
+        }
+        return scaled;
+    }
+
+    public static boolean isAllowedSpellPart(boolean allowsPotency,
+            net.minecraft.resources.ResourceKey<com.leclowndu93150.thaumaturge.api.spell.part.SpellPart> part) {
+        return com.leclowndu93150.thaumaturge.api.spell.Spell.ORIGIN.equals(part)
+                || com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.EFFICIENT.equals(part)
+                || (allowsPotency && com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.AMPLIFY.equals(part));
+    }
+
+    public static void onSpellInscribe(com.leclowndu93150.thaumaturge.api.spell.event.SpellInscribeEvent event) {
+        if (!(event.focus().getItem() instanceof TinkererFocus focus)) return;
+        for (var node : event.spell().nodes()) {
+            if (!isAllowedSpellPart(focus.allowsPotency(), node.part())) {
+                event.setCanceled(true);
+                return;
+            }
+        }
+    }
+
+    public ItemStack resolveFocus(ItemStack wand) {
+        return wand.getItem() instanceof ItemWand itemWand ? itemWand.getFocusStack(wand) : wand;
+    }
+
+    public java.util.Map<net.minecraft.resources.ResourceKey<com.leclowndu93150.thaumaturge.api.aspect.IAspect>, Integer> effectiveVisCost(ItemStack wand) {
+        ItemStack focus = resolveFocus(wand);
+        return applyFrugal(getVisCost(focus), hasFrugal(focus));
+    }
+
+    public boolean hasVis(ItemStack wand, Player player) {
+        if (player.isCreative()) return true;
+        if (!(wand.getItem() instanceof ItemWand)) return true;
+        var cost = effectiveVisCost(wand);
+        return cost.isEmpty() || WandVisHelper.payCosts(wand, player, cost, false, false);
+    }
+
     public boolean consumeVis(ItemStack wand, Player player) {
         if (player.isCreative()) return true;
         if (!(wand.getItem() instanceof ItemWand)) return true;
-        return WandVisHelper.payCosts(wand, player, getVisCost(wand), true, false);
+        var cost = effectiveVisCost(wand);
+        return cost.isEmpty() || WandVisHelper.payCosts(wand, player, cost, true, false);
     }
 
     @SubscribeEvent

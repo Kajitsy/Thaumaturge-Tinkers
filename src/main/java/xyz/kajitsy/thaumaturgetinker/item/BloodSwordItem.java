@@ -95,7 +95,7 @@ public final class BloodSwordItem extends Item {
         if (!SELF_DAMAGE.add(entity.getUUID())) return;
         try {
             if (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
-                entity.hurtServer(serverLevel, entity.damageSources().fellOutOfWorld(), amount);
+                entity.hurtServer(serverLevel, entity.damageSources().magic(), amount);
             }
         } finally {
             SELF_DAMAGE.remove(entity.getUUID());

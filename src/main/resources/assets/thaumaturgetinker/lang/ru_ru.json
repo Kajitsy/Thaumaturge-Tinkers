@@ -76,10 +76,10 @@
   "ttmisc.destinations": "Направления:",
   "ttmisc.noDest": "Там нет Небесного портала.",
   "ttmisc.noTeleport": "Небесный портал, на который Вы хотите попасть не позволяет телепортироваться.",
-  "item.darkQuartz.name": "Закоптившийся кварц",
+  "item.darkQuartzItem.name": "Закоптившийся кварц",
   "item.connector.name": "Трансвекторный соединитель",
-  "item.gaseousLight.name": "Светящийся газ",
-  "item.gaseousShadow.name": "Газ темноты",
+  "item.gaseousLightItem.name": "Светящийся газ",
+  "item.gaseousShadowItem.name": "Газ темноты",
   "item.gasRemover.name": "Рассеиватель газа",
   "item.spellCloth.name": "Ткань поглощения заклинаний",
   "item.focusFlight.name": "Набалдашник: Подъём",
@@ -164,7 +164,7 @@
   "tile.aspectAnalyzer.name": "Аспектализатор",
   "tile.platform.name": "Эфирная платформа",
   "tile.spawner.name": "Пьедестал некроманта",
-  "tile.portal.name": "Админиум-портал",
+  "tile.bedrockPortal.name": "Админиум-портал",
   "tile.Levitational Locomotive.name": "Левитатор",
   "tile.Levitational Locomotive Relay.name": "Стрелка левитатора",
   "tile.golemConnector.name": "Голем-соединитель",
@@ -707,5 +707,6 @@
   "wand.thaumaturgetinker.cap.ichor": "Ихориевым",
   "wand.thaumaturgetinker.rod.ichorcloth": "Ихорного серебряного дерева",
   "pack.thaumaturgetinker.classic_1_7_10.title": "Thaumic Tinkerer 1.7.10 (Классика)",
-  "pack.thaumaturgetinker.classic_1_7_10.description": "Оригинальные текстуры и модели из Thaumic Tinkerer 1.7.10"
+  "pack.thaumaturgetinker.classic_1_7_10.description": "Оригинальные текстуры и модели из Thaumic Tinkerer 1.7.10",
+  "ttmisc.kami.locked": "Требуется завершить все базовые исследования Thaumaturge и Thaumaturge Tinker."
 }

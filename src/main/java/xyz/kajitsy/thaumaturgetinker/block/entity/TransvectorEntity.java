@@ -63,8 +63,15 @@ public final class TransvectorEntity extends BlockEntity implements MovableTile,
         setChanged();
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         level.invalidateCapabilities(worldPosition);
+        level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
         com.leclowndu93150.thaumaturge.content.essentia.tube.BlockEssentiaTransport.refreshConnectionsAround(level, worldPosition);
         return true;
+    }
+
+    public BlockPos resolveTarget() {
+        if (resolving || level == null || target == null || !inRange(target) || !level.isLoaded(target)) return null;
+        if (level.getBlockState(target).isAir() || level.getBlockEntity(target) instanceof TransvectorEntity) return null;
+        return target;
     }
 
     public <T, C> T forward(BlockCapability<T, C> capability, C context) {

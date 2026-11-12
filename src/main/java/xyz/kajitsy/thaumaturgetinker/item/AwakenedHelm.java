@@ -58,7 +58,6 @@ public final class AwakenedHelm extends AwakenedArmorItem {
             }
             if (player.isEyeInFluidType(NeoForgeMod.LAVA_TYPE.value())) {
                 player.setAirSupply(300);
-                refresh(player, MobEffects.BLINDNESS);
             }
         } else {
             var old = player.getEffect(MobEffects.NIGHT_VISION);

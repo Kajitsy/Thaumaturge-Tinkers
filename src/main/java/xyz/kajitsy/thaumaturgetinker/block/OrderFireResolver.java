@@ -41,11 +41,9 @@ public final class OrderFireResolver {
   if(excluded(state)||drops.isEmpty())return null;
   var first=drops.getFirst();
   if(first.isEmpty()||drops.stream().anyMatch(s->!ItemStack.isSameItem(first,s)))return null;
-  // Before raw ores existed, vanilla iron/gold ore dropped the ore block itself.
+  // Before raw ores existed, vanilla ores dropped the ore block itself (or smeltable item).
   // Preserve that source conversion instead of inventing a raw-metal-block result.
-  var input=first.copy();
-  if(state.is(Blocks.IRON_ORE)&&input.is(Items.RAW_IRON))input=new ItemStack(Items.IRON_ORE);
-  if(state.is(Blocks.GOLD_ORE)&&input.is(Items.RAW_GOLD))input=new ItemStack(Items.GOLD_ORE);
+  var input=normalizeRawOreInput(state,first);
   var output=craftNine(level,input);
   if(output.isEmpty()){
    var single=new SingleRecipeInput(input);
@@ -53,6 +51,12 @@ public final class OrderFireResolver {
    output=smelt.map(r->craftNine(level,r.value().assemble(single))).orElse(ItemStack.EMPTY);
   }
   return output.getItem() instanceof BlockItem block?block.getBlock().defaultBlockState():null;
+ }
+ public static ItemStack normalizeRawOreInput(BlockState state,ItemStack drop){
+  if((state.is(Blocks.IRON_ORE)||state.is(Blocks.DEEPSLATE_IRON_ORE))&&drop.is(Items.RAW_IRON))return new ItemStack(Items.IRON_ORE);
+  if((state.is(Blocks.GOLD_ORE)||state.is(Blocks.DEEPSLATE_GOLD_ORE))&&drop.is(Items.RAW_GOLD))return new ItemStack(Items.GOLD_ORE);
+  if((state.is(Blocks.COPPER_ORE)||state.is(Blocks.DEEPSLATE_COPPER_ORE))&&drop.is(Items.RAW_COPPER))return new ItemStack(Items.COPPER_ORE);
+  return drop.copy();
  }
  public static ItemStack craftNine(ServerLevel level,ItemStack stack){
   if(stack.isEmpty())return ItemStack.EMPTY;

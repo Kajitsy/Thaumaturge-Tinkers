@@ -44,8 +44,8 @@ public final class ShadowbeamFocus extends TinkererFocus {
     }
 
     @Override
-    public int[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
-        return new int[0];
+    public boolean allowsPotency() {
+        return true;
     }
 
     @Override
@@ -59,13 +59,14 @@ public final class ShadowbeamFocus extends TinkererFocus {
         if (level.getRandom().nextInt(10) == 0) {
             level.playSound(null, player.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 0.5f, 1.0f);
         }
+        float damage = ShadowbeamTrace.damageForPotency(potencyLevel(resolveFocus(wand)));
         var start = ShadowbeamTrace.start(player.getX(), player.getY(), player.getZ(), player.getEyeHeight(), player.getYRot(), player.getXRot());
         if (FMLEnvironment.getDist().isClient()) {
             var points = new ArrayList<Vec3>();
-            ShadowbeamTrace.run(level, player, start, points::add);
+            ShadowbeamTrace.run(level, player, start, points::add, damage);
             SPARKLE_EMITTER.accept(level.dimension(), points);
         } else {
-            ShadowbeamTrace.run(level, player, start);
+            ShadowbeamTrace.run(level, player, start, null, damage);
         }
     }
 }

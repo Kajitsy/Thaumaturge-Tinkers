@@ -35,16 +35,21 @@ public final class TelekinesisFocus extends TinkererFocus {
     }
 
     @Override
-    public int[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
-        return new int[0];
+    public boolean allowsPotency() {
+        return true;
+    }
+
+    public static int telekinesisRange(int potency) {
+        return 6 + Math.max(0, potency);
     }
 
     @Override
     public void onUsingFocusTick(ItemStack wand, Player player, int count) {
         if (player.level().isClientSide()) return;
+        int range = telekinesisRange(potencyLevel(resolveFocus(wand)));
         var target = player.position().add(0, player.getBbHeight() / 2 + 0.5, 0);
-        if (!player.isShiftKeyDown()) target = target.add(player.getLookAngle().scale(5));
-        var items = player.level().getEntitiesOfClass(ItemEntity.class, new AABB(target.subtract(6, 6, 6), target.add(6, 6, 6)), ItemEntity::isAlive);
+        if (!player.isShiftKeyDown()) target = target.add(player.getLookAngle().scale(range - 1));
+        var items = player.level().getEntitiesOfClass(ItemEntity.class, new AABB(target.subtract(range, range, range), target.add(range, range, range)), ItemEntity::isAlive);
         if (items.isEmpty() || !consumeVis(wand, player)) return;
         for (var item : items) {
             var delta = target.subtract(item.position().add(0, item.getBbHeight() / 2, 0));

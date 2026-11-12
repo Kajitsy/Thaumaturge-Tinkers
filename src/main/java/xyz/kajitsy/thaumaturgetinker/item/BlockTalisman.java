@@ -244,19 +244,23 @@ public final class BlockTalisman extends Item {
         var inv = p.getInventory();
         int highest = -1;
         boolean free = false;
-        for (int i = 0; i < 36; i++) {
+        int[] searchSlots = new int[37];
+        for (int i = 0; i < 36; i++) searchSlots[i] = i;
+        searchSlots[36] = net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND;
+        for (int i : searchSlots) {
             var stack = inv.getItem(i);
             if (stack.isEmpty()) {
-                free = true;
+                if (i < 36) free = true;
                 continue;
             }
-            if (stack.is(boundItem) && (highest == -1 || highest > 8 && stack.getCount() > inv.getItem(highest).getCount())) {
+            if (stack.is(boundItem) && (highest == -1 || (highest > 8 && highest != net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND) && stack.getCount() > inv.getItem(highest).getCount())) {
                 highest = i;
             }
         }
         if (highest == -1) {
             var held = p.getMainHandItem();
-            if (free && (held.isEmpty() || held.is(boundItem))) {
+            var offhand = p.getOffhandItem();
+            if (free && (held.isEmpty() || held.is(boundItem) || offhand.is(boundItem))) {
                 int amount = Math.min(64, count(s));
                 if (amount > 0) {
                     var stack = new ItemStack(boundItem, amount);
@@ -266,7 +270,7 @@ public final class BlockTalisman extends Item {
             }
         } else {
             long stored = count(s);
-            for (int i = 0; i < 36; i++) {
+            for (int i : searchSlots) {
                 var stack = inv.getItem(i);
                 if (i == highest || !stack.is(boundItem)) continue;
                 if (stored + stack.getCount() > Integer.MAX_VALUE) continue;

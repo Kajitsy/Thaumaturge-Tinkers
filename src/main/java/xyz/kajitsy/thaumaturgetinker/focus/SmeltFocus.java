@@ -51,6 +51,15 @@ public final class SmeltFocus extends TinkererFocus {
     }
 
     @Override
+    public boolean allowsPotency() {
+        return true;
+    }
+
+    public static int smeltDurationTicks(int potency) {
+        return Math.max(5, 20 - Math.min(3, Math.max(0, potency)) * 5);
+    }
+
+    @Override
     public void onPlayerStoppedUsing(ItemStack wand, Level level, LivingEntity entity, int timeLeft) {
         progress.remove(entity.getUUID());
     }
@@ -91,7 +100,8 @@ public final class SmeltFocus extends TinkererFocus {
             return false;
         }
         var old = progress.get(player.getUUID());
-        int ticks = 20;
+        if (old == null && !hasVis(wand, player)) return false;
+        int ticks = smeltDurationTicks(potencyLevel(resolveFocus(wand)));
         if (old != null && old.dimension() == level.dimension() && old.pos().equals(pos) && old.input() == state) {
             ticks = old.ticks() - 1;
         }

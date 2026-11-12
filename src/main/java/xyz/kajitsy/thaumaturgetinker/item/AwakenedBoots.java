@@ -50,14 +50,14 @@ public final class AwakenedBoots extends AwakenedArmorItem {
             if (step != null) {
                 if (active) {
                     STEPS.putIfAbsent(p, step.getBaseValue());
-                    step.setBaseValue(p.isShiftKeyDown() ? 0.5 : 1.0);
+                    step.setBaseValue(p.isShiftKeyDown() ? STEPS.getOrDefault(p, 0.6) : 1.0);
                 } else if (STEPS.containsKey(p)) {
                     step.setBaseValue(STEPS.remove(p));
                 }
             }
         }
         if (!active) return;
-        p.addEffect(new MobEffectInstance(MobEffects.HASTE, 2, 1, true, true));
+        p.addEffect(new MobEffectInstance(MobEffects.HASTE, 2, 1, true, false));
         if ((p.onGround() || p.getAbilities().flying) && p.zza > 0) {
             p.moveRelative(p.getAbilities().flying ? 0.075f : 0.15f, new Vec3(0, 0, 1));
         }

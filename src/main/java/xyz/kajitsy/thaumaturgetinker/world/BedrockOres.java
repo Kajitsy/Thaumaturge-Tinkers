@@ -36,11 +36,35 @@ public enum BedrockOres {
  SULFUR("oreSulfur","sulfur",105),
  TIN("oreTin","tin",507),
  URANIUM("oreUranium","uranium",112),
- VINETUM("oreVinteum","vinteum",392);
+ VINETUM("oreVinteum","vinteum",392),
+ QUARTZ("oreQuartz","quartz",160);
  public record Entry(BedrockOres kind, Block block) {}
  final String legacy,path;final int weight;
  BedrockOres(String legacy,String path,int weight){this.legacy=legacy;this.path=path;this.weight=weight;}
- public static List<Entry> entries(Set<String> blacklist){var result=new ArrayList<Entry>();for(var kind:values()){if(blacklist.contains(kind.legacy))continue;var tag=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,net.minecraft.resources.Identifier.fromNamespaceAndPath("c","ores/"+kind.path));var it=net.minecraft.core.registries.BuiltInRegistries.ITEM.getTagOrEmpty(tag).iterator();if(!it.hasNext())continue;var first=it.next().value();if(first instanceof BlockItem block)result.add(new Entry(kind,block.getBlock()));}return List.copyOf(result);}
+ public static Block resolveFallback(BedrockOres kind){
+  var holder=switch(kind){
+   case AMBER -> com.leclowndu93150.thaumaturge.registry.TTBlocks.ORE_AMBER;
+   case CINNABAR -> com.leclowndu93150.thaumaturge.registry.TTBlocks.ORE_CINNABAR;
+   case QUARTZ -> com.leclowndu93150.thaumaturge.registry.TTBlocks.ORE_QUARTZ;
+   case AIR -> com.leclowndu93150.thaumaturge.registry.TTBlocks.CRYSTAL_AER;
+   case EARTH -> com.leclowndu93150.thaumaturge.registry.TTBlocks.CRYSTAL_TERRA;
+   case ENTROPY -> com.leclowndu93150.thaumaturge.registry.TTBlocks.CRYSTAL_PERDITIO;
+   case FIRE -> com.leclowndu93150.thaumaturge.registry.TTBlocks.CRYSTAL_IGNIS;
+   case ORDER -> com.leclowndu93150.thaumaturge.registry.TTBlocks.CRYSTAL_ORDO;
+   case WATER -> com.leclowndu93150.thaumaturge.registry.TTBlocks.CRYSTAL_AQUA;
+   default -> null;
+  };
+  return holder!=null&&holder.isBound()?holder.get():null;
+ }
+ private static Block firstFromTag(String namespace,String path){
+  var tag=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM,net.minecraft.resources.Identifier.fromNamespaceAndPath(namespace,"ores/"+path));
+  var it=net.minecraft.core.registries.BuiltInRegistries.ITEM.getTagOrEmpty(tag).iterator();
+  while(it.hasNext()){
+   if(it.next().value() instanceof BlockItem block)return block.getBlock();
+  }
+  return null;
+ }
+ public static List<Entry> entries(Set<String> blacklist){var result=new ArrayList<Entry>();for(var kind:values()){if(blacklist.contains(kind.legacy))continue;Block resolved=firstFromTag("c",kind.path);if(resolved==null)resolved=firstFromTag("thaumaturge",kind.path);if(resolved==null)resolved=resolveFallback(kind);if(resolved!=null)result.add(new Entry(kind,resolved));}return List.copyOf(result);}
  public static int sum(List<Entry> entries){return entries.stream().mapToInt(e->e.kind().weight).sum();}
  public static Block choose(Random random,List<Entry> entries){int total=sum(entries);if(total<=0)return Blocks.GOLD_ORE;int value=random.nextInt(total);for(var entry:entries)if((value-=entry.kind().weight)<0)return entry.block();return Blocks.GOLD_ORE;}
 }

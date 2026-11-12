@@ -66,11 +66,19 @@ public final class ShadowbeamTrace {
         return iteration > 2;
     }
 
+    public static float damageForPotency(int potency) {
+        return 8f + Math.max(0, potency);
+    }
+
     public static Result run(ServerLevel level, Player shooter, Start start) {
-        return run(level, shooter, start, null);
+        return run(level, shooter, start, null, 8f);
     }
 
     public static Result run(ServerLevel level, Player shooter, Start start, Consumer<Vec3> sparkle) {
+        return run(level, shooter, start, sparkle, 8f);
+    }
+
+    public static Result run(ServerLevel level, Player shooter, Start start, Consumer<Vec3> sparkle, float damage) {
         Vec3 position = start.position(), velocity = start.velocity();
         int blockHits = 0, entityHits = 0;
         for (int step = 0; step < STEPS; step++) {
@@ -94,7 +102,7 @@ public final class ShadowbeamTrace {
             if (target != null) {
                 entityHits++;
                 if (target != shooter && (!(target instanceof Player) || level.isPvpAllowed())) {
-                    target.hurtServer(level, level.damageSources().playerAttack(shooter), 8);
+                    target.hurtServer(level, level.damageSources().playerAttack(shooter), damage);
                 }
             } else if (blocked && !level.getBlockState(block.getBlockPos()).is(Blocks.NETHER_PORTAL)) {
                 blockHits++;

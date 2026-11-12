@@ -37,13 +37,22 @@ public final class HealFocus extends TinkererFocus {
     }
 
     @Override
+    public boolean allowsPotency() {
+        return true;
+    }
+
+    public static int healIntervalTicks(int potency) {
+        return Math.max(5, 30 - Math.max(0, potency) * 10 / 3);
+    }
+
+    @Override
     public void onPlayerStoppedUsing(ItemStack wand, Level level, LivingEntity entity, int timeLeft) {
         progress.remove(entity.getUUID());
     }
 
     @Override
     public void onUsingFocusTick(ItemStack wand, Player player, int count) {
-        if (player.level().isClientSide() || !player.isAlive() || !player.isHurt()) return;
+        if (player.level().isClientSide() || !player.isAlive() || !player.isHurt() || !hasVis(wand, player)) return;
         int ticks = progress.getOrDefault(player.getUUID(), 0) + 1;
         progress.put(player.getUUID(), ticks);
         if (player.level() instanceof ServerLevel server) {
@@ -51,7 +60,8 @@ public final class HealFocus extends TinkererFocus {
             double x = player.getX() + r.nextFloat() - 0.5, y = player.getY() + r.nextFloat(), z = player.getZ() + r.nextFloat() - 0.5;
             server.sendParticles(ParticleTypes.HEART, x, y, z, 1, 0, 0, 0, 0);
         }
-        if (ticks >= 30) {
+        int requiredTicks = healIntervalTicks(potencyLevel(resolveFocus(wand)));
+        if (ticks >= requiredTicks) {
             progress.remove(player.getUUID());
             if (consumeVis(wand, player)) {
                 player.heal(1);
