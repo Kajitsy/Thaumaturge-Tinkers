@@ -4,7 +4,7 @@ license="MIT"
 issueTrackerURL="https://github.com/Kajitsy/Thaumaturge-Tinkers/issues"
 [[mods]]
 modId="thaumaturgetinker"
-version="1.0.2"
+version="1.1.0"
 displayName="Thaumaturge Tinker"
 modUrl="https://www.curseforge.com/minecraft/mc-mods/thaumaturge-tinker"
 logoFile="logo.png"
