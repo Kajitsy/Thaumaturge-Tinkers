@@ -152,7 +152,7 @@ public final class WarpGateDestinations extends Screen {
         float gr = ((rgb >> 8) & 0xFF) / 255.0f;
         float b = (rgb & 0xFF) / 255.0f;
         g.setColor(r, gr, b, 1.0f);
-        g.blit(ResourceLocation.withDefaultNamespace("textures/entity/end_portal/end_portal.png"), 0, 0, 0, 0, width, height, 256, 256);
+        g.blit(ResourceLocation.withDefaultNamespace("textures/entity/end_portal.png"), 0, 0, 0, 0, width, height, 256, 256);
         g.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         int gx = (int) (gate.getBlockPos().getX() - originX), gz = (int) (gate.getBlockPos().getZ() - originZ);
