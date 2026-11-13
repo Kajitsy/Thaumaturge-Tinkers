@@ -22,6 +22,7 @@ public class IchorShield extends ShieldItem {
 
     protected IchorShield(String name, float blockDelaySeconds, float disableCooldownScale, float blockingAngle) {
         super(KamiTools.properties(name)
+                .stacksTo(1)
                 .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
                 .equippableUnswappable(EquipmentSlot.OFFHAND)
                 .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(

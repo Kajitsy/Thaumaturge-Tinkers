@@ -4,12 +4,17 @@ import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 
 
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
+import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
+import com.leclowndu93150.thaumaturge.content.casters.CasterManager;
+import com.leclowndu93150.thaumaturge.content.misc.TTActionBar;
 import com.leclowndu93150.thaumaturge.content.wands.ItemWand;
+import com.leclowndu93150.thaumaturge.content.wands.WandEconomy;
 import com.leclowndu93150.thaumaturge.content.wands.WandVisHelper;
 import com.leclowndu93150.thaumaturge.api.spell.Spell;
 import com.leclowndu93150.thaumaturge.registry.TTDataComponents;
 import java.util.Map;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -173,18 +178,67 @@ public abstract class TinkererFocus extends Item {
         }
     }
 
-    public boolean hasVis(ItemStack wand, Player player) {
+    public static float auraCostVis(ItemStack wand, Player player, Map<ResourceKey<IAspect>, Integer> cost) {
+        if (cost.isEmpty()) return 0.0F;
+        double totalVis = 0.0;
+        boolean hasWand = wand.getItem() instanceof ItemWand;
+        float playerDiscount = player == null ? 0.0F : CasterManager.visDiscountOf(player);
+        for (var entry : cost.entrySet()) {
+            int centivis = entry.getValue();
+            if (centivis <= 0) continue;
+            float modifier = hasWand
+                    ? WandVisHelper.costFactor(wand, player, entry.getKey(), false)
+                    : Math.max(WandEconomy.MIN_CONSUMPTION_MODIFIER, 1.0F - playerDiscount);
+            totalVis += (centivis * modifier) / WandEconomy.CENTIVIS_PER_VIS;
+        }
+        return (float) totalVis;
+    }
+
+    public static float auraCostVis(Map<ResourceKey<IAspect>, Integer> cost, float costFactor) {
+        if (cost.isEmpty()) return 0.0F;
+        double totalVis = 0.0;
+        float clamped = Math.max(WandEconomy.MIN_CONSUMPTION_MODIFIER, costFactor);
+        for (int centivis : cost.values()) {
+            if (centivis > 0) {
+                totalVis += (centivis * clamped) / WandEconomy.CENTIVIS_PER_VIS;
+            }
+        }
+        return (float) totalVis;
+    }
+
+    private static boolean hasAura(Player player, float needed, boolean notify) {
+        if (needed <= 0.0F) return true;
+        if (player.level().isClientSide()) return !notify;
+        boolean preserved = AuraHelper.shouldPreserveAura(player.level(), player, player.blockPosition());
+        float available = AuraHelper.drainVis(player.level(), player.blockPosition(), needed, true);
+        if (!preserved && available >= needed - 1.0E-4F) {
+            return true;
+        }
+        if (notify && player instanceof ServerPlayer serverPlayer && (!player.isUsingItem() || serverPlayer.tickCount % 20 == 0)) {
+            TTActionBar.sendPurple(serverPlayer, "message.thaumaturge.wand.no_aura");
+        }
+        return false;
+    }
+
+    public boolean hasVisCost(ItemStack wand, Player player, Map<ResourceKey<IAspect>, Integer> cost) {
         if (player.isCreative()) return true;
-        if (!(wand.getItem() instanceof ItemWand)) return true;
-        var cost = effectiveVisCost(wand);
-        return cost.isEmpty() || WandVisHelper.payCosts(wand, player, cost, false, false);
+        float needed = auraCostVis(wand, player, cost);
+        return hasAura(player, needed, false);
+    }
+
+    public boolean consumeVisCost(ItemStack wand, Player player, Map<ResourceKey<IAspect>, Integer> cost) {
+        if (player.isCreative()) return true;
+        float needed = auraCostVis(wand, player, cost);
+        if (!hasAura(player, needed, true)) return false;
+        return needed <= 0.0F || AuraHelper.drainVis(player.level(), player.blockPosition(), needed, false) >= needed - 1.0E-4F;
+    }
+
+    public boolean hasVis(ItemStack wand, Player player) {
+        return hasVisCost(wand, player, effectiveVisCost(wand));
     }
 
     public boolean consumeVis(ItemStack wand, Player player) {
-        if (player.isCreative()) return true;
-        if (!(wand.getItem() instanceof ItemWand)) return true;
-        var cost = effectiveVisCost(wand);
-        return cost.isEmpty() || WandVisHelper.payCosts(wand, player, cost, true, false);
+        return consumeVisCost(wand, player, effectiveVisCost(wand));
     }
 
     @SubscribeEvent

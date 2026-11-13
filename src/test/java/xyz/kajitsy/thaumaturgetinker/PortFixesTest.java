@@ -338,4 +338,74 @@ class PortFixesTest {
         assertTrue(AwakenedHelm.NIGHT_VISION_DURATION > 200);
         assertTrue(AwakenedHelm.NIGHT_VISION_REFRESH_THRESHOLD > 200);
     }
+
+    @Test
+    void ichorShieldsAreNonStackable() throws Exception {
+        assertEquals(1, builtMaxStackSize(xyz.kajitsy.thaumaturgetinker.item.KamiTools.SHIELD.getKey()));
+        assertEquals(1, builtMaxStackSize(xyz.kajitsy.thaumaturgetinker.item.AwakenedShield.ITEM.getKey()));
+    }
+
+    @SuppressWarnings("unchecked")
+    private static int builtMaxStackSize(net.minecraft.resources.ResourceKey<net.minecraft.world.item.Item> key) throws Exception {
+        var field = net.minecraft.core.component.DataComponentInitializers.class.getDeclaredField("initializers");
+        field.setAccessible(true);
+        var entries = (List<?>) field.get(net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_INITIALIZERS);
+        var keyMethod = entries.getFirst().getClass().getDeclaredMethod("key");
+        var initMethod = entries.getFirst().getClass().getDeclaredMethod("initializer");
+        keyMethod.setAccessible(true);
+        initMethod.setAccessible(true);
+        for (Object entry : entries) {
+            if (key.equals(keyMethod.invoke(entry))) {
+                var builder = DataComponentMap.builder();
+                var init = (net.minecraft.core.component.DataComponentInitializers.Initializer<net.minecraft.world.item.Item>) initMethod.invoke(entry);
+                try {
+                    init.run(builder, net.minecraft.core.RegistryAccess.EMPTY, key);
+                } catch (IllegalStateException ignored) {
+                    // Delayed components (e.g. BLOCKS_ATTACKS) require full world tag lookups after MAX_STACK_SIZE is set.
+                }
+                return builder.build().getOrDefault(DataComponents.MAX_STACK_SIZE, 64);
+            }
+        }
+        throw new AssertionError("Missing DataComponentInitializer for " + key);
+    }
+
+    @Test
+    void smeltFocusHandlesBothBlockAndItemSmeltOutputs() {
+        assertTrue(xyz.kajitsy.thaumaturgetinker.focus.SmeltFocus.isInPlaceBlockResult(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.STONE)));
+        assertFalse(xyz.kajitsy.thaumaturgetinker.focus.SmeltFocus.isInPlaceBlockResult(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.IRON_INGOT)));
+        assertFalse(xyz.kajitsy.thaumaturgetinker.focus.SmeltFocus.isInPlaceBlockResult(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.CHEST)));
+    }
+
+    @Test
+    void tinkererFocusAuraCostScalesAndClampsCleanly() {
+        var cost = Map.of(
+                com.leclowndu93150.thaumaturge.api.aspect.TTAspects.IGNIS, 45,
+                com.leclowndu93150.thaumaturge.api.aspect.TTAspects.PERDITIO, 12);
+        assertEquals(0.57F, xyz.kajitsy.thaumaturgetinker.focus.TinkererFocus.auraCostVis(cost, 1.0F), 1.0E-5F);
+        assertEquals(0.285F, xyz.kajitsy.thaumaturgetinker.focus.TinkererFocus.auraCostVis(cost, 0.5F), 1.0E-5F);
+        assertEquals(0.057F, xyz.kajitsy.thaumaturgetinker.focus.TinkererFocus.auraCostVis(cost, 0.01F), 1.0E-5F);
+    }
+
+    @Test
+    void focusTexturesAreSymmetricallyCentered() throws Exception {
+        for (String name : List.of(
+                "focusdeflect", "focusdislocation", "focusenderchest", "focusflight",
+                "focusheal", "focusrecall", "focusshadowbeam", "focussmelt",
+                "focustelekinesis", "focusxpdrain")) {
+            var img = javax.imageio.ImageIO.read(getClass().getResourceAsStream("/assets/thaumaturgetinker/textures/items/" + name + ".png"));
+            int minX = img.getWidth(), maxX = -1, minY = img.getHeight(), maxY = -1;
+            for (int y = 0; y < img.getHeight(); y++) {
+                for (int x = 0; x < img.getWidth(); x++) {
+                    if ((img.getRGB(x, y) >>> 24) > 0) {
+                        minX = Math.min(minX, x);
+                        maxX = Math.max(maxX, x);
+                        minY = Math.min(minY, y);
+                        maxY = Math.max(maxY, y);
+                    }
+                }
+            }
+            assertEquals(minX, img.getWidth() - 1 - maxX, name + " horizontal centering");
+            assertEquals(minY, img.getHeight() - 1 - maxY, name + " vertical centering");
+        }
+    }
 }

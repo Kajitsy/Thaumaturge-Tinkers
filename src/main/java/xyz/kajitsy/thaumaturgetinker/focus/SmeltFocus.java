@@ -21,6 +21,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
@@ -59,6 +60,10 @@ public final class SmeltFocus extends TinkererFocus {
         return Math.max(5, 20 - Math.min(3, Math.max(0, potency)) * 5);
     }
 
+    public static boolean isInPlaceBlockResult(ItemStack result) {
+        return result.getItem() instanceof BlockItem block && !block.getBlock().defaultBlockState().hasBlockEntity();
+    }
+
     @Override
     public void onPlayerStoppedUsing(ItemStack wand, Level level, LivingEntity entity, int timeLeft) {
         progress.remove(entity.getUUID());
@@ -83,6 +88,10 @@ public final class SmeltFocus extends TinkererFocus {
             return false;
         }
         var state = level.getBlockState(pos);
+        if (state.isAir() || state.getDestroySpeed(level, pos) < 0) {
+            progress.remove(player.getUUID());
+            return false;
+        }
         var input = new ItemStack(state.getBlock());
         if (input.isEmpty()) {
             progress.remove(player.getUUID());
@@ -95,7 +104,7 @@ public final class SmeltFocus extends TinkererFocus {
             else if (state.is(Blocks.RAW_GOLD_BLOCK)) result = new ItemStack(Items.GOLD_BLOCK);
             else if (state.is(Blocks.RAW_COPPER_BLOCK)) result = new ItemStack(Items.COPPER_BLOCK);
         }
-        if (!(result.getItem() instanceof BlockItem block) || block.getBlock().defaultBlockState().hasBlockEntity()) {
+        if (result.isEmpty()) {
             progress.remove(player.getUUID());
             return false;
         }
@@ -107,6 +116,9 @@ public final class SmeltFocus extends TinkererFocus {
         }
         if (ticks > 0) {
             progress.put(player.getUUID(), new Progress(level.dimension(), pos.immutable(), state, ticks));
+            if (ticks % 4 == 0) {
+                level.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.35, 0.35, 0.35, 0.01);
+            }
             return false;
         }
         progress.remove(player.getUUID());
@@ -114,7 +126,12 @@ public final class SmeltFocus extends TinkererFocus {
         NeoForge.EVENT_BUS.post(event);
         if (event.isCanceled()) return false;
         if (!consumeVis(wand, player)) return false;
-        level.setBlock(pos, block.getBlock().defaultBlockState(), 3);
+        if (isInPlaceBlockResult(result)) {
+            level.setBlock(pos, ((BlockItem) result.getItem()).getBlock().defaultBlockState(), 3);
+        } else {
+            level.destroyBlock(pos, false, player);
+            Block.popResource(level, pos, result.copy());
+        }
         level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.6f, 1);
         level.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 25, 0.3, 0.3, 0.3, 0.02);
         return true;

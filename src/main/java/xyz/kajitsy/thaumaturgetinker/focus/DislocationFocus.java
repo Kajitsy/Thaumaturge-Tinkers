@@ -3,7 +3,6 @@ package xyz.kajitsy.thaumaturgetinker.focus;
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.content.wands.ItemWand;
-import com.leclowndu93150.thaumaturge.content.wands.WandVisHelper;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -137,9 +136,7 @@ public final class DislocationFocus extends TinkererFocus {
             NeoForge.EVENT_BUS.post(event);
             if (event.isCanceled()) return false;
             var usage = TinkererFocus.applyFrugal(cost(level.getBlockEntity(target)), TinkererFocus.hasFrugal(focus));
-            if (!player.isCreative() && wand.getItem() instanceof ItemWand) {
-                if (!WandVisHelper.payCosts(wand, player, usage, true, false)) return false;
-            }
+            if (!consumeVisCost(wand, player, usage)) return false;
             if (!DislocationStorage.pickup(level, target, data)) return false;
         }
         focus.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
