@@ -80,7 +80,7 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
         }
         if (rows == 0) return List.of();
         return List.of(
-            new Rect2i(leftPos + imageWidth, topPos - 4, 52, rows * 26 + 4),
+            new Rect2i(leftPos + imageWidth, topPos - 4, 56, rows * 26 + 4),
             new Rect2i(leftPos + 55, topPos - 33, 90, 59)
         );
     }

@@ -54,6 +54,9 @@ prism {
                 compileOnly("mezz.jei:jei-$minecraftVersion-common-api:${prop("jei_version")}")
                 compileOnly("mezz.jei:jei-$minecraftVersion-neoforge-api:${prop("jei_version")}")
 
+                compileOnly("dev.architectury:architectury-neoforge:${prop("architectury_version")}")
+                compileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${prop("rei_version")}")
+
                 compileOnly("maven.modrinth:jade:${prop("jade_version")}")
                 runtimeOnly("maven.modrinth:jade:${prop("jade_version")}")
             }
