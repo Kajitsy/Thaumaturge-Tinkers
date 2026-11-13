@@ -136,10 +136,8 @@ public final class DislocationFocus extends TinkererFocus {
             var event = new net.neoforged.neoforge.event.level.BlockEvent.BreakEvent(level, target, level.getBlockState(target), player);
             NeoForge.EVENT_BUS.post(event);
             if (event.isCanceled()) return false;
-            var usage = cost(level.getBlockEntity(target));
-            if (!player.isCreative() && wand.getItem() instanceof ItemWand) {
-                if (!WandVisHelper.payCosts(wand, player, usage, true, false)) return false;
-            }
+            var usage = TinkererFocus.applyFrugal(cost(level.getBlockEntity(target)), TinkererFocus.hasFrugal(focus));
+            if (!consumeVisCost(wand, player, usage)) return false;
             if (!DislocationStorage.pickup(level, target, data)) return false;
         }
         focus.set(DataComponents.CUSTOM_DATA, CustomData.of(data));

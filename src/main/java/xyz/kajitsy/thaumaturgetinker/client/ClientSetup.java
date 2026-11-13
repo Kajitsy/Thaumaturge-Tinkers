@@ -28,10 +28,12 @@ import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolMining;
 import xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedAxe;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedPick;
+import xyz.kajitsy.thaumaturgetinker.item.AwakenedShield;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedShovel;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedSword;
 import xyz.kajitsy.thaumaturgetinker.item.BlockTalisman;
 import xyz.kajitsy.thaumaturgetinker.item.IchorPouch;
+import xyz.kajitsy.thaumaturgetinker.item.KamiTools;
 import xyz.kajitsy.thaumaturgetinker.item.SkyPearl;
 import xyz.kajitsy.thaumaturgetinker.item.StorageTooltip;
 import xyz.kajitsy.thaumaturgetinker.menu.IchorPouchMenu;
@@ -146,6 +148,12 @@ public final class ClientSetup {
                 ItemProperties.register(AwakenedShovel.ITEM.get(), toolModeId, ToolModeProperty.INSTANCE);
                 ItemProperties.register(AwakenedAxe.ITEM.get(), toolModeId, ToolModeProperty.INSTANCE);
                 ItemProperties.register(AwakenedSword.ITEM.get(), toolModeId, ToolModeProperty.INSTANCE);
+                ItemProperties.register(AwakenedShield.ITEM.get(), toolModeId, ToolModeProperty.INSTANCE);
+                var blockingId = ResourceLocation.withDefaultNamespace("blocking");
+                net.minecraft.client.renderer.item.ClampedItemPropertyFunction blockingFn = (stack, level, entity, seed) ->
+                        entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
+                ItemProperties.register(KamiTools.SHIELD.get(), blockingId, blockingFn);
+                ItemProperties.register(AwakenedShield.ITEM.get(), blockingId, blockingFn);
             }
         });
     }

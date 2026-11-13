@@ -35,7 +35,8 @@
         "thaumaturgetinker:ichor_pick",
         "thaumaturgetinker:ichor_shovel",
         "thaumaturgetinker:ichor_axe",
-        "thaumaturgetinker:ichor_sword"
+        "thaumaturgetinker:ichor_sword",
+        "thaumaturgetinker:ichor_shield"
       ],
       "obtain": [
         {

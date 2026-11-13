@@ -48,4 +48,5 @@ public final class KamiTools {
     });
 
     public static final DeferredItem<IchorSword> SWORD = KamiRegistries.ITEMS.register("ichor_sword", () -> new IchorSword("ichor_sword"));
+    public static final DeferredItem<IchorShield> SHIELD = KamiRegistries.ITEMS.register("ichor_shield", () -> new IchorShield());
 }

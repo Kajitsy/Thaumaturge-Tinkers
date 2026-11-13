@@ -319,6 +319,12 @@ public final class ThaumicTinkererModern {
         SERIALIZERS.register(bus);
         OrderFireResolver.register();
         InfusedCropLoot.register();
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(xyz.kajitsy.thaumaturgetinker.focus.TinkererFocus::onSpellInscribe);
+        bus.addListener((net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent e) -> e.enqueueWork(() ->
+                com.leclowndu93150.thaumaturge.api.research.ResearchUnlockConditions.register(
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(ID, "ichor"),
+                        ThaumicTinkererModern::hasAllBaseResearchForKami,
+                        Component.translatable("ttmisc.kami.locked"))));
 
         bus.addListener((net.neoforged.neoforge.data.event.GatherDataEvent e) -> {
             var builder = new net.minecraft.core.RegistrySetBuilder()
@@ -374,6 +380,42 @@ public final class ThaumicTinkererModern {
             e.registerBlockEntity(EssentiaCapabilities.STORAGE, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(EssentiaCapabilities.STORAGE, side));
             e.registerBlockEntity(EssentiaCapabilities.ASPECT_QUERY, TRANSVECTOR_ENTITY.get(), (tile, side) -> tile.forward(EssentiaCapabilities.ASPECT_QUERY, side));
         });
+    }
+
+    private static final java.util.Set<String> KAMI_RESEARCH_IDS = java.util.Set.of(
+            "ichor", "dimension_shards", "ichor_cloth", "ichorium",
+            "cap_ichor", "rod_ichorcloth", "ichor_tools", "ichor_pouch",
+            "ichorcloth_armor",
+            "ichor_pick_gem", "ichor_axe_gem", "ichor_shovel_gem", "ichor_sword_gem",
+            "ichor_shield_gem",
+            "ichorcloth_helm_gem", "ichorcloth_chest_gem", "ichorcloth_legs_gem", "ichorcloth_boots_gem",
+            "cat_amulet", "focus_shadowbeam", "focus_xp_drain", "protoclay",
+            "block_talisman", "placement_mirror", "warp_gate", "focus_recall"
+    );
+
+    public static boolean requiresEntryForKami(net.minecraft.resources.ResourceLocation id, boolean hasParents, boolean autoUnlock) {
+        String ns = id.getNamespace();
+        if (!"thaumaturge".equals(ns) && !"thaumaturgetinker".equals(ns)) return false;
+        String path = id.getPath();
+        if ("thaumaturgetinker".equals(ns) && KAMI_RESEARCH_IDS.contains(path)) return false;
+        if (autoUnlock || !hasParents) return false;
+        return !path.startsWith("scanned/") && !path.startsWith("crafted/");
+    }
+
+    private static boolean hasAllBaseResearchForKami(
+            net.minecraft.world.entity.player.Player player,
+            com.leclowndu93150.thaumaturge.api.capability.IPlayerKnowledge knowledge) {
+        if (player == null) return false;
+        var entries = player.level().registryAccess().lookupOrThrow(com.leclowndu93150.thaumaturge.api.research.IResearchEntry.REGISTRY_KEY);
+        for (var holder : entries.listElements().toList()) {
+            var id = holder.key().location();
+            var entry = holder.value();
+            if (requiresEntryForKami(id, !entry.parents().isEmpty(), entry.hasMeta(com.leclowndu93150.thaumaturge.api.research.ResearchEntryMeta.AUTOUNLOCK))
+                    && !knowledge.isResearchComplete(id)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static Stream<DeferredHolder<Item, ? extends Item>> itemEntries() {

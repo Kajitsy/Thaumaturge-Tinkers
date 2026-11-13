@@ -71,10 +71,6 @@ public final class CleansingTalismanItem extends Item {
                 if (key != null && key.location().getPath().equals("warp_ward")) continue;
                 entity.removeEffect(effect.getEffect());
                 removed = true;
-                if (key != null && key.location().getNamespace().equals("thaumaturge")
-                        && List.of("blurred_vision", "death_gaze", "infectious_vis_exhaust", "sun_scorned", "unnatural_hunger").contains(key.location().getPath())) {
-                    cost = 10;
-                }
                 break;
             }
         }

@@ -40,10 +40,19 @@ public final class FlightFocus extends TinkererFocus {
     }
 
     @Override
+    public boolean allowsPotency() {
+        return true;
+    }
+
+    public static double flightForce(int potency) {
+        return (1.0 / 1.5) * (1.0 + 0.2 * Math.max(0, potency));
+    }
+
+    @Override
     public InteractionResult onCast(ItemStack wand, Level level, Player player, InteractionHand hand) {
         if (!TinkererConfig.flightEnabled()) return InteractionResult.PASS;
         if (!level.isClientSide() && consumeVis(wand, player)) {
-            double force = 1.0 / 1.5;
+            double force = flightForce(potencyLevel(resolveFocus(wand)));
             player.setDeltaMovement(player.getLookAngle().scale(force));
             player.fallDistance = 0;
             player.hurtMarked = true;

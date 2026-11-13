@@ -47,7 +47,11 @@ public final class XPDrainFocus extends TinkererFocus {
 
     @Override
     public int[] getPossibleUpgradesByRank(ItemStack focus, int rank) {
-        return new int[0];
+        return new int[]{2};
+    }
+
+    public static int xpUse(ItemStack focus) {
+        return hasFrugal(focus) ? Math.max(1, (int) ((15 * 7L + 5L) / 10L)) : 15;
     }
 
     @Override
@@ -68,8 +72,9 @@ public final class XPDrainFocus extends TinkererFocus {
                 selected = aspect;
             }
         }
-        if (selected != null && player.totalExperience >= 15) {
-            player.giveExperiencePoints(-15);
+        int xpCost = xpUse(resolveFocus(wand));
+        if (selected != null && player.totalExperience >= xpCost) {
+            player.giveExperiencePoints(-xpCost);
             WandVisHelper.addRealVis(wand, selected, 500, true);
         }
     }
@@ -77,6 +82,6 @@ public final class XPDrainFocus extends TinkererFocus {
     @Override
     public void appendHoverText(ItemStack focus, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag flag) {
         super.appendHoverText(focus, context, tooltipComponents, flag);
-        tooltipComponents.add(Component.translatable("ttmisc.experience").append(" x 15").withStyle(ChatFormatting.GREEN));
+        tooltipComponents.add(Component.translatable("ttmisc.experience").append(" x " + xpUse(focus)).withStyle(ChatFormatting.GREEN));
     }
 }

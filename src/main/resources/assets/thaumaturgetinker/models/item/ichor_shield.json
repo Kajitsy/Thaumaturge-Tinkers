@@ -1,0 +1,10 @@
+{
+  "parent": "thaumaturgetinker:item/ichor_shield_base",
+  "textures": {
+    "shield": "thaumaturgetinker:items/ichorshield",
+    "particle": "thaumaturgetinker:items/ichorshield"
+  },
+  "overrides": [
+    { "predicate": { "blocking": 1 }, "model": "thaumaturgetinker:item/ichor_shield_blocking" }
+  ]
+}

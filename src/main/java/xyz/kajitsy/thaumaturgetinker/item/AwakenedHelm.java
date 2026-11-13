@@ -58,7 +58,6 @@ public final class AwakenedHelm extends AwakenedArmorItem {
             }
             if (player.isEyeInFluidType(NeoForgeMod.LAVA_TYPE.value())) {
                 player.setAirSupply(300);
-                refresh(player, MobEffects.BLINDNESS);
             }
         } else {
             var old = player.getEffect(MobEffects.NIGHT_VISION);
@@ -75,9 +74,15 @@ public final class AwakenedHelm extends AwakenedArmorItem {
         }
     }
 
+    public static final int NIGHT_VISION_DURATION = 300;
+    public static final int NIGHT_VISION_REFRESH_THRESHOLD = 240;
+
     private static void refresh(Player player, Holder<MobEffect> effect) {
         var old = player.getEffect(effect);
-        player.addEffect(new MobEffectInstance(effect, 202, old != null && old.getDuration() <= 202 ? old.getAmplifier() : 0, true, false));
+        if (old == null || old.getDuration() <= NIGHT_VISION_REFRESH_THRESHOLD) {
+            int amplifier = old != null && old.getDuration() <= NIGHT_VISION_DURATION ? old.getAmplifier() : 0;
+            player.addEffect(new MobEffectInstance(effect, NIGHT_VISION_DURATION, amplifier, true, false));
+        }
     }
 
     @SubscribeEvent

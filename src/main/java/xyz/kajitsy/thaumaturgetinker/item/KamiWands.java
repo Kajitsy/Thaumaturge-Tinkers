@@ -13,7 +13,7 @@ public final class KamiWands {
     public static final DeferredRegister<WandRod> RODS = DeferredRegister.create(WandRod.REGISTRY_KEY, "thaumaturgetinker");
 
     public static final DeferredHolder<WandCap, WandCap> CAP_ICHOR = CAPS.register("ichor", () ->
-        new WandCap(0.7F, List.of(), 0.0F, 10, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/model/capichor.png"))
+        new WandCap(0.8F, List.of(), 0.0F, 10, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "textures/model/capichor.png"))
     );
 
     public static final DeferredHolder<WandRod, WandRod> ROD_ICHORCLOTH = RODS.register("ichorcloth", () ->

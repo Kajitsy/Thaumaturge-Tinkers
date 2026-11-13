@@ -1,0 +1,83 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": {
+    "item": "thaumaturgetinker:ichor_shield"
+  },
+  "components": [
+    {
+      "item": "thaumaturgetinker:ichorium"
+    },
+    {
+      "item": "thaumaturgetinker:ichor"
+    },
+    {
+      "item": "thaumaturge:mirror_shield"
+    },
+    {
+      "item": "thaumaturge:void_shield"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    },
+    {
+      "item": "thaumaturge:focus_1"
+    },
+    {
+      "item": "thaumaturgetinker:ichor_cloth"
+    },
+    {
+      "item": "thaumaturge:nugget_thaumium"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 96
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:vitreus",
+      "amount": 16
+    }
+  ],
+  "instability": 15,
+  "result": {
+    "id": "thaumaturgetinker:ichor_shield_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_shield_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}
