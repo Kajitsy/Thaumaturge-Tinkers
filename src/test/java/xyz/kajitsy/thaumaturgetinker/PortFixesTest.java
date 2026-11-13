@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFireKind;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedFireTransformations;
 import xyz.kajitsy.thaumaturgetinker.block.OrderFireResolver;
-import xyz.kajitsy.thaumaturgetinker.client.TooltipIndicators;
 import xyz.kajitsy.thaumaturgetinker.enchantment.StrikeEnchantments;
+import xyz.kajitsy.thaumaturgetinker.item.AwakenedHelm;
 import xyz.kajitsy.thaumaturgetinker.focus.FlightFocus;
 import xyz.kajitsy.thaumaturgetinker.focus.HealFocus;
 import xyz.kajitsy.thaumaturgetinker.focus.RecallFocus;
@@ -271,6 +271,9 @@ class PortFixesTest {
         assertTrue(ru.has("item.gaseousShadowItem.name"));
         assertTrue(ru.has("tile.bedrockPortal.name"));
         assertTrue(ru.has("ttmisc.kami.locked"));
+        assertTrue(ru.has("tooltip.thaumaturge.spell.vis_cost"));
+        assertTrue(ru.has("spell.thaumaturge.amplify.name"));
+        assertTrue(ru.has("spell.thaumaturge.efficient.name"));
 
         var bedrockDim = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(
                 getClass().getResourceAsStream("/data/thaumaturgetinker/dimension_type/bedrock.json"))).getAsJsonObject();
@@ -283,67 +286,8 @@ class PortFixesTest {
     }
 
     @Test
-    void tooltipIndicatorsRespectConfigAndNamespace() {
-        assertTrue(TinkererConfig.tooltipIndicators());
-
-        var ttLines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
-        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, false);
-        assertTrue(ttLines.isEmpty());
-
-        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, true);
-        assertEquals(1, ttLines.size());
-        assertEquals("[TT]", ttLines.getFirst().getString());
-        assertEquals(
-                net.minecraft.network.chat.TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.DARK_GRAY),
-                ttLines.getFirst().getStyle().getColor());
-
-        // Idempotent if called again on the same tooltip list
-        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "dark_quartz"), ttLines, true);
-        assertEquals(1, ttLines.size());
-
-        // Null elements inside tooltip list and unmodifiable lists do not throw
-        var withNull = new java.util.ArrayList<net.minecraft.network.chat.Component>();
-        withNull.add(null);
-        TooltipIndicators.append(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor"), withNull, true);
-        assertEquals(2, withNull.size());
-        assertEquals("[TT]", withNull.getLast().getString());
-        assertDoesNotThrow(() -> TooltipIndicators.append(
-                Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor"),
-                List.of(),
-                true));
-
-        // Loaded ModConfigSpec toggles TinkererConfig.tooltipIndicators() at runtime
-        try {
-            var config = com.electronwill.nightconfig.core.CommentedConfig.inMemory();
-            TinkererConfig.SPEC.correct(config);
-            config.set("tooltipIndicators.enabled", false);
-            var ctor = Class.forName("net.neoforged.fml.config.LoadedConfig")
-                    .getDeclaredConstructor(com.electronwill.nightconfig.core.CommentedConfig.class,
-                            java.nio.file.Path.class,
-                            net.neoforged.fml.config.ModConfig.class);
-            ctor.setAccessible(true);
-            var loaded = (net.neoforged.fml.config.IConfigSpec.ILoadedConfig) ctor.newInstance(config, null, null);
-            TinkererConfig.SPEC.acceptConfig(loaded);
-            assertTrue(TinkererConfig.SPEC.isLoaded());
-            assertFalse(TinkererConfig.tooltipIndicators());
-
-            config.set("tooltipIndicators.enabled", true);
-            TinkererConfig.SPEC.afterReload();
-            assertTrue(TinkererConfig.tooltipIndicators());
-        } catch (ReflectiveOperationException e) {
-            fail(e);
-        } finally {
-            TinkererConfig.SPEC.acceptConfig(null);
-        }
-
-        // Non-TT items, empty stacks, and null inputs are ignored
-        var otherLines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
-        TooltipIndicators.append(Identifier.fromNamespaceAndPath("thaumaturge", "thaumonomicon"), otherLines, true);
-        TooltipIndicators.append(new ItemStack(Items.STICK), otherLines);
-        TooltipIndicators.append(ItemStack.EMPTY, otherLines, true);
-        TooltipIndicators.append((ItemStack) null, otherLines, true);
-        TooltipIndicators.append((Identifier) null, otherLines, true);
-        TooltipIndicators.append(new ItemStack(Items.STICK), null, true);
-        assertTrue(otherLines.isEmpty());
+    void awakenedHelmNightVisionStaysAboveFlickerThreshold() {
+        assertTrue(AwakenedHelm.NIGHT_VISION_DURATION > 200);
+        assertTrue(AwakenedHelm.NIGHT_VISION_REFRESH_THRESHOLD > 200);
     }
 }

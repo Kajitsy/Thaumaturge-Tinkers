@@ -708,5 +708,8 @@
   "wand.thaumaturgetinker.rod.ichorcloth": "Ихорного серебряного дерева",
   "pack.thaumaturgetinker.classic_1_7_10.title": "Thaumic Tinkerer 1.7.10 (Классика)",
   "pack.thaumaturgetinker.classic_1_7_10.description": "Оригинальные текстуры и модели из Thaumic Tinkerer 1.7.10",
-  "ttmisc.kami.locked": "Требуется завершить все базовые исследования Thaumaturge и Thaumaturge Tinker."
+  "ttmisc.kami.locked": "Требуется завершить все базовые исследования Thaumaturge и Thaumaturge Tinker.",
+  "tooltip.thaumaturge.spell.vis_cost": "%s вис за применение",
+  "spell.thaumaturge.amplify.name": "Усиление",
+  "spell.thaumaturge.efficient.name": "Бережливость"
 }

@@ -68,7 +68,6 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import org.apache.commons.lang3.math.Fraction;
 
 @EventBusSubscriber(modid = ThaumicTinkererModern.ID, value = Dist.CLIENT)
@@ -292,11 +291,6 @@ public final class ClientSetup {
                 }
             }
         });
-    }
-
-    @SubscribeEvent
-    public static void itemTooltip(ItemTooltipEvent event) {
-        TooltipIndicators.append(event.getItemStack(), event.getToolTip());
     }
 
     private record OutlineTarget(BlockPos pos, VoxelShape shape) {}

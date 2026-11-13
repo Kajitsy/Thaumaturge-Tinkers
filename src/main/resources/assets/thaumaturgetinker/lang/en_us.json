@@ -708,5 +708,8 @@
   "wand.thaumaturgetinker.rod.ichorcloth": "Ichorcloth Strapped Silverwood",
   "pack.thaumaturgetinker.classic_1_7_10.title": "Thaumic Tinkerer 1.7.10 Classic",
   "pack.thaumaturgetinker.classic_1_7_10.description": "Original textures and models from Thaumic Tinkerer 1.7.10",
-  "ttmisc.kami.locked": "Requires completion of all Thaumaturge and Thaumaturge Tinker research."
+  "ttmisc.kami.locked": "Requires completion of all Thaumaturge and Thaumaturge Tinker research.",
+  "tooltip.thaumaturge.spell.vis_cost": "%s vis per cast",
+  "spell.thaumaturge.amplify.name": "Amplify",
+  "spell.thaumaturge.efficient.name": "Efficient"
 }
