@@ -1,0 +1,41 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturge:void_shield",
+  "components": [
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichor_cloth",
+    "thaumaturge:wand_rod_silverwood"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 16
+    }
+  ],
+  "instability": 8,
+  "result": {
+    "id": "thaumaturgetinker:ichor_shield",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_tools"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

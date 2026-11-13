@@ -16,6 +16,8 @@
     "CasterManagerMixin",
     "CasterManagerPouchStoreMixin",
     "ItemWandMixin",
+    "MenuFocalManipulatorFocusSlotMixin",
+    "BlockEntityFocalManipulatorFocusSlotMixin",
     "BaseFireBlockMixin"
   ],
   "injectors": {

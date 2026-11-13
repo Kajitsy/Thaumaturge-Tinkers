@@ -1,6 +1,8 @@
 {
   "values": [
     "thaumaturge:thaumium_shield",
-    "thaumaturge:void_shield"
+    "thaumaturge:void_shield",
+    "thaumaturgetinker:ichor_shield",
+    "thaumaturgetinker:ichor_shield_gem"
   ]
 }

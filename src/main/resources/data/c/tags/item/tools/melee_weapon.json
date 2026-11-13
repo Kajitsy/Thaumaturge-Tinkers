@@ -9,6 +9,8 @@
     "thaumaturge:elemental_axe",
     "thaumaturge:thaumium_spear",
     "thaumaturge:void_spear",
-    "thaumaturge:elemental_spear"
+    "thaumaturge:elemental_spear",
+    "thaumaturgetinker:ichor_spear",
+    "thaumaturgetinker:ichor_spear_gem"
   ]
 }

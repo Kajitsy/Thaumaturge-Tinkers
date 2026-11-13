@@ -1,0 +1,57 @@
+{
+  "type": "thaumaturge:infusion",
+  "catalyst": "thaumaturgetinker:ichor_spear",
+  "components": [
+    "thaumaturgetinker:ichorium",
+    "thaumaturgetinker:ichor",
+    "thaumaturge:elemental_spear",
+    "thaumaturge:elemental_spear",
+    "thaumaturge:focus_1",
+    "thaumaturge:focus_1",
+    "minecraft:cactus",
+    "thaumaturge:nugget_thaumium",
+    "minecraft:gold_nugget",
+    "minecraft:iron_nugget",
+    "minecraft:diamond",
+    "thaumaturgetinker:ichor_cloth"
+  ],
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:aversio",
+      "amount": 96
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 32
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 16
+    },
+    {
+      "aspect": "thaumaturge:vitreus",
+      "amount": 16
+    }
+  ],
+  "instability": 15,
+  "result": {
+    "id": "thaumaturgetinker:ichor_spear_gem",
+    "count": 1
+  },
+  "research": {
+    "entry": "thaumaturgetinker:ichor_spear_gem"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "thaumaturgetinker:kami_enabled"
+    }
+  ]
+}

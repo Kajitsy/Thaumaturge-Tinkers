@@ -20,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 
 public final class TinkererCreativeTab {
     private static final List<String> ORDER = List.of(
-        "ichor_pick_gem", "ichor_shovel_gem", "ichor_axe_gem", "ichor_sword_gem",
-        "ichor_pick", "ichor_shovel", "ichor_axe", "ichor_sword",
+        "ichor_pick_gem", "ichor_shovel_gem", "ichor_axe_gem", "ichor_sword_gem", "ichor_spear_gem", "ichor_shield_gem",
+        "ichor_pick", "ichor_shovel", "ichor_axe", "ichor_sword", "ichor_spear", "ichor_shield",
         "blood_sword", "placement_mirror", "connector", "protoclay",
         "ichorcloth_helm_gem", "ichorcloth_chest_gem", "ichorcloth_legs_gem", "ichorcloth_boots_gem",
         "ichorcloth_helm", "ichorcloth_chest", "ichorcloth_legs", "ichorcloth_boots",

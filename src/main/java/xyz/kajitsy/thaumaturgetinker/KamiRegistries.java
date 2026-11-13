@@ -16,7 +16,9 @@ import xyz.kajitsy.thaumaturgetinker.item.AwakenedChest;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedHelm;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedLegs;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedPick;
+import xyz.kajitsy.thaumaturgetinker.item.AwakenedShield;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedShovel;
+import xyz.kajitsy.thaumaturgetinker.item.AwakenedSpear;
 import xyz.kajitsy.thaumaturgetinker.item.AwakenedSword;
 import xyz.kajitsy.thaumaturgetinker.item.BlockTalisman;
 import xyz.kajitsy.thaumaturgetinker.item.CatAmulet;
@@ -46,8 +48,9 @@ public final class KamiRegistries {
                 WarpGateBlock.BLOCK, WarpGateMenu.TYPE, SkyPearl.ITEM, ShadowbeamFocus.ITEM,
                 RecallFocus.ITEM, XPDrainFocus.ITEM, PlacementMirror.ITEM, BlockTalisman.ITEM,
                 CatAmulet.ITEM, IchorPouch.ITEM, IchorPouchMenu.TYPE, BedrockPortal.BLOCK,
-                KamiResources.ITEMS, KamiTools.PICK, AwakenedPick.ITEM, AwakenedShovel.ITEM,
-                AwakenedAxe.ITEM, AwakenedSword.ITEM, Protoclay.ITEM, KamiArmor.ITEMS,
+                KamiResources.ITEMS, KamiTools.PICK, KamiTools.SPEAR, KamiTools.SHIELD,
+                AwakenedPick.ITEM, AwakenedShovel.ITEM, AwakenedAxe.ITEM, AwakenedSword.ITEM,
+                AwakenedSpear.ITEM, AwakenedShield.ITEM, Protoclay.ITEM, KamiArmor.ITEMS,
                 AwakenedHelm.ITEM, AwakenedChest.ITEM, AwakenedLegs.ITEM, AwakenedBoots.ITEM
         );
         ITEMS.register(bus);

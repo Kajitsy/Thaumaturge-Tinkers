@@ -143,6 +143,54 @@ class PortFixesTest {
     }
 
     @Test
+    void tinkererFociBlockedInFocalManipulator() {
+        var foci = BuiltInRegistries.ITEM.stream()
+                .filter(xyz.kajitsy.thaumaturgetinker.focus.TinkererFocus.class::isInstance)
+                .toList();
+        assertFalse(foci.isEmpty(), "Expected TinkererFocus items in registry");
+        var spell = Spell.empty().withRoot(SpellNode.of(Spell.ORIGIN).then(SpellNode.of(TTSpellParts.EFFICIENT)));
+        for (var item : foci) {
+            var focus = new ItemStack(item);
+            assertFalse(TinkererFocus.canEditInFocalManipulator(focus));
+            var focusEvent = new com.leclowndu93150.thaumaturge.api.spell.event.SpellInscribeEvent(null, BlockPos.ZERO, focus, spell, null);
+            TinkererFocus.onSpellInscribe(focusEvent);
+            assertTrue(focusEvent.isCanceled());
+        }
+
+        var other = new ItemStack(Items.STICK);
+        assertTrue(TinkererFocus.canEditInFocalManipulator(other));
+        var otherEvent = new com.leclowndu93150.thaumaturge.api.spell.event.SpellInscribeEvent(null, BlockPos.ZERO, other, spell, null);
+        TinkererFocus.onSpellInscribe(otherEvent);
+        assertFalse(otherEvent.isCanceled());
+    }
+
+    @Test
+    void ichorSpearsAndShieldsAreRegisteredWithExpectedTypesAndModes() {
+        var spear = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor_spear"));
+        var awakenedSpear = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor_spear_gem"));
+        var shield = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor_shield"));
+        var awakenedShield = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "ichor_shield_gem"));
+
+        var spearImpl = assertInstanceOf(xyz.kajitsy.thaumaturgetinker.item.IchorSpear.class, spear);
+        var awakenedSpearImpl = assertInstanceOf(xyz.kajitsy.thaumaturgetinker.item.AwakenedSpear.class, awakenedSpear);
+        var shieldImpl = assertInstanceOf(xyz.kajitsy.thaumaturgetinker.item.IchorShield.class, shield);
+        var awakenedShieldImpl = assertInstanceOf(xyz.kajitsy.thaumaturgetinker.item.AwakenedShield.class, awakenedShield);
+
+        assertTrue(spearImpl.isFoil(new ItemStack(spear)));
+        assertTrue(awakenedSpearImpl.isFoil(new ItemStack(awakenedSpear)));
+        assertTrue(shieldImpl.isFoil(new ItemStack(shield)));
+        assertTrue(awakenedShieldImpl.isFoil(new ItemStack(awakenedShield)));
+        assertEquals("spear", awakenedSpearImpl.toolType());
+        assertEquals("shield", awakenedShieldImpl.toolType());
+
+        var stack = new ItemStack(awakenedSpear);
+        assertEquals(0, xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes.get(stack));
+        assertEquals(1, xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes.change(stack));
+        assertEquals(2, xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes.change(stack));
+        assertEquals(0, xyz.kajitsy.thaumaturgetinker.item.AdvancedToolModes.change(stack));
+    }
+
+    @Test
     void strikeEnchantmentsAccumulateAndUseFloatDivision() {
         // Successive hits with Focused Strike must scale beyond 1
         float hit0 = StrikeEnchantments.strikeDamage(10f, 1, 0, 0);

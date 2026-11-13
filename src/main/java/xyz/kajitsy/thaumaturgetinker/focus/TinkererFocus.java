@@ -122,13 +122,13 @@ public abstract class TinkererFocus extends Item {
                 || (allowsPotency && com.leclowndu93150.thaumaturge.api.spell.TTSpellParts.AMPLIFY.equals(part));
     }
 
+    public static boolean canEditInFocalManipulator(ItemStack stack) {
+        return !(stack.getItem() instanceof TinkererFocus);
+    }
+
     public static void onSpellInscribe(com.leclowndu93150.thaumaturge.api.spell.event.SpellInscribeEvent event) {
-        if (!(event.focus().getItem() instanceof TinkererFocus focus)) return;
-        for (var node : event.spell().nodes()) {
-            if (!isAllowedSpellPart(focus.allowsPotency(), node.part())) {
-                event.setCanceled(true);
-                return;
-            }
+        if (!canEditInFocalManipulator(event.focus())) {
+            event.setCanceled(true);
         }
     }
 
