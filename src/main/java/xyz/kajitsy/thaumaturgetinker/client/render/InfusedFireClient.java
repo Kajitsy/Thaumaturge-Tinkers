@@ -5,8 +5,8 @@ import java.util.EnumMap;
 import java.util.Map;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
@@ -31,7 +31,7 @@ public final class InfusedFireClient {
     private static final Map<InfusedFireKind, SpriteId> LAYER_1 = new EnumMap<>(InfusedFireKind.class);
 
     static {
-        Identifier atlas = ModelBakery.FIRE_0.atlasLocation();
+        Identifier atlas = TextureAtlas.LOCATION_BLOCKS;
         for (InfusedFireKind kind : InfusedFireKind.values()) {
             String prefix = kind.texturePrefix();
             LAYER_0.put(kind, new SpriteId(atlas, Identifier.fromNamespaceAndPath(ThaumicTinkererModern.ID, "blocks/" + prefix + "_layer_0")));

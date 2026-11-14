@@ -8,9 +8,11 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
@@ -91,10 +93,15 @@ public final class AwakenedShield extends IchorShield implements AdvancedTool {
             return;
         }
         DamageSource source = event.getDamageSource();
-        if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+        if (source.is(DamageTypeTags.IS_PROJECTILE) || source.is(DamageTypeTags.IS_EXPLOSION) || source.is(DamageTypes.THORNS)) {
             return;
         }
-        if (source.getDirectEntity() instanceof LivingEntity attacker && blocker.level() instanceof ServerLevel level) {
+        if (source.getDirectEntity() instanceof LivingEntity attacker
+                && attacker != blocker
+                && attacker.isAlive()
+                && !attacker.isDeadOrDying()
+                && attacker.getPose() != Pose.DYING
+                && blocker.level() instanceof ServerLevel level) {
             attacker.knockback(1.5, blocker.getX() - attacker.getX(), blocker.getZ() - attacker.getZ());
             attacker.hurtMarked = true;
             attacker.hurtServer(level, blocker.damageSources().thorns(blocker), 4.0F);

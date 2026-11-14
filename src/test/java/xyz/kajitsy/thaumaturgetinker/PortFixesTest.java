@@ -408,4 +408,31 @@ class PortFixesTest {
             assertEquals(minY, img.getHeight() - 1 - maxY, name + " vertical centering");
         }
     }
+
+    @Test
+    void awakenedBootsSkipsExplosionAndThornsReflectionAndInfusedFireUsesBlocksAtlas() throws Exception {
+        var explosionHolder = net.minecraft.core.Holder.Reference.createStandAlone(
+                new net.minecraft.core.HolderOwner<net.minecraft.world.damagesource.DamageType>() {},
+                net.minecraft.world.damagesource.DamageTypes.EXPLOSION);
+        var thornsHolder = net.minecraft.core.Holder.Reference.createStandAlone(
+                new net.minecraft.core.HolderOwner<net.minecraft.world.damagesource.DamageType>() {},
+                net.minecraft.world.damagesource.DamageTypes.THORNS);
+        var mobAttackHolder = net.minecraft.core.Holder.Reference.createStandAlone(
+                new net.minecraft.core.HolderOwner<net.minecraft.world.damagesource.DamageType>() {},
+                net.minecraft.world.damagesource.DamageTypes.MOB_ATTACK);
+
+        var bindTags = net.minecraft.core.Holder.Reference.class.getDeclaredMethod("bindTags", java.util.Collection.class);
+        bindTags.setAccessible(true);
+        bindTags.invoke(explosionHolder, List.of(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION));
+        bindTags.invoke(thornsHolder, List.<net.minecraft.tags.TagKey<net.minecraft.world.damagesource.DamageType>>of());
+        bindTags.invoke(mobAttackHolder, List.<net.minecraft.tags.TagKey<net.minecraft.world.damagesource.DamageType>>of());
+
+        assertFalse(xyz.kajitsy.thaumaturgetinker.item.AwakenedBoots.canReflectDamage(new net.minecraft.world.damagesource.DamageSource(explosionHolder)));
+        assertFalse(xyz.kajitsy.thaumaturgetinker.item.AwakenedBoots.canReflectDamage(new net.minecraft.world.damagesource.DamageSource(thornsHolder)));
+        assertTrue(xyz.kajitsy.thaumaturgetinker.item.AwakenedBoots.canReflectDamage(new net.minecraft.world.damagesource.DamageSource(mobAttackHolder)));
+
+        assertEquals(
+                net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS,
+                xyz.kajitsy.thaumaturgetinker.client.render.InfusedFireClient.layer0(InfusedFireKind.FIRE).atlasLocation());
+    }
 }

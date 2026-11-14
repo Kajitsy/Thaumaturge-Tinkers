@@ -7,9 +7,13 @@ import xyz.kajitsy.thaumaturgetinker.network.AwakenedArmorStatus;
 import java.util.Map;
 import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.equipment.ArmorType;
@@ -89,16 +93,25 @@ public final class AwakenedBoots extends AwakenedArmorItem {
         }
     }
 
+    public static boolean canReflectDamage(DamageSource source) {
+        return !source.is(DamageTypes.THORNS) && !source.is(DamageTypeTags.IS_EXPLOSION);
+    }
+
     @SubscribeEvent
     public static void onDamagePost(net.neoforged.neoforge.event.entity.living.LivingDamageEvent.Post event) {
         if (!(event.getEntity() instanceof Player player) || player.level().isClientSide() || !active(player)) {
             return;
         }
         var source = event.getSource();
-        if (source.is(net.minecraft.world.damagesource.DamageTypes.THORNS)) {
+        if (!canReflectDamage(source)) {
             return;
         }
-        if (source.getEntity() instanceof net.minecraft.world.entity.LivingEntity attacker && attacker != player && attacker.isAlive() && player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+        if (source.getEntity() instanceof net.minecraft.world.entity.LivingEntity attacker
+                && attacker != player
+                && attacker.isAlive()
+                && !attacker.isDeadOrDying()
+                && attacker.getPose() != Pose.DYING
+                && player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
             float reflected = Math.max(1.0f, event.getOriginalDamage());
             attacker.hurtServer(serverLevel, player.damageSources().thorns(player), reflected);
         }
