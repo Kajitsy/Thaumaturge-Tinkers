@@ -28,11 +28,10 @@ public final class AdvancedToolMining {
 
     /** Legacy material.isToolNotRequired plus each tool's material family. */
     public static boolean material(BlockState state, String type) {
-        if (!state.requiresCorrectToolForDrops()) return true;
         return switch (type) {
-            case "pick" -> state.is(BlockTags.MINEABLE_WITH_PICKAXE);
-            case "shovel" -> state.is(BlockTags.MINEABLE_WITH_SHOVEL);
-            case "axe" -> state.is(BlockTags.MINEABLE_WITH_AXE);
+            case "pick" -> !state.requiresCorrectToolForDrops() || state.is(BlockTags.MINEABLE_WITH_PICKAXE);
+            case "shovel" -> !state.requiresCorrectToolForDrops() || state.is(BlockTags.MINEABLE_WITH_SHOVEL);
+            case "axe" -> !state.requiresCorrectToolForDrops() || state.is(BlockTags.MINEABLE_WITH_AXE);
             default -> false;
         };
     }

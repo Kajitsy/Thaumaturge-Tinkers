@@ -435,4 +435,15 @@ class PortFixesTest {
                 net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS,
                 xyz.kajitsy.thaumaturgetinker.client.render.InfusedFireClient.layer0(InfusedFireKind.FIRE).atlasLocation());
     }
+
+    @Test
+    void nonMiningAdvancedToolsDoNotMatchBlocksForMultiOutline() {
+        var dirt = Blocks.DIRT.defaultBlockState();
+        for (String toolType : List.of("pick", "shovel", "axe")) {
+            assertTrue(xyz.kajitsy.thaumaturgetinker.item.AdvancedToolMining.material(dirt, toolType), toolType);
+        }
+        for (String nonMiningType : List.of("sword", "spear", "shield")) {
+            assertFalse(xyz.kajitsy.thaumaturgetinker.item.AdvancedToolMining.material(dirt, nonMiningType), nonMiningType);
+        }
+    }
 }
