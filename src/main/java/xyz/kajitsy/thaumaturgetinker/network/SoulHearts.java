@@ -47,11 +47,22 @@ public final class SoulHearts {
         }
     }
 
+    public record AbsorbResult(int remainingHearts, float remainingDamage) {}
+
+    public static AbsorbResult absorbAmount(int hearts, float amount) {
+        if (hearts <= 0 || amount <= 0.0f) return new AbsorbResult(Math.max(0, hearts), amount);
+        int absorbed = Math.min(hearts, (int) Math.ceil(amount));
+        return new AbsorbResult(hearts - absorbed, Math.max(0.0f, amount - absorbed));
+    }
+
     public static float absorb(Player player, float amount) {
         if (!KamiStartupConfig.enabled() || amount <= 0) return amount;
-        int result = remove(player, (int) amount);
+        int hearts = get(player);
+        if (hearts <= 0) return amount;
+        AbsorbResult result = absorbAmount(hearts, amount);
+        set(player, result.remainingHearts());
         sync(player);
-        return result;
+        return result.remainingDamage();
     }
 
     @net.neoforged.bus.api.SubscribeEvent
