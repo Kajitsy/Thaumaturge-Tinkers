@@ -303,7 +303,44 @@ class PortFixesTest {
         assertEquals(Blocks.GOLD_ORE, BedrockOres.choose(new Random(0), List.of()));
         var onlyIron = List.of(new BedrockOres.Entry(BedrockOres.IRON, Blocks.IRON_ORE));
         assertEquals(Blocks.IRON_ORE, BedrockOres.choose(new Random(42), onlyIron));
-        assertTrue(BedrockOres.entries(Set.of("oreFirestone")).stream().noneMatch(e -> e.block() == null));
+        var resolved = BedrockOres.entries(Set.of("oreFirestone"));
+        assertTrue(resolved.stream().noneMatch(e -> e.block() == null));
+
+        var blocks = resolved.stream().map(BedrockOres.Entry::block).toList();
+        assertTrue(blocks.contains(Blocks.DEEPSLATE_IRON_ORE));
+        assertTrue(blocks.contains(Blocks.DEEPSLATE_GOLD_ORE));
+        assertTrue(blocks.contains(Blocks.DEEPSLATE_DIAMOND_ORE));
+        assertTrue(blocks.contains(Blocks.DEEPSLATE_COAL_ORE));
+        assertFalse(blocks.contains(Blocks.IRON_ORE));
+        assertFalse(blocks.contains(Blocks.GOLD_ORE));
+
+        assertEquals(Blocks.DEEPSLATE_IRON_ORE, BedrockOres.preferDeepslate(List.of(Blocks.IRON_ORE, Blocks.DEEPSLATE_IRON_ORE)));
+        assertEquals(Blocks.DEEPSLATE_COPPER_ORE, BedrockOres.preferDeepslate(List.of(Blocks.COPPER_ORE)));
+
+        // Modded ore tag discovery + deepslate preference + blacklist
+        var moddedTag = net.minecraft.tags.TagKey.create(
+                net.minecraft.core.registries.Registries.BLOCK,
+                Identifier.fromNamespaceAndPath("c", "ores/test_cobalt"));
+        var deepslateTag = net.neoforged.neoforge.common.Tags.Blocks.ORES_IN_GROUND_DEEPSLATE;
+        try {
+            BuiltInRegistries.BLOCK.prepareTagReload(new net.minecraft.tags.TagLoader.LoadResult<>(
+                    net.minecraft.core.registries.Registries.BLOCK,
+                    Map.of(
+                            moddedTag, List.of(Blocks.COBBLESTONE.builtInRegistryHolder(), Blocks.COBBLED_DEEPSLATE.builtInRegistryHolder()),
+                            deepslateTag, List.of(Blocks.COBBLED_DEEPSLATE.builtInRegistryHolder())
+                    ))).apply();
+            BedrockOres.clearCache();
+            var withModded = BedrockOres.entries(Set.of("oreFirestone")).stream().map(BedrockOres.Entry::block).toList();
+            assertTrue(withModded.contains(Blocks.COBBLED_DEEPSLATE), "Expected modded ore tag to be discovered");
+            assertFalse(withModded.contains(Blocks.COBBLESTONE), "Expected non-deepslate variant to be skipped");
+
+            var blacklisted = BedrockOres.entries(Set.of("test_cobalt")).stream().map(BedrockOres.Entry::block).toList();
+            assertFalse(blacklisted.contains(Blocks.COBBLED_DEEPSLATE));
+        } finally {
+            BuiltInRegistries.BLOCK.prepareTagReload(new net.minecraft.tags.TagLoader.LoadResult<>(
+                    net.minecraft.core.registries.Registries.BLOCK, Map.of())).apply();
+            BedrockOres.clearCache();
+        }
     }
 
     @Test
