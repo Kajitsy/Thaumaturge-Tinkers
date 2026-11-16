@@ -366,6 +366,8 @@ class PortFixesTest {
         assertEquals("overworld", bedrockDim.get("skybox").getAsString());
         assertEquals(1.0, bedrockDim.get("ambient_light").getAsDouble(), 0.001);
         var attrs = bedrockDim.getAsJsonObject("attributes");
+        assertEquals("#00000000", attrs.get("minecraft:visual/cloud_color").getAsString());
+        assertFalse(attrs.has("minecraft:visual/cloud_height"));
         assertEquals("#a080a0", attrs.get("minecraft:visual/fog_color").getAsString());
         assertEquals(1.0, attrs.get("minecraft:visual/sky_light_factor").getAsDouble(), 0.001);
     }
