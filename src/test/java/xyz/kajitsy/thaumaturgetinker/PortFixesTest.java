@@ -322,7 +322,7 @@ class PortFixesTest {
         var bedrockDim = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(
                 getClass().getResourceAsStream("/data/thaumaturgetinker/dimension_type/bedrock.json"))).getAsJsonObject();
         assertTrue(bedrockDim.get("has_skylight").getAsBoolean());
-        assertEquals("minecraft:overworld", bedrockDim.get("effects").getAsString());
+        assertEquals("thaumaturgetinker:bedrock", bedrockDim.get("effects").getAsString());
         assertEquals(1.0, bedrockDim.get("ambient_light").getAsDouble(), 0.001);
     }
 

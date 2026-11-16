@@ -108,6 +108,19 @@ public final class ClientSetup {
     }
 
     @SubscribeEvent
+    public static void dimensionEffects(net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent event) {
+        event.register(
+            ResourceLocation.fromNamespaceAndPath(ThaumicTinkererModern.ID, "bedrock"),
+            new net.minecraft.client.renderer.DimensionSpecialEffects.OverworldEffects() {
+                @Override
+                public float getCloudHeight() {
+                    return Float.NaN;
+                }
+            }
+        );
+    }
+
+    @SubscribeEvent
     public static void guiLayers(RegisterGuiLayersEvent event) {
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ResourceLocation.fromNamespaceAndPath("thaumaturgetinker", "advanced_tool_hud"), new AdvancedToolHud());
     }
