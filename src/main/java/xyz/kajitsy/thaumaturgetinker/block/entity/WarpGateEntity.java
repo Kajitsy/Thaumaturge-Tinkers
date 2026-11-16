@@ -58,7 +58,11 @@ public final class WarpGateEntity extends BlockEntity {
         if (level == null || level.isClientSide() || index < 0 || index >= 10 || lastTeleportTick == level.getGameTime()) return false;
         var pearl = inventory.getItem(index);
         if (pearl.isEmpty() || !SkyPearlData.attuned(pearl)) return false;
-        var targetLevel = SkyPearlData.targetLevel(player, pearl, true);
+        var targetLevel = SkyPearlData.targetLevel(player, pearl, false);
+        if (targetLevel == null) {
+            player.sendSystemMessage(Component.translatable("ttmisc.noDest"));
+            return false;
+        }
         if (!teleport(player, targetLevel, SkyPearlData.position(pearl))) return false;
         lastTeleportTick = level.getGameTime();
         return true;

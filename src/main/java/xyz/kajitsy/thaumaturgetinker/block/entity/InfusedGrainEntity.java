@@ -2,6 +2,8 @@ package xyz.kajitsy.thaumaturgetinker.block.entity;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.block.InfusedGrainBlock;
+import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropHarvest;
+import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropLoot;
 import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropProcess;
 import xyz.kajitsy.thaumaturgetinker.potion.InfusedSeedData;
 
@@ -14,6 +16,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,6 +62,23 @@ public final class InfusedGrainEntity extends BlockEntity {
             crop.data(transfer.recipient());
             tiles.get(transfer.neighbor()).data(transfer.donor());
         }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (level instanceof ServerLevel server && state.getBlock() instanceof InfusedGrainBlock) {
+            var soil = server.getBlockEntity(pos.below()) instanceof InfusedFarmlandEntity farmland ? farmland : null;
+            var loot = InfusedCropLoot.get(server);
+            var drops = InfusedCropHarvest.collect(server.registryAccess(), data(), state.getValue(CropBlock.AGE), soil == null ? null : soil.aspects(), server.getRandom(), a -> {
+                if (soil != null) soil.fertilize(a);
+            }, a -> loot.roll(a, server.getRandom()));
+            for (var stack : drops) {
+                var entity = new ItemEntity(server, pos.getX() + .15 + server.getRandom().nextFloat() * .7, pos.getY() + .15 + server.getRandom().nextFloat() * .7, pos.getZ() + .15 + server.getRandom().nextFloat() * .7, stack);
+                entity.setPickUpDelay(10);
+                server.addFreshEntity(entity);
+            }
+        }
+        super.preRemoveSideEffects(pos, state);
     }
 
     @Override

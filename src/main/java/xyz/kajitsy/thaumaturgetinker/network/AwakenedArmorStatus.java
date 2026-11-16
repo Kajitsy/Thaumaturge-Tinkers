@@ -5,22 +5,44 @@ import net.minecraft.world.entity.player.Player;
 @net.neoforged.fml.common.EventBusSubscriber(modid = "thaumaturgetinker")
 public final class AwakenedArmorStatus {
     public static boolean enabled(Player player) {
-        var tag = player.getPersistentData().getCompoundOrEmpty("ThaumicTinkerer");
+        var root = player.getPersistentData();
+        var persisted = root.getCompoundOrEmpty(Player.PERSISTED_NBT_TAG);
+        var tag = persisted.contains("ThaumicTinkerer")
+                ? persisted.getCompoundOrEmpty("ThaumicTinkerer")
+                : root.getCompoundOrEmpty("ThaumicTinkerer");
         return tag.getBooleanOr("GemArmor", true);
     }
 
     public static void set(Player player, boolean value) {
         var data = player.getPersistentData();
-        var tag = data.getCompoundOrEmpty("ThaumicTinkerer");
+        var persisted = data.getCompoundOrEmpty(Player.PERSISTED_NBT_TAG);
+        var tag = persisted.contains("ThaumicTinkerer")
+                ? persisted.getCompoundOrEmpty("ThaumicTinkerer")
+                : data.getCompoundOrEmpty("ThaumicTinkerer");
         tag.putBoolean("GemArmor", value);
-        data.put("ThaumicTinkerer", tag);
+        persisted.put("ThaumicTinkerer", tag);
+        data.put(Player.PERSISTED_NBT_TAG, persisted);
+    }
+
+    public static void sync(Player player) {
+        if (player instanceof net.minecraft.server.level.ServerPlayer server && !(server instanceof net.neoforged.neoforge.common.util.FakePlayer)) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(server, new Payload(enabled(server)));
+        }
     }
 
     @net.neoforged.bus.api.SubscribeEvent
     public static void login(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
-            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player, new Payload(enabled(player)));
-        }
+        sync(event.getEntity());
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void changedDimension(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerChangedDimensionEvent event) {
+        sync(event.getEntity());
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void respawn(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerRespawnEvent event) {
+        sync(event.getEntity());
     }
 
     public record Payload(boolean enabled) implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {

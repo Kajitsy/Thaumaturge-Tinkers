@@ -19,15 +19,28 @@ public final class SoulHearts {
         @Override public Type<Payload> type() { return TYPE; }
     }
 
+    private static net.minecraft.nbt.CompoundTag readTag(Player player) {
+        var root = player.getPersistentData();
+        var persisted = root.getCompoundOrEmpty(Player.PERSISTED_NBT_TAG);
+        if (persisted.contains("ThaumicTinkerer")) {
+            return persisted.getCompoundOrEmpty("ThaumicTinkerer");
+        }
+        return root.getCompoundOrEmpty("ThaumicTinkerer");
+    }
+
     public static int get(Player player) {
-        return player.getPersistentData().getCompoundOrEmpty("ThaumicTinkerer").getIntOr("soulHearts", 0);
+        return readTag(player).getIntOr("soulHearts", 0);
     }
 
     public static void set(Player player, int value) {
         var data = player.getPersistentData();
-        var tag = data.getCompoundOrEmpty("ThaumicTinkerer");
+        var persisted = data.getCompoundOrEmpty(Player.PERSISTED_NBT_TAG);
+        var tag = persisted.contains("ThaumicTinkerer")
+                ? persisted.getCompoundOrEmpty("ThaumicTinkerer")
+                : data.getCompoundOrEmpty("ThaumicTinkerer");
         tag.putInt("soulHearts", Math.clamp(value, 0, 20));
-        data.put("ThaumicTinkerer", tag);
+        persisted.put("ThaumicTinkerer", tag);
+        data.put(Player.PERSISTED_NBT_TAG, persisted);
     }
 
     public static void add(Player player) {
@@ -67,6 +80,16 @@ public final class SoulHearts {
 
     @net.neoforged.bus.api.SubscribeEvent
     public static void login(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
+        if (KamiStartupConfig.enabled()) sync(event.getEntity());
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void changedDimension(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (KamiStartupConfig.enabled()) sync(event.getEntity());
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void respawn(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerRespawnEvent event) {
         if (KamiStartupConfig.enabled()) sync(event.getEntity());
     }
 

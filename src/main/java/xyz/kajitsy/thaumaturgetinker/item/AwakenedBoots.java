@@ -61,14 +61,18 @@ public final class AwakenedBoots extends AwakenedArmorItem {
             }
         }
         if (!active) return;
-        p.addEffect(new MobEffectInstance(MobEffects.HASTE, 2, 1, true, false));
+        if (!p.level().isClientSide()) {
+            p.addEffect(new MobEffectInstance(MobEffects.HASTE, 2, 1, true, false));
+        }
         if ((p.onGround() || p.getAbilities().flying) && p.zza > 0) {
             p.moveRelative(p.getAbilities().flying ? 0.075f : 0.15f, new Vec3(0, 0, 1));
         }
         p.fallDistance = 0;
-        var pos = new BlockPos((int) p.getX(), (int) p.getY() - 1, (int) p.getZ());
-        if (p.level().getBlockState(pos).is(Blocks.DIRT)) {
-            p.level().setBlock(pos, Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+        if (!p.level().isClientSide()) {
+            var pos = new BlockPos(net.minecraft.util.Mth.floor(p.getX()), net.minecraft.util.Mth.floor(p.getY()) - 1, net.minecraft.util.Mth.floor(p.getZ()));
+            if (p.level().getBlockState(pos).is(Blocks.DIRT)) {
+                p.level().setBlock(pos, Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+            }
         }
     }
 

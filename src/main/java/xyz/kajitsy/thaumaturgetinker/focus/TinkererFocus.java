@@ -248,10 +248,8 @@ public abstract class TinkererFocus extends Item {
             ItemStack focus = wand.getFocusStack(held);
             if (focus.getItem() instanceof TinkererFocus ttFocus) {
                 InteractionResult result = ttFocus.onCast(held, event.getLevel(), event.getEntity(), event.getHand());
-                if (result.consumesAction()) {
-                    event.setCancellationResult(result);
-                    event.setCanceled(true);
-                }
+                event.setCancellationResult(result);
+                event.setCanceled(true);
             }
         } else if (held.getItem() instanceof TinkererFocus ttFocus) {
             InteractionResult result = ttFocus.onCast(held, event.getLevel(), event.getEntity(), event.getHand());

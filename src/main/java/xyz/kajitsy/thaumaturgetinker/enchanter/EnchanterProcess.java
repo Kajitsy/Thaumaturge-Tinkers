@@ -43,8 +43,9 @@ public final class EnchanterProcess {
     /** Returns true whenever persistent state or inventory was changed. */
     public boolean tick(ServerLevel level, ItemStack tool, ItemStack wand, boolean structureValid) {
         if (tool.isEmpty()) {
-            boolean changed = working || !selection.entries().isEmpty();
+            boolean changed = working || !selection.entries().isEmpty() || !current.isEmpty();
             working = false;
+            current.clear();
             selection.clear();
             return changed;
         }

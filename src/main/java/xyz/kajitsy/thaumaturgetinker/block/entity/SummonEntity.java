@@ -71,8 +71,8 @@ public final class SummonEntity extends BlockEntity {
 
         for (int radius = 1; radius < 6; radius++) {
             var pedestals = new ArrayList<BlockEntityPedestal>();
-            for (int x = -radius; x < radius; x++) {
-                for (int z = -radius; z < radius; z++) {
+            for (int x = -radius; x <= radius; x++) {
+                for (int z = -radius; z <= radius; z++) {
                     var at = pos.offset(x, 0, z);
                     if (level.isLoaded(at) && level.getBlockEntity(at) instanceof BlockEntityPedestal pedestal && pedestal.getItem().getItem() instanceof MobAspectItem) {
                         pedestals.add(pedestal);
@@ -87,7 +87,7 @@ public final class SummonEntity extends BlockEntity {
                         String id = RECIPES.get(signature(aspects));
                         if (id == null) continue;
                         boolean infused = selected.stream().allMatch(p -> ((MobAspectItem) p.getItem().getItem()).form == 2);
-                        if (infused && time % 1200 != 0) return;
+                        if (infused && time % 1200 != 0) continue;
                         boolean same = selected.stream().allMatch(p -> matchesLast(p.getItem(), level, pos));
                         if (!infused || same) {
                             if (id.equals("minecraft:skeleton") && level.dimension() == Level.NETHER) id = "minecraft:wither_skeleton";

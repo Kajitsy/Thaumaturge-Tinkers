@@ -132,7 +132,7 @@ public final class ImbuedPotionEffects {
     public static int earth(Player player, LivingEntity target) {
         if (!(player.level() instanceof ServerLevel level) || target.level() != level || !player.hasEffect(InfusedPotions.EARTH)) return 0;
         boolean xAxis = Math.abs(target.getZ() - player.getZ()) < Math.abs(target.getX() - player.getX());
-        int x = (int) ((target.getX() + player.getX()) / 2), y = (int) (player.getY() + 2), z = (int) ((target.getZ() + player.getZ()) / 2);
+        int x = net.minecraft.util.Mth.floor((target.getX() + player.getX()) / 2), y = net.minecraft.util.Mth.floor(player.getY() + 2), z = net.minecraft.util.Mth.floor((target.getZ() + player.getZ()) / 2);
         int count = 0;
         for (int i = -2; i <= 2; i++) {
             for (int j = -2; j <= 2; j++) {
@@ -150,9 +150,12 @@ public final class ImbuedPotionEffects {
     public static int water(Player player) {
         if (!(player.level() instanceof ServerLevel level) || !player.hasEffect(InfusedPotions.WATER)) return 0;
         int changed = 0;
-        for (int x = (int) (player.getX() - 2); x < player.getX() + 2; x++) {
-            for (int y = (int) (player.getY() - 2); y < player.getY() + 2; y++) {
-                for (int z = (int) (player.getZ() - 2); z < player.getZ() + 2; z++) {
+        int minX = net.minecraft.util.Mth.floor(player.getX() - 2), maxX = net.minecraft.util.Mth.floor(player.getX() + 2);
+        int minY = net.minecraft.util.Mth.floor(player.getY() - 2), maxY = net.minecraft.util.Mth.floor(player.getY() + 2);
+        int minZ = net.minecraft.util.Mth.floor(player.getZ() - 2), maxZ = net.minecraft.util.Mth.floor(player.getZ() + 2);
+        for (int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
+                for (int z = minZ; z < maxZ; z++) {
                     var pos = new BlockPos(x, y, z);
                     if (!level.isInWorldBounds(pos) || !level.isLoaded(pos) || !level.getBlockState(pos).is(Blocks.LAVA)) continue;
                     if (level.setBlockAndUpdate(pos, Blocks.OBSIDIAN.defaultBlockState())) {

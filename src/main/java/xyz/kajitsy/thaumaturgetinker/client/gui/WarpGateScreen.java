@@ -51,6 +51,11 @@ public final class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> 
     }
 
     @Override
+    protected void extractLabels(GuiGraphicsExtractor g, int mx, int my) {
+        g.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 0xFF404040, false);
+    }
+
+    @Override
     public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float partial) {
         super.extractBackground(g, mx, my, partial);
         g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);

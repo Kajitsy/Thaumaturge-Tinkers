@@ -12,7 +12,7 @@ public final class StrikeEnchantments {
  public static final ResourceKey<Enchantment> FOCUSED=key("focused_strike"),DISPERSED=key("dispersed_strikes"),VALIANCE=key("valiance"),FINAL=key("final_strike");
  private static ResourceKey<Enchantment> key(String name){return ResourceKey.create(Registries.ENCHANTMENT,Identifier.fromNamespaceAndPath("thaumaturgetinker",name));}
  public static float criticalDamage(float input,int finalRank,int valianceRank,float health,float maxHealth,java.util.function.IntUnaryOperator random){
-  if(finalRank>0&&random.applyAsInt(20-finalRank)==0)input*=3;
+  if(finalRank>0&&random.applyAsInt(Math.max(1,20-finalRank))==0)input*=3;
   if(valianceRank>0&&health/maxHealth<.5f)input=(float)(input*(1+.1*valianceRank));
   return input;
  }
@@ -23,7 +23,7 @@ public final class StrikeEnchantments {
   return damage;
  }
  @SubscribeEvent public static void incoming(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event){
-  if(event.getEntity().level().isClientSide()||!(event.getSource().getEntity() instanceof LivingEntity attacker))return;
+  if(event.getEntity().level().isClientSide()||event.getSource().is(net.minecraft.world.damagesource.DamageTypes.THORNS)||!(event.getSource().getDirectEntity() instanceof LivingEntity attacker)||event.getSource().getEntity()!=attacker)return;
   var stack=attacker.getMainHandItem();var registry=attacker.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
   FallCombatEnchantments.pounce(event,attacker);
   int finalRank=stack.getEnchantmentLevel(registry.getOrThrow(FINAL)),valianceRank=stack.getEnchantmentLevel(registry.getOrThrow(VALIANCE));

@@ -5,6 +5,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -18,12 +19,15 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import xyz.kajitsy.thaumaturgetinker.KamiRegistries;
 import xyz.kajitsy.thaumaturgetinker.network.SoulHearts;
 
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 public final class AwakenedSpear extends IchorSpear implements AdvancedTool {
     public static final DeferredItem<AwakenedSpear> ITEM = KamiRegistries.ITEMS.register("ichor_spear_gem", AwakenedSpear::new);
 
-    private boolean attackingGroup;
+    private static final Set<UUID> ATTACKING_GROUP = ConcurrentHashMap.newKeySet();
 
     public AwakenedSpear() {
         super("ichor_spear_gem");
@@ -53,33 +57,37 @@ public final class AwakenedSpear extends IchorSpear implements AdvancedTool {
     }
 
     @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity target) {
+        if (!player.level().isClientSide() && target instanceof LivingEntity living && living.hurtTime == 0 && living.isAlive() && AdvancedToolModes.get(stack) == 2) {
+            living.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
+        }
+        return super.onLeftClickEntity(stack, player, target);
+    }
+
+    @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         super.hurtEnemy(stack, target, attacker);
-        if (attackingGroup || !(attacker instanceof Player player) || !target.isAlive()) {
+        if (!(attacker instanceof Player player) || player.level().isClientSide() || !ATTACKING_GROUP.add(player.getUUID())) {
             return;
         }
-        int mode = AdvancedToolModes.get(stack);
-        if (mode == 1) {
-            var box = new AABB(
-                    target.getX() - 3, target.getY() - 3, target.getZ() - 3,
-                    target.getX() + 3, target.getY() + 3, target.getZ() + 3);
-            var targets = player.level().getEntitiesOfClass(target.getClass(), box);
-            attackingGroup = true;
-            try {
+        try {
+            int mode = AdvancedToolModes.get(stack);
+            if (mode == 1) {
+                var box = new AABB(
+                        target.getX() - 3, target.getY() - 3, target.getZ() - 3,
+                        target.getX() + 3, target.getY() + 3, target.getZ() + 3);
+                var targets = player.level().getEntitiesOfClass(target.getClass(), box);
                 for (var nearby : targets) {
-                    if (nearby != target && nearby.isAlive()) {
+                    if (nearby != target && nearby != player && nearby.isAlive()) {
                         player.attack(nearby);
                     }
                 }
-            } finally {
-                attackingGroup = false;
-            }
-        } else if (mode == 2) {
-            target.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1, 1));
-            if (!player.level().isClientSide()) {
+            } else if (mode == 2) {
                 SoulHearts.add(player);
                 player.heal(2.0F);
             }
+        } finally {
+            ATTACKING_GROUP.remove(player.getUUID());
         }
     }
 }

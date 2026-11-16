@@ -82,10 +82,11 @@ public final class PlacementMirror extends Item {
 
     public static long available(ItemStack mirror, Player p) {
         var block = BlockTalisman.block(mirror);
+        var plain = new ItemStack(block.asItem());
         long total = 0;
         for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
             var stack = p.getInventory().getItem(i);
-            if (stack.is(block.asItem())) total += stack.getCount();
+            if (!plain.isEmpty() && ItemStack.isSameItemSameComponents(stack, plain)) total += stack.getCount();
             else if (stack.is(BlockTalisman.ITEM.get()) && BlockTalisman.block(stack) == block) total += BlockTalisman.count(stack);
         }
         return total;
@@ -93,9 +94,10 @@ public final class PlacementMirror extends Item {
 
     public static void consume(ItemStack mirror, Player p) {
         var item = BlockTalisman.block(mirror).asItem();
+        var plain = new ItemStack(item);
         for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
             var stack = p.getInventory().getItem(i);
-            if (stack.is(item)) {
+            if (!plain.isEmpty() && ItemStack.isSameItemSameComponents(stack, plain)) {
                 stack.shrink(1);
                 p.getInventory().setChanged();
                 return;

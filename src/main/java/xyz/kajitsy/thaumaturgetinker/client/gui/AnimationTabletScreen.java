@@ -61,11 +61,12 @@ public final class AnimationTabletScreen extends AbstractContainerScreen<Animati
 
     @Override
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float partial) {
+        super.extractBackground(g, mouseX, mouseY, partial);
         g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256);
         var left = Component.translatable("ttmisc.leftClick");
-        g.text(font, left, leftPos + 48 - font.width(left), topPos + 18, 0x999999, false);
-        g.text(font, Component.translatable("ttmisc.rightClick"), leftPos + 128, topPos + 18, 0x999999, false);
+        g.text(font, left, leftPos + 48 - font.width(left), topPos + 18, 0xFF999999, false);
+        g.text(font, Component.translatable("ttmisc.rightClick"), leftPos + 128, topPos + 18, 0xFF999999, false);
         var redstone = Component.translatable("ttmisc.redstoneControl");
-        g.text(font, redstone, leftPos + 88 - font.width(redstone) / 2, topPos + 50, 0x999999, false);
+        g.text(font, redstone, leftPos + 88 - font.width(redstone) / 2, topPos + 50, 0xFF999999, false);
     }
 }

@@ -33,7 +33,10 @@ public final class WarpGateBlock extends BaseEntityBlock {
 
     @Override
     protected net.minecraft.world.InteractionResult useWithoutItem(BlockState state, net.minecraft.world.level.Level level, BlockPos pos, net.minecraft.world.entity.player.Player player, net.minecraft.world.phys.BlockHitResult hit) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof WarpGateEntity gate && level.mayInteract(player, pos)) {
+        if (!level.mayInteract(player, pos) || !(level.getBlockEntity(pos) instanceof WarpGateEntity gate)) {
+            return net.minecraft.world.InteractionResult.PASS;
+        }
+        if (!level.isClientSide()) {
             player.openMenu(new net.minecraft.world.SimpleMenuProvider((id, inv, p) -> new WarpGateMenu(id, inv, gate), net.minecraft.network.chat.Component.translatable("block.thaumaturgetinker.warp_gate")), buf -> buf.writeBlockPos(pos));
         }
         return level.isClientSide() ? net.minecraft.world.InteractionResult.SUCCESS : net.minecraft.world.InteractionResult.CONSUME;
@@ -42,8 +45,7 @@ public final class WarpGateBlock extends BaseEntityBlock {
     @Override
     protected net.minecraft.world.InteractionResult useItemOn(net.minecraft.world.item.ItemStack stack, BlockState state, net.minecraft.world.level.Level level, BlockPos pos, net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
         if (stack.is(SkyPearl.ITEM.get())) return net.minecraft.world.InteractionResult.PASS;
-        useWithoutItem(state, level, pos, player, hit);
-        return level.isClientSide() ? net.minecraft.world.InteractionResult.SUCCESS : net.minecraft.world.InteractionResult.CONSUME;
+        return useWithoutItem(state, level, pos, player, hit);
     }
 
     @Override

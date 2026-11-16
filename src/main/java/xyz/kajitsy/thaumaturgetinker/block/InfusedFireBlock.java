@@ -122,13 +122,10 @@ public final class InfusedFireBlock extends FireBlock {
  }
  @Override protected void tick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random){
   if(!level.canSpreadFireAround(pos)||!TinkererConfig.fireEnabled())return;
-  if(wet(level,pos))level.removeBlock(pos,false);
-  else {
-   if(!adjacentTarget(level,pos))level.removeBlock(pos,false);
-   if(random.nextInt(20)==0&&adjacentTarget(level,pos))for(var d:Direction.values()){
-    var target=pos.relative(d);var result=transformation(level,target);if(result==null)continue;
-    if(random.nextInt(decay(level,target))==0)level.setBlock(target,result,3);else level.removeBlock(target,false);
-   }
+  if(wet(level,pos)||!adjacentTarget(level,pos)){level.removeBlock(pos,false);return;}
+  if(random.nextInt(20)==0)for(var d:Direction.values()){
+   var target=pos.relative(d);var result=transformation(level,target);if(result==null)continue;
+   if(random.nextInt(decay(level,target))==0)level.setBlock(target,result,3);else level.removeBlock(target,false);
   }
   int age=level.getBlockState(pos).is(this)?level.getBlockState(pos).getValue(AGE):0;
   if(age<15&&level.getBlockState(pos).is(this))level.setBlock(pos,visualState(level,pos,age+random.nextInt(3)/2),4);

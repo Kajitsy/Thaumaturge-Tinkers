@@ -102,7 +102,7 @@ public final class AdvancedToolMining {
                 var state = level.getBlockState(pos);
                 if (state.isAir() || !material.test(state) || !state.canHarvestBlock(level, pos, player)) continue;
                 float strength = state.getDestroyProgress(player, level, pos);
-                if (referenceStrength / strength > 10) continue;
+                if (strength <= 0 || referenceStrength / strength > 10) continue;
                 player.gameMode.destroyBlock(pos);
             }
             var box = new AABB(origin.getX() + bounds.xs(), origin.getY() + bounds.ys(), origin.getZ() + bounds.zs(), origin.getX() + bounds.xe(), origin.getY() + bounds.ye(), origin.getZ() + bounds.ze());
@@ -122,7 +122,7 @@ public final class AdvancedToolMining {
                     for (int z = -2; z <= 2; z++) {
                         var next = last.offset(x, y, z);
                         int dx = next.getX() - origin.getX(), dy = next.getY() - origin.getY(), dz = next.getZ() - origin.getZ();
-                        if (Math.abs(dx) > 24 || Math.abs(dy) > 48 || Math.abs(dz) > 24) return last;
+                        if (Math.abs(dx) > 24 || Math.abs(dy) > 48 || Math.abs(dz) > 24) continue;
                         if (!level.isLoaded(next)) continue;
                         var state = level.getBlockState(next);
                         double d = (double) dx * dx + (double) dy * dy + (double) dz * dz;

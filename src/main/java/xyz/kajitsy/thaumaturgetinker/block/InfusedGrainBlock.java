@@ -1,10 +1,7 @@
 package xyz.kajitsy.thaumaturgetinker.block;
 
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
-import xyz.kajitsy.thaumaturgetinker.block.entity.InfusedFarmlandEntity;
 import xyz.kajitsy.thaumaturgetinker.block.entity.InfusedGrainEntity;
-import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropHarvest;
-import xyz.kajitsy.thaumaturgetinker.potion.InfusedCropLoot;
 
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
@@ -14,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
@@ -88,23 +84,6 @@ public final class InfusedGrainBlock extends CropBlock implements EntityBlock {
     @Override
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         return List.of();
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof InfusedGrainEntity crop) {
-            var soil = level.getBlockEntity(pos.below()) instanceof InfusedFarmlandEntity farmland ? farmland : null;
-            var loot = InfusedCropLoot.get(level);
-            var drops = InfusedCropHarvest.collect(level.registryAccess(), crop.data(), state.getValue(AGE), soil == null ? null : soil.aspects(), level.getRandom(), a -> {
-                if (soil != null) soil.fertilize(a);
-            }, a -> loot.roll(a, level.getRandom()));
-            for (var stack : drops) {
-                var entity = new ItemEntity(level, pos.getX() + .15 + level.getRandom().nextFloat() * .7, pos.getY() + .15 + level.getRandom().nextFloat() * .7, pos.getZ() + .15 + level.getRandom().nextFloat() * .7, stack);
-                entity.setPickUpDelay(10);
-                level.addFreshEntity(entity);
-            }
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     public static int texture(ResourceKey<IAspect> aspect) {

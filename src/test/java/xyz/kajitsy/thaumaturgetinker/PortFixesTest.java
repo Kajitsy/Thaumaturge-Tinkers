@@ -465,4 +465,50 @@ class PortFixesTest {
         assertEquals(0, partialAbsorb.remainingHearts());
         assertEquals(1.5f, partialAbsorb.remainingDamage(), 0.0001f);
     }
+
+    @Test
+    void auditRegressionFixesWorkAsExpected() {
+        // SkyPearlData works at Y = -1 and resets properly
+        var pearl = pearlAt(OVERWORLD, new BlockPos(10, -1, 20));
+        assertTrue(SkyPearlData.attuned(pearl));
+        assertEquals(new BlockPos(10, -1, 20), SkyPearlData.position(pearl));
+        SkyPearlData.reset(pearl);
+        assertFalse(SkyPearlData.attuned(pearl));
+
+        // HarvestSpeedEnchantments tunnel yaw wraps across 0/360 and +-180
+        assertTrue(xyz.kajitsy.thaumaturgetinker.enchantment.HarvestSpeedEnchantments.tunnelMultiplier(355f, 5f, 2) > 1.0f);
+        assertTrue(xyz.kajitsy.thaumaturgetinker.enchantment.HarvestSpeedEnchantments.tunnelMultiplier(175f, -175f, 2) > 1.0f);
+        assertEquals(0.3f, xyz.kajitsy.thaumaturgetinker.enchantment.HarvestSpeedEnchantments.tunnelMultiplier(0f, 90f, 2), 0.001f);
+
+        // StrikeEnchantments clamps bound when finalRank >= 20
+        assertEquals(30f, StrikeEnchantments.criticalDamage(10f, 25, 0, 20f, 20f, bound -> {
+            assertTrue(bound >= 1);
+            return 0;
+        }), 0.001f);
+
+        // InfusedCropLoot trailing weight-1 entry is reachable
+        var loot = new xyz.kajitsy.thaumaturgetinker.potion.InfusedCropLoot();
+        loot.add(TTAspects.AQUA, Items.APPLE, 3, 1);
+        loot.add(TTAspects.AQUA, Items.DIAMOND, 1, 1);
+        var fixedZero = net.minecraft.util.RandomSource.create(0);
+        // Roll many times and verify both items appear with expected weights
+        int diamonds = 0;
+        for (int i = 0; i < 400; i++) {
+            if (loot.roll(TTAspects.AQUA, fixedZero).is(Items.DIAMOND)) diamonds++;
+        }
+        assertTrue(diamonds > 0 && diamonds < 400, "Expected trailing weight-1 entry to drop, got " + diamonds);
+
+        // BlockTalisman rejects renamed / modified block items
+        var talisman = new ItemStack(xyz.kajitsy.thaumaturgetinker.item.BlockTalisman.ITEM.get());
+        var renamedStone = new ItemStack(Items.STONE, 4);
+        renamedStone.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Special"));
+        assertEquals(0, xyz.kajitsy.thaumaturgetinker.item.BlockTalisman.insert(talisman, renamedStone));
+        assertEquals(4, xyz.kajitsy.thaumaturgetinker.item.BlockTalisman.insert(talisman, new ItemStack(Items.STONE, 4)));
+        assertEquals(0, xyz.kajitsy.thaumaturgetinker.item.BlockTalisman.insert(talisman, renamedStone));
+
+        // AdvancedToolHud alpha does not overflow 0xFF
+        int hudColor = xyz.kajitsy.thaumaturgetinker.client.gui.AdvancedToolHud.color(1, 0L);
+        assertEquals(25, (hudColor >>> 24) & 0xFF);
+        assertEquals(0, (xyz.kajitsy.thaumaturgetinker.client.gui.AdvancedToolHud.color(0, 0L) >>> 24) & 0xFF);
+    }
 }

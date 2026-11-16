@@ -41,7 +41,7 @@ public final class EnchanterSelection {
         int minLevel = existing.getLevel(holder) + 1;
         int maxLevel = holder.value().getMaxLevel();
         if (minLevel > maxLevel) return false;
-        int level = selected.containsKey(id) ? Math.max(minLevel, Math.min(maxLevel, requested)) : minLevel;
+        int level = Math.max(minLevel, Math.min(maxLevel, requested));
         for (var other : selected.keySet()) {
             if (other.equals(id)) continue;
             var otherHolder = registry.get(ResourceKey.create(Registries.ENCHANTMENT, Identifier.parse(other))).orElse(null);

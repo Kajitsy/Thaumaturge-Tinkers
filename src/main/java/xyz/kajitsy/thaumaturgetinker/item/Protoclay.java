@@ -46,7 +46,7 @@ public final class Protoclay extends Item {
 
     public static void switchTool(Player player, BlockPos pos) {
         var current = player.getMainHandItem();
-        if (!(current.getItem() instanceof AdvancedTool tool) || tool.toolType().equals("sword")) return;
+        if (!(current.getItem() instanceof AdvancedTool tool) || tool.toolType().equals("sword") || tool.toolType().equals("spear") || tool.toolType().equals("shield")) return;
         String desired = target(player.level().getBlockState(pos));
         if (desired.isEmpty() || desired.equals(tool.toolType())) return;
         var inventory = player.getInventory();

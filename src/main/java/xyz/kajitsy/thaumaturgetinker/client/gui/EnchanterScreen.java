@@ -88,7 +88,11 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
     }
 
     @Override
+    protected void extractLabels(GuiGraphicsExtractor g, int mx, int my) {}
+
+    @Override
     public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float partial) {
+        super.extractBackground(g, mx, my, partial);
         hits.clear();
         g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
         var choices = available();
@@ -112,7 +116,7 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
                 int x = leftPos + imageWidth + 4, y = topPos + 4 + row++ * 26;
                 g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x - 4, y - 4, 176, 0, 24, 24, 256, 256);
                 icon(g, i, x, y, true);
-                g.text(font, Component.translatable("enchantment.level." + menu.rank(i)), x + 22, y + 6, 0xFFFFFF, false);
+                g.text(font, Component.translatable("enchantment.level." + menu.rank(i)), x + 22, y + 6, 0xFFFFFFFF, false);
                 for (int action = 1; action <= 2; action++) {
                     int bx = x + 20 + (action - 1) * 7, by = y - 4;
                     g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, bx, by, action == 1 ? 225 : 218, 0, 7, 7, 256, 256);

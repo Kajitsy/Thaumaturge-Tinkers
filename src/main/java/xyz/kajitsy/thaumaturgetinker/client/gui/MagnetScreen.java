@@ -35,7 +35,7 @@ public final class MagnetScreen extends AbstractContainerScreen<MagnetMenu> {
     public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partial) {
         super.extractBackground(graphics, mouseX, mouseY, partial);
         graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
-        graphics.text(font, menu.adult() ? "●" : "○", leftPos + 87, topPos + 30, 0x404040, false);
-        graphics.text(font, menu.adult() ? "○" : "●", leftPos + 87, topPos + 52, 0x404040, false);
+        graphics.text(font, menu.adult() ? "●" : "○", leftPos + 87, topPos + 30, 0xFF404040, false);
+        graphics.text(font, menu.adult() ? "○" : "●", leftPos + 87, topPos + 52, 0xFF404040, false);
     }
 }

@@ -18,6 +18,9 @@ public final class IchorPouchScreen extends AbstractContainerScreen<IchorPouchMe
     }
 
     @Override
+    protected void extractLabels(GuiGraphicsExtractor gui, int mouseX, int mouseY) {}
+
+    @Override
     public void extractBackground(GuiGraphicsExtractor gui, int mouseX, int mouseY, float partial) {
         super.extractBackground(gui, mouseX, mouseY, partial);
         gui.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, 256, 256, 256, 256);
