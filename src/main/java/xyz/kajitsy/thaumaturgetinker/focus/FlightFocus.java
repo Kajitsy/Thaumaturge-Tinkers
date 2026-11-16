@@ -50,7 +50,7 @@ public final class FlightFocus extends TinkererFocus {
 
     @Override
     public InteractionResult onCast(ItemStack wand, Level level, Player player, InteractionHand hand) {
-        if (!TinkererConfig.flightEnabled()) return InteractionResult.PASS;
+        if (!TinkererConfig.flightEnabled()) return InteractionResult.FAIL;
         if (!level.isClientSide() && consumeVis(wand, player)) {
             double force = flightForce(potencyLevel(resolveFocus(wand)));
             player.setDeltaMovement(player.getLookAngle().scale(force));

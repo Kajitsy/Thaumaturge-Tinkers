@@ -53,7 +53,7 @@ public final class NitorLightBlock extends Block {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextFloat() < .03f) {
-            level.addParticle(new SparkleParticleOptions(4, 1.0f, 0, 0.05f, 0f, 10, true), pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, 0, 0, 0);
+            level.addParticle(new SparkleParticleOptions(0xFFCC33, 1.0f, 0, 0.05f, 0f, 10, true), pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, 0, 0, 0);
         }
     }
 

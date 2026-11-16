@@ -42,8 +42,8 @@ public final class DislocationHud {
         boolean tile = !stateTag.getCompound("tileCmp").isEmpty();
         gui.fill(x - 1, y - 1, x + 18, y + 18, 0x66000000);
         gui.fill(x + 18, y, x + 22 + font.width(title), y + (tile ? 18 : 9), 0x66000000);
-        gui.drawString(font, title, x + 20, y, 0xFFAA00, false);
-        if (tile) gui.drawString(font, Component.translatable("ttmisc.focusDislocation.tooltipExtra"), x + 20, y + 9, 0xFFAA00, false);
+        gui.drawString(font, title, x + 20, y, 0xFFFFAA00, false);
+        if (tile) gui.drawString(font, Component.translatable("ttmisc.focusDislocation.tooltipExtra"), x + 20, y + 9, 0xFFFFAA00, false);
         var icon = new ItemStack(state.getBlock());
         if (!icon.isEmpty()) gui.renderItem(icon, x, y);
         return true;

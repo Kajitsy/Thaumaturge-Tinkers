@@ -55,31 +55,28 @@ public final class AwakenedSword extends IchorSword implements AdvancedTool {
         tooltipComponents.add(AdvancedToolModes.description("sword", stack));
     }
 
-    private boolean attackingGroup;
+    private static final java.util.Set<java.util.UUID> ATTACKING_GROUP = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity target) {
-        if (!attackingGroup && target instanceof LivingEntity living && living.hurtTime == 0 && living.isAlive()) {
-            int mode = AdvancedToolModes.get(stack);
-            if (mode == 1) {
-                var box = new AABB(target.getX() - 3, target.getY() - 3, target.getZ() - 3, target.getX() + 3, target.getY() + 3, target.getZ() + 3);
-                var targets = player.level().getEntitiesOfClass(target.getClass(), box);
-                attackingGroup = true;
-                try {
+        if (!player.level().isClientSide() && target instanceof LivingEntity living && living.hurtTime == 0 && living.isAlive() && ATTACKING_GROUP.add(player.getUUID())) {
+            try {
+                int mode = AdvancedToolModes.get(stack);
+                if (mode == 1) {
+                    var box = new AABB(target.getX() - 3, target.getY() - 3, target.getZ() - 3, target.getX() + 3, target.getY() + 3, target.getZ() + 3);
+                    var targets = player.level().getEntitiesOfClass(target.getClass(), box);
                     for (var nearby : targets) {
-                        if (nearby != target && nearby.isAlive()) {
+                        if (nearby != target && nearby != player && nearby.isAlive()) {
                             player.attack(nearby);
                         }
                     }
-                } finally {
-                    attackingGroup = false;
-                }
-            } else if (mode == 2) {
-                living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1, 1));
-                if (!player.level().isClientSide()) {
+                } else if (mode == 2) {
+                    living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1, 1));
                     SoulHearts.add(player);
                     player.heal(2.0F);
                 }
+            } finally {
+                ATTACKING_GROUP.remove(player.getUUID());
             }
         }
         return super.onLeftClickEntity(stack, player, target);

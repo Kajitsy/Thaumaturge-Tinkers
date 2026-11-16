@@ -75,6 +75,8 @@ public final class BlockTalisman extends Item {
 
     public static int insert(ItemStack talisman, ItemStack stack) {
         if (stack.isEmpty() || !(stack.getItem() instanceof BlockItem blockItem)) return 0;
+        var plain = new ItemStack(blockItem);
+        if (!ItemStack.isSameItemSameComponents(stack, plain)) return 0;
         var b = block(talisman);
         if (b == Blocks.AIR || count(talisman) == 0) {
             b = blockItem.getBlock();
@@ -249,6 +251,7 @@ public final class BlockTalisman extends Item {
 
         if (boundItem == Items.AIR) return;
         var inv = p.getInventory();
+        var plain = new ItemStack(boundItem);
         int highest = -1;
         boolean free = false;
         int[] searchSlots = new int[37];
@@ -260,13 +263,13 @@ public final class BlockTalisman extends Item {
                 if (i < 36) free = true;
                 continue;
             }
-            if (stack.is(boundItem) && (highest == -1 || (highest > 8 && highest != net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND) && stack.getCount() > inv.getItem(highest).getCount())) {
+            if (ItemStack.isSameItemSameComponents(stack, plain) && (highest == -1 || (highest > 8 && highest != net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND) && stack.getCount() > inv.getItem(highest).getCount())) {
                 highest = i;
             }
         }
         if (highest == -1) {
             var carried = p.containerMenu != null ? p.containerMenu.getCarried() : ItemStack.EMPTY;
-            if (free && (carried.isEmpty() || !carried.is(boundItem))) {
+            if (free && (carried.isEmpty() || !ItemStack.isSameItemSameComponents(carried, plain))) {
                 int amount = Math.min(boundItem.getDefaultMaxStackSize(), count(s));
                 if (amount > 0) {
                     var stack = new ItemStack(boundItem, amount);
@@ -278,7 +281,7 @@ public final class BlockTalisman extends Item {
             long stored = count(s);
             for (int i : searchSlots) {
                 var stack = inv.getItem(i);
-                if (i == highest || !stack.is(boundItem)) continue;
+                if (i == highest || !ItemStack.isSameItemSameComponents(stack, plain)) continue;
                 if (stored + stack.getCount() > Integer.MAX_VALUE) continue;
                 stored += stack.getCount();
                 inv.setItem(i, ItemStack.EMPTY);

@@ -25,6 +25,7 @@ public final class RepairerBlock extends BaseEntityBlock {
     @Override protected BlockState rotate(BlockState state,Rotation rotation){return state.setValue(FACING,rotation.rotate(state.getValue(FACING)));}
     @Override protected BlockState mirror(BlockState state,Mirror mirror){return rotate(state,mirror.getRotation(state.getValue(FACING)));}
     @Override protected boolean isSignalSource(BlockState state){return true;}
+    @Override protected int getSignal(BlockState state,BlockGetter level,BlockPos pos,Direction side){return getDirectSignal(state,level,pos,side);}
     @Override protected int getDirectSignal(BlockState state,BlockGetter level,BlockPos pos,Direction side){return level.getBlockEntity(pos) instanceof RepairerEntity tile&&tile.inventory.getItem(0).isDamaged()?15:0;}
     @Override protected void onPlace(BlockState state,Level level,BlockPos pos,BlockState oldState,boolean movedByPiston){
         super.onPlace(state,level,pos,oldState,movedByPiston);

@@ -25,6 +25,9 @@ public final class IchorPouchScreen extends AbstractContainerScreen<IchorPouchMe
     }
 
     @Override
+    protected void renderLabels(GuiGraphics gui, int mouseX, int mouseY) {}
+
+    @Override
     protected void renderBg(GuiGraphics gui, float partial, int mouseX, int mouseY) {
         gui.blit(TEXTURE, leftPos, topPos, 0, 0, 256, 256, 256, 256);
     }

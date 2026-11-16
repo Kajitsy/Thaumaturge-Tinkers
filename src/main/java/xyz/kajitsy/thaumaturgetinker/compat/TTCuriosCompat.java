@@ -1,5 +1,6 @@
 package xyz.kajitsy.thaumaturgetinker.compat;
 
+import xyz.kajitsy.thaumaturgetinker.KamiStartupConfig;
 import xyz.kajitsy.thaumaturgetinker.ThaumicTinkererModern;
 import xyz.kajitsy.thaumaturgetinker.item.BlockTalisman;
 import xyz.kajitsy.thaumaturgetinker.item.CatAmulet;
@@ -7,7 +8,8 @@ import xyz.kajitsy.thaumaturgetinker.item.CleansingTalismanItem;
 import xyz.kajitsy.thaumaturgetinker.item.IchorPouch;
 import xyz.kajitsy.thaumaturgetinker.item.XPTalismanItem;
 
-
+import java.util.ArrayList;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
@@ -24,6 +26,13 @@ public final class TTCuriosCompat {
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        var curioItems = new ArrayList<Item>();
+        curioItems.add(ThaumicTinkererModern.CLEANSING_TALISMAN.get());
+        curioItems.add(ThaumicTinkererModern.XP_TALISMAN.get());
+        if (KamiStartupConfig.enabled()) {
+            curioItems.add(CatAmulet.ITEM.get());
+            curioItems.add(BlockTalisman.ITEM.get());
+        }
         event.registerItem(CuriosCapability.ITEM, (stack, ctx) -> new ICurio() {
             @Override
             public ItemStack getStack() {
@@ -42,9 +51,11 @@ public final class TTCuriosCompat {
                     xp.onWornTick(stack, slotContext.entity());
                 }
             }
-        }, CatAmulet.ITEM.get(), BlockTalisman.ITEM.get(), ThaumicTinkererModern.CLEANSING_TALISMAN.get(), ThaumicTinkererModern.XP_TALISMAN.get());
+        }, curioItems.toArray(Item[]::new));
 
-        event.registerItem(CuriosCapability.ITEM, (stack, ctx) -> (ICurio) () -> stack, IchorPouch.ITEM.get());
+        if (KamiStartupConfig.enabled()) {
+            event.registerItem(CuriosCapability.ITEM, (stack, ctx) -> (ICurio) () -> stack, IchorPouch.ITEM.get());
+        }
     }
 
     public static ItemStack findFirstCurio(net.minecraft.world.entity.player.Player player, net.minecraft.world.item.Item item) {

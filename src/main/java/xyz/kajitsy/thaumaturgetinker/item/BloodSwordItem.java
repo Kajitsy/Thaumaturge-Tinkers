@@ -108,9 +108,11 @@ public final class BloodSwordItem extends SwordItem {
     public static void incoming(LivingIncomingDamageEvent event) {
         var victim = event.getEntity();
         if (victim.level().isClientSide() || SELF_DAMAGE.contains(victim.getUUID())) return;
-        if (victim instanceof Player && victim.isUsingItem() && victim.getUseItem().getItem() instanceof BloodSwordItem) {
+        if (!event.getSource().is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)
+                && victim instanceof Player && victim.isUsingItem() && victim.getUseItem().getItem() instanceof BloodSwordItem) {
             event.setCanceled(true);
             pay(victim, 3);
+            return;
         }
         if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && attacker.getMainHandItem().getItem() instanceof BloodSwordItem && !SELF_DAMAGE.contains(attacker.getUUID())) {
             pay(attacker, 2);

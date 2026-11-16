@@ -30,7 +30,7 @@ public final class AdvancedToolHud implements LayeredDraw.Layer {
 
     public static int color(int ticks, long time) {
         int opacity = Math.min(160, (int) (ticks * 256f / 10f));
-        return java.awt.Color.HSBtoRGB((float) Math.cos(time / 250.0), .6f, 1f) + (opacity << 24);
+        return (java.awt.Color.HSBtoRGB((float) Math.cos(time / 250.0), .6f, 1f) & 0xFFFFFF) | (opacity << 24);
     }
 
     @SubscribeEvent

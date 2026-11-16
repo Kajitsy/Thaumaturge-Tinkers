@@ -16,7 +16,7 @@ public final class BrightNitorItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (!level.isClientSide()) {
-            place(level, new BlockPos(net.minecraft.util.Mth.floor(entity.getX()), (int) entity.getY() + 1, net.minecraft.util.Mth.floor(entity.getZ())), false);
+            place(level, new BlockPos(net.minecraft.util.Mth.floor(entity.getX()), net.minecraft.util.Mth.floor(entity.getY()) + 1, net.minecraft.util.Mth.floor(entity.getZ())), false);
         }
     }
 

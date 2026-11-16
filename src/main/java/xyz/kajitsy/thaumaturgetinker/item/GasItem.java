@@ -29,10 +29,12 @@ public final class GasItem extends Item {
         var stack = player.getItemInHand(hand);
         var pos = player.blockPosition().above();
         if (!player.mayUseItemAt(pos, Direction.UP, stack)) return InteractionResultHolder.fail(stack);
+        var existing = level.getBlockState(pos);
+        if (!(existing.isAir() || existing.getBlock() instanceof GasBlock || existing.getBlock() instanceof NitorLightBlock)) {
+            return InteractionResultHolder.fail(stack);
+        }
         if (!level.isClientSide()) {
-            if (level.getBlockState(pos).isAir() || level.getBlockState(pos).getBlock() instanceof GasBlock || level.getBlockState(pos).getBlock() instanceof NitorLightBlock) {
-                level.setBlock(pos, gas.get().defaultBlockState().setValue(GasBlock.POWER, 4), 2);
-            }
+            level.setBlock(pos, gas.get().defaultBlockState().setValue(GasBlock.POWER, 4), 2);
             if (!player.getAbilities().instabuild) stack.shrink(1);
             level.playSound(null, player.blockPosition(), SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, .5f, .5f);
         }

@@ -27,7 +27,7 @@ public final class WarpGateFx {
             for (var point : points) {
                 attempted++;
                 if (mc.level.getRandom().nextInt(6) < threshold(mc.options.particles().get())) {
-                    mc.level.addParticle(new SparkleParticleOptions(14, 1.5f, 0, 0.05f, 0f, 18, true), point.x, point.y, point.z, 0, 0, 0);
+                    mc.level.addParticle(new SparkleParticleOptions(0x9E5CFF, 1.5f, 0, 0.05f, 0f, 18, true), point.x, point.y, point.z, 0, 0, 0);
                     emitted++;
                 }
             }

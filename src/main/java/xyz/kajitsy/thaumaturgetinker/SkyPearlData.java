@@ -19,7 +19,8 @@ public final class SkyPearlData {
 
     public static boolean attuned(ItemStack stack) {
         var t = tag(stack);
-        return t.contains("y") && t.getInt("y") != -1;
+        if (t.contains("attuned")) return t.getBoolean("attuned");
+        return !t.getString("dim").isEmpty() && t.contains("y") && t.getInt("y") != -1;
     }
 
     public static BlockPos position(ItemStack stack) {
@@ -46,6 +47,7 @@ public final class SkyPearlData {
 
     public static void bind(ItemStack stack, BlockPos pos, ResourceLocation dimension) {
         CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> {
+            t.putBoolean("attuned", true);
             t.putInt("x", pos.getX());
             t.putInt("y", pos.getY());
             t.putInt("z", pos.getZ());
@@ -54,7 +56,13 @@ public final class SkyPearlData {
     }
 
     public static void reset(ItemStack stack) {
-        CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> t.putInt("y", -1));
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, t -> {
+            t.remove("attuned");
+            t.remove("x");
+            t.remove("y");
+            t.remove("z");
+            t.remove("dim");
+        });
     }
 
     public static String distance(ItemStack stack, net.minecraft.world.phys.Vec3 viewer, boolean simple) {

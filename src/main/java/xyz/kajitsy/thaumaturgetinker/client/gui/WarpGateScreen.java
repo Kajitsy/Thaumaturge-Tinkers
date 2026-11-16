@@ -55,6 +55,11 @@ public final class WarpGateScreen extends AbstractContainerScreen<WarpGateMenu> 
     }
 
     @Override
+    protected void renderLabels(GuiGraphics g, int mx, int my) {
+        g.drawString(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 0xFF404040, false);
+    }
+
+    @Override
     protected void renderBg(GuiGraphics g, float partial, int mx, int my) {
         g.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
         g.drawString(font, Component.translatable("ttmisc.lockedGate"), leftPos + 20, topPos + 7, 0xFF999999, false);

@@ -86,6 +86,9 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
     }
 
     @Override
+    protected void renderLabels(GuiGraphics g, int mx, int my) {}
+
+    @Override
     protected void renderBg(GuiGraphics g, float partial, int mx, int my) {
         hits.clear();
         g.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
@@ -110,7 +113,7 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
                 int x = leftPos + imageWidth + 4, y = topPos + 4 + row++ * 26;
                 g.blit(TEXTURE, x - 4, y - 4, 176, 0, 24, 24, 256, 256);
                 icon(g, i, x, y, true);
-                g.drawString(font, Component.translatable("enchantment.level." + menu.rank(i)), x + 22, y + 6, 0xFFFFFF, false);
+                g.drawString(font, Component.translatable("enchantment.level." + menu.rank(i)), x + 22, y + 6, 0xFFFFFFFF, false);
                 for (int action = 1; action <= 2; action++) {
                     int bx = x + 20 + (action - 1) * 7, by = y - 4;
                     g.blit(TEXTURE, bx, by, action == 1 ? 225 : 218, 0, 7, 7, 256, 256);

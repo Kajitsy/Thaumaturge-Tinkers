@@ -44,8 +44,9 @@ public final class SkyPearl extends Item {
         if (!SkyPearlData.attuned(stack) && level.getBlockState(context.getClickedPos()).is(WarpGateBlock.BLOCK.get())) {
             SkyPearlData.bind(stack, context.getClickedPos(), level.dimension().location());
             sound(level, context.getPlayer());
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 
     @Override

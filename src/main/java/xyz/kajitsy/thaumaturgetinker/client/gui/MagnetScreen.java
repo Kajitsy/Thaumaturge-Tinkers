@@ -38,7 +38,7 @@ public final class MagnetScreen extends AbstractContainerScreen<MagnetMenu> {
     @Override
     protected void renderBg(GuiGraphics graphics, float partial, int mouseX, int mouseY) {
         graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
-        graphics.drawString(font, menu.adult() ? "●" : "○", leftPos + 87, topPos + 30, 0x404040, false);
-        graphics.drawString(font, menu.adult() ? "○" : "●", leftPos + 87, topPos + 52, 0x404040, false);
+        graphics.drawString(font, menu.adult() ? "●" : "○", leftPos + 87, topPos + 30, 0xFF404040, false);
+        graphics.drawString(font, menu.adult() ? "○" : "●", leftPos + 87, topPos + 52, 0xFF404040, false);
     }
 }

@@ -59,11 +59,11 @@ public final class InfusedCropLoot {
 
     private final Map<ResourceKey<IAspect>, List<Entry>> table = new LinkedHashMap<>();
 
-    void add(ResourceKey<IAspect> aspect, ItemStack stack, int weight) {
+    public void add(ResourceKey<IAspect> aspect, ItemStack stack, int weight) {
         table.computeIfAbsent(aspect, a -> new ArrayList<>()).add(new Entry(stack, weight));
     }
 
-    void add(ResourceKey<IAspect> aspect, ItemLike item, int count, int weight) {
+    public void add(ResourceKey<IAspect> aspect, ItemLike item, int count, int weight) {
         add(aspect, new ItemStack(item, count), weight);
     }
 
@@ -79,7 +79,7 @@ public final class InfusedCropLoot {
         int value = random.nextInt(total);
         for (var entry : entries) {
             value -= entry.weight();
-            if (value <= 0) return entry.stack();
+            if (value < 0) return entry.stack();
         }
         return ItemStack.EMPTY;
     }

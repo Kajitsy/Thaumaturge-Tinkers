@@ -19,15 +19,28 @@ public final class SoulHearts {
         @Override public Type<Payload> type() { return TYPE; }
     }
 
+    private static net.minecraft.nbt.CompoundTag readTag(Player player) {
+        var root = player.getPersistentData();
+        var persisted = root.getCompound(Player.PERSISTED_NBT_TAG);
+        if (persisted.contains("ThaumicTinkerer")) {
+            return persisted.getCompound("ThaumicTinkerer");
+        }
+        return root.getCompound("ThaumicTinkerer");
+    }
+
     public static int get(Player player) {
-        return player.getPersistentData().getCompound("ThaumicTinkerer").getInt("soulHearts");
+        return readTag(player).getInt("soulHearts");
     }
 
     public static void set(Player player, int value) {
         var data = player.getPersistentData();
-        var tag = data.getCompound("ThaumicTinkerer");
+        var persisted = data.getCompound(Player.PERSISTED_NBT_TAG);
+        var tag = persisted.contains("ThaumicTinkerer")
+                ? persisted.getCompound("ThaumicTinkerer")
+                : data.getCompound("ThaumicTinkerer");
         tag.putInt("soulHearts", Math.clamp(value, 0, 20));
-        data.put("ThaumicTinkerer", tag);
+        persisted.put("ThaumicTinkerer", tag);
+        data.put(Player.PERSISTED_NBT_TAG, persisted);
     }
 
     public static void add(Player player) {
@@ -67,6 +80,16 @@ public final class SoulHearts {
 
     @net.neoforged.bus.api.SubscribeEvent
     public static void login(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
+        if (KamiStartupConfig.enabled()) sync(event.getEntity());
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void changedDimension(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (KamiStartupConfig.enabled()) sync(event.getEntity());
+    }
+
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void respawn(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerRespawnEvent event) {
         if (KamiStartupConfig.enabled()) sync(event.getEntity());
     }
 

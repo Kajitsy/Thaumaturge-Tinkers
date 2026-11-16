@@ -35,10 +35,14 @@ public final class HarvestSpeedEnchantments {
         }
         var data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (tunnel > 0 && data.contains("TTEnchantTunnelDir")) {
-            float difference = Math.abs(data.getFloat("TTEnchantTunnelDir") - player.getYRot());
-            speed = (float) (speed * (difference < 50 ? 1 + .2 * tunnel : .3));
+            speed *= tunnelMultiplier(data.getFloat("TTEnchantTunnelDir"), player.getYRot(), tunnel);
         }
         event.setNewSpeed(speed);
+    }
+
+    public static float tunnelMultiplier(float savedYaw, float currentYaw, int tunnel) {
+        float difference = Math.abs(net.minecraft.util.Mth.wrapDegrees(savedYaw - currentYaw));
+        return (float) (difference < 50 ? 1 + .2 * tunnel : .3);
     }
 
     @SubscribeEvent

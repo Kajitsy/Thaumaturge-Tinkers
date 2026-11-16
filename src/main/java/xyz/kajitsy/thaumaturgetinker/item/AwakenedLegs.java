@@ -42,7 +42,7 @@ public final class AwakenedLegs extends AwakenedArmorItem {
     }
 
     public static List<BlockPos> lights(Player player) {
-        int x = Mth.floor(player.getX()), y = (int) player.getY() + 1, z = Mth.floor(player.getZ());
+        int x = Mth.floor(player.getX()), y = Mth.floor(player.getY()) + 1, z = Mth.floor(player.getZ());
         float yaw = Mth.wrapDegrees(player.getYRot() + 90) * (float) Math.PI / 180;
         double dx = Math.cos(yaw), dz = Math.sin(yaw), length = Math.sqrt(dx * dx + dz * dz);
         dx /= length;
@@ -53,7 +53,7 @@ public final class AwakenedLegs extends AwakenedArmorItem {
         for (int i = 0; i < 5; i++) {
             vx += dx;
             vz += dz;
-            list.add(new BlockPos(x + (int) vx, y, z + (int) vz));
+            list.add(new BlockPos(Mth.floor(player.getX() + vx), y, Mth.floor(player.getZ() + vz)));
         }
         return list;
     }

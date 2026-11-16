@@ -50,11 +50,11 @@ public final class DislocationStorage {
         }
         var previous=level.getBlockState(pos);
         if(!level.setBlock(pos,state,Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE))return false;
+        if(!accept.getAsBoolean()){
+            level.setBlock(pos,previous,Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);level.invalidateCapabilities(pos);return false;
+        }
         placed.accept(state);
         if(restored!=null){level.removeBlockEntity(pos);level.setBlockEntity(restored);restored.setChanged();}
-        if(!accept.getAsBoolean()){
-            level.removeBlockEntity(pos);level.setBlock(pos,previous,Block.UPDATE_CLIENTS|Block.UPDATE_KNOWN_SHAPE);level.invalidateCapabilities(pos);return false;
-        }
         // Consume before neighbour callbacks: callbacks must not see a second usable payload.
         payload.remove("dislocation");payload.putBoolean("available",false);
         level.invalidateCapabilities(pos);level.sendBlockUpdated(pos,state,state,3);state.updateNeighbourShapes(level,pos,Block.UPDATE_ALL);level.updateNeighborsAt(pos,state.getBlock());return true;
