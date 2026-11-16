@@ -381,4 +381,23 @@ class PortFixesTest {
             assertFalse(xyz.kajitsy.thaumaturgetinker.item.AdvancedToolMining.material(dirt, nonMiningType), nonMiningType);
         }
     }
+
+    @Test
+    void soulHeartsPreserveSubOneAndFractionalDamage() {
+        var subOneNoHearts = xyz.kajitsy.thaumaturgetinker.network.SoulHearts.absorbAmount(0, 0.8f);
+        assertEquals(0, subOneNoHearts.remainingHearts());
+        assertEquals(0.8f, subOneNoHearts.remainingDamage(), 0.0001f);
+
+        var fractionalNoHearts = xyz.kajitsy.thaumaturgetinker.network.SoulHearts.absorbAmount(0, 3.7f);
+        assertEquals(0, fractionalNoHearts.remainingHearts());
+        assertEquals(3.7f, fractionalNoHearts.remainingDamage(), 0.0001f);
+
+        var subOneWithHearts = xyz.kajitsy.thaumaturgetinker.network.SoulHearts.absorbAmount(5, 0.8f);
+        assertEquals(4, subOneWithHearts.remainingHearts());
+        assertEquals(0.0f, subOneWithHearts.remainingDamage(), 0.0001f);
+
+        var partialAbsorb = xyz.kajitsy.thaumaturgetinker.network.SoulHearts.absorbAmount(2, 3.5f);
+        assertEquals(0, partialAbsorb.remainingHearts());
+        assertEquals(1.5f, partialAbsorb.remainingDamage(), 0.0001f);
+    }
 }
