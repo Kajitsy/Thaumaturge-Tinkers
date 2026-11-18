@@ -9,6 +9,7 @@ import xyz.kajitsy.thaumaturgetinker.menu.EnchanterMenu;
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import java.util.*;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.Rect2i;
@@ -125,10 +126,16 @@ public final class EnchanterScreen extends AbstractContainerScreen<EnchanterMenu
             }
         }
         if (row > 0) {
-            int sx = leftPos + 151, sy = topPos + 33;
+            int sx = leftPos + 151, sy = topPos + (twoRows ? 9 : 33);
             boolean formed = minecraft.level != null && !EnchanterEntity.findPillars(minecraft.level, menu.tile.getBlockPos()).isEmpty();
-            g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, sx, sy, 176, menu.working() ? 39 : 24, 15, 15, 256, 256);
-            hits.add(new Hit(sx, sy, 15, 15, formed ? 0 : -1, List.of(Component.translatable("ttmisc.startEnchant"))));
+            int tint = (!formed && !menu.working()) ? 0xFF777777 : 0xFFFFFFFF;
+            g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, sx, sy, 176, menu.working() ? 39 : 24, 15, 15, 256, 256, tint);
+            var startTooltip = new ArrayList<Component>();
+            startTooltip.add(Component.translatable("ttmisc.startEnchant"));
+            if (!formed && !menu.working()) {
+                startTooltip.add(Component.translatable("ttmisc.enchanter.missingPillars").withStyle(ChatFormatting.RED));
+            }
+            hits.add(new Hit(sx, sy, 15, 15, formed ? 0 : -1, startTooltip));
             var primals = TTAspects.PRIMALS;
             var aspectLookup = minecraft.level == null ? null : minecraft.level.registryAccess().lookup(IAspect.REGISTRY_KEY).orElse(null);
             for (int i = 0; i < 6; i++) {
